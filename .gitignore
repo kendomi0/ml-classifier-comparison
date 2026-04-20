@@ -1,3 +1,4 @@
 NOTES.txt
 .gitignore
+__pycache__/
 /venv
