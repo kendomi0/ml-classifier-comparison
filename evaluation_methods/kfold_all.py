@@ -3,6 +3,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from data import datasets_dict
 from utils import get_user_choice
+from preprocessing import normalize
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -19,13 +20,7 @@ current_dataset = get_user_choice(datasets_dict)
 
 X, y = datasets_dict[current_dataset]
 
-# NORMALIZATION
-# Min-max normalization
-minmax = MinMaxScaler()
-X_minmax = minmax.fit_transform(X)
-# Z-score normalization
-zscale = StandardScaler()
-X_zscale = zscale.fit_transform(X)
+X_minmax, X_zscore = normalize(X)
 
 # CLASSIFIERS
 
@@ -72,7 +67,7 @@ for k in k_folds:
     kf = KFold(n_splits=k, shuffle=True)
     scores = []
     for train_index, test_index in kf.split(X):
-        X_train, X_test = X_zscale[train_index], X_zscale[test_index]
+        X_train, X_test = X_zscore[train_index], X_zscore[test_index]
         y_train, y_test = y[train_index], y[test_index]
         clf = GaussianNB()
         clf.fit(X_train, y_train)
@@ -129,7 +124,7 @@ for k in k_folds:
     kf = KFold(n_splits=k, shuffle=True)
     scores = []
     for train_index, test_index in kf.split(X):
-        X_train, X_test = X_zscale[train_index], X_zscale[test_index]
+        X_train, X_test = X_zscore[train_index], X_zscore[test_index]
         y_train, y_test = y[train_index], y[test_index]
         clf.fit(X_train, y_train)
         prediction = clf.predict(X_test)
@@ -182,7 +177,7 @@ for k in k_folds:
     kf = KFold(n_splits=k, shuffle=True)
     scores = []
     for train_index, test_index in kf.split(X):
-        X_train, X_test = X_zscale[train_index], X_zscale[test_index]
+        X_train, X_test = X_zscore[train_index], X_zscore[test_index]
         y_train, y_test = y[train_index], y[test_index]
         clf = SVC(decision_function_shape='ovo')
         clf.fit(X_train, y_train)
@@ -236,7 +231,7 @@ for k in k_folds:
     kf = KFold(n_splits=k, shuffle=True)
     scores = []
     for train_index, test_index in kf.split(X):
-        X_train, X_test = X_zscale[train_index], X_zscale[test_index]
+        X_train, X_test = X_zscore[train_index], X_zscore[test_index]
         y_train, y_test = y[train_index], y[test_index]
         k_next = KNeighborsClassifier(n_neighbors=5)  # Fixed number of neighbors
         k_next.fit(X_train, y_train)
@@ -289,7 +284,7 @@ for k in k_folds:
     kf = KFold(n_splits=k, shuffle=True)
     scores = []
     for train_index, test_index in kf.split(X):
-        X_train, X_test = X_zscale[train_index], X_zscale[test_index]
+        X_train, X_test = X_zscore[train_index], X_zscore[test_index]
         y_train, y_test = y[train_index], y[test_index]
         clf = MLPClassifier(hidden_layer_sizes=(25, 15), activation='tanh', max_iter=2000, random_state=42)
         clf.fit(X_train, y_train)
