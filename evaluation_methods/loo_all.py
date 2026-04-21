@@ -3,6 +3,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from data import datasets_dict
 from utils import get_user_choice
+from preprocessing import normalize
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -19,14 +20,7 @@ current_dataset = get_user_choice(datasets_dict)
 
 X, y = datasets_dict[current_dataset]
 
-# NORMALIZATION
-# Min-max normalization
-minmax = MinMaxScaler()
-X_minmax = minmax.fit_transform(X)
-# Z-score normalization
-zscore = StandardScaler()
-X_zscore = zscore.fit_transform(X)
-
+X_minmax, X_zscore = normalize(X)
 
 # CLASSIFIERS
 
