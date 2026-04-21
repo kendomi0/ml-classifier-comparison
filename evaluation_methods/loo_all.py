@@ -2,6 +2,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from data import datasets_dict
+from utils import get_user_choice
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -14,11 +15,9 @@ from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 
-# Change this depending on which dataset you want to use
-current_dataset = input("Type in which dataset you'd like to use: ")
+current_dataset = get_user_choice(datasets_dict)
 
 X, y = datasets_dict[current_dataset]
-
 
 # NORMALIZATION
 # Min-max normalization
