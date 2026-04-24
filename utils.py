@@ -8,3 +8,6 @@ def get_user_choice(dictionary):
         else:
             current_dataset = user_input
     return current_dataset
+
+def do_nothing(var):
+    return var
