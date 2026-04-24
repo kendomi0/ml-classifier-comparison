@@ -1,4 +1,5 @@
 NOTES.txt
-.gitignore
+.pytest_cache/
+.vscode/
 __pycache__/
 /venv
