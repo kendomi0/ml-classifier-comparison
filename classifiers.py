@@ -58,9 +58,7 @@ def classify_knn_holdout(clf_name, X, y, current_dataset, normalization_method):
         print(f"({current_dataset}) Holdout accuracy with {clf_name} using k={k} ({normalization_method}): {round(score, 2)}")
     print(f"Best k-value for {current_dataset} holdout {normalization_method}: {get_best(k_scores)}")
     
-def classify_input(original_X, y, current_dataset):
-    clf_input = get_clf_input()
-    X_input = get_x_input()
+def classify_input(original_X, y, current_dataset, clf_input, X_input):
     if clf_input == "all":
         for clf_name, clf in main_classifiers.items():
             if X_input == "all":

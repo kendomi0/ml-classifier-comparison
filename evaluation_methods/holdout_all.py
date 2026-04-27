@@ -4,7 +4,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from data import datasets_dict
 import utils
 import preprocessing
-import classifiers 
+from classifiers import get_clf_input, get_x_input, classify_input
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -21,4 +21,7 @@ current_dataset = utils.get_user_choice(datasets_dict)
 
 X, y = datasets_dict[current_dataset]
 
-classifiers.classify_input(X, y, current_dataset)
+clf_input = get_clf_input()
+X_input = get_x_input()
+
+classify_input(X, y, current_dataset, clf_input, X_input)

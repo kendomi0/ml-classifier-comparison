@@ -76,13 +76,11 @@ def test_classify_knn_holdout(capsys):
     for k in k_vals:
         assert any(str(k) in line and "k-nearest-neighbor" in line for line in lines)
 
-def test_classify_input_all_classifiers_all_normalization_methods(monkeypatch, capsys):
+def test_classify_input_all_classifiers_all_normalization_methods(capsys):
     original_X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     current_dataset = "blobs"
     k_vals = [3, 5, 7]
-    inputs = iter(["all", "all"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    classify_input(original_X, y, current_dataset)
+    classify_input(original_X, y, current_dataset, "all", "all")
     captured = capsys.readouterr()
     lines = captured.out.strip().split('\n')
 
