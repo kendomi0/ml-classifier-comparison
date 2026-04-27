@@ -1,6 +1,7 @@
 from sklearn import datasets
 import numpy as np
 
+# TODO: Remove underscores
 datasets_dict = {
     "noisy_circles": datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8),
     "noisy_moons": datasets.make_moons(n_samples=1500, noise=0.05, shuffle=True, random_state=42),
