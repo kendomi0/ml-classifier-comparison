@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -9,6 +12,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
+from plotting import create_scatter_plot
 
 base_x, base_y = datasets.make_blobs(n_samples=1500, centers=2, random_state=42,shuffle=True, center_box=(-10.0, 10.0))
 
@@ -31,7 +35,4 @@ for train_index, test_index in leave_one.split(X_minmax):
 print(f"Leave-one-out accuracy minmax (NB): {round(np.mean(scores), 3)}")
 
 # Scatter plot
-plt.figure(figsize=(8, 6))
-plt.scatter(X[:, 0], X[:, 1], c=y, cmap='plasma', edgecolors='k')
-plt.title(f"Anisotropically distributed dataset")
-plt.show()
+create_scatter_plot(X, y, "anisotropic")

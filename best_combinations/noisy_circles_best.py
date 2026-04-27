@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -9,6 +12,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
+from plotting import create_scatter_plot
 
 X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
 
@@ -23,7 +27,4 @@ for i in range(10):
 print(f"(Noisy circles) Average accuracy for random subsampling unnormalized (SVM): {round(np.mean(scores), 3)}")
 
 # Scatter plot
-plt.figure(figsize=(8, 6))
-plt.scatter(X[:, 0], X[:, 1], c=y, cmap='plasma', edgecolors='k')
-plt.title(f"Noisy circles dataset")
-plt.show()
+create_scatter_plot(X, y, "noisy_circles")

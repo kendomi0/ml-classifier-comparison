@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -9,7 +12,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
-
+from plotting import create_scatter_plot
 
 X, y = datasets.make_blobs(n_samples=1200, n_features=2, centers=3, cluster_std=1.2, center_box=(-10.0, 10.0), shuffle=True, random_state=42, return_centers=False)
 
@@ -31,7 +34,4 @@ best_k = max(k_scores, key=k_scores.get)
 print(f"Best k value for KNN with holdout minmax is {best_k} with accuracy {round(k_scores[best_k], 3)}")
 
 # Scatter plot
-plt.figure(figsize=(8, 6))
-plt.scatter(X[:, 0], X[:, 1], c=y, cmap='plasma', edgecolors='k')
-plt.title(f"Blobs dataset")
-plt.show()
+create_scatter_plot(X, y, "blobs")

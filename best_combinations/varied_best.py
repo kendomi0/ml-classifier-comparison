@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -9,7 +12,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
-
+from plotting import create_scatter_plot
 
 X, y = datasets.make_classification(n_samples=1500, n_features=2, n_redundant=0, n_informative=2, random_state=42, n_clusters_per_class=1)
 
@@ -35,7 +38,4 @@ best_k_val = max(k_accuracies, key=k_accuracies.get)
 print(f" Best value for k in k-fold cross-validation zscore (ANN): {best_k_val}")
 
 # Scatter plot
-plt.figure(figsize=(8, 6))
-plt.scatter(X[:, 0], X[:, 1], c=y, cmap='plasma', edgecolors='k')
-plt.title(f"Varied dataset")
-plt.show()
+create_scatter_plot(X, y, "varied")
