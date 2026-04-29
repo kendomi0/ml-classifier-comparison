@@ -24,6 +24,7 @@ X_minmax, X_zscore = normalize(X)
 
 # CLASSIFIERS
 
+# TODO: Replace everything with classify_input function once it is edited to include random subsampling
 # ### Naive bayes classifier
 print("### Naive bayes classifier")
 # Random subsampling unnormalized (NB)

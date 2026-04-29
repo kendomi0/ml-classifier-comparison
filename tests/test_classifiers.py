@@ -1,4 +1,4 @@
-from classifiers import get_x_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods
+from classifiers import get_x_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 import pytest
@@ -68,6 +68,46 @@ def test_classify_knn_holdout(capsys):
     k_vals = [3, 5, 7]
     captured = capsys.readouterr()
     lines = captured.out.strip().split('\n')
+    assert current_dataset in captured.out
+    assert clf_name in captured.out
+    assert normalization_method in captured.out
+
+    for k in k_vals:
+        assert any(str(k) in line and "k-nearest-neighbor" in line for line in lines)
+
+@pytest.mark.parametrize("clf_name, current_dataset, normalization_method", 
+                       [
+                           ("naive bayes", "noisy_circles", "unnormalized"),
+                           ("decision tree", "noisy_moons", "minmax"),
+                           ("support vector machine", "blobs", "zscore"),
+                           ("artificial neural networks", "varied", "unnormalized"),
+                           ("naive bayes", "varied", "minmax")
+                       ]
+                       )
+def test_classify_random_subsampling(capsys, clf_name, current_dataset, normalization_method):
+    X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
+    classify_random_subsampling(main_classifiers[clf_name], clf_name, X, y, current_dataset, normalization_method)
+    captured = capsys.readouterr()
+    assert current_dataset in captured.out
+    assert clf_name in captured.out
+    assert normalization_method in captured.out
+
+@pytest.mark.parametrize("current_dataset, normalization_method", 
+                        [
+                            ("noisy_circles", "unnormalized"),
+                            ("noisy_moons", "minmax"),
+                            ("blobs", "zscore"),
+                            ("anisotropic", "unnormalized"),
+                            ("varied", "minmax")
+                        ]
+                        )
+def test_classify_knn_random_subsampling(capsys, current_dataset, normalization_method):
+    X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
+    clf_name = "k-nearest-neighbor"
+    classify_knn_random_subsampling(clf_name, X, y, current_dataset, normalization_method)
+    k_vals = [3, 5, 7]
+    captured = capsys.readouterr()
+    lines = captured.out.strip().split('\n')
 
     assert current_dataset in captured.out
     assert clf_name in captured.out
@@ -76,6 +116,7 @@ def test_classify_knn_holdout(capsys):
     for k in k_vals:
         assert any(str(k) in line and "k-nearest-neighbor" in line for line in lines)
 
+# TODO: Add more tests for the classify_input function
 def test_classify_input_all_classifiers_all_normalization_methods(capsys):
     original_X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     current_dataset = "blobs"
