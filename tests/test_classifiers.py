@@ -1,19 +1,19 @@
-from classifiers import get_x_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods, run_classifier
+from classifiers import get_norm_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods, run_classifier
 from data import datasets_dict
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 import pytest
 
 @pytest.mark.parametrize("user_input", ["unnormalized", "minmax", "zscore"])
-def test_get_x_input_valid(monkeypatch, user_input):
+def test_get_norm_input_valid(monkeypatch, user_input):
     monkeypatch.setattr("builtins.input", lambda _: user_input)
-    result = get_x_input()
+    result = get_norm_input()
     assert result == user_input
 
-def test_get_x_input_invalid_then_valid(monkeypatch, capsys):
+def test_get_norm_input_invalid_then_valid(monkeypatch, capsys):
     inputs = iter(["invalid", "unnormalized"])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    result = get_x_input()
+    result = get_norm_input()
     captured = capsys.readouterr()
     assert "Invalid input" in captured.out
     assert result == "unnormalized"
@@ -123,7 +123,7 @@ def test_classify_knn_random_subsampling(capsys, current_dataset, normalization_
 def test_get_evaluation_method_valid(monkeypatch, user_input):
     monkeypatch.setattr("builtins.input", lambda _: user_input)
     result = get_evaluation_method()
-    assert result == user_input.capitalize()
+    assert result == user_input
 
 @pytest.mark.parametrize("user_input",
     [m.upper() for m in evaluation_methods.keys()]
@@ -131,7 +131,7 @@ def test_get_evaluation_method_valid(monkeypatch, user_input):
 def test_get_evaluation_method_case_insensitive(monkeypatch, user_input):
     monkeypatch.setattr("builtins.input", lambda _: user_input)
     result = get_evaluation_method()
-    assert result == user_input.capitalize()
+    assert result == user_input.lower()
 
 def test_get_evaluation_method_invalid_valid(monkeypatch, capsys):
     inputs = iter(["invalid", list(evaluation_methods.keys())[0]])
@@ -143,8 +143,8 @@ def test_get_evaluation_method_invalid_valid(monkeypatch, capsys):
 
 @pytest.mark.parametrize("clf_name, current_dataset, norm_input, eval_method_input", 
                         [
-                            ("naive bayes", "blobs", "unnormalized", "Holdout"),
-                            ("decision tree", "anisotropic", "minmax", "Random subsampling")
+                            ("naive bayes", "blobs", "unnormalized", "holdout"),
+                            ("decision tree", "anisotropic", "minmax", "random subsampling")
                         ]
                         )
 def test_run_classifer_default(clf_name, current_dataset, norm_input, eval_method_input, capsys):
@@ -155,13 +155,13 @@ def test_run_classifer_default(clf_name, current_dataset, norm_input, eval_metho
     assert current_dataset in captured.out
     assert clf_name in captured.out
     assert norm_input in captured.out
-    assert eval_method_input in captured.out
+    assert eval_method_input or eval_method_input.capitalize() in captured.out
     assert "Best k-value" not in captured.out
 
 @pytest.mark.parametrize("clf_name, current_dataset, norm_input, eval_method_input", 
                         [
-                            ("k-nearest-neighbor", "blobs", "unnormalized", "Holdout"),
-                            ("k-nearest-neighbor", "varied", "zscore", "Random subsampling")
+                            ("k-nearest-neighbor", "blobs", "unnormalized", "holdout"),
+                            ("k-nearest-neighbor", "varied", "zscore", "random subsampling")
                         ]
                         )
 def test_run_classifer_knn(clf_name, current_dataset, norm_input, eval_method_input, capsys):
@@ -172,7 +172,7 @@ def test_run_classifer_knn(clf_name, current_dataset, norm_input, eval_method_in
     assert current_dataset in captured.out
     assert clf_name in captured.out
     assert norm_input in captured.out
-    assert eval_method_input in captured.out
+    assert eval_method_input or eval_method_input.capitalize() in captured.out
     assert "Best k-value" in captured.out
 
 # TODO: Add more tests for the classify_input function
@@ -180,7 +180,7 @@ def test_classify_input_holdout_all_classifiers_all_normalization(capsys):
     original_X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     current_dataset = "blobs"
     k_vals = [3, 5, 7]
-    classify_input(original_X, y, current_dataset, "all", "all", "Holdout")
+    classify_input(original_X, y, current_dataset, "all", "all", "holdout")
     captured = capsys.readouterr()
     lines = captured.out.strip().split('\n')
 

@@ -22,19 +22,17 @@ normalization_methods = {
     "zscore": normalize_zscore
 }
 
-# TODO: Change to capitalize the input
-def get_x_input():
-    X_input_msg = f"Which normalization method? ({", ".join(normalization_methods)}, or all): "
-    X_input = (input(X_input_msg)).lower()
-    while X_input not in normalization_methods and X_input != "all":
+def get_norm_input():
+    norm_input_msg = f"Which normalization method? ({", ".join(normalization_methods)}, or all): "
+    norm_input = (input(norm_input_msg)).lower()
+    while norm_input not in normalization_methods and norm_input != "all":
         print("Invalid input, try again.")
-        X_input = (input(X_input_msg)).lower()
-    return X_input
+        norm_input = (input(norm_input_msg)).lower()
+    return norm_input
 
 def get_best(score_dict):
     return max(score_dict, key=score_dict.get)
 
-# TODO: Change to capitalize the input
 def get_clf_input():
     clf_input_msg = f"Which classifier? ({", ".join(main_classifiers)}, or all): "
     clf_input = (input(clf_input_msg)).lower()
@@ -84,46 +82,45 @@ def classify_knn_random_subsampling(clf_name, X, y, current_dataset, normalizati
     print(f"({current_dataset}) Best k-value for random subsampling {normalization_method}: {get_best(k_scores)}")
 
 evaluation_methods = {
-    "Holdout": [classify_holdout, classify_knn_holdout],
-    "Random subsampling": [classify_random_subsampling, classify_knn_random_subsampling]
+    "holdout": [classify_holdout, classify_knn_holdout],
+    "random subsampling": [classify_random_subsampling, classify_knn_random_subsampling]
 }
 
 def get_evaluation_method():
     input_msg = f"Which normalization method? ({", ".join(evaluation_methods)}): "
-    eval_method_input = (input(input_msg)).capitalize()
+    eval_method_input = (input(input_msg)).lower()
     while eval_method_input not in evaluation_methods:
         print("Invalid input, try again.")
-        eval_method_input = (input(input_msg)).capitalize()
+        eval_method_input = (input(input_msg)).lower()
     return eval_method_input
 
-# TODO: Change name of X_input variable
-def run_classifier(clf, clf_name, X, y, current_dataset, X_input, eval_method_input):
+def run_classifier(clf, clf_name, X, y, current_dataset, norm_input, eval_method_input):
     classify_default = evaluation_methods[eval_method_input][0]
     classify_knn = evaluation_methods[eval_method_input][1]
     if clf_name == "k-nearest-neighbor":
-        classify_knn(clf_name, X, y, current_dataset, X_input)
+        classify_knn(clf_name, X, y, current_dataset, norm_input)
     else:
-        classify_default(clf, clf_name, X, y, current_dataset, X_input)
+        classify_default(clf, clf_name, X, y, current_dataset, norm_input)
     
-def classify_input(original_X, y, current_dataset, clf_input, X_input, eval_method_input):
+def classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input):
     if clf_input == "all":
         for clf_name, clf in main_classifiers.items():
-            if X_input == "all":
+            if norm_input == "all":
                 for method, func in normalization_methods.items():
                     X = func(original_X)
                     run_classifier(clf, clf_name, X, y, current_dataset, method, eval_method_input)
             else:
-                X = normalization_methods[X_input](original_X)
-                run_classifier(clf, clf_name, X, y, current_dataset, X_input, eval_method_input)
+                X = normalization_methods[norm_input](original_X)
+                run_classifier(clf, clf_name, X, y, current_dataset, norm_input, eval_method_input)
     else:
         clf = main_classifiers[clf_input]
-        if X_input == "all":
+        if norm_input == "all":
             for method, func in normalization_methods.items():
                 X = func(original_X)
                 run_classifier(clf, clf_input, X, y, current_dataset, method, eval_method_input)
         else:
-            X = normalization_methods[X_input](original_X)
-            run_classifier(clf, clf_input, X, y, current_dataset, X_input, eval_method_input)
+            X = normalization_methods[norm_input](original_X)
+            run_classifier(clf, clf_input, X, y, current_dataset, norm_input, eval_method_input)
 
 if __name__ == "__main__":
     import utils
@@ -131,7 +128,7 @@ if __name__ == "__main__":
 
     current_dataset = utils.get_user_choice(datasets_dict)
     original_X, y = datasets_dict[current_dataset]
-    X_input = get_x_input()
+    norm_input = get_norm_input()
     clf_input = get_clf_input()
     eval_method_input = get_evaluation_method()
-    classify_input(original_X, y, current_dataset, clf_input, X_input, eval_method_input)
+    classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)
