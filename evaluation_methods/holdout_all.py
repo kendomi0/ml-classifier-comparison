@@ -23,6 +23,5 @@ X, y = datasets_dict[current_dataset]
 
 clf_input = get_clf_input()
 X_input = get_x_input()
-eval_method_input = get_evaluation_method()
 
-classify_input(X, y, current_dataset, clf_input, X_input, eval_method_input)
+classify_input(X, y, current_dataset, clf_input, X_input, "Holdout")
