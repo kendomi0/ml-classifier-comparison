@@ -1,4 +1,5 @@
-from classifiers import get_x_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods
+from classifiers import get_x_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods, run_classifier
+from data import datasets_dict
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 import pytest
@@ -139,6 +140,40 @@ def test_get_evaluation_method_invalid_valid(monkeypatch, capsys):
     captured = capsys.readouterr()
     assert "Invalid input" in captured.out
     assert result == list(evaluation_methods.keys())[0]
+
+@pytest.mark.parametrize("clf_name, current_dataset, norm_input, eval_method_input", 
+                        [
+                            ("naive bayes", "blobs", "unnormalized", "Holdout"),
+                            ("decision tree", "anisotropic", "minmax", "Random subsampling")
+                        ]
+                        )
+def test_run_classifer_default(clf_name, current_dataset, norm_input, eval_method_input, capsys):
+    clf = main_classifiers[clf_name]
+    X, y = datasets_dict[current_dataset]
+    run_classifier(clf, clf_name, X, y, current_dataset, norm_input, eval_method_input)
+    captured = capsys.readouterr()
+    assert current_dataset in captured.out
+    assert clf_name in captured.out
+    assert norm_input in captured.out
+    assert eval_method_input in captured.out
+    assert "Best k-value" not in captured.out
+
+@pytest.mark.parametrize("clf_name, current_dataset, norm_input, eval_method_input", 
+                        [
+                            ("k-nearest-neighbor", "blobs", "unnormalized", "Holdout"),
+                            ("k-nearest-neighbor", "varied", "zscore", "Random subsampling")
+                        ]
+                        )
+def test_run_classifer_knn(clf_name, current_dataset, norm_input, eval_method_input, capsys):
+    clf = main_classifiers[clf_name]
+    X, y = datasets_dict[current_dataset]
+    run_classifier(clf, clf_name, X, y, current_dataset, norm_input, eval_method_input)
+    captured = capsys.readouterr()
+    assert current_dataset in captured.out
+    assert clf_name in captured.out
+    assert norm_input in captured.out
+    assert eval_method_input in captured.out
+    assert "Best k-value" in captured.out
 
 # TODO: Add more tests for the classify_input function
 def test_classify_input_holdout_all_classifiers_all_normalization(capsys):

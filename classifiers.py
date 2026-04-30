@@ -67,7 +67,7 @@ def classify_random_subsampling(clf, clf_name, X, y, current_dataset, normalizat
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
         clf.fit(X_train, y_train)
         scores.append(clf.score(X_test, y_test))
-    print(f"({current_dataset}) Average random subsampling accuracy with {clf_name} ({normalization_method}): {round(np.mean(scores), 3)}")
+    print(f"({current_dataset}) Random subsampling average accuracy with {clf_name} ({normalization_method}): {round(np.mean(scores), 3)}")
 
 def classify_knn_random_subsampling(clf_name, X, y, current_dataset, normalization_method):
     k_vals = [3, 5, 7]
@@ -80,7 +80,7 @@ def classify_knn_random_subsampling(clf_name, X, y, current_dataset, normalizati
             k_next.fit(X_train, y_train)
             scores.append(k_next.score(X_test, y_test))
         k_scores[k] = np.mean(scores)
-        print(f"({current_dataset}) Average accuracy for random subsampling with {clf_name} using k={k} ({normalization_method}): {round(k_scores[k], 3)}")
+        print(f"({current_dataset}) Random subsampling accuracy with {clf_name} using k={k} ({normalization_method}): {round(k_scores[k], 3)}")
     print(f"({current_dataset}) Best k-value for random subsampling {normalization_method}: {get_best(k_scores)}")
 
 evaluation_methods = {
@@ -95,40 +95,43 @@ def get_evaluation_method():
         print("Invalid input, try again.")
         eval_method_input = (input(input_msg)).capitalize()
     return eval_method_input
-    
-def classify_input(original_X, y, current_dataset, clf_input, X_input, eval_method_input):
+
+# TODO: Change name of X_input variable
+def run_classifier(clf, clf_name, X, y, current_dataset, X_input, eval_method_input):
     classify_default = evaluation_methods[eval_method_input][0]
     classify_knn = evaluation_methods[eval_method_input][1]
+    if clf_name == "k-nearest-neighbor":
+        classify_knn(clf_name, X, y, current_dataset, X_input)
+    else:
+        classify_default(clf, clf_name, X, y, current_dataset, X_input)
+    
+def classify_input(original_X, y, current_dataset, clf_input, X_input, eval_method_input):
     if clf_input == "all":
         for clf_name, clf in main_classifiers.items():
             if X_input == "all":
                 for method, func in normalization_methods.items():
                     X = func(original_X)
-                    if clf_name == "k-nearest-neighbor":
-                        classify_knn(clf_name, X, y, current_dataset, method)
-                    else:
-                        classify_default(clf, clf_name, X, y, current_dataset, method)
+                    run_classifier(clf, clf_name, X, y, current_dataset, method, eval_method_input)
             else:
                 X = normalization_methods[X_input](original_X)
-                if clf_name == "k-nearest-neighbor":
-                    classify_knn(clf_name, X, y, current_dataset, X_input)
-                else:
-                    classify_default(clf, clf_name, X, y, current_dataset, X_input)
+                run_classifier(clf, clf_name, X, y, current_dataset, X_input, eval_method_input)
     else:
         clf = main_classifiers[clf_input]
         if X_input == "all":
             for method, func in normalization_methods.items():
                 X = func(original_X)
-                if clf_input == "k-nearest-neighbor":
-                    classify_knn(clf_input, X, y, current_dataset, method)
-                else:
-                    classify_default(clf, clf_input, X, y, current_dataset, method)
+                run_classifier(clf, clf_input, X, y, current_dataset, method, eval_method_input)
         else:
             X = normalization_methods[X_input](original_X)
-            if clf_input == "k-nearest-neighbor":
-                classify_knn(clf_input, X, y, current_dataset, X_input)
-            else:
-                classify_default(clf, clf_input, X, y, current_dataset, X_input)
+            run_classifier(clf, clf_input, X, y, current_dataset, X_input, eval_method_input)
 
 if __name__ == "__main__":
-    get_evaluation_method()
+    import utils
+    from data import datasets_dict
+
+    current_dataset = utils.get_user_choice(datasets_dict)
+    original_X, y = datasets_dict[current_dataset]
+    X_input = get_x_input()
+    clf_input = get_clf_input()
+    eval_method_input = get_evaluation_method()
+    classify_input(original_X, y, current_dataset, clf_input, X_input, eval_method_input)
