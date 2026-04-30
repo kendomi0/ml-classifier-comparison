@@ -82,36 +82,53 @@ def classify_knn_random_subsampling(clf_name, X, y, current_dataset, normalizati
         k_scores[k] = np.mean(scores)
         print(f"({current_dataset}) Average accuracy for random subsampling with {clf_name} using k={k} ({normalization_method}): {round(k_scores[k], 3)}")
     print(f"({current_dataset}) Best k-value for random subsampling {normalization_method}: {get_best(k_scores)}")
+
+evaluation_methods = {
+    "Holdout": [classify_holdout, classify_knn_holdout],
+    "Random subsampling": [classify_random_subsampling, classify_knn_random_subsampling]
+}
+
+def get_evaluation_method():
+    input_msg = f"Which normalization method? ({", ".join(evaluation_methods)}): "
+    eval_method_input = (input(input_msg)).capitalize()
+    while eval_method_input not in evaluation_methods:
+        print("Invalid input, try again.")
+        eval_method_input = (input(input_msg)).capitalize()
+    return eval_method_input
     
-def classify_input(original_X, y, current_dataset, clf_input, X_input):
+def classify_input(original_X, y, current_dataset, clf_input, X_input, eval_method_input):
+    classify_default = evaluation_methods[eval_method_input][0]
+    classify_knn = evaluation_methods[eval_method_input][1]
     if clf_input == "all":
         for clf_name, clf in main_classifiers.items():
             if X_input == "all":
                 for method, func in normalization_methods.items():
                     X = func(original_X)
                     if clf_name == "k-nearest-neighbor":
-                        classify_knn_holdout(clf_name, X, y, current_dataset, method)
+                        classify_knn(clf_name, X, y, current_dataset, method)
                     else:
-                        classify_holdout(clf, clf_name, X, y, current_dataset, method)
+                        classify_default(clf, clf_name, X, y, current_dataset, method)
             else:
                 X = normalization_methods[X_input](original_X)
                 if clf_name == "k-nearest-neighbor":
-                    classify_knn_holdout(clf_name, X, y, current_dataset, X_input)
+                    classify_knn(clf_name, X, y, current_dataset, X_input)
                 else:
-                    classify_holdout(clf, clf_name, X, y, current_dataset, X_input)
+                    classify_default(clf, clf_name, X, y, current_dataset, X_input)
     else:
         clf = main_classifiers[clf_input]
         if X_input == "all":
             for method, func in normalization_methods.items():
                 X = func(original_X)
                 if clf_input == "k-nearest-neighbor":
-                    classify_knn_holdout(clf_input, X, y, current_dataset, method)
+                    classify_knn(clf_input, X, y, current_dataset, method)
                 else:
-                    classify_holdout(clf, clf_input, X, y, current_dataset, method)
+                    classify_default(clf, clf_input, X, y, current_dataset, method)
         else:
             X = normalization_methods[X_input](original_X)
             if clf_input == "k-nearest-neighbor":
-                classify_knn_holdout(clf_input, X, y, current_dataset, X_input)
+                classify_knn(clf_input, X, y, current_dataset, X_input)
             else:
-                classify_holdout(clf, clf_input, X, y, current_dataset, X_input)
+                classify_default(clf, clf_input, X, y, current_dataset, X_input)
 
+if __name__ == "__main__":
+    get_evaluation_method()
