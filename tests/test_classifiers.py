@@ -175,7 +175,6 @@ def test_run_classifer_knn(clf_name, current_dataset, norm_input, eval_method_in
     assert eval_method_input or eval_method_input.capitalize() in captured.out
     assert "Best k-value" in captured.out
 
-# TODO: Add more tests for the classify_input function
 def test_classify_input_holdout_all_classifiers_all_normalization(capsys):
     original_X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     current_dataset = "blobs"
@@ -195,3 +194,65 @@ def test_classify_input_holdout_all_classifiers_all_normalization(capsys):
         assert any(str(k) in line and "k-nearest-neighbor" in line for line in lines)
 
     assert any("Best k-value" in line for line in lines)
+
+@pytest.mark.parametrize("clf_input, current_dataset, norm_input, eval_method_input", 
+                        [
+                            ("naive bayes", "blobs", "unnormalized", "holdout"),
+                            ("decision tree", "varied", "zscore", "random subsampling"),
+                            ("support vector machine", "anisotropic", "minmax", "holdout"),
+                            ("artificial neural networks", "noisy_circles", "unnormalized", "holdout")
+                        ]
+                        )
+def test_classify_input_one_classifier_one_normalization(current_dataset, clf_input, norm_input, eval_method_input, capsys):
+    original_X, y = datasets_dict[current_dataset]
+    classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)
+    captured = capsys.readouterr()
+    assert current_dataset in captured.out
+    assert clf_input in captured.out
+    assert norm_input in captured.out
+    assert eval_method_input or eval_method_input.capitalize() in captured.out
+
+@pytest.mark.parametrize("clf_input, current_dataset, eval_method_input", 
+                        [
+                            ("naive bayes", "blobs", "holdout"),
+                            ("decision tree", "varied", "random subsampling"),
+                            ("support vector machine", "anisotropic", "holdout"),
+                            ("artificial neural networks", "noisy_circles", "holdout")
+                        ]
+                        )
+def test_classify_input_one_classifier_all_normalization(current_dataset, clf_input, eval_method_input, capsys):
+    norm_input = "all"
+    original_X, y = datasets_dict[current_dataset]
+    norm_methods = list(normalization_methods)
+    classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)
+    captured = capsys.readouterr()
+    lines = captured.out.strip().split('\n')
+
+    for method in norm_methods:
+        assert any(method in line for line in lines)
+                   
+    assert current_dataset in captured.out
+    assert clf_input in captured.out
+    assert eval_method_input or eval_method_input.capitalize() in captured.out
+
+@pytest.mark.parametrize("current_dataset, norm_input, eval_method_input",
+                        [
+                            ("blobs", "unnormalized", "holdout"),
+                            ("anisotropic", "minmax", "random subsampling"),
+                            ("varied", "zscore", "holdout"),
+                        ]
+                        )
+def test_classify_input_all_classifiers_one_normalization(current_dataset, norm_input, eval_method_input, capsys):
+    clf_input = "all"
+    original_X, y = datasets_dict[current_dataset]
+    classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)
+    captured = capsys.readouterr()
+    lines = captured.out.strip().split('\n')
+
+    clfs = list(main_classifiers)
+
+    for clf_name in clfs:
+        assert any(clf_name in line for line in lines)
+
+    assert current_dataset in captured.out
+    assert eval_method_input or eval_method_input.capitalize() in captured.out
