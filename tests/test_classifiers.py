@@ -1,4 +1,5 @@
-from classifiers import get_norm_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods, run_classifier
+from classifiers import get_norm_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods, run_classifier, classify_split, classify_kfold, classify_knn_kfold
+from sklearn.model_selection import train_test_split, KFold
 from data import datasets_dict
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
@@ -117,6 +118,38 @@ def test_classify_knn_random_subsampling(capsys, current_dataset, normalization_
     for k in k_vals:
         assert any(str(k) in line and "k-nearest-neighbor" in line for line in lines)
 
+def test_classify_split():
+    clf = main_classifiers["naive bayes"]
+    current_dataset = "blobs"
+    X, y = datasets_dict[current_dataset]
+    splitter = KFold(n_splits=3, shuffle=True)
+    result = classify_split(clf, splitter, X, y)
+    assert isinstance(result, list)
+    for score in result:
+        assert 0 < score <= 1.0
+
+def test_classify_kfold():
+    clf_name = "naive bayes"
+    clf = main_classifiers[clf_name]
+    current_dataset = "blobs"
+    norm_input = "unnormalized"
+    X, y = datasets_dict[current_dataset]
+    k_accuracies = classify_kfold(clf, clf_name, X, y, current_dataset, norm_input)
+    assert len(k_accuracies) == 3
+    for accuracy in k_accuracies.values():
+        assert 0 < accuracy <= 1.0
+
+def test_classify_knn_kfold():
+    clf_name = "k-nearest-neighbor"
+    clf = main_classifiers[clf_name]
+    current_dataset = "blobs"
+    norm_input = "minmax"
+    X, y = datasets_dict[current_dataset]
+    combo_scores = classify_knn_kfold(clf, X, y, current_dataset, norm_input)
+    assert len(combo_scores) == 9
+    for accuracy in combo_scores.values():
+        assert 0 < accuracy <= 1.0
+
 @pytest.mark.parametrize("user_input",
     list(evaluation_methods.keys())
 )
@@ -175,11 +208,14 @@ def test_run_classifer_knn(clf_name, current_dataset, norm_input, eval_method_in
     assert eval_method_input or eval_method_input.capitalize() in captured.out
     assert "Best k-value" in captured.out
 
-def test_classify_input_holdout_all_classifiers_all_normalization(capsys):
+@pytest.mark.parametrize("eval_method_input", 
+                         ["holdout", "random subsampling", "kfold"]
+                         )
+def test_classify_input_all_classifiers_all_normalization(capsys, eval_method_input):
     original_X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     current_dataset = "blobs"
     k_vals = [3, 5, 7]
-    classify_input(original_X, y, current_dataset, "all", "all", "holdout")
+    classify_input(original_X, y, current_dataset, "all", "all", eval_method_input)
     captured = capsys.readouterr()
     lines = captured.out.strip().split('\n')
 
@@ -193,14 +229,13 @@ def test_classify_input_holdout_all_classifiers_all_normalization(capsys):
     for k in k_vals:
         assert any(str(k) in line and "k-nearest-neighbor" in line for line in lines)
 
-    assert any("Best k-value" in line for line in lines)
+    assert any("Best k-value" in line or "KNN value" in line for line in lines)
 
 @pytest.mark.parametrize("clf_input, current_dataset, norm_input, eval_method_input", 
                         [
                             ("naive bayes", "blobs", "unnormalized", "holdout"),
                             ("decision tree", "varied", "zscore", "random subsampling"),
-                            ("support vector machine", "anisotropic", "minmax", "holdout"),
-                            ("artificial neural networks", "noisy_circles", "unnormalized", "holdout")
+                            ("support vector machine", "noisy_circles", "unnormalized", "kfold")
                         ]
                         )
 def test_classify_input_one_classifier_one_normalization(current_dataset, clf_input, norm_input, eval_method_input, capsys):
@@ -216,8 +251,7 @@ def test_classify_input_one_classifier_one_normalization(current_dataset, clf_in
                         [
                             ("naive bayes", "blobs", "holdout"),
                             ("decision tree", "varied", "random subsampling"),
-                            ("support vector machine", "anisotropic", "holdout"),
-                            ("artificial neural networks", "noisy_circles", "holdout")
+                            ("support vector machine", "noisy_circles", "kfold")
                         ]
                         )
 def test_classify_input_one_classifier_all_normalization(current_dataset, clf_input, eval_method_input, capsys):
@@ -239,7 +273,7 @@ def test_classify_input_one_classifier_all_normalization(current_dataset, clf_in
                         [
                             ("blobs", "unnormalized", "holdout"),
                             ("anisotropic", "minmax", "random subsampling"),
-                            ("varied", "zscore", "holdout"),
+                            ("varied", "zscore", "kfold"),
                         ]
                         )
 def test_classify_input_all_classifiers_one_normalization(current_dataset, norm_input, eval_method_input, capsys):

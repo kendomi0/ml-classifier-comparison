@@ -81,9 +81,51 @@ def classify_knn_random_subsampling(clf_name, X, y, current_dataset, normalizati
         print(f"({current_dataset}) Random subsampling accuracy with {clf_name} using k={k} ({normalization_method}): {round(k_scores[k], 3)}")
     print(f"({current_dataset}) Best k-value for random subsampling {normalization_method}: {get_best(k_scores)}")
 
+def classify_split(clf, splitter, X, y):
+    scores = []
+    for train_index, test_index in splitter.split(X):
+        X_train, X_test = X[train_index], X[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        clf.fit(X_train, y_train)
+        scores.append(clf.score(X_test, y_test))
+    return scores
+
+def classify_kfold(clf, clf_name, X, y, current_dataset, norm_input):
+    k_folds = [3, 5, 10]
+    k_accuracies = {}
+    for k in k_folds:
+        splitter = KFold(n_splits=k, shuffle=True)
+        scores = classify_split(clf, splitter, X, y)
+        print(f"({current_dataset})  Accuracy for k={k} {norm_input} NB: {round(float(np.mean(scores)), 3)}")
+        k_accuracies[k] = float(np.mean(scores))
+    best_k_val = max(k_accuracies, key=k_accuracies.get)
+    print(f"({current_dataset}) {clf_name} Best value for k in k-fold cross-validation {norm_input}: {best_k_val}")
+    return k_accuracies
+
+def classify_knn_kfold(clf, X, y, current_dataset, norm_input):
+    knn_vals = [3, 5, 7]
+    k_fold_vals = [3, 5, 10]
+    knn_kfold_combos = {}
+    for knn_val in knn_vals:
+        clf = KNeighborsClassifier(n_neighbors=knn_val)
+        for kfold_val in k_fold_vals:
+            splitter = KFold(n_splits=kfold_val, shuffle=True)
+            scores  = []
+            for train_index, test_index in splitter.split(X):
+                X_train, X_test = X[train_index], X[test_index]
+                y_train, y_test = y[train_index], y[test_index]
+                clf.fit(X_train, y_train)
+                scores.append(clf.score(X_test, y_test))
+            print(f"({current_dataset}) Random subsampling accuracy with k-nearest-neighbor ({norm_input}) using KNN value={knn_val} and K-fold value {kfold_val}: {float(np.mean(scores))}")
+            knn_kfold_combos[(knn_val, kfold_val)] = float(np.mean(scores))
+    best_combo = max(knn_kfold_combos, key=knn_kfold_combos.get)
+    print(f"({current_dataset}) Best combo with k-nearest-neighbor and kfold {norm_input} is: KNN value of {best_combo[0]} and K-fold value of {best_combo[1]}")
+    return knn_kfold_combos
+
 evaluation_methods = {
     "holdout": [classify_holdout, classify_knn_holdout],
-    "random subsampling": [classify_random_subsampling, classify_knn_random_subsampling]
+    "random subsampling": [classify_random_subsampling, classify_knn_random_subsampling],
+    "kfold": [classify_kfold, classify_knn_kfold]
 }
 
 def get_evaluation_method():
@@ -126,9 +168,15 @@ if __name__ == "__main__":
     import utils
     from data import datasets_dict
 
+    """
+    clf = main_classifiers["naive bayes"]
+    current_dataset = "blobs"
+    X, y = datasets_dict[current_dataset]
+    classify_knn_kfold(current_dataset, X, y)
     current_dataset = utils.get_user_choice(datasets_dict)
     original_X, y = datasets_dict[current_dataset]
     norm_input = get_norm_input()
     clf_input = get_clf_input()
     eval_method_input = get_evaluation_method()
     classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)
+    """
