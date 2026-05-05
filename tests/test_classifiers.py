@@ -1,4 +1,4 @@
-from classifiers import get_norm_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods, run_classifier, classify_split, classify_kfold, classify_knn_kfold
+from classifiers import get_norm_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods, run_classifier, classify_split, classify_kfold, classify_knn_kfold, get_accuracy_msg
 from sklearn.model_selection import train_test_split, KFold
 from data import datasets_dict
 from sklearn import datasets
@@ -26,8 +26,9 @@ def test_get_best():
         "Lucy": 100,
         "Joe": 67
     }
-    result = get_best(test_dict)
-    assert result == "Lucy"
+    best_name, best_score = get_best(test_dict)
+    assert best_name == "Lucy"
+    assert best_score == 100
 
 @pytest.mark.parametrize("user_input", ["naive bayes", "decision tree", "support vector machine", "artificial neural networks", "k-nearest-neighbor"])
 def test_get_clf_input_valid(monkeypatch, user_input):
@@ -49,33 +50,76 @@ def test_get_clf_input_valid_case_insensitive(monkeypatch, user_input):
     result = get_clf_input()
     assert result == user_input.lower()
 
-def test_classify_holdout(capsys):
+@pytest.mark.parametrize("user_input",
+    list(evaluation_methods.keys())
+)
+def test_get_evaluation_method_valid(monkeypatch, user_input):
+    monkeypatch.setattr("builtins.input", lambda _: user_input)
+    result = get_evaluation_method()
+    assert result == user_input
+
+@pytest.mark.parametrize("user_input",
+    [m.upper() for m in evaluation_methods.keys()]
+)
+def test_get_evaluation_method_case_insensitive(monkeypatch, user_input):
+    monkeypatch.setattr("builtins.input", lambda _: user_input)
+    result = get_evaluation_method()
+    assert result == user_input.lower()
+
+def test_get_evaluation_method_invalid_valid(monkeypatch, capsys):
+    inputs = iter(["invalid", list(evaluation_methods.keys())[0]])
+    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+    result = get_evaluation_method()
+    captured = capsys.readouterr()
+    assert "Invalid input" in captured.out
+    assert result == list(evaluation_methods.keys())[0]
+
+@pytest.mark.parametrize("clf_name, clf_type, eval_method, knn_val, kfold_val",
+                       [
+                           ("naive bayes", "default", "holdout", None, None),
+                           ("k-nearest-neighbor", "knn inner", "random subsampling", 3, None),
+                           ("k-nearest-neighbor", "knn outer", "holdout", 3, None),
+                           ("naive bayes", "default kfold inner", "kfold", None, 3),
+                           ("naive bayes", "default kfold outer", "kfold", None, 3),
+                           ("k-nearest-neighbor", "knn kfold inner", "kfold", 3, 3),
+                           ("k-nearest-neighbor", "knn kfold outer", "kfold", 3, 3)
+                       ]
+                       )
+def test_get_accuracy_msg(clf_name, clf_type, eval_method, knn_val, kfold_val):
+    current_dataset="blobs"
+    normalization_method="unnormalized"
+    score=0.98877
+    result = get_accuracy_msg(clf_name, clf_type, current_dataset, eval_method, normalization_method, score, knn_val, kfold_val)
+    print(result)
+    terms = [clf_name, eval_method, current_dataset, normalization_method]
+    new_terms = [term.capitalize() for term in terms]
+    score_percent = "98.88%"
+    new_terms.append(score_percent)
+    for term in new_terms:
+        assert term in result
+    if knn_val is not None:
+        assert str(knn_val) in result
+    if kfold_val is not None:
+        assert str(kfold_val) in result
+
+def test_classify_holdout():
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     clf = GaussianNB()
     clf_name = "naive bayes"
     current_dataset = "blobs"
     normalization_method = "unnormalized"
-    classify_holdout(clf, clf_name, X, y, current_dataset, normalization_method)
-    captured = capsys.readouterr()
-    assert current_dataset in captured.out
-    assert clf_name in captured.out
-    assert normalization_method in captured.out
+    score = classify_holdout(clf, clf_name, X, y, current_dataset, normalization_method)
+    assert 0 < score <= 1.0
 
-def test_classify_knn_holdout(capsys):
+def test_classify_knn_holdout():
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     clf_name = "k-nearest-neighbor"
     current_dataset = "blobs"
     normalization_method = "unnormalized"
-    classify_knn_holdout(clf_name, X, y, current_dataset, normalization_method)
-    k_vals = [3, 5, 7]
-    captured = capsys.readouterr()
-    lines = captured.out.strip().split('\n')
-    assert current_dataset in captured.out
-    assert clf_name in captured.out
-    assert normalization_method in captured.out
-
-    for k in k_vals:
-        assert any(str(k) in line and "k-nearest-neighbor" in line for line in lines)
+    scores = classify_knn_holdout(clf_name, X, y, current_dataset, normalization_method)
+    assert len(scores) == 3
+    for score in scores.values():
+        assert 0 < score <= 1.0
 
 @pytest.mark.parametrize("clf_name, current_dataset, normalization_method", 
                        [
@@ -86,13 +130,12 @@ def test_classify_knn_holdout(capsys):
                            ("naive bayes", "varied", "minmax")
                        ]
                        )
-def test_classify_random_subsampling(capsys, clf_name, current_dataset, normalization_method):
+def test_classify_random_subsampling(clf_name, current_dataset, normalization_method):
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
-    classify_random_subsampling(main_classifiers[clf_name], clf_name, X, y, current_dataset, normalization_method)
-    captured = capsys.readouterr()
-    assert current_dataset in captured.out
-    assert clf_name in captured.out
-    assert normalization_method in captured.out
+    scores = classify_random_subsampling(main_classifiers[clf_name], clf_name, X, y, current_dataset, normalization_method)
+    assert len(scores) == 10
+    for score in scores:
+        assert 0 < score <= 1.0
 
 @pytest.mark.parametrize("current_dataset, normalization_method", 
                         [
@@ -103,20 +146,13 @@ def test_classify_random_subsampling(capsys, clf_name, current_dataset, normaliz
                             ("varied", "minmax")
                         ]
                         )
-def test_classify_knn_random_subsampling(capsys, current_dataset, normalization_method):
+def test_classify_knn_random_subsampling(current_dataset, normalization_method):
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     clf_name = "k-nearest-neighbor"
-    classify_knn_random_subsampling(clf_name, X, y, current_dataset, normalization_method)
-    k_vals = [3, 5, 7]
-    captured = capsys.readouterr()
-    lines = captured.out.strip().split('\n')
-
-    assert current_dataset in captured.out
-    assert clf_name in captured.out
-    assert normalization_method in captured.out
-
-    for k in k_vals:
-        assert any(str(k) in line and "k-nearest-neighbor" in line for line in lines)
+    scores = classify_knn_random_subsampling(clf_name, X, y, current_dataset, normalization_method)
+    assert len(scores) == 3
+    for score in scores.values():
+        assert 0 < score <= 1.0
 
 def test_classify_split():
     clf = main_classifiers["naive bayes"]
@@ -150,86 +186,47 @@ def test_classify_knn_kfold():
     for accuracy in combo_scores.values():
         assert 0 < accuracy <= 1.0
 
-@pytest.mark.parametrize("user_input",
-    list(evaluation_methods.keys())
-)
-def test_get_evaluation_method_valid(monkeypatch, user_input):
-    monkeypatch.setattr("builtins.input", lambda _: user_input)
-    result = get_evaluation_method()
-    assert result == user_input
-
-@pytest.mark.parametrize("user_input",
-    [m.upper() for m in evaluation_methods.keys()]
-)
-def test_get_evaluation_method_case_insensitive(monkeypatch, user_input):
-    monkeypatch.setattr("builtins.input", lambda _: user_input)
-    result = get_evaluation_method()
-    assert result == user_input.lower()
-
-def test_get_evaluation_method_invalid_valid(monkeypatch, capsys):
-    inputs = iter(["invalid", list(evaluation_methods.keys())[0]])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    result = get_evaluation_method()
-    captured = capsys.readouterr()
-    assert "Invalid input" in captured.out
-    assert result == list(evaluation_methods.keys())[0]
-
 @pytest.mark.parametrize("clf_name, current_dataset, norm_input, eval_method_input", 
                         [
                             ("naive bayes", "blobs", "unnormalized", "holdout"),
-                            ("decision tree", "anisotropic", "minmax", "random subsampling")
-                        ]
-                        )
-def test_run_classifer_default(clf_name, current_dataset, norm_input, eval_method_input, capsys):
-    clf = main_classifiers[clf_name]
-    X, y = datasets_dict[current_dataset]
-    run_classifier(clf, clf_name, X, y, current_dataset, norm_input, eval_method_input)
-    captured = capsys.readouterr()
-    assert current_dataset in captured.out
-    assert clf_name in captured.out
-    assert norm_input in captured.out
-    assert eval_method_input or eval_method_input.capitalize() in captured.out
-    assert "Best k-value" not in captured.out
-
-@pytest.mark.parametrize("clf_name, current_dataset, norm_input, eval_method_input", 
-                        [
+                            ("decision tree", "anisotropic", "minmax", "random subsampling"),
+                            ("naive bayes", "blobs", "unnormalized", "kfold"),
                             ("k-nearest-neighbor", "blobs", "unnormalized", "holdout"),
-                            ("k-nearest-neighbor", "varied", "zscore", "random subsampling")
+                            ("k-nearest-neighbor", "varied", "zscore", "random subsampling"),
+                            ("k-nearest-neighbor", "blobs", "unnormalized", "kfold")
                         ]
                         )
-def test_run_classifer_knn(clf_name, current_dataset, norm_input, eval_method_input, capsys):
+def test_run_classifer_default(clf_name, current_dataset, norm_input, eval_method_input, mocker):
+    mock_dict = mocker.patch("classifiers.evaluation_methods")
     clf = main_classifiers[clf_name]
     X, y = datasets_dict[current_dataset]
     run_classifier(clf, clf_name, X, y, current_dataset, norm_input, eval_method_input)
-    captured = capsys.readouterr()
-    assert current_dataset in captured.out
-    assert clf_name in captured.out
-    assert norm_input in captured.out
-    assert eval_method_input or eval_method_input.capitalize() in captured.out
-    assert "Best k-value" in captured.out
+    if clf_name != "k-nearest-neighbor":
+        mock_dict[eval_method_input][0].assert_called_once()
+    else:
+        mock_dict[eval_method_input][1].assert_called_once()
 
 @pytest.mark.parametrize("eval_method_input", 
                          ["holdout", "random subsampling", "kfold"]
                          )
-def test_classify_input_all_classifiers_all_normalization(capsys, eval_method_input):
-    original_X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
+def test_classify_input_all_classifiers_all_normalization(eval_method_input, mocker):
     current_dataset = "blobs"
-    k_vals = [3, 5, 7]
-    classify_input(original_X, y, current_dataset, "all", "all", eval_method_input)
-    captured = capsys.readouterr()
-    lines = captured.out.strip().split('\n')
+    X, y = datasets_dict[current_dataset]
+    mock_run = mocker.patch("classifiers.run_classifier")
+    classify_input(X, y, current_dataset, "all", "all", eval_method_input)
 
     clfs = list(main_classifiers)
-    normalizations = list(normalization_methods)
+    norm_methods = list(normalization_methods)
 
-    for clf_name in clfs:
-        for method in normalizations:
-            assert any(clf_name in line and method in line for line in lines)
-
-    for k in k_vals:
-        assert any(str(k) in line and "k-nearest-neighbor" in line for line in lines)
-
-    assert any("Best k-value" in line or "KNN value" in line for line in lines)
+    assert all(
+        any(
+            call.args[1] == clf_name and
+            call.args[5] == norm_input
+            for call in mock_run.call_args_list
+        )
+        for clf_name in clfs
+        for norm_input in norm_methods
+    )
 
 @pytest.mark.parametrize("clf_input, current_dataset, norm_input, eval_method_input", 
                         [
@@ -238,14 +235,9 @@ def test_classify_input_all_classifiers_all_normalization(capsys, eval_method_in
                             ("support vector machine", "noisy_circles", "unnormalized", "kfold")
                         ]
                         )
-def test_classify_input_one_classifier_one_normalization(current_dataset, clf_input, norm_input, eval_method_input, capsys):
+def test_classify_input_one_classifier_one_normalization(current_dataset, clf_input, norm_input, eval_method_input):
     original_X, y = datasets_dict[current_dataset]
     classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)
-    captured = capsys.readouterr()
-    assert current_dataset in captured.out
-    assert clf_input in captured.out
-    assert norm_input in captured.out
-    assert eval_method_input or eval_method_input.capitalize() in captured.out
 
 @pytest.mark.parametrize("clf_input, current_dataset, eval_method_input", 
                         [
@@ -254,20 +246,22 @@ def test_classify_input_one_classifier_one_normalization(current_dataset, clf_in
                             ("support vector machine", "noisy_circles", "kfold")
                         ]
                         )
-def test_classify_input_one_classifier_all_normalization(current_dataset, clf_input, eval_method_input, capsys):
+def test_classify_input_one_classifier_all_normalization(current_dataset, clf_input, eval_method_input, mocker):
     norm_input = "all"
     original_X, y = datasets_dict[current_dataset]
+    mock_run = mocker.patch("classifiers.run_classifier")
     norm_methods = list(normalization_methods)
     classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)
-    captured = capsys.readouterr()
-    lines = captured.out.strip().split('\n')
 
-    for method in norm_methods:
-        assert any(method in line for line in lines)
-                   
-    assert current_dataset in captured.out
-    assert clf_input in captured.out
-    assert eval_method_input or eval_method_input.capitalize() in captured.out
+    norm_methods = list(normalization_methods)
+
+    assert all(
+        any(
+            call.args[5] == norm_input
+            for call in mock_run.call_args_list
+        )
+        for norm_input in norm_methods
+    )
 
 @pytest.mark.parametrize("current_dataset, norm_input, eval_method_input",
                         [
@@ -276,17 +270,18 @@ def test_classify_input_one_classifier_all_normalization(current_dataset, clf_in
                             ("varied", "zscore", "kfold"),
                         ]
                         )
-def test_classify_input_all_classifiers_one_normalization(current_dataset, norm_input, eval_method_input, capsys):
+def test_classify_input_all_classifiers_one_normalization(current_dataset, norm_input, eval_method_input, mocker):
+    mock_run = mocker.patch("classifiers.run_classifier")
     clf_input = "all"
     original_X, y = datasets_dict[current_dataset]
     classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)
-    captured = capsys.readouterr()
-    lines = captured.out.strip().split('\n')
 
     clfs = list(main_classifiers)
 
-    for clf_name in clfs:
-        assert any(clf_name in line for line in lines)
-
-    assert current_dataset in captured.out
-    assert eval_method_input or eval_method_input.capitalize() in captured.out
+    assert all(
+        any(
+            call.args[1] == clf_name
+            for call in mock_run.call_args_list
+        )
+        for clf_name in clfs
+    )
