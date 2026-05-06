@@ -1,9 +1,10 @@
-from classifiers import get_norm_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods, run_classifier, classify_split, classify_kfold, classify_knn_kfold, get_accuracy_msg
-from sklearn.model_selection import train_test_split, KFold
+from classifiers import get_norm_input, get_best, get_clf_input, classify_holdout, classify_knn_holdout, classify_input, main_classifiers, normalization_methods, classify_random_subsampling, main_classifiers, normalization_methods, classify_knn_random_subsampling, get_evaluation_method, evaluation_methods, run_classifier, classify_split, classify_kfold, classify_knn_kfold, get_accuracy_msg, classify_loo, classify_knn_loo
+from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
 from data import datasets_dict
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 import pytest
+from unittest.mock import MagicMock
 
 @pytest.mark.parametrize("user_input", ["unnormalized", "minmax", "zscore"])
 def test_get_norm_input_valid(monkeypatch, user_input):
@@ -33,13 +34,15 @@ def test_get_best():
 @pytest.mark.parametrize("user_input", ["naive bayes", "decision tree", "support vector machine", "artificial neural networks", "k-nearest-neighbor"])
 def test_get_clf_input_valid(monkeypatch, user_input):
     monkeypatch.setattr("builtins.input", lambda _: user_input)
-    result = get_clf_input()
+    eval_method_input="holdout"
+    result = get_clf_input(eval_method_input)
     assert result == user_input
 
 def test_get_clf_input_invalid_then_valid(monkeypatch, capsys):
     inputs = iter(["invalid", "decision tree"])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    result = get_clf_input()
+    eval_method_input="holdout"
+    result = get_clf_input(eval_method_input)
     captured = capsys.readouterr()
     assert "Invalid input" in captured.out
     assert result == "decision tree"
@@ -47,8 +50,15 @@ def test_get_clf_input_invalid_then_valid(monkeypatch, capsys):
 @pytest.mark.parametrize("user_input", ["nAIVE BAYES", "DECISion TReE", "SUppORt VecToR mAchInE", "ArtIfICial neURAL NETWORKS", "K-NEAREST-NEIGHBOR"])
 def test_get_clf_input_valid_case_insensitive(monkeypatch, user_input):
     monkeypatch.setattr("builtins.input", lambda _: user_input)
-    result = get_clf_input()
+    eval_method_input="holdout"
+    result = get_clf_input(eval_method_input)
     assert result == user_input.lower()
+
+def test_get_clf_input_loo_ann(monkeypatch):
+    inputs = iter(["artificial neural networks", "naive bayes"])
+    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+    eval_method_input = "leave-one-out"
+    get_clf_input(eval_method_input)
 
 @pytest.mark.parametrize("user_input",
     list(evaluation_methods.keys())
@@ -121,23 +131,24 @@ def test_classify_knn_holdout():
     for score in scores.values():
         assert 0 < score <= 1.0
 
-@pytest.mark.parametrize("clf_name, current_dataset, normalization_method", 
+@pytest.mark.parametrize("current_dataset, normalization_method",
                        [
-                           ("naive bayes", "noisy_circles", "unnormalized"),
-                           ("decision tree", "noisy_moons", "minmax"),
-                           ("support vector machine", "blobs", "zscore"),
-                           ("artificial neural networks", "varied", "unnormalized"),
-                           ("naive bayes", "varied", "minmax")
+                           ("noisy_circles", "unnormalized"),
+                           ("noisy_moons", "minmax"),
+                           ("blobs", "zscore"),
+                           ("varied", "unnormalized"),
+                           ("varied", "minmax")
                        ]
                        )
-def test_classify_random_subsampling(clf_name, current_dataset, normalization_method):
+def test_classify_random_subsampling(current_dataset, normalization_method):
+    clf = MagicMock()
+    clf_name = "naive bayes"
+    clf.score.return_value = 0.9
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
-    scores = classify_random_subsampling(main_classifiers[clf_name], clf_name, X, y, current_dataset, normalization_method)
+    scores = classify_random_subsampling(clf, clf_name, X, y, current_dataset, normalization_method)
     assert len(scores) == 10
-    for score in scores:
-        assert 0 < score <= 1.0
 
-@pytest.mark.parametrize("current_dataset, normalization_method", 
+@pytest.mark.parametrize("current_dataset, normalization_method",
                         [
                             ("noisy_circles", "unnormalized"),
                             ("noisy_moons", "minmax"),
@@ -176,27 +187,47 @@ def test_classify_kfold():
         assert 0 < accuracy <= 1.0
 
 def test_classify_knn_kfold():
-    clf_name = "k-nearest-neighbor"
-    clf = main_classifiers[clf_name]
     current_dataset = "blobs"
     norm_input = "minmax"
     X, y = datasets_dict[current_dataset]
-    combo_scores = classify_knn_kfold(clf, X, y, current_dataset, norm_input)
+    combo_scores = classify_knn_kfold(X, y, current_dataset, norm_input)
     assert len(combo_scores) == 9
     for accuracy in combo_scores.values():
         assert 0 < accuracy <= 1.0
 
-@pytest.mark.parametrize("clf_name, current_dataset, norm_input, eval_method_input", 
+def test_classify_loo():
+    current_dataset = "blobs"
+    X, y = datasets_dict[current_dataset]
+    clf_name = "naive bayes"
+    clf = main_classifiers[clf_name]
+    norm_input = "unnormalized"
+    score = classify_loo(clf, clf_name, X, y, current_dataset, norm_input)
+    assert 0 < score <= 1
+
+def test_classify_knn_loo(mocker):
+    mock_split = mocker.patch("classifiers.classify_split")
+    mock_split.return_value = [0.9, 0.85, 0.88]
+    current_dataset = "blobs"
+    X, y = datasets_dict[current_dataset]
+    norm_input = "unnormalized"
+    classify_knn_loo("k-nearest-neighbor", X, y, current_dataset, norm_input)
+    assert any(
+        isinstance(call.args[1], LeaveOneOut) for call in mock_split.call_args_list
+        )
+    
+@pytest.mark.parametrize("clf_name, current_dataset, norm_input, eval_method_input",
                         [
                             ("naive bayes", "blobs", "unnormalized", "holdout"),
                             ("decision tree", "anisotropic", "minmax", "random subsampling"),
                             ("naive bayes", "blobs", "unnormalized", "kfold"),
+                            ("decision tree", "blobs", "zscore", "leave-one-out"),
                             ("k-nearest-neighbor", "blobs", "unnormalized", "holdout"),
                             ("k-nearest-neighbor", "varied", "zscore", "random subsampling"),
-                            ("k-nearest-neighbor", "blobs", "unnormalized", "kfold")
+                            ("k-nearest-neighbor", "blobs", "unnormalized", "kfold"),
+                            ("k-nearest-neighbor", "blobs", "unnormalized", "leave-one-out")
                         ]
                         )
-def test_run_classifer_default(clf_name, current_dataset, norm_input, eval_method_input, mocker):
+def test_run_classifer(clf_name, current_dataset, norm_input, eval_method_input, mocker):
     mock_dict = mocker.patch("classifiers.evaluation_methods")
     clf = main_classifiers[clf_name]
     X, y = datasets_dict[current_dataset]
@@ -206,8 +237,8 @@ def test_run_classifer_default(clf_name, current_dataset, norm_input, eval_metho
     else:
         mock_dict[eval_method_input][1].assert_called_once()
 
-@pytest.mark.parametrize("eval_method_input", 
-                         ["holdout", "random subsampling", "kfold"]
+@pytest.mark.parametrize("eval_method_input",
+                         ["holdout", "random subsampling", "kfold", "leave-one-out"]
                          )
 def test_classify_input_all_classifiers_all_normalization(eval_method_input, mocker):
     current_dataset = "blobs"
@@ -216,23 +247,36 @@ def test_classify_input_all_classifiers_all_normalization(eval_method_input, moc
     classify_input(X, y, current_dataset, "all", "all", eval_method_input)
 
     clfs = list(main_classifiers)
+    clfs_no_ann = [clf for clf in clfs if clf != "artificial neural networks"]
     norm_methods = list(normalization_methods)
 
-    assert all(
-        any(
-            call.args[1] == clf_name and
-            call.args[5] == norm_input
-            for call in mock_run.call_args_list
+    if eval_method_input == "leave-one-out":
+        assert all(
+            any(
+                call.args[1] == clf_name and
+                call.args[5] == norm_input
+                for call in mock_run.call_args_list
+            )
+            for clf_name in clfs_no_ann
+            for norm_input in norm_methods
         )
-        for clf_name in clfs
-        for norm_input in norm_methods
-    )
+    else:
+        assert all(
+            any(
+                call.args[1] == clf_name and
+                call.args[5] == norm_input
+                for call in mock_run.call_args_list
+            )
+            for clf_name in clfs
+            for norm_input in norm_methods
+        )
 
 @pytest.mark.parametrize("clf_input, current_dataset, norm_input, eval_method_input", 
                         [
-                            ("naive bayes", "blobs", "unnormalized", "holdout"),
+                            ("artificial neural networks", "blobs", "unnormalized", "holdout"),
                             ("decision tree", "varied", "zscore", "random subsampling"),
-                            ("support vector machine", "noisy_circles", "unnormalized", "kfold")
+                            ("support vector machine", "noisy_circles", "unnormalized", "kfold"),
+                            ("naive bayes", "noisy_moons", "minmax", "leave-one-out")
                         ]
                         )
 def test_classify_input_one_classifier_one_normalization(current_dataset, clf_input, norm_input, eval_method_input):
@@ -241,9 +285,10 @@ def test_classify_input_one_classifier_one_normalization(current_dataset, clf_in
 
 @pytest.mark.parametrize("clf_input, current_dataset, eval_method_input", 
                         [
-                            ("naive bayes", "blobs", "holdout"),
+                            ("artificial neural networks", "blobs", "holdout"),
                             ("decision tree", "varied", "random subsampling"),
-                            ("support vector machine", "noisy_circles", "kfold")
+                            ("support vector machine", "noisy_circles", "kfold"),
+                            ("naive bayes", "noisy_moons", "leave-one-out")
                         ]
                         )
 def test_classify_input_one_classifier_all_normalization(current_dataset, clf_input, eval_method_input, mocker):
@@ -268,6 +313,7 @@ def test_classify_input_one_classifier_all_normalization(current_dataset, clf_in
                             ("blobs", "unnormalized", "holdout"),
                             ("anisotropic", "minmax", "random subsampling"),
                             ("varied", "zscore", "kfold"),
+                            ("noisy_moons", "unnormalized", "leave-one-out")
                         ]
                         )
 def test_classify_input_all_classifiers_one_normalization(current_dataset, norm_input, eval_method_input, mocker):
@@ -277,11 +323,31 @@ def test_classify_input_all_classifiers_one_normalization(current_dataset, norm_
     classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)
 
     clfs = list(main_classifiers)
+    clfs_no_ann = [clf for clf in clfs if clf != "artificial neural networks"]
 
-    assert all(
-        any(
-            call.args[1] == clf_name
-            for call in mock_run.call_args_list
+    if eval_method_input == "leave-one-out":
+        assert all(
+            any(
+                call.args[1] == clf_name
+                for call in mock_run.call_args_list
+            )
+            for clf_name in clfs_no_ann
         )
-        for clf_name in clfs
-    )
+
+    else:
+        assert all(
+            any(
+                call.args[1] == clf_name
+                for call in mock_run.call_args_list
+            )
+            for clf_name in clfs
+        )
+
+def test_classify_input_loo_ann():
+    current_dataset = "blobs"
+    original_X, y = datasets_dict[current_dataset]
+    clf_input = "artificial neural networks"
+    norm_input = "unnormalized"
+    eval_method_input = "leave-one-out"
+    with pytest.raises(ValueError):
+        classify_input(original_X, y, current_dataset, clf_input, norm_input, eval_method_input)

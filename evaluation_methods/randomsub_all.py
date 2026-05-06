@@ -4,7 +4,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from data import datasets_dict
 from utils import get_user_choice
 from preprocessing import normalize
-from classifiers import get_clf_input, get_x_input, get_evaluation_method, classify_input
+from classifiers import get_clf_input, get_norm_input, classify_input
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
@@ -21,7 +21,7 @@ current_dataset = get_user_choice(datasets_dict)
 
 X, y = datasets_dict[current_dataset]
 
-clf_input = get_clf_input()
-X_input = get_x_input()
+clf_input = get_clf_input("random subsampling")
+norm_input = get_norm_input()
 
-classify_input(X, y, current_dataset, clf_input, X_input, "Random subsampling")
+classify_input(X, y, current_dataset, clf_input, norm_input, "random subsampling")
