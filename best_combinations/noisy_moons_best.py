@@ -34,4 +34,4 @@ best_k = max(k_scores, key=k_scores.get)
 print(f"The best k value for KNN with holdout zscore is {best_k} with accuracy {round(k_scores[best_k], 3)}")
 
 # Scatter plot
-create_scatter_plot(X, y, "noisy_moons")
+create_scatter_plot(X, y, "noisy moons")

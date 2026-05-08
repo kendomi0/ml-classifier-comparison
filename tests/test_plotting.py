@@ -7,7 +7,7 @@ def test_create_scatter_plot(mocker):
 
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     
-    current_dataset = "noisy_circles"
+    current_dataset = "noisy circles"
 
     create_scatter_plot(X, y, current_dataset)
 

@@ -177,13 +177,7 @@ def classify_knn_kfold(X, y, current_dataset, norm_input):
         clf = KNeighborsClassifier(n_neighbors=knn_val)
         for kfold_val in k_fold_vals:
             splitter = KFold(n_splits=kfold_val, shuffle=True)
-            # TODO: Possibly replace this with classify_split func
-            scores  = []
-            for train_index, test_index in splitter.split(X):
-                X_train, X_test = X[train_index], X[test_index]
-                y_train, y_test = y[train_index], y[test_index]
-                clf.fit(X_train, y_train)
-                scores.append(clf.score(X_test, y_test))
+            scores = classify_split(clf, splitter, X, y)
             print(get_accuracy_msg(
             clf_name="k-nearest-neighbor",
             current_dataset=current_dataset,

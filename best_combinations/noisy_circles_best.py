@@ -27,4 +27,4 @@ for i in range(10):
 print(f"(Noisy circles) Average accuracy for random subsampling unnormalized (SVM): {round(np.mean(scores), 3)}")
 
 # Scatter plot
-create_scatter_plot(X, y, "noisy_circles")
+create_scatter_plot(X, y, "noisy circles")

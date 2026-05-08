@@ -133,8 +133,8 @@ def test_classify_knn_holdout():
 
 @pytest.mark.parametrize("current_dataset, normalization_method",
                        [
-                           ("noisy_circles", "unnormalized"),
-                           ("noisy_moons", "minmax"),
+                           ("noisy circles", "unnormalized"),
+                           ("noisy moons", "minmax"),
                            ("blobs", "zscore"),
                            ("varied", "unnormalized"),
                            ("varied", "minmax")
@@ -150,8 +150,8 @@ def test_classify_random_subsampling(current_dataset, normalization_method):
 
 @pytest.mark.parametrize("current_dataset, normalization_method",
                         [
-                            ("noisy_circles", "unnormalized"),
-                            ("noisy_moons", "minmax"),
+                            ("noisy circles", "unnormalized"),
+                            ("noisy moons", "minmax"),
                             ("blobs", "zscore"),
                             ("anisotropic", "unnormalized"),
                             ("varied", "minmax")
@@ -275,8 +275,8 @@ def test_classify_input_all_classifiers_all_normalization(eval_method_input, moc
                         [
                             ("artificial neural networks", "blobs", "unnormalized", "holdout"),
                             ("decision tree", "varied", "zscore", "random subsampling"),
-                            ("support vector machine", "noisy_circles", "unnormalized", "kfold"),
-                            ("naive bayes", "noisy_moons", "minmax", "leave-one-out")
+                            ("support vector machine", "noisy circles", "unnormalized", "kfold"),
+                            ("naive bayes", "noisy moons", "minmax", "leave-one-out")
                         ]
                         )
 def test_classify_input_one_classifier_one_normalization(current_dataset, clf_input, norm_input, eval_method_input):
@@ -287,8 +287,8 @@ def test_classify_input_one_classifier_one_normalization(current_dataset, clf_in
                         [
                             ("artificial neural networks", "blobs", "holdout"),
                             ("decision tree", "varied", "random subsampling"),
-                            ("support vector machine", "noisy_circles", "kfold"),
-                            ("naive bayes", "noisy_moons", "leave-one-out")
+                            ("support vector machine", "noisy circles", "kfold"),
+                            ("naive bayes", "noisy moons", "leave-one-out")
                         ]
                         )
 def test_classify_input_one_classifier_all_normalization(current_dataset, clf_input, eval_method_input, mocker):
@@ -313,7 +313,7 @@ def test_classify_input_one_classifier_all_normalization(current_dataset, clf_in
                             ("blobs", "unnormalized", "holdout"),
                             ("anisotropic", "minmax", "random subsampling"),
                             ("varied", "zscore", "kfold"),
-                            ("noisy_moons", "unnormalized", "leave-one-out")
+                            ("noisy moons", "unnormalized", "leave-one-out")
                         ]
                         )
 def test_classify_input_all_classifiers_one_normalization(current_dataset, norm_input, eval_method_input, mocker):
