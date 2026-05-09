@@ -1,5 +1,6 @@
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
+# TODO: Remove unused func
 def normalize(X):
     minmax = MinMaxScaler()
     zscore = StandardScaler()
