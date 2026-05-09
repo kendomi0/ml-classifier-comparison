@@ -1,6 +1,5 @@
 from plotting import create_scatter_plot
 from sklearn import datasets
-import matplotlib.pyplot as plt
 
 def test_create_scatter_plot(mocker):
     mock_plt = mocker.patch("plotting.plt")

@@ -1,13 +1,12 @@
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
-from utils import do_nothing, get_user_choice
+from utils import do_nothing
 import numpy as np
 from preprocessing import normalize_minmax, normalize_zscore
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
-from sklearn.model_selection import train_test_split, KFold, LeaveOneOut, ShuffleSplit
-from dataclasses import dataclass
+from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
 
 classifier_map = {
     "naive bayes": GaussianNB(),

@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-from sklearn import datasets
 
 def create_scatter_plot(X, y, current_dataset):
     plt.figure(figsize=(8, 6))

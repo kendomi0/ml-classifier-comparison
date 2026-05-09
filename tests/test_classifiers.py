@@ -1,5 +1,5 @@
 from classifiers import get_normalization_method, get_best, get_classifier, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classifier_map, normalization_methods, classify_random_subsampling_knn, get_evaluation_method, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, get_accuracy_msg, classify_loo, classify_loo_knn
-from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
+from sklearn.model_selection import KFold, LeaveOneOut
 from data import datasets_dict
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
