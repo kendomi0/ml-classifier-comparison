@@ -7,6 +7,8 @@ from preprocessing import normalize_minmax, normalize_zscore
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
+from dataclasses import dataclass
+from typing import Optional
 
 classifier_map = {
     "naive bayes": GaussianNB(),
@@ -22,11 +24,21 @@ normalization_methods = {
     "zscore": normalize_zscore
 }
 
+@dataclass
+class ClassificationResult:
+    classifier_name: str
+    evaluation_method: str
+    normalization_method: str
+    dataset: str
+    score: str
+    knn_value: Optional[int] = None
+    kfold_value: Optional[int] = None
+
 def get_best(score_dict):
     return max(score_dict, key=score_dict.get), max(score_dict.values())
 
-def get_accuracy_msg(clf_name, clf_type, current_dataset, evaluation_method, normalization_method, score, knn_val=None, kfold_val=None):
-    names = f"({current_dataset.capitalize()}, {evaluation_method.capitalize()}, {clf_name.capitalize()}, {normalization_method.capitalize()})"
+def get_accuracy_msg(classifier_name, classifier_type, current_dataset, evaluation_method, normalization_method, score, knn_val=None, kfold_val=None):
+    names = f"({current_dataset.capitalize()}, {evaluation_method.capitalize()}, {classifier_name.capitalize()}, {normalization_method.capitalize()})"
     msgs = {
         "default": f"{names} Accuracy: {score:.2%}",
         "knn inner": f"{names} Accuracy using knn={knn_val}: {score:.2%}",
@@ -36,35 +48,41 @@ def get_accuracy_msg(clf_name, clf_type, current_dataset, evaluation_method, nor
         "knn kfold inner": f"{names} Accuracy using KNN value={knn_val} and K-fold value={kfold_val}: {score:.2%}",
         "knn kfold outer": f"{names} Best k-nearest-neighbor and kfold combo: KNN value={knn_val} and K-fold value={kfold_val}, accuracy: {score:.2%}"
     }
-    return msgs[clf_type]
+    return msgs[classifier_type]
 
-def classify_holdout(clf, clf_name, X, y, current_dataset, normalization_method):
+def classify_holdout(classifier, classifier_name, X, y, current_dataset, normalization_method):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    clf.fit(X_train, y_train)
-    holdout_score = clf.score(X_test, y_test)
+    classifier.fit(X_train, y_train)
+    holdout_score = classifier.score(X_test, y_test)
     print(get_accuracy_msg(
-        clf_name=clf_name,
-        clf_type="default",
+        classifier_name=classifier_name,
+        classifier_type="default",
         current_dataset=current_dataset,
         evaluation_method="holdout",
         normalization_method=normalization_method,
         score=holdout_score
     ))
-    return holdout_score
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method="holdout",
+        normalization_method=normalization_method,
+        dataset=current_dataset,
+        score=f"{holdout_score:.2%}"
+    )
 
-def classify_holdout_knn(clf_name, X, y, current_dataset, normalization_method):
+def classify_holdout_knn(classifier_name, X, y, current_dataset, normalization_method):
     k_vals = [3, 5, 7]
     k_scores = {}
     for k in k_vals:
-        clf = KNeighborsClassifier(k)
+        classifier = KNeighborsClassifier(k)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-        clf.fit(X_train, y_train)
-        score = clf.score(X_test, y_test)
+        classifier.fit(X_train, y_train)
+        score = classifier.score(X_test, y_test)
         k_scores[k] = score
         print(get_accuracy_msg(
-            clf_name=clf_name,
+            classifier_name=classifier_name,
             current_dataset=current_dataset,
-            clf_type="knn inner",
+            classifier_type="knn inner",
             evaluation_method="holdout",
             normalization_method=normalization_method,
             score=score,
@@ -72,33 +90,47 @@ def classify_holdout_knn(clf_name, X, y, current_dataset, normalization_method):
         ))
     best_kval, best_score = get_best(k_scores)
     print(get_accuracy_msg(
-        clf_name=clf_name,
-        clf_type="knn outer",
+        classifier_name=classifier_name,
+        classifier_type="knn outer",
         current_dataset=current_dataset,
         evaluation_method="holdout",
         normalization_method=normalization_method,
         score=best_score,
         knn_val=best_kval
     ))
-    return k_scores
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method="holdout",
+        normalization_method=normalization_method,
+        dataset=current_dataset,
+        knn_value=best_kval,
+        score=f"{best_score:.2%}"
+    )
 
-def classify_random_subsampling(clf, clf_name, X, y, current_dataset, normalization_method):
+def classify_random_subsampling(classifier, classifier_name, X, y, current_dataset, normalization_method):
     scores = []
     for i in range(10):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
-        clf.fit(X_train, y_train)
-        scores.append(clf.score(X_test, y_test))
+        classifier.fit(X_train, y_train)
+        scores.append(classifier.score(X_test, y_test))
+    average = float(np.mean(scores))
     print(get_accuracy_msg(
-        clf_type="default",
+        classifier_type="default",
         current_dataset=current_dataset,
         evaluation_method="random subsampling",
-        clf_name=clf_name,
+        classifier_name=classifier_name,
         normalization_method=normalization_method,
-        score=float(np.mean(scores))
+        score=average
         ))
-    return scores
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method="random subsampling",
+        normalization_method=normalization_method,
+        dataset=current_dataset,
+        score=f"{average:.2%}"
+    )
 
-def classify_random_subsampling_knn(clf_name, X, y, current_dataset, normalization_method):
+def classify_random_subsampling_knn(classifier_name, X, y, current_dataset, normalization_method):
     k_vals = [3, 5, 7]
     k_scores = {}
     for k in k_vals:
@@ -111,9 +143,9 @@ def classify_random_subsampling_knn(clf_name, X, y, current_dataset, normalizati
         avg_score = float(np.mean(scores))
         k_scores[k] = avg_score
         print(get_accuracy_msg(
-            clf_name=clf_name,
+            classifier_name=classifier_name,
             current_dataset=current_dataset,
-            clf_type="knn inner",
+            classifier_type="knn inner",
             evaluation_method="random subsampling",
             normalization_method=normalization_method,
             score=avg_score,
@@ -121,36 +153,44 @@ def classify_random_subsampling_knn(clf_name, X, y, current_dataset, normalizati
         ))
     best_kval, best_score = get_best(k_scores)
     print(get_accuracy_msg(
-        clf_name=clf_name,
-        clf_type="knn outer",
+        classifier_name=classifier_name,
+        classifier_type="knn outer",
         current_dataset=current_dataset,
         evaluation_method="random subsampling",
         normalization_method=normalization_method,
         score=best_score,
         knn_val=best_kval
     ))
-    return k_scores
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method="random subsampling",
+        normalization_method=normalization_method,
+        dataset=current_dataset,
+        knn_value=best_kval,
+        score=f"{best_score:.2%}"
+    )
 
-def classify_split(clf, splitter, X, y):
+def classify_split(classifier, splitter, X, y):
     scores = []
     for train_index, test_index in splitter.split(X):
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
-        clf.fit(X_train, y_train)
-        scores.append(clf.score(X_test, y_test))
+        classifier.fit(X_train, y_train)
+        scores.append(classifier.score(X_test, y_test))
     return scores
 
-def classify_kfold(clf, clf_name, X, y, current_dataset, normalization_method):
+def classify_kfold(classifier, classifier_name, X, y, current_dataset, normalization_method):
+    evaluation_method = "kfold"
     k_folds = [3, 5, 10]
     k_accuracies = {}
     for k in k_folds:
         splitter = KFold(n_splits=k, shuffle=True)
-        scores = classify_split(clf, splitter, X, y)
+        scores = classify_split(classifier, splitter, X, y)
         print(get_accuracy_msg(
-            clf_name=clf_name,
+            classifier_name=classifier_name,
             current_dataset=current_dataset,
-            clf_type="default kfold inner",
-            evaluation_method="kfold",
+            classifier_type="default kfold inner",
+            evaluation_method=evaluation_method,
             normalization_method=normalization_method,
             score=float(np.mean(scores)),
             kfold_val=k
@@ -158,30 +198,39 @@ def classify_kfold(clf, clf_name, X, y, current_dataset, normalization_method):
         k_accuracies[k] = float(np.mean(scores))
     best_kval, best_score = get_best(k_accuracies)
     print(get_accuracy_msg(
-            clf_name=clf_name,
+            classifier_name=classifier_name,
             current_dataset=current_dataset,
-            clf_type="default kfold outer",
-            evaluation_method="kfold",
+            classifier_type="default kfold outer",
+            evaluation_method=evaluation_method,
             normalization_method=normalization_method,
             score=best_score,
             kfold_val=best_kval
         ))
-    return k_accuracies
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method=evaluation_method,
+        normalization_method=normalization_method,
+        dataset=current_dataset,
+        kfold_value=best_kval,
+        score=f"{best_score:.2%}"
+    )
 
 def classify_kfold_knn(X, y, current_dataset, normalization_method):
+    classifier_name="k-nearest-neighbor"
+    evaluation_method="kfold"
     knn_vals = [3, 5, 7]
     k_fold_vals = [3, 5, 10]
     knn_kfold_combos = {}
     for knn_val in knn_vals:
-        clf = KNeighborsClassifier(n_neighbors=knn_val)
+        classifier = KNeighborsClassifier(n_neighbors=knn_val)
         for kfold_val in k_fold_vals:
             splitter = KFold(n_splits=kfold_val, shuffle=True)
-            scores = classify_split(clf, splitter, X, y)
+            scores = classify_split(classifier, splitter, X, y)
             print(get_accuracy_msg(
-            clf_name="k-nearest-neighbor",
+            classifier_name=classifier_name,
             current_dataset=current_dataset,
-            clf_type="knn kfold inner",
-            evaluation_method="kfold",
+            classifier_type="knn kfold inner",
+            evaluation_method=evaluation_method,
             normalization_method=normalization_method,
             score=float(np.mean(scores)),
             knn_val=knn_val,
@@ -190,43 +239,60 @@ def classify_kfold_knn(X, y, current_dataset, normalization_method):
             knn_kfold_combos[(knn_val, kfold_val)] = float(np.mean(scores))
     best_combo, best_score = get_best(knn_kfold_combos)
     print(get_accuracy_msg(
-        clf_name="k-nearest-neighbor",
+        classifier_name=classifier_name,
         current_dataset=current_dataset,
-        clf_type="knn kfold outer",
-        evaluation_method="kfold",
+        classifier_type="knn kfold outer",
+        evaluation_method=evaluation_method,
         normalization_method=normalization_method,
         score=best_score,
         knn_val=best_combo[0],
         kfold_val=best_combo[1]
     ))
-    return knn_kfold_combos
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method=evaluation_method,
+        normalization_method=normalization_method,
+        dataset=current_dataset,
+        knn_value=best_combo[0],
+        kfold_value=best_combo[1],
+        score=f"{best_score:.2%}"
+    )
 
-def classify_loo(clf, clf_name, X, y, current_dataset, normalization_method):
+def classify_loo(classifier, classifier_name, X, y, current_dataset, normalization_method):
+    evaluation_method = "leave-one-out"
     loo = LeaveOneOut()
-    scores = classify_split(clf, loo, X, y)
+    scores = classify_split(classifier, loo, X, y)
     avg_score = float(np.mean(scores))
     print(get_accuracy_msg(
-        clf_name=clf_name,
-        clf_type="default",
+        classifier_name=classifier_name,
+        classifier_type="default",
         current_dataset=current_dataset,
-        evaluation_method="leave-one-out",
+        evaluation_method=evaluation_method,
         normalization_method=normalization_method,
         score=avg_score
     ))
-    return avg_score
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method=evaluation_method,
+        normalization_method=normalization_method,
+        dataset=current_dataset,
+        score=f"{avg_score:.2%}"
+    )
 
-def classify_loo_knn(clf_name, X, y, current_dataset, normalization_method):
+
+def classify_loo_knn(classifier_name, X, y, current_dataset, normalization_method):
+    evaluation_method="leave-one-out"
     loo = LeaveOneOut()
     knn_vals = [3, 5, 7]
     k_scores = {}
     for k in knn_vals:
-        clf = KNeighborsClassifier(n_neighbors=k)
-        scores = classify_split(clf, loo, X, y)
+        classifier = KNeighborsClassifier(n_neighbors=k)
+        scores = classify_split(classifier, loo, X, y)
         k_scores[k] = float(np.mean(scores))
         print(get_accuracy_msg(
-            clf_name="k-nearest-neighbor",
+            classifier_name="k-nearest-neighbor",
             current_dataset=current_dataset,
-            clf_type="knn inner",
+            classifier_type="knn inner",
             evaluation_method="leave-one-out",
             normalization_method=normalization_method,
             score=float(np.mean(scores)),
@@ -234,16 +300,23 @@ def classify_loo_knn(clf_name, X, y, current_dataset, normalization_method):
         ))
     best_kval, best_score = get_best(k_scores)
     print(get_accuracy_msg(
-        clf_name="k-nearest-neighbor",
+        classifier_name="k-nearest-neighbor",
         current_dataset=current_dataset,
-        clf_type="knn outer",
+        classifier_type="knn outer",
         evaluation_method="leave-one-out",
         normalization_method=normalization_method,
         score=best_score,
         knn_val=best_kval
         )
     )
-    return k_scores
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method=evaluation_method,
+        normalization_method=normalization_method,
+        dataset=current_dataset,
+        knn_value=best_kval,
+        score=f"{best_score:.2%}"
+    )
 
 evaluation_methods = {
     "holdout": [classify_holdout, classify_holdout_knn],
@@ -279,35 +352,54 @@ def get_evaluation_method():
         evaluation_method = (input(input_msg)).lower()
     return evaluation_method
 
-def classify(clf, clf_name, X, y, current_dataset, normalization_method, evaluation_method):
+def classify(classifier, classifier_name, X, y, current_dataset, normalization_method, evaluation_method, lst):
     classify_default = evaluation_methods[evaluation_method][0]
     classify_knn = evaluation_methods[evaluation_method][1]
-    if clf_name == "k-nearest-neighbor":
-        classify_knn(clf_name, X, y, current_dataset, normalization_method)
+    if classifier_name == "k-nearest-neighbor":
+        result = classify_knn(classifier_name, X, y, current_dataset, normalization_method)
     else:
-        classify_default(clf, clf_name, X, y, current_dataset, normalization_method)
-    
-def run_classifier(original_X, y, current_dataset, classifier, normalization_method, evaluation_method):
-    if evaluation_method == "leave-one-out" and classifier == "artificial neural networks":
+        result = classify_default(classifier, classifier_name, X, y, current_dataset, normalization_method)
+    lst.append(result)
+    return result
+
+def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
+    result_list = []
+    if evaluation_method == "leave-one-out" and classifier_name == "artificial neural networks":
         raise ValueError("Leave-one-out and artificial neural networks is an invalid combination")
-    elif classifier == "all":
+    elif classifier_name == "all":
         for clf_name, clf in classifier_map.items():
             if evaluation_method == "leave-one-out" and clf_name == "artificial neural networks":
                 continue
             if normalization_method == "all":
                 for method, func in normalization_methods.items():
                     X = func(original_X)
-                    classify(clf, clf_name, X, y, current_dataset, method, evaluation_method)
+                    classify(clf, clf_name, X, y, current_dataset, method, evaluation_method, result_list)
             else:
                 X = normalization_methods[normalization_method](original_X)
-                classify(clf, clf_name, X, y, current_dataset, normalization_method, evaluation_method)
+                classify(clf, clf_name, X, y, current_dataset, normalization_method, evaluation_method, result_list)
     else:
-        clf = classifier_map[classifier]
+        classifier = classifier_map[classifier_name]
         if normalization_method == "all":
             for method, func in normalization_methods.items():
                 X = func(original_X)
-                classify(clf, classifier, X, y, current_dataset, method, evaluation_method)
+                classify(classifier, classifier_name, X, y, current_dataset, method, evaluation_method, result_list)
         else:
             X = normalization_methods[normalization_method](original_X)
-            classify(clf, classifier, X, y, current_dataset, normalization_method, evaluation_method)
+            classify(classifier, classifier_name, X, y, current_dataset, normalization_method, evaluation_method, result_list)
+    return result_list
 
+if __name__ == "__main__":
+    from data import datasets_dict
+    from utils import get_user_choice
+
+    current_dataset = get_user_choice(datasets_dict)
+    original_X, y = datasets_dict[current_dataset]
+    evaluation_method = get_evaluation_method()
+    classifier_name = get_classifier(evaluation_method)
+    normalization_method = get_normalization_method()
+    lst = []
+
+    print(run_classifier(
+        original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method
+        )
+        )

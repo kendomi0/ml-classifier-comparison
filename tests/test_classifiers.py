@@ -1,10 +1,11 @@
-from classifiers import get_normalization_method, get_best, get_classifier, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classifier_map, normalization_methods, classify_random_subsampling_knn, get_evaluation_method, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, get_accuracy_msg, classify_loo, classify_loo_knn
+from classifiers import get_normalization_method, get_best, get_classifier, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classifier_map, normalization_methods, classify_random_subsampling_knn, get_evaluation_method, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, get_accuracy_msg, classify_loo, classify_loo_knn, ClassificationResult
 from sklearn.model_selection import KFold, LeaveOneOut
 from data import datasets_dict
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 import pytest
 from unittest.mock import MagicMock
+
 
 @pytest.mark.parametrize("user_input", ["unnormalized", "minmax", "zscore"])
 def test_get_normalization_method_valid(monkeypatch, user_input):
@@ -118,18 +119,18 @@ def test_classify_holdout():
     clf_name = "naive bayes"
     current_dataset = "blobs"
     normalization_method = "unnormalized"
-    score = classify_holdout(clf, clf_name, X, y, current_dataset, normalization_method)
-    assert 0 < score <= 1.0
+    result = classify_holdout(clf, clf_name, X, y, current_dataset, normalization_method)
+    print(result)
+    assert isinstance(result, ClassificationResult)
 
 def test_classify_holdout_knn():
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     clf_name = "k-nearest-neighbor"
     current_dataset = "blobs"
     normalization_method = "unnormalized"
-    scores = classify_holdout_knn(clf_name, X, y, current_dataset, normalization_method)
-    assert len(scores) == 3
-    for score in scores.values():
-        assert 0 < score <= 1.0
+    result = classify_holdout_knn(clf_name, X, y, current_dataset, normalization_method)
+    assert isinstance(result, ClassificationResult)
+
 
 @pytest.mark.parametrize("current_dataset, normalization_method",
                        [
@@ -145,8 +146,8 @@ def test_classify_random_subsampling(current_dataset, normalization_method):
     clf_name = "naive bayes"
     clf.score.return_value = 0.9
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
-    scores = classify_random_subsampling(clf, clf_name, X, y, current_dataset, normalization_method)
-    assert len(scores) == 10
+    result = classify_random_subsampling(clf, clf_name, X, y, current_dataset, normalization_method)
+    assert isinstance(result, ClassificationResult)
 
 @pytest.mark.parametrize("current_dataset, normalization_method",
                         [
@@ -160,10 +161,8 @@ def test_classify_random_subsampling(current_dataset, normalization_method):
 def test_classify_random_subsampling_knn(current_dataset, normalization_method):
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     clf_name = "k-nearest-neighbor"
-    scores = classify_random_subsampling_knn(clf_name, X, y, current_dataset, normalization_method)
-    assert len(scores) == 3
-    for score in scores.values():
-        assert 0 < score <= 1.0
+    result = classify_random_subsampling_knn(clf_name, X, y, current_dataset, normalization_method)
+    assert isinstance(result, ClassificationResult)
 
 def test_classify_split():
     clf = classifier_map["naive bayes"]
@@ -181,19 +180,15 @@ def test_classify_kfold():
     current_dataset = "blobs"
     normalization_method = "unnormalized"
     X, y = datasets_dict[current_dataset]
-    k_accuracies = classify_kfold(clf, clf_name, X, y, current_dataset, normalization_method)
-    assert len(k_accuracies) == 3
-    for accuracy in k_accuracies.values():
-        assert 0 < accuracy <= 1.0
+    result = classify_kfold(clf, clf_name, X, y, current_dataset, normalization_method)
+    assert isinstance(result, ClassificationResult)
 
 def test_classify_kfold_knn():
     current_dataset = "blobs"
     normalization_method = "minmax"
     X, y = datasets_dict[current_dataset]
-    combo_scores = classify_kfold_knn(X, y, current_dataset, normalization_method)
-    assert len(combo_scores) == 9
-    for accuracy in combo_scores.values():
-        assert 0 < accuracy <= 1.0
+    result = classify_kfold_knn(X, y, current_dataset, normalization_method)
+    assert isinstance(result, ClassificationResult)
 
 def test_classify_loo():
     current_dataset = "blobs"
@@ -201,16 +196,16 @@ def test_classify_loo():
     clf_name = "naive bayes"
     clf = classifier_map[clf_name]
     normalization_method = "unnormalized"
-    score = classify_loo(clf, clf_name, X, y, current_dataset, normalization_method)
-    assert 0 < score <= 1
+    result = classify_loo(clf, clf_name, X, y, current_dataset, normalization_method)
+    assert isinstance(result, ClassificationResult)
 
 def test_classify_loo_knn(mocker):
     mock_split = mocker.patch("classifiers.classify_split")
-    mock_split.return_value = [0.9, 0.85, 0.88]
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
     normalization_method = "unnormalized"
-    classify_loo_knn("k-nearest-neighbor", X, y, current_dataset, normalization_method)
+    result = classify_loo_knn("k-nearest-neighbor", X, y, current_dataset, normalization_method)
+    assert isinstance(result, ClassificationResult)
     assert any(
         isinstance(call.args[1], LeaveOneOut) for call in mock_split.call_args_list
         )
@@ -227,11 +222,12 @@ def test_classify_loo_knn(mocker):
                             ("k-nearest-neighbor", "blobs", "unnormalized", "leave-one-out")
                         ]
                         )
-def test_run_classifer(clf_name, current_dataset, normalization_method, evaluation_method, mocker):
+def test_classify(clf_name, current_dataset, normalization_method, evaluation_method, mocker):
     mock_dict = mocker.patch("classifiers.evaluation_methods")
     clf = classifier_map[clf_name]
     X, y = datasets_dict[current_dataset]
-    classify(clf, clf_name, X, y, current_dataset, normalization_method, evaluation_method)
+    result_lst = []
+    classify(clf, clf_name, X, y, current_dataset, normalization_method, evaluation_method, result_lst)
     if clf_name != "k-nearest-neighbor":
         mock_dict[evaluation_method][0].assert_called_once()
     else:
@@ -281,9 +277,13 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
                         )
 def test_run_classifier_one_classifier_one_normalization(current_dataset, classifier, normalization_method, evaluation_method):
     original_X, y = datasets_dict[current_dataset]
-    run_classifier(original_X, y, current_dataset, classifier, normalization_method, evaluation_method)
+    result_lst = run_classifier(original_X, y, current_dataset, classifier, normalization_method, evaluation_method)
+    assert len(result_lst) == 1
+    assert all(
+        isinstance(result, ClassificationResult) for result in result_lst
+    )
 
-@pytest.mark.parametrize("classifier, current_dataset, evaluation_method", 
+@pytest.mark.parametrize("classifier, current_dataset, evaluation_method",
                         [
                             ("artificial neural networks", "blobs", "holdout"),
                             ("decision tree", "varied", "random subsampling"),
@@ -342,6 +342,7 @@ def test_run_classifier_all_classifiers_one_normalization(current_dataset, norma
             )
             for clf_name in clfs
         )
+
 
 def test_run_classifier_loo_ann():
     current_dataset = "blobs"

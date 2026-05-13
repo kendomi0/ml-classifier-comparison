@@ -1,3 +1,4 @@
+# TODO: Change name of func
 def get_user_choice(dictionary):
     dict_str = ", ".join(dictionary)
     current_dataset = None
