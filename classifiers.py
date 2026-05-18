@@ -18,10 +18,24 @@ classifier_map = {
     "k-nearest-neighbor": None,
 }
 
+classifier_costs = {
+    "naive bayes": 1,
+    "decision tree": 1,
+    "support vector machine": 2,
+    "k-nearest-neighbor": 2,
+    "artificial neural networks": 3,
+}
+
 normalization_methods = {
     "unnormalized": do_nothing,
     "minmax": normalize_minmax,
     "zscore": normalize_zscore
+}
+
+normalization_methods_costs = {
+    "unnormalized": 0,
+    "minmax": 1,
+    "zscore": 1
 }
 
 @dataclass
@@ -33,6 +47,7 @@ class ClassificationResult:
     score: str
     knn_value: Optional[int] = None
     kfold_value: Optional[int] = None
+    cost: Optional[int] = None
 
 def get_best(score_dict):
     return max(score_dict, key=score_dict.get), max(score_dict.values())
@@ -325,6 +340,13 @@ evaluation_methods = {
     "leave-one-out": [classify_loo, classify_loo_knn]
 }
 
+evaluation_methods_costs = {
+    "holdout": 1,
+    "random subsampling": 2,
+    "kfold": 3,
+    "leave-one-out": 4
+}
+
 def get_classifier(evaluation_method):
     classifier_msg = f"Which classifier? ({", ".join(classifier_map)}, or all): "
     classifier = (input(classifier_msg)).lower()
@@ -388,6 +410,109 @@ def run_classifier(original_X, y, current_dataset, classifier_name, normalizatio
             classify(classifier, classifier_name, X, y, current_dataset, normalization_method, evaluation_method, result_list)
     return result_list
 
+def calculate_cost(result=ClassificationResult):
+    result.cost = 0
+    result.cost += classifier_costs[result.classifier_name] + normalization_methods_costs[result.normalization_method] + evaluation_methods_costs[result.evaluation_method]
+    return result.cost
+
+def sort_by_cost(results):
+    ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
+    results_with_recurring_scores = {}
+    results_with_unique_scores = ranked_results.copy()
+    scores = [float(result.score.strip("%")) for result in ranked_results]
+
+    for index, score in enumerate(scores):
+        count = scores.count(score)
+        if count > 1:
+            if score in results_with_recurring_scores:
+                results_with_recurring_scores[score].append(ranked_results[index])
+            else:
+                results_with_recurring_scores[score] = [ranked_results[index]]
+            results_with_unique_scores.remove(ranked_results[index])
+            
+    for results in results_with_recurring_scores.values():
+        for result in results:
+            result.cost = calculate_cost(result)
+        results = sorted(results, key=lambda result:result.cost) 
+
+    unpacked_results_with_recurring_scores = [result for result in results for results in results_with_recurring_scores]
+    if len(results_with_unique_scores) == 0:
+        sorted_results = unpacked_results_with_recurring_scores.copy()
+    else:
+        sorted_results = results_with_unique_scores + unpacked_results_with_recurring_scores
+        sorted_results = sorted(sorted_results, key=lambda result: (-float(result.score.strip("%")), result.cost))
+    return sorted_results
+
+def print_combination(results, is_best_combo=False, number_of_total_results=None):
+    combos = []
+    for index, result in enumerate(results):
+        display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}, {result.evaluation_method.capitalize()}, {result.normalization_method.capitalize()}. Accuracy: {result.score}"
+        if result.knn_value is not None:
+            display += f", KNN value: {result.knn_value}"
+        if result.kfold_value is not None:
+            display += f", Kfold value: {result.kfold_value}"
+        if is_best_combo:
+            display = f"Best combo: {display}"
+        else:
+            if result.cost is not None:
+                display += f", Computational cost: {result.cost}"
+            if len(results) > 1:
+                display = f"#{index+1}: {display}"
+        combos.append(display)
+    if isinstance(number_of_total_results, int):
+        if len(results) < number_of_total_results:
+            print(f"Top {len(results)} combinations out of {number_of_total_results} total combinations: ")
+        else:
+            print("All combinations: ")
+    for combo in combos:
+        print(combo)
+    return combos
+
+def prompt_number_of_combinations(results):
+    input_msg = "How many of the top combinations would you like to see? Type 'all' to see the complete ranking: "
+    number_of_combos_input = input(input_msg)
+    if number_of_combos_input.isnumeric():
+        number_of_combos_input = int(number_of_combos_input)
+    elif number_of_combos_input == "all":
+        number_of_combos_input = len(results)
+    return number_of_combos_input
+
+def validate_combo_number_input(number_of_combos_input, results):
+    while number_of_combos_input not in range(1, len(results)+1):
+        if isinstance(number_of_combos_input, str):
+            print("Invalid string input.")
+        elif number_of_combos_input < 1:
+            print("Number of combinations to display cannot be less than 1.")
+        elif number_of_combos_input > len(results):
+            print("Number of combinations to display cannot be higher than number of total combinations.")
+        number_of_combos_input = prompt_number_of_combinations(results)
+    return number_of_combos_input
+
+def get_valid_number_of_combos(results):
+    number_of_combos_input = prompt_number_of_combinations(results)
+    return validate_combo_number_input(number_of_combos_input, results)
+
+def rank_results(results):
+    scores = [result.score for result in results]
+    scores_without_duplicates = set(scores)
+    if len(scores) != len(scores_without_duplicates):
+        ranked_results = sort_by_cost(results)
+    else:
+        ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
+    return ranked_results
+
+def display_selected_combos(result_list, number_of_combos):
+    combinations = []
+    if len(result_list) == 1:
+        print_combination(result_list)
+    else:
+        ranked_results = rank_results(result_list)
+        if number_of_combos == 1:
+            combinations = print_combination(ranked_results[:1], is_best_combo=True)
+        else:
+            combinations = print_combination(ranked_results[:number_of_combos], number_of_total_results=len(result_list))
+    return combinations
+
 if __name__ == "__main__":
     from data import datasets_dict
     from utils import get_user_choice
@@ -395,11 +520,15 @@ if __name__ == "__main__":
     current_dataset = get_user_choice(datasets_dict)
     original_X, y = datasets_dict[current_dataset]
     evaluation_method = get_evaluation_method()
-    classifier_name = get_classifier(evaluation_method)
-    normalization_method = get_normalization_method()
+    classifier_name = "naive bayes"
+    normalization_method = "all"
     lst = []
 
-    print(run_classifier(
+    results = run_classifier(
         original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method
         )
-        )
+    
+    number_of_combos = get_valid_number_of_combos(results)
+    
+    display_selected_combos(results, number_of_combos)
+
