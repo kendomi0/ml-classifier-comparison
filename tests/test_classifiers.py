@@ -1,4 +1,4 @@
-from classifiers import get_normalization_method, get_best, get_classifier, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classifier_map, normalization_methods, classify_random_subsampling_knn, get_evaluation_method, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, get_accuracy_msg, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, print_combination, display_selected_combos, calculate_cost, get_valid_number_of_combos, validate_combo_number_input, rank_results, prompt_number_of_combinations
+from classifiers import get_normalization_method, get_best, get_classifier, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classifier_map, normalization_methods, classify_random_subsampling_knn, get_evaluation_method, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, print_combination, display_selected_combos, calculate_cost, get_valid_number_of_combos, validate_combo_number_input, rank_results, prompt_number_of_combinations
 from sklearn.model_selection import KFold, LeaveOneOut
 from data import datasets_dict
 from sklearn import datasets
@@ -84,34 +84,6 @@ def test_get_evaluation_method_invalid_valid(monkeypatch, capsys):
     captured = capsys.readouterr()
     assert "Invalid input" in captured.out
     assert result == list(evaluation_methods.keys())[0]
-
-@pytest.mark.parametrize("clf_name, clf_type, evaluation_method, knn_val, kfold_val",
-                       [
-                           ("naive bayes", "default", "holdout", None, None),
-                           ("k-nearest-neighbor", "knn inner", "random subsampling", 3, None),
-                           ("k-nearest-neighbor", "knn outer", "holdout", 3, None),
-                           ("naive bayes", "default kfold inner", "kfold", None, 3),
-                           ("naive bayes", "default kfold outer", "kfold", None, 3),
-                           ("k-nearest-neighbor", "knn kfold inner", "kfold", 3, 3),
-                           ("k-nearest-neighbor", "knn kfold outer", "kfold", 3, 3)
-                       ]
-                       )
-def test_get_accuracy_msg(clf_name, clf_type, evaluation_method, knn_val, kfold_val):
-    current_dataset="blobs"
-    normalization_method="unnormalized"
-    score=0.98877
-    result = get_accuracy_msg(clf_name, clf_type, current_dataset, evaluation_method, normalization_method, score, knn_val, kfold_val)
-    print(result)
-    terms = [clf_name, evaluation_method, current_dataset, normalization_method]
-    new_terms = [term.capitalize() for term in terms]
-    score_percent = "98.88%"
-    new_terms.append(score_percent)
-    for term in new_terms:
-        assert term in result
-    if knn_val is not None:
-        assert str(knn_val) in result
-    if kfold_val is not None:
-        assert str(kfold_val) in result
 
 def test_classify_holdout():
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
