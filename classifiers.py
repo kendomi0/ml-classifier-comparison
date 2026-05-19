@@ -447,6 +447,7 @@ def sort_by_cost(results):
 def print_combination(results, is_best_combo=False, number_of_total_results=None):
     combos = []
     for index, result in enumerate(results):
+        # TODO: Change so kfold/knn is always before accuracy
         display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}, {result.evaluation_method.capitalize()}, {result.normalization_method.capitalize()}. Accuracy: {result.score}"
         if result.knn_value is not None:
             display += f", KNN value: {result.knn_value}"
@@ -462,7 +463,7 @@ def print_combination(results, is_best_combo=False, number_of_total_results=None
         combos.append(display)
     if isinstance(number_of_total_results, int):
         if len(results) < number_of_total_results:
-            print(f"Top {len(results)} combinations out of {number_of_total_results} total combinations: ")
+            print(f"Top {len(results)} out of {number_of_total_results} total combinations: ")
         else:
             print("All combinations: ")
     for combo in combos:
@@ -470,8 +471,7 @@ def print_combination(results, is_best_combo=False, number_of_total_results=None
     return combos
 
 def prompt_number_of_combinations(results):
-    # TODO: Change input message to include "out of X total combinations" so user knows maximum number
-    input_msg = "How many of the top combinations would you like to see? Type 'all' to see the complete ranking: "
+    input_msg = f"How many of the top combinations would you like to see out of {len(results)} total combinations? Type 'all' to see the complete ranking: "
     number_of_combos_input = input(input_msg)
     if number_of_combos_input.isnumeric():
         number_of_combos_input = int(number_of_combos_input)
