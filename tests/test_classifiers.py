@@ -420,7 +420,7 @@ def test_print_combination_isbest():
     ]
     best_combo = print_combination(result_list, True)
     best_result = result_list[0]
-    assert best_combo[0] == f"Best combo: {best_result.dataset.capitalize()}, {best_result.classifier_name.capitalize()}, {best_result.evaluation_method.capitalize()}, {best_result.normalization_method.capitalize()}. Accuracy: {best_result.score}, KNN value: {best_result.knn_value}, Kfold value: {best_result.kfold_value}"
+    assert best_combo[0] == f"Best combo: {best_result.dataset.capitalize()}, {best_result.classifier_name.capitalize()} (KNN value: {best_result.knn_value}), {best_result.evaluation_method.capitalize()} (Kfold value: {best_result.kfold_value}), {best_result.normalization_method.capitalize()}. Accuracy: {best_result.score}"
 
 @pytest.mark.parametrize("number_input", ["all", "4"])
 def test_prompt_number_of_combinations(monkeypatch, number_input):

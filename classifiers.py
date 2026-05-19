@@ -379,6 +379,7 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
     classify_default = evaluation_methods[evaluation_method][0]
     classify_knn = evaluation_methods[evaluation_method][1]
     if classifier_name == "k-nearest-neighbor":
+        # FIXME: Fix bug when using both kfold and k-nearest-neighbor
         result = classify_knn(classifier_name, X, y, current_dataset, normalization_method)
     else:
         result = classify_default(classifier, classifier_name, X, y, current_dataset, normalization_method)
@@ -447,12 +448,14 @@ def sort_by_cost(results):
 def print_combination(results, is_best_combo=False, number_of_total_results=None):
     combos = []
     for index, result in enumerate(results):
-        # TODO: Change so kfold/knn is always before accuracy
-        display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}, {result.evaluation_method.capitalize()}, {result.normalization_method.capitalize()}. Accuracy: {result.score}"
-        if result.knn_value is not None:
-            display += f", KNN value: {result.knn_value}"
+        print_kfold_value = ""
         if result.kfold_value is not None:
-            display += f", Kfold value: {result.kfold_value}"
+            print_kfold_value = f" (Kfold value: {result.kfold_value})"
+        print_knn_value = ""
+        if result.knn_value is not None:
+            print_knn_value = f" (KNN value: {result.knn_value})"
+        display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}{print_knn_value}, {result.evaluation_method.capitalize()}{print_kfold_value}, {result.normalization_method.capitalize()}."
+        display += f" Accuracy: {result.score}"
         if is_best_combo:
             display = f"Best combo: {display}"
         else:
