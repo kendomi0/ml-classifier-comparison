@@ -52,6 +52,7 @@ class ClassificationResult:
 def get_best(score_dict):
     return max(score_dict, key=score_dict.get), max(score_dict.values())
 
+# TODO: Evaluate whether this may be unnecessary now that there is a function to get best combinations
 def get_accuracy_msg(classifier_name, classifier_type, current_dataset, evaluation_method, normalization_method, score, knn_val=None, kfold_val=None):
     names = f"({current_dataset.capitalize()}, {evaluation_method.capitalize()}, {classifier_name.capitalize()}, {normalization_method.capitalize()})"
     msgs = {
@@ -429,7 +430,7 @@ def sort_by_cost(results):
             else:
                 results_with_recurring_scores[score] = [ranked_results[index]]
             results_with_unique_scores.remove(ranked_results[index])
-            
+
     for results in results_with_recurring_scores.values():
         for result in results:
             result.cost = calculate_cost(result)
@@ -469,6 +470,7 @@ def print_combination(results, is_best_combo=False, number_of_total_results=None
     return combos
 
 def prompt_number_of_combinations(results):
+    # TODO: Change input message to include "out of X total combinations" so user knows maximum number
     input_msg = "How many of the top combinations would you like to see? Type 'all' to see the complete ranking: "
     number_of_combos_input = input(input_msg)
     if number_of_combos_input.isnumeric():
