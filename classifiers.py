@@ -146,8 +146,7 @@ def classify_kfold(classifier, classifier_name, X, y, current_dataset, normaliza
         score=f"{best_score:.2%}"
     )
 
-def classify_kfold_knn(X, y, current_dataset, normalization_method):
-    classifier_name="k-nearest-neighbor"
+def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_method):
     evaluation_method="kfold"
     knn_vals = [3, 5, 7]
     k_fold_vals = [3, 5, 10]
@@ -247,7 +246,6 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
     classify_default = evaluation_methods[evaluation_method][0]
     classify_knn = evaluation_methods[evaluation_method][1]
     if classifier_name == "k-nearest-neighbor":
-        # FIXME: Fix bug when using both kfold and k-nearest-neighbor
         result = classify_knn(classifier_name, X, y, current_dataset, normalization_method)
     else:
         result = classify_default(classifier, classifier_name, X, y, current_dataset, normalization_method)

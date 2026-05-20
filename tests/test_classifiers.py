@@ -156,10 +156,11 @@ def test_classify_kfold():
     assert isinstance(result, ClassificationResult)
 
 def test_classify_kfold_knn():
+    classifier_name = "k-nearest-neighbor"
     current_dataset = "blobs"
     normalization_method = "minmax"
     X, y = datasets_dict[current_dataset]
-    result = classify_kfold_knn(X, y, current_dataset, normalization_method)
+    result = classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_method)
     assert isinstance(result, ClassificationResult)
 
 def test_classify_loo():
