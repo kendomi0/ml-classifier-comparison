@@ -237,7 +237,7 @@ def get_normalization_method():
 def get_evaluation_method():
     input_msg = f"Which evaluation method? ({", ".join(evaluation_methods)}): "
     evaluation_method = (input(input_msg)).lower()
-    while evaluation_method not in evaluation_methods:
+    while evaluation_method not in evaluation_methods and evaluation_method != "all":
         print("Invalid input, try again.")
         evaluation_method = (input(input_msg)).lower()
     return evaluation_method
@@ -250,33 +250,36 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
     else:
         result = classify_default(classifier, classifier_name, X, y, current_dataset, normalization_method)
     lst.append(result)
+    print(result)
     return result
 
 def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
-    result_list = []
+    results = []
     if evaluation_method == "leave-one-out" and classifier_name == "artificial neural networks":
         raise ValueError("Leave-one-out and artificial neural networks is an invalid combination")
-    elif classifier_name == "all":
-        for clf_name, clf in classifier_map.items():
-            if evaluation_method == "leave-one-out" and clf_name == "artificial neural networks":
-                continue
-            if normalization_method == "all":
-                for method, func in normalization_methods.items():
-                    X = func(original_X)
-                    classify(clf, clf_name, X, y, current_dataset, method, evaluation_method, result_list)
-            else:
-                X = normalization_methods[normalization_method](original_X)
-                classify(clf, clf_name, X, y, current_dataset, normalization_method, evaluation_method, result_list)
+    if evaluation_method == "all":
+        evaluations = evaluation_methods.items()
     else:
-        classifier = classifier_map[classifier_name]
-        if normalization_method == "all":
-            for method, func in normalization_methods.items():
-                X = func(original_X)
-                classify(classifier, classifier_name, X, y, current_dataset, method, evaluation_method, result_list)
-        else:
-            X = normalization_methods[normalization_method](original_X)
-            classify(classifier, classifier_name, X, y, current_dataset, normalization_method, evaluation_method, result_list)
-    return result_list
+        evaluations = [(evaluation_method, evaluation_methods[evaluation_method])]
+    if classifier_name == "all":
+        classifiers = classifier_map.items()
+    else:
+        classifiers = [(classifier_name, classifier_map[classifier_name])]
+    if normalization_method == "all":
+        normalizations = normalization_methods.items()
+    else:
+        normalizations = [(normalization_method, normalization_methods[normalization_method])]
+    for evaluation in evaluations:
+        for classifier in classifiers:
+            for normalization in normalizations:
+                normalization_method_name, normalizer = normalization
+                clf_name, clf_func = classifier
+                evaluation_method_name, _ = evaluation
+                if evaluation_method_name == "leave-one-out" and clf_name == "artificial neural networks":
+                    continue
+                X = normalizer(original_X)
+                classify(clf_func, clf_name, X, y, current_dataset, normalization_method_name, evaluation_method_name, results)
+    return results
 
 def calculate_cost(result=ClassificationResult):
     result.cost = 0
@@ -388,15 +391,15 @@ if __name__ == "__main__":
     from data import datasets_dict
     from utils import get_user_choice
 
-    current_dataset = get_user_choice(datasets_dict)
+    current_dataset = "varied"
     original_X, y = datasets_dict[current_dataset]
-    evaluation_method = get_evaluation_method()
-    classifier_name = "naive bayes"
+    evaluation_method = "all"
+    classifier_name = "all"
     normalization_method = "all"
     lst = []
 
     results = run_classifier(
-        original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method
+        original_X, y, current_dataset, "artificial neural networks", normalization_method, "leave-one-out"
         )
     
     number_of_combos = get_valid_number_of_combos(results)

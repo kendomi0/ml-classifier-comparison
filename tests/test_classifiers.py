@@ -205,6 +205,30 @@ def test_classify(clf_name, current_dataset, normalization_method, evaluation_me
         mock_dict[evaluation_method][0].assert_called_once()
     else:
         mock_dict[evaluation_method][1].assert_called_once()
+        
+def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
+    current_dataset = "blobs"
+    X, y = datasets_dict[current_dataset]
+    mock_run = mocker.patch("classifiers.classify")
+    run_classifier(X, y, current_dataset, "all", "all", "all")
+    clfs = list(classifier_map)
+    norm_methods = list(normalization_methods)
+    evaluation_methods_list = list(evaluation_methods)
+
+    assert len(mock_run.call_args_list) == 57
+
+    assert all(
+        any(
+            call.args[1] == clf_name and
+            call.args[5] == normalization_method and
+            call.args[6] == evaluation_method
+            for call in mock_run.call_args_list
+        )
+        for clf_name in clfs
+        for normalization_method in norm_methods
+        for evaluation_method in evaluation_methods_list
+        if not (evaluation_method == "leave-one-out" and clf_name == "artificial neural networks")
+    )
 
 @pytest.mark.parametrize("evaluation_method",
                          ["holdout", "random subsampling", "kfold", "leave-one-out"]
