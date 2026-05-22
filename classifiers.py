@@ -250,7 +250,6 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
     else:
         result = classify_default(classifier, classifier_name, X, y, current_dataset, normalization_method)
     lst.append(result)
-    print(result)
     return result
 
 def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
@@ -304,9 +303,10 @@ def sort_by_cost(results):
     for results in results_with_recurring_scores.values():
         for result in results:
             result.cost = calculate_cost(result)
-        results = sorted(results, key=lambda result:result.cost) 
+        results = sorted(results, key=lambda result:result.cost)
 
-    unpacked_results_with_recurring_scores = [result for result in results for results in results_with_recurring_scores]
+    unpacked_results_with_recurring_scores = [unpacked_result for result_list in results_with_recurring_scores.values() for unpacked_result in result_list]
+
     if len(results_with_unique_scores) == 0:
         sorted_results = unpacked_results_with_recurring_scores.copy()
     else:
@@ -391,15 +391,15 @@ if __name__ == "__main__":
     from data import datasets_dict
     from utils import get_user_choice
 
-    current_dataset = "varied"
+    current_dataset = "blobs"
     original_X, y = datasets_dict[current_dataset]
-    evaluation_method = "all"
+    evaluation_method = "leave-one-out"
     classifier_name = "all"
     normalization_method = "all"
     lst = []
 
     results = run_classifier(
-        original_X, y, current_dataset, "artificial neural networks", normalization_method, "leave-one-out"
+        original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method
         )
     
     number_of_combos = get_valid_number_of_combos(results)
