@@ -1,4 +1,4 @@
-from classifiers import get_normalization_method, get_best, get_classifier, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classifier_map, normalization_methods, classify_random_subsampling_knn, get_evaluation_method, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, print_combination, display_selected_combos, calculate_cost, get_valid_number_of_combos, validate_combo_number_input, rank_results, prompt_number_of_combinations
+from classifiers import get_normalization_method, get_best, get_classifier, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classifier_map, normalization_methods, classify_random_subsampling_knn, get_evaluation_method, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, print_combination, display_selected_combos, calculate_cost, get_valid_number_of_combos, validate_combo_number_input, rank_results, prompt_number_of_combinations, check_valid_combination
 from sklearn.model_selection import KFold, LeaveOneOut
 from data import datasets_dict
 from sklearn import datasets
@@ -205,6 +205,46 @@ def test_classify(clf_name, current_dataset, normalization_method, evaluation_me
         mock_dict[evaluation_method][0].assert_called_once()
     else:
         mock_dict[evaluation_method][1].assert_called_once()
+
+def test_check_valid_combination_both(monkeypatch, capsys):
+    inputs = iter(["ajjj", "both", "leave-one-out", "all"])
+    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+    evaluation_method, classifier_name = check_valid_combination("leave-one-out", "artificial neural networks")
+    captured = capsys.readouterr()
+    assert "Invalid input" in captured.out
+    assert evaluation_method == "leave-one-out"
+    assert classifier_name == "all"
+
+def test_check_valid_combination_clf(monkeypatch, capsys):
+    inputs = iter(["ajjj", "classifier", "artificial neural networks", "naive bayes"])
+    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+    evaluation_method, classifier_name = check_valid_combination("leave-one-out", "artificial neural networks")
+    captured = capsys.readouterr()
+    assert "Invalid input" in captured.out
+    assert evaluation_method == "leave-one-out"
+    assert classifier_name == "naive bayes"
+
+def test_check_valid_combination_evaluation(monkeypatch, capsys):
+    inputs = iter(["ajjj", "evaluation method", "leave-one-out", "classifier", "all"])
+    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+    evaluation_method, classifier_name = check_valid_combination("leave-one-out", "artificial neural networks")
+    captured = capsys.readouterr()
+    assert "Invalid input" in captured.out
+    assert evaluation_method == "leave-one-out"
+    assert classifier_name == "all"
+
+def test_check_valid_combination_already_valid():
+    evaluation_method, classifier_name = check_valid_combination("leave-one-out", "naive bayes")
+    assert evaluation_method == "leave-one-out"
+    assert classifier_name == "naive bayes"
+
+def test_run_classifier_loo_ann(mocker):
+    current_dataset = "blobs"
+    X, y = datasets_dict[current_dataset]
+    mocker.patch("classifiers.classify")
+    mock_check_valid_combination = mocker.patch("classifiers.check_valid_combination", return_value=("all", "all"))
+    run_classifier(X, y, current_dataset, evaluation_method="leave-one-out", normalization_method="all", classifier_name="artificial neural networks")
+    mock_check_valid_combination.assert_called_once()
         
 def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
     current_dataset = "blobs"
@@ -339,16 +379,6 @@ def test_run_classifier_all_classifiers_one_normalization(current_dataset, norma
             )
             for clf_name in clfs
         )
-
-
-def test_run_classifier_loo_ann():
-    current_dataset = "blobs"
-    original_X, y = datasets_dict[current_dataset]
-    classifier = "artificial neural networks"
-    normalization_method = "unnormalized"
-    evaluation_method = "leave-one-out"
-    with pytest.raises(ValueError):
-        run_classifier(original_X, y, current_dataset, classifier, normalization_method, evaluation_method)
 
 def test_calculate_cost():
     list_classifier_map = list(classifier_map)
