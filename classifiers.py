@@ -220,7 +220,7 @@ def get_classifier(evaluation_method):
     classifier = (input(classifier_msg)).lower()
     while (classifier not in classifier_map and classifier != "all") or (evaluation_method == "leave-one-out" and classifier == "artificial neural networks"):
         if evaluation_method == "leave-one-out" and classifier == "artificial neural networks":
-            print("Artificial neural networks is not available to use with leave-one-out, due to the computational cost. Choose another classifier.")
+            print("Artificial neural networks is not available to use with leave-one-out, due to the high computational cost. Choose another classifier.")
         else:
             print("Invalid input, try again.")
         classifier = (input(classifier_msg)).lower()
@@ -252,10 +252,26 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
     lst.append(result)
     return result
 
+def check_valid_combination(evaluation_method, classifier_name):
+    while evaluation_method == "leave-one-out" and classifier_name == "artificial neural networks":
+        print("Leave-one-out and artificial neural networks is an invalid combination due to the high computational cost.")
+        input_msg = "Would you like to choose a different evaluation method, different classifier, or both? Enter 'evaluation method', 'classifier', or 'both'."
+        choose_new = input(input_msg)
+        while choose_new not in ["evaluation method", "classifier", "both"]:
+            print("Invalid input.")
+            choose_new = input(input_msg)
+        if choose_new == "both":
+            evaluation_method = get_evaluation_method()
+            classifier_name = get_classifier(evaluation_method)
+        elif choose_new == "classifier":
+            classifier_name = get_classifier(evaluation_method)
+        elif choose_new == "evaluation method":
+            evaluation_method = get_evaluation_method()
+    return evaluation_method, classifier_name
+
 def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
     results = []
-    if evaluation_method == "leave-one-out" and classifier_name == "artificial neural networks":
-        raise ValueError("Leave-one-out and artificial neural networks is an invalid combination")
+    evaluation_method, classifier_name = check_valid_combination(evaluation_method, classifier_name)
     if evaluation_method == "all":
         evaluations = evaluation_methods.items()
     else:
@@ -375,16 +391,16 @@ def rank_results(results):
         ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
     return ranked_results
 
-def display_selected_combos(result_list, number_of_combos):
+def display_selected_combos(results, number_of_combos):
     combinations = []
-    if len(result_list) == 1:
-        print_combination(result_list)
+    if len(results) == 1:
+        print_combination(results)
     else:
-        ranked_results = rank_results(result_list)
+        ranked_results = rank_results(results)
         if number_of_combos == 1:
             combinations = print_combination(ranked_results[:1], is_best_combo=True)
         else:
-            combinations = print_combination(ranked_results[:number_of_combos], number_of_total_results=len(result_list))
+            combinations = print_combination(ranked_results[:number_of_combos], number_of_total_results=len(results))
     return combinations
 
 if __name__ == "__main__":
@@ -394,7 +410,7 @@ if __name__ == "__main__":
     current_dataset = "blobs"
     original_X, y = datasets_dict[current_dataset]
     evaluation_method = "leave-one-out"
-    classifier_name = "all"
+    classifier_name = "artificial neural networks"
     normalization_method = "all"
     lst = []
 
@@ -404,5 +420,5 @@ if __name__ == "__main__":
     
     number_of_combos = get_valid_number_of_combos(results)
     
-    display_selected_combos(results, number_of_combos)
+    combinations = display_selected_combos(results, number_of_combos)
 
