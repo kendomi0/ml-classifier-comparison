@@ -7,6 +7,8 @@ from preprocessing import normalize_minmax, normalize_zscore
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
+from dataclasses import dataclass
+from typing import Optional
 
 classifier_map = {
     "naive bayes": GaussianNB(),
@@ -16,89 +18,86 @@ classifier_map = {
     "k-nearest-neighbor": None,
 }
 
+classifier_costs = {
+    "naive bayes": 1,
+    "decision tree": 1,
+    "support vector machine": 2,
+    "k-nearest-neighbor": 2,
+    "artificial neural networks": 3,
+}
+
 normalization_methods = {
     "unnormalized": do_nothing,
     "minmax": normalize_minmax,
     "zscore": normalize_zscore
 }
 
+normalization_methods_costs = {
+    "unnormalized": 0,
+    "minmax": 1,
+    "zscore": 1
+}
+
+@dataclass
+class ClassificationResult:
+    classifier_name: str
+    evaluation_method: str
+    normalization_method: str
+    dataset: str
+    score: str
+    knn_value: Optional[int] = None
+    kfold_value: Optional[int] = None
+    cost: Optional[int] = None
+
 def get_best(score_dict):
     return max(score_dict, key=score_dict.get), max(score_dict.values())
 
-def get_accuracy_msg(clf_name, clf_type, current_dataset, evaluation_method, normalization_method, score, knn_val=None, kfold_val=None):
-    names = f"({current_dataset.capitalize()}, {evaluation_method.capitalize()}, {clf_name.capitalize()}, {normalization_method.capitalize()})"
-    msgs = {
-        "default": f"{names} Accuracy: {score:.2%}",
-        "knn inner": f"{names} Accuracy using knn={knn_val}: {score:.2%}",
-        "knn outer": f"{names} Best knn-value: {knn_val}, accuracy: {score:.2%}",
-        "default kfold inner": f"{names} Accuracy using k-fold val of {kfold_val}: {score:.2%}",
-        "default kfold outer": f"{names} Best kfold-value: {kfold_val}, accuracy: {score:.2%}",
-        "knn kfold inner": f"{names} Accuracy using KNN value={knn_val} and K-fold value={kfold_val}: {score:.2%}",
-        "knn kfold outer": f"{names} Best k-nearest-neighbor and kfold combo: KNN value={knn_val} and K-fold value={kfold_val}, accuracy: {score:.2%}"
-    }
-    return msgs[clf_type]
-
-def classify_holdout(clf, clf_name, X, y, current_dataset, normalization_method):
+def classify_holdout(classifier, classifier_name, X, y, current_dataset, normalization_method):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    clf.fit(X_train, y_train)
-    holdout_score = clf.score(X_test, y_test)
-    print(get_accuracy_msg(
-        clf_name=clf_name,
-        clf_type="default",
-        current_dataset=current_dataset,
+    classifier.fit(X_train, y_train)
+    holdout_score = classifier.score(X_test, y_test)
+    return ClassificationResult(
+        classifier_name=classifier_name,
         evaluation_method="holdout",
         normalization_method=normalization_method,
-        score=holdout_score
-    ))
-    return holdout_score
-
-def classify_holdout_knn(clf_name, X, y, current_dataset, normalization_method):
+        dataset=current_dataset,
+        score=f"{holdout_score:.2%}"
+    )
+def classify_holdout_knn(classifier_name, X, y, current_dataset, normalization_method):
     k_vals = [3, 5, 7]
     k_scores = {}
     for k in k_vals:
-        clf = KNeighborsClassifier(k)
+        classifier = KNeighborsClassifier(k)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-        clf.fit(X_train, y_train)
-        score = clf.score(X_test, y_test)
+        classifier.fit(X_train, y_train)
+        score = classifier.score(X_test, y_test)
         k_scores[k] = score
-        print(get_accuracy_msg(
-            clf_name=clf_name,
-            current_dataset=current_dataset,
-            clf_type="knn inner",
-            evaluation_method="holdout",
-            normalization_method=normalization_method,
-            score=score,
-            knn_val=k
-        ))
     best_kval, best_score = get_best(k_scores)
-    print(get_accuracy_msg(
-        clf_name=clf_name,
-        clf_type="knn outer",
-        current_dataset=current_dataset,
+    return ClassificationResult(
+        classifier_name=classifier_name,
         evaluation_method="holdout",
         normalization_method=normalization_method,
-        score=best_score,
-        knn_val=best_kval
-    ))
-    return k_scores
+        dataset=current_dataset,
+        knn_value=best_kval,
+        score=f"{best_score:.2%}"
+    )
 
-def classify_random_subsampling(clf, clf_name, X, y, current_dataset, normalization_method):
+def classify_random_subsampling(classifier, classifier_name, X, y, current_dataset, normalization_method):
     scores = []
     for i in range(10):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
-        clf.fit(X_train, y_train)
-        scores.append(clf.score(X_test, y_test))
-    print(get_accuracy_msg(
-        clf_type="default",
-        current_dataset=current_dataset,
+        classifier.fit(X_train, y_train)
+        scores.append(classifier.score(X_test, y_test))
+    average = float(np.mean(scores))
+    return ClassificationResult(
+        classifier_name=classifier_name,
         evaluation_method="random subsampling",
-        clf_name=clf_name,
         normalization_method=normalization_method,
-        score=float(np.mean(scores))
-        ))
-    return scores
+        dataset=current_dataset,
+        score=f"{average:.2%}"
+    )
 
-def classify_random_subsampling_knn(clf_name, X, y, current_dataset, normalization_method):
+def classify_random_subsampling_knn(classifier_name, X, y, current_dataset, normalization_method):
     k_vals = [3, 5, 7]
     k_scores = {}
     for k in k_vals:
@@ -110,146 +109,110 @@ def classify_random_subsampling_knn(clf_name, X, y, current_dataset, normalizati
             scores.append(k_next.score(X_test, y_test))
         avg_score = float(np.mean(scores))
         k_scores[k] = avg_score
-        print(get_accuracy_msg(
-            clf_name=clf_name,
-            current_dataset=current_dataset,
-            clf_type="knn inner",
-            evaluation_method="random subsampling",
-            normalization_method=normalization_method,
-            score=avg_score,
-            knn_val=k
-        ))
     best_kval, best_score = get_best(k_scores)
-    print(get_accuracy_msg(
-        clf_name=clf_name,
-        clf_type="knn outer",
-        current_dataset=current_dataset,
+    return ClassificationResult(
+        classifier_name=classifier_name,
         evaluation_method="random subsampling",
         normalization_method=normalization_method,
-        score=best_score,
-        knn_val=best_kval
-    ))
-    return k_scores
+        dataset=current_dataset,
+        knn_value=best_kval,
+        score=f"{best_score:.2%}"
+    )
 
-def classify_split(clf, splitter, X, y):
+def classify_split(classifier, splitter, X, y):
     scores = []
     for train_index, test_index in splitter.split(X):
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
-        clf.fit(X_train, y_train)
-        scores.append(clf.score(X_test, y_test))
+        classifier.fit(X_train, y_train)
+        scores.append(classifier.score(X_test, y_test))
     return scores
 
-def classify_kfold(clf, clf_name, X, y, current_dataset, normalization_method):
+def classify_kfold(classifier, classifier_name, X, y, current_dataset, normalization_method):
+    evaluation_method = "kfold"
     k_folds = [3, 5, 10]
     k_accuracies = {}
     for k in k_folds:
         splitter = KFold(n_splits=k, shuffle=True)
-        scores = classify_split(clf, splitter, X, y)
-        print(get_accuracy_msg(
-            clf_name=clf_name,
-            current_dataset=current_dataset,
-            clf_type="default kfold inner",
-            evaluation_method="kfold",
-            normalization_method=normalization_method,
-            score=float(np.mean(scores)),
-            kfold_val=k
-        ))
+        scores = classify_split(classifier, splitter, X, y)
         k_accuracies[k] = float(np.mean(scores))
     best_kval, best_score = get_best(k_accuracies)
-    print(get_accuracy_msg(
-            clf_name=clf_name,
-            current_dataset=current_dataset,
-            clf_type="default kfold outer",
-            evaluation_method="kfold",
-            normalization_method=normalization_method,
-            score=best_score,
-            kfold_val=best_kval
-        ))
-    return k_accuracies
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method=evaluation_method,
+        normalization_method=normalization_method,
+        dataset=current_dataset,
+        kfold_value=best_kval,
+        score=f"{best_score:.2%}"
+    )
 
-def classify_kfold_knn(X, y, current_dataset, normalization_method):
+def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_method):
+    evaluation_method="kfold"
     knn_vals = [3, 5, 7]
     k_fold_vals = [3, 5, 10]
     knn_kfold_combos = {}
     for knn_val in knn_vals:
-        clf = KNeighborsClassifier(n_neighbors=knn_val)
+        classifier = KNeighborsClassifier(n_neighbors=knn_val)
         for kfold_val in k_fold_vals:
             splitter = KFold(n_splits=kfold_val, shuffle=True)
-            scores = classify_split(clf, splitter, X, y)
-            print(get_accuracy_msg(
-            clf_name="k-nearest-neighbor",
-            current_dataset=current_dataset,
-            clf_type="knn kfold inner",
-            evaluation_method="kfold",
-            normalization_method=normalization_method,
-            score=float(np.mean(scores)),
-            knn_val=knn_val,
-            kfold_val=kfold_val
-        ))
+            scores = classify_split(classifier, splitter, X, y)
             knn_kfold_combos[(knn_val, kfold_val)] = float(np.mean(scores))
     best_combo, best_score = get_best(knn_kfold_combos)
-    print(get_accuracy_msg(
-        clf_name="k-nearest-neighbor",
-        current_dataset=current_dataset,
-        clf_type="knn kfold outer",
-        evaluation_method="kfold",
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method=evaluation_method,
         normalization_method=normalization_method,
-        score=best_score,
-        knn_val=best_combo[0],
-        kfold_val=best_combo[1]
-    ))
-    return knn_kfold_combos
+        dataset=current_dataset,
+        knn_value=best_combo[0],
+        kfold_value=best_combo[1],
+        score=f"{best_score:.2%}"
+    )
 
-def classify_loo(clf, clf_name, X, y, current_dataset, normalization_method):
+def classify_loo(classifier, classifier_name, X, y, current_dataset, normalization_method):
+    evaluation_method = "leave-one-out"
     loo = LeaveOneOut()
-    scores = classify_split(clf, loo, X, y)
+    scores = classify_split(classifier, loo, X, y)
     avg_score = float(np.mean(scores))
-    print(get_accuracy_msg(
-        clf_name=clf_name,
-        clf_type="default",
-        current_dataset=current_dataset,
-        evaluation_method="leave-one-out",
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method=evaluation_method,
         normalization_method=normalization_method,
-        score=avg_score
-    ))
-    return avg_score
+        dataset=current_dataset,
+        score=f"{avg_score:.2%}"
+    )
 
-def classify_loo_knn(clf_name, X, y, current_dataset, normalization_method):
+
+def classify_loo_knn(classifier_name, X, y, current_dataset, normalization_method):
+    evaluation_method="leave-one-out"
     loo = LeaveOneOut()
     knn_vals = [3, 5, 7]
     k_scores = {}
     for k in knn_vals:
-        clf = KNeighborsClassifier(n_neighbors=k)
-        scores = classify_split(clf, loo, X, y)
+        classifier = KNeighborsClassifier(n_neighbors=k)
+        scores = classify_split(classifier, loo, X, y)
         k_scores[k] = float(np.mean(scores))
-        print(get_accuracy_msg(
-            clf_name="k-nearest-neighbor",
-            current_dataset=current_dataset,
-            clf_type="knn inner",
-            evaluation_method="leave-one-out",
-            normalization_method=normalization_method,
-            score=float(np.mean(scores)),
-            knn_val=k
-        ))
     best_kval, best_score = get_best(k_scores)
-    print(get_accuracy_msg(
-        clf_name="k-nearest-neighbor",
-        current_dataset=current_dataset,
-        clf_type="knn outer",
-        evaluation_method="leave-one-out",
+    return ClassificationResult(
+        classifier_name=classifier_name,
+        evaluation_method=evaluation_method,
         normalization_method=normalization_method,
-        score=best_score,
-        knn_val=best_kval
-        )
+        dataset=current_dataset,
+        knn_value=best_kval,
+        score=f"{best_score:.2%}"
     )
-    return k_scores
 
 evaluation_methods = {
     "holdout": [classify_holdout, classify_holdout_knn],
     "random subsampling": [classify_random_subsampling, classify_random_subsampling_knn],
     "kfold": [classify_kfold, classify_kfold_knn],
     "leave-one-out": [classify_loo, classify_loo_knn]
+}
+
+evaluation_methods_costs = {
+    "holdout": 1,
+    "random subsampling": 2,
+    "kfold": 3,
+    "leave-one-out": 4
 }
 
 def get_classifier(evaluation_method):
@@ -274,40 +237,172 @@ def get_normalization_method():
 def get_evaluation_method():
     input_msg = f"Which evaluation method? ({", ".join(evaluation_methods)}): "
     evaluation_method = (input(input_msg)).lower()
-    while evaluation_method not in evaluation_methods:
+    while evaluation_method not in evaluation_methods and evaluation_method != "all":
         print("Invalid input, try again.")
         evaluation_method = (input(input_msg)).lower()
     return evaluation_method
 
-def classify(clf, clf_name, X, y, current_dataset, normalization_method, evaluation_method):
+def classify(classifier, classifier_name, X, y, current_dataset, normalization_method, evaluation_method, lst):
     classify_default = evaluation_methods[evaluation_method][0]
     classify_knn = evaluation_methods[evaluation_method][1]
-    if clf_name == "k-nearest-neighbor":
-        classify_knn(clf_name, X, y, current_dataset, normalization_method)
+    if classifier_name == "k-nearest-neighbor":
+        result = classify_knn(classifier_name, X, y, current_dataset, normalization_method)
     else:
-        classify_default(clf, clf_name, X, y, current_dataset, normalization_method)
-    
-def run_classifier(original_X, y, current_dataset, classifier, normalization_method, evaluation_method):
-    if evaluation_method == "leave-one-out" and classifier == "artificial neural networks":
+        result = classify_default(classifier, classifier_name, X, y, current_dataset, normalization_method)
+    lst.append(result)
+    return result
+
+def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
+    results = []
+    if evaluation_method == "leave-one-out" and classifier_name == "artificial neural networks":
         raise ValueError("Leave-one-out and artificial neural networks is an invalid combination")
-    elif classifier == "all":
-        for clf_name, clf in classifier_map.items():
-            if evaluation_method == "leave-one-out" and clf_name == "artificial neural networks":
-                continue
-            if normalization_method == "all":
-                for method, func in normalization_methods.items():
-                    X = func(original_X)
-                    classify(clf, clf_name, X, y, current_dataset, method, evaluation_method)
-            else:
-                X = normalization_methods[normalization_method](original_X)
-                classify(clf, clf_name, X, y, current_dataset, normalization_method, evaluation_method)
+    if evaluation_method == "all":
+        evaluations = evaluation_methods.items()
     else:
-        clf = classifier_map[classifier]
-        if normalization_method == "all":
-            for method, func in normalization_methods.items():
-                X = func(original_X)
-                classify(clf, classifier, X, y, current_dataset, method, evaluation_method)
+        evaluations = [(evaluation_method, evaluation_methods[evaluation_method])]
+    if classifier_name == "all":
+        classifiers = classifier_map.items()
+    else:
+        classifiers = [(classifier_name, classifier_map[classifier_name])]
+    if normalization_method == "all":
+        normalizations = normalization_methods.items()
+    else:
+        normalizations = [(normalization_method, normalization_methods[normalization_method])]
+    for evaluation in evaluations:
+        for classifier in classifiers:
+            for normalization in normalizations:
+                normalization_method_name, normalizer = normalization
+                clf_name, clf_func = classifier
+                evaluation_method_name, _ = evaluation
+                if evaluation_method_name == "leave-one-out" and clf_name == "artificial neural networks":
+                    continue
+                X = normalizer(original_X)
+                classify(clf_func, clf_name, X, y, current_dataset, normalization_method_name, evaluation_method_name, results)
+    return results
+
+def calculate_cost(result=ClassificationResult):
+    result.cost = 0
+    result.cost += classifier_costs[result.classifier_name] + normalization_methods_costs[result.normalization_method] + evaluation_methods_costs[result.evaluation_method]
+    return result.cost
+
+def sort_by_cost(results):
+    ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
+    results_with_recurring_scores = {}
+    results_with_unique_scores = ranked_results.copy()
+    scores = [float(result.score.strip("%")) for result in ranked_results]
+
+    for index, score in enumerate(scores):
+        count = scores.count(score)
+        if count > 1:
+            if score in results_with_recurring_scores:
+                results_with_recurring_scores[score].append(ranked_results[index])
+            else:
+                results_with_recurring_scores[score] = [ranked_results[index]]
+            results_with_unique_scores.remove(ranked_results[index])
+
+    for results in results_with_recurring_scores.values():
+        for result in results:
+            result.cost = calculate_cost(result)
+        results = sorted(results, key=lambda result:result.cost)
+
+    unpacked_results_with_recurring_scores = [unpacked_result for result_list in results_with_recurring_scores.values() for unpacked_result in result_list]
+
+    if len(results_with_unique_scores) == 0:
+        sorted_results = unpacked_results_with_recurring_scores.copy()
+    else:
+        sorted_results = results_with_unique_scores + unpacked_results_with_recurring_scores
+        sorted_results = sorted(sorted_results, key=lambda result: (-float(result.score.strip("%")), result.cost))
+    return sorted_results
+
+def print_combination(results, is_best_combo=False, number_of_total_results=None):
+    combos = []
+    for index, result in enumerate(results):
+        print_kfold_value = ""
+        if result.kfold_value is not None:
+            print_kfold_value = f" (Kfold value: {result.kfold_value})"
+        print_knn_value = ""
+        if result.knn_value is not None:
+            print_knn_value = f" (KNN value: {result.knn_value})"
+        display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}{print_knn_value}, {result.evaluation_method.capitalize()}{print_kfold_value}, {result.normalization_method.capitalize()}."
+        display += f" Accuracy: {result.score}"
+        if is_best_combo:
+            display = f"Best combo: {display}"
         else:
-            X = normalization_methods[normalization_method](original_X)
-            classify(clf, classifier, X, y, current_dataset, normalization_method, evaluation_method)
+            if result.cost is not None:
+                display += f", Computational cost: {result.cost}"
+            if len(results) > 1:
+                display = f"#{index+1}: {display}"
+        combos.append(display)
+    if isinstance(number_of_total_results, int):
+        if len(results) < number_of_total_results:
+            print(f"Top {len(results)} out of {number_of_total_results} total combinations: ")
+        else:
+            print("All combinations: ")
+    for combo in combos:
+        print(combo)
+    return combos
+
+def prompt_number_of_combinations(results):
+    input_msg = f"How many of the top combinations would you like to see out of {len(results)} total combinations? Type 'all' to see the complete ranking: "
+    number_of_combos_input = input(input_msg)
+    if number_of_combos_input.isnumeric():
+        number_of_combos_input = int(number_of_combos_input)
+    elif number_of_combos_input == "all":
+        number_of_combos_input = len(results)
+    return number_of_combos_input
+
+def validate_combo_number_input(number_of_combos_input, results):
+    while number_of_combos_input not in range(1, len(results)+1):
+        if isinstance(number_of_combos_input, str):
+            print("Invalid string input.")
+        elif number_of_combos_input < 1:
+            print("Number of combinations to display cannot be less than 1.")
+        elif number_of_combos_input > len(results):
+            print("Number of combinations to display cannot be higher than number of total combinations.")
+        number_of_combos_input = prompt_number_of_combinations(results)
+    return number_of_combos_input
+
+def get_valid_number_of_combos(results):
+    number_of_combos_input = prompt_number_of_combinations(results)
+    return validate_combo_number_input(number_of_combos_input, results)
+
+def rank_results(results):
+    scores = [result.score for result in results]
+    scores_without_duplicates = set(scores)
+    if len(scores) != len(scores_without_duplicates):
+        ranked_results = sort_by_cost(results)
+    else:
+        ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
+    return ranked_results
+
+def display_selected_combos(result_list, number_of_combos):
+    combinations = []
+    if len(result_list) == 1:
+        print_combination(result_list)
+    else:
+        ranked_results = rank_results(result_list)
+        if number_of_combos == 1:
+            combinations = print_combination(ranked_results[:1], is_best_combo=True)
+        else:
+            combinations = print_combination(ranked_results[:number_of_combos], number_of_total_results=len(result_list))
+    return combinations
+
+if __name__ == "__main__":
+    from data import datasets_dict
+    from utils import get_user_choice
+
+    current_dataset = "blobs"
+    original_X, y = datasets_dict[current_dataset]
+    evaluation_method = "leave-one-out"
+    classifier_name = "all"
+    normalization_method = "all"
+    lst = []
+
+    results = run_classifier(
+        original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method
+        )
+    
+    number_of_combos = get_valid_number_of_combos(results)
+    
+    display_selected_combos(results, number_of_combos)
 
