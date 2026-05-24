@@ -4,7 +4,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from data import datasets_dict
 import utils
 from classifiers import get_classifier, get_normalization_method, run_classifier, get_evaluation_method, get_valid_number_of_combos, display_selected_combos
-from plotting import create_scatter_plot
+from plotting import create_scatter_plot, trigger_plot_creation
 
 current_dataset = utils.get_user_choice(datasets_dict)
 
@@ -22,4 +22,4 @@ number_of_combos = get_valid_number_of_combos(results)
     
 display_selected_combos(results, number_of_combos)
 
-create_scatter_plot(X, y, current_dataset)
+trigger_plot_creation(X, y, current_dataset)
