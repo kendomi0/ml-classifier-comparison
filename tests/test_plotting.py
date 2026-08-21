@@ -12,7 +12,7 @@ def test_create_scatter_plot(mocker):
 
     mock_plt.figure.assert_called_once()
     mock_plt.scatter.assert_called_once()
-    mock_plt.title.assert_called_once_with(f"{current_dataset.capitalize()} dataset")
+    mock_plt.title.assert_called_once_with(f"{current_dataset.title()} Dataset")
     mock_plt.show.assert_called_once()
 
 def test_trigger_plot_creation_yes(mocker, monkeypatch, capsys):
