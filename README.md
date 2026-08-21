@@ -65,6 +65,6 @@ cd ml-classifier-comparison
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the main file to trigger user prompts for dataset, evaluation method, classifier, and normalization method
+# Run the main file to trigger user selection of combinations
 python main.py
 ```
