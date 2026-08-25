@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <form method="POST" action="/results">
+        <fieldset>
+            <legend>
+                Choose a normalization method.
+            </legend>
+            <input type="hidden" name="dataset" value="{{ dataset }}">
+            <input type="hidden" name="evaluation" value="{{ evaluation }}">
+            <input type="hidden" name="classifier" value="{{ classifier }}">
+            <input type="radio" name="normalization" value="unnormalized">
+                <label for="Naive Bayes">
+                    Unnormalized
+                </label>
+            <input type="radio" name="normalization" value="minmax">
+                <label for="minmax">
+                    Minmax
+                </label>
+            <input type="radio" name="normalization" value="zscore">
+                <label for="Zscore">
+                    Zscore
+                </label>
+            <input type="radio" name="normalization" value="all">
+                <label for="All">
+                    All
+                </label>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+</body>
+</html>

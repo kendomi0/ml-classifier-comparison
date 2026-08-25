@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <form method="POST" action="/evaluation">
+        <fieldset>
+            <legend>
+                Choose a dataset to analyze.
+            </legend>
+            <input type="radio" name="dataset" value="noisy circles">
+                <label for="Noisy Circles">
+                    Noisy Circles
+                </label>
+            <input type="radio" name="dataset" value="noisy moons">
+                <label for="Noisy Moons">
+                    Noisy Moons
+                </label>
+            <input type="radio" name="dataset" value="blobs">
+                <label for="Blobs">
+                    Blobs
+                </label>
+            <input type="radio" name="dataset" value="anisotropic">
+                <label for="Anisotropic">
+                    Anisotropic
+                </label>
+            <input type="radio" name="dataset" value="varied">
+                <label for="Varied">
+                    Varied
+                </label>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+</body>
+</html>

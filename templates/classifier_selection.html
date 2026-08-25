@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <form method="POST" action="/normalization">
+        <fieldset>
+            <legend>
+                Choose a classifier.
+            </legend>
+            <input type="hidden" name="dataset" value="{{ dataset }}">
+            <input type="hidden" name="evaluation" value="{{ evaluation }}">
+            <input type="radio" name="classifier" value="naive bayes">
+                <label for="Naive Bayes">
+                    Naive Bayes
+                </label>
+            <input type="radio" name="classifier" value="decision tree">
+                <label for="Decision Tree">
+                    Decision Tree
+                </label>
+            <input type="radio" name="classifier" value="support vector machine">
+                <label for="Support Vector Machine">
+                    Support Vector Machine
+                </label>
+            <input type="radio" name="classifier" value="k-nearest-neighbor">
+                <label for="K-nearest-neighbor">
+                    K-nearest-neighbor
+                </label>
+            <input type="radio" name="classifier" value="artificial neural networks" {% if evaluation == "leave-one-out" %}disabled{% endif %}>
+                <label for="artificial neural networks" {% if evaluation == "leave-one-out" %}title="Artificial neural networks is not available to use with leave-one-out, due to the high computational cost."{% endif %}>
+                    Artificial Neural Networks
+                </label>
+            <input type="radio" name="classifier" value="all">
+                <label for="All">
+                    All
+                </label>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+</body>
+</html>
