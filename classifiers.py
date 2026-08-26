@@ -383,6 +383,8 @@ def get_valid_number_of_combos(results):
     return validate_combo_number_input(number_of_combos_input, results)
 
 def rank_results(results):
+    for result in results:
+        print(result)
     scores = [result.score for result in results]
     scores_without_duplicates = set(scores)
     if len(scores) != len(scores_without_duplicates):
@@ -394,7 +396,7 @@ def rank_results(results):
 def display_selected_combos(results, number_of_combos):
     combinations = []
     if len(results) == 1:
-        print_combination(results)
+        combinations = print_combination(results)
     else:
         ranked_results = rank_results(results)
         if number_of_combos == 1:

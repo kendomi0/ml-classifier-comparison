@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request
+from data import datasets_dict
+import uuid
+from classifiers import run_classifier, get_valid_number_of_combos, display_selected_combos
 
 app = Flask(__name__)
+
+results_store = {}
 
 @app.route("/")
 def start():
@@ -28,6 +33,25 @@ def select_normalization_method():
     classifier = request.form["classifier"]
     return render_template("normalization_selection.html", dataset=dataset, evaluation=evaluation, classifier=classifier)
 
-@app.route("/results", methods=["POST"])
-def show_results():
-    return "Results to be added."
+@app.route("/process", methods=["POST"])
+def process_data():
+    dataset = request.form["dataset"]
+    X, y = datasets_dict[dataset]
+    evaluation = request.form["evaluation"]
+    classifier = request.form["classifier"]
+    normalization = request.form["normalization"]
+    results = run_classifier(X, y, dataset, classifier, normalization, evaluation)
+    key = str(uuid.uuid4())
+    results_store[key] = results
+    results_length = len(results)
+    # TODO: add function to validate number of combos
+    return render_template("process_data.html", results_key=key, results_length = results_length)
+
+@app.route("/display", methods=["POST"])
+def display_results():
+    key = request.form["results_key"]
+    results = results_store.get(key)
+    number_of_combos = int(request.form["number-of-combos"])
+    combinations = display_selected_combos(results, number_of_combos)
+    results_store.clear()
+    return render_template("display_results.html", combinations=combinations)

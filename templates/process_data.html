@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <form method="POST" action="/display">
+        <input type="hidden" name="results_key" value="{{ results_key }}">
+        <label for="number-of-combos">
+            How many of the top combinations would you like to see out of {{ results_length }} total combination{% if results_length > 1 %}s{% endif %}?
+        </label>
+        <input type="number" name="number-of-combos" min="1" max="{{ results_length }}">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
