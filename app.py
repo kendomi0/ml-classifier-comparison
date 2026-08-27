@@ -44,14 +44,17 @@ def process_data():
     key = str(uuid.uuid4())
     results_store[key] = results
     results_length = len(results)
-    # TODO: add function to validate number of combos
     return render_template("process_data.html", results_key=key, results_length = results_length)
 
 @app.route("/display", methods=["POST"])
 def display_results():
     key = request.form["results_key"]
     results = results_store.get(key)
-    number_of_combos = int(request.form["number-of-combos"])
+    number_of_combos = request.form["number-of-combos"]
+    if number_of_combos != "all":
+        number_of_combos = int(number_of_combos)
+    else:
+        number_of_combos = len(results)
     combinations = display_selected_combos(results, number_of_combos)
     results_store.clear()
     return render_template("display_results.html", combinations=combinations)
