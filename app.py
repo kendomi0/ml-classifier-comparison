@@ -66,7 +66,7 @@ def display_results():
     else:
         number_of_combos = len(results)
     combinations = display_selected_combos(results, number_of_combos)
-    results_store.clear()
+    results_store.pop(results_key, None)
     return render_template("display_results.html", combinations=combinations, dataset=dataset, plot_key=plot_key)
 
 @app.route('/plot/scatter')
