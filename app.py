@@ -3,7 +3,7 @@ from flask import send_file
 from data import datasets_dict
 import uuid
 from plotting import create_and_save_plot
-from classifiers import run_classifier, get_valid_number_of_combos, display_selected_combos
+from classifiers import run_classifier, display_selected_combos
 
 app = Flask(__name__)
 
