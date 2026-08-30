@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles.css') }}">
+    </head>
 <body>
+    <div class="loading-screen display-none">
+        Loading...
+    </div>
     <form method="POST" action="/process">
         <fieldset>
             <legend>
@@ -28,5 +34,6 @@
             <button type="submit">Submit</button>
         </fieldset>
     </form>
+    <script src="{{ url_for('static', filename='../static/normalization_selection.js') }}"></script>
 </body>
 </html>
