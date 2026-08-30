@@ -6,6 +6,8 @@
 <body>
     <form method="POST" action="/display">
         <input type="hidden" name="results_key" value="{{ results_key }}">
+        <input type="hidden" name="dataset" value="{{ dataset }}">
+        <input type="hidden" name="plot_key" value="{{ plot_key }}">
         <p>
             How many of the top combinations would you like to see out of {{ results_length }} total combination{% if results_length > 1 %}s{% endif %}?
         </p>
