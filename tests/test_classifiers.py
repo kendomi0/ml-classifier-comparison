@@ -1,4 +1,4 @@
-from classifiers import get_best, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classify_random_subsampling_knn, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, print_combination, display_selected_combos, calculate_cost, rank_results
+from classifiers import get_best, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classify_random_subsampling_knn, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, format_combination, display_selected_combos, calculate_cost, rank_results
 from sklearn.model_selection import KFold, LeaveOneOut
 from data import datasets_dict
 from sklearn import datasets
@@ -330,7 +330,7 @@ def test_sort_by_cost():
     sorted_results = sort_by_cost(results)
     assert sorted_results == [results_with_costs[0], results_with_costs[3], results_with_costs[1], results_with_costs[2]]
 
-def test_print_combination_isbest():
+def test_format_combination_isbest():
     result_list = [
         ClassificationResult(
             classifier_name="k-nearest-neighbor",
@@ -342,7 +342,7 @@ def test_print_combination_isbest():
             kfold_value=3
         )
     ]
-    best_combo = print_combination(result_list, True)
+    best_combo = format_combination(result_list, True)
 
 def test_rank_results_with_recurring_scores(mocker):
     results = [
@@ -414,7 +414,7 @@ def test_rank_results_with_unique_scores():
     assert ranked_results == [results[0], results[2], results[1], results[3]]
 
 def test_display_selected_combos(mocker):
-    mock_print_combination = mocker.patch("classifiers.print_combination")
+    mock_format_combination = mocker.patch("classifiers.format_combination")
     results = [
         ClassificationResult(
             classifier_name="naive bayes",
@@ -440,4 +440,4 @@ def test_display_selected_combos(mocker):
     ]
     ranked_results = rank_results(results)
     display_selected_combos(results, 3)
-    mock_print_combination.assert_called_once_with(ranked_results[:3], number_of_total_results=3)
+    mock_format_combination.assert_called_once_with(ranked_results[:3], number_of_total_results=3)

@@ -286,7 +286,7 @@ def sort_by_cost(results):
         sorted_results = sorted(sorted_results, key=lambda result: (-float(result.score.strip("%")), result.cost))
     return sorted_results
 
-def print_combination(results, is_best_combo=False, number_of_total_results=None):
+def format_combination(results, is_best_combo=False, number_of_total_results=None):
     combos = []
     for index, result in enumerate(results):
         print_kfold_value = ""
@@ -319,12 +319,12 @@ def rank_results(results):
 def display_selected_combos(results, number_of_combos):
     combinations = []
     if len(results) == 1:
-        combinations = print_combination(results)
+        combinations = format_combination(results)
     else:
         ranked_results = rank_results(results)
         if number_of_combos == 1:
-            combinations = print_combination(ranked_results[:1], is_best_combo=True)
+            combinations = format_combination(ranked_results[:1], is_best_combo=True)
         else:
-            combinations = print_combination(ranked_results[:number_of_combos], number_of_total_results=len(results))
+            combinations = format_combination(ranked_results[:number_of_combos], number_of_total_results=len(results))
     return combinations
 
