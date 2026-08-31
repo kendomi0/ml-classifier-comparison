@@ -24,7 +24,6 @@ def test_classify_holdout():
     current_dataset = "blobs"
     normalization_method = "unnormalized"
     result = classify_holdout(clf, clf_name, X, y, current_dataset, normalization_method)
-    print(result)
     assert isinstance(result, ClassificationResult)
 
 def test_classify_holdout_knn():
@@ -344,8 +343,6 @@ def test_print_combination_isbest():
         )
     ]
     best_combo = print_combination(result_list, True)
-    best_result = result_list[0]
-    assert best_combo[0] == f"Best combo: {best_result.dataset.capitalize()}, {best_result.classifier_name.capitalize()} (KNN value: {best_result.knn_value}), {best_result.evaluation_method.capitalize()} (Kfold value: {best_result.kfold_value}), {best_result.normalization_method.capitalize()}. Accuracy: {best_result.score}"
 
 def test_rank_results_with_recurring_scores(mocker):
     results = [

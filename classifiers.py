@@ -305,18 +305,9 @@ def print_combination(results, is_best_combo=False, number_of_total_results=None
             if len(results) > 1:
                 display = f"#{index+1}: {display}"
         combos.append(display)
-    if isinstance(number_of_total_results, int):
-        if len(results) < number_of_total_results:
-            print(f"Top {len(results)} out of {number_of_total_results} total combinations: ")
-        else:
-            print("All combinations: ")
-    for combo in combos:
-        print(combo)
     return combos
 
 def rank_results(results):
-    for result in results:
-        print(result)
     scores = [result.score for result in results]
     scores_without_duplicates = set(scores)
     if len(scores) != len(scores_without_duplicates):
