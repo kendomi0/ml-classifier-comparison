@@ -1,4 +1,4 @@
-from classifiers import get_best, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classify_random_subsampling_knn, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, format_combination, display_selected_combos, calculate_cost, rank_results
+from classifiers import get_best, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classify_random_subsampling_knn, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, format_combination, display_selected_combos, calculate_cost, rank_results, display_combinations_heading, combination_headings
 from sklearn.model_selection import KFold, LeaveOneOut
 from data import datasets_dict
 from sklearn import datasets
@@ -330,6 +330,86 @@ def test_sort_by_cost():
     sorted_results = sort_by_cost(results)
     assert sorted_results == [results_with_costs[0], results_with_costs[3], results_with_costs[1], results_with_costs[2]]
 
+def test_display_combinations_heading_some():
+    results = [
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="minmax",
+                dataset="blobs",
+                score="97.00%",
+            ),
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="unnormalized",
+                dataset="blobs",
+                score="94.00%",
+            ),
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="kfold",
+                normalization_method="zscore",
+                dataset="blobs",
+                score="94.00%",
+            )
+        ]
+    heading = display_combinations_heading(results, 2)
+    assert heading == combination_headings["some"].format(number_of_combos=2, total_results=len(results))
+
+def test_display_combinations_heading_all():
+    results = [
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="minmax",
+                dataset="blobs",
+                score="97.00%",
+            ),
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="unnormalized",
+                dataset="blobs",
+                score="94.00%",
+            )
+        ]
+    heading = display_combinations_heading(results, 2)
+    assert heading == combination_headings["all"].format(number_of_combos=2, total_results=len(results))
+
+def test_display_combinations_heading_best():
+    results = [
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="minmax",
+                dataset="blobs",
+                score="97.00%",
+            ),
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="unnormalized",
+                dataset="blobs",
+                score="94.00%",
+            )
+        ]
+    heading = display_combinations_heading(results, 1)
+    assert heading == combination_headings["best"].format(number_of_combos=2, total_results=len(results))
+
+def test_display_combinations_heading_only():
+    results = [
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="minmax",
+                dataset="blobs",
+                score="97.00%",
+            )
+        ]
+    heading = display_combinations_heading(results, 1)
+    assert heading == combination_headings["only"]
+
 def test_format_combination_isbest():
     result_list = [
         ClassificationResult(
@@ -342,7 +422,7 @@ def test_format_combination_isbest():
             kfold_value=3
         )
     ]
-    best_combo = format_combination(result_list, True)
+    best_combo = format_combination(result_list)
 
 def test_rank_results_with_recurring_scores(mocker):
     results = [
@@ -440,4 +520,4 @@ def test_display_selected_combos(mocker):
     ]
     ranked_results = rank_results(results)
     display_selected_combos(results, 3)
-    mock_format_combination.assert_called_once_with(ranked_results[:3], number_of_total_results=3)
+    mock_format_combination.assert_called_once_with(ranked_results[:3])

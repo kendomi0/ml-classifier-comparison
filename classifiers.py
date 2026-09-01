@@ -38,6 +38,13 @@ normalization_methods_costs = {
     "zscore": 1
 }
 
+combination_headings = {
+    "some": "Top {number_of_combos} out of {total_results} total combinations: ",
+    "all": "All combinations: ",
+    "best": "Best combination: ",
+    "only": "Combination: "
+}
+
 @dataclass
 class ClassificationResult:
     classifier_name: str
@@ -286,7 +293,21 @@ def sort_by_cost(results):
         sorted_results = sorted(sorted_results, key=lambda result: (-float(result.score.strip("%")), result.cost))
     return sorted_results
 
-def format_combination(results, is_best_combo=False, number_of_total_results=None):
+def display_combinations_heading(results, number_of_combos):
+    heading = ""
+    total_results = len(results)
+    if number_of_combos == 1:
+        if total_results == 1:
+            heading = combination_headings["only"]
+        else:
+            heading = combination_headings["best"]
+    elif total_results > number_of_combos:
+        heading = combination_headings["some"].format(number_of_combos=number_of_combos, total_results=total_results)
+    else:
+        heading = combination_headings["all"]
+    return heading
+
+def format_combination(results):
     combos = []
     for index, result in enumerate(results):
         print_kfold_value = ""
@@ -297,13 +318,10 @@ def format_combination(results, is_best_combo=False, number_of_total_results=Non
             print_knn_value = f" (KNN value: {result.knn_value})"
         display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}{print_knn_value}, {result.evaluation_method.capitalize()}{print_kfold_value}, {result.normalization_method.capitalize()}."
         display += f" Accuracy: {result.score}"
-        if is_best_combo:
-            display = f"Best combo: {display}"
-        else:
-            if result.cost is not None:
-                display += f", Computational cost: {result.cost}"
-            if len(results) > 1:
-                display = f"#{index+1}: {display}"
+        if result.cost is not None:
+            display += f", Computational cost: {result.cost}"
+        if len(results) > 1:
+            display = f"#{index+1}: {display}"
         combos.append(display)
     return combos
 
@@ -317,14 +335,15 @@ def rank_results(results):
     return ranked_results
 
 def display_selected_combos(results, number_of_combos):
+    heading = display_combinations_heading(results, number_of_combos)
     combinations = []
     if len(results) == 1:
         combinations = format_combination(results)
     else:
         ranked_results = rank_results(results)
         if number_of_combos == 1:
-            combinations = format_combination(ranked_results[:1], is_best_combo=True)
+            combinations = format_combination(ranked_results[:1])
         else:
-            combinations = format_combination(ranked_results[:number_of_combos], number_of_total_results=len(results))
-    return combinations
+            combinations = format_combination(ranked_results[:number_of_combos])
+    return heading, combinations
 

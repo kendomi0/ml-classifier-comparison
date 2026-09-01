@@ -4,6 +4,9 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles.css') }}">
     </head>
 <body>
+    <p>
+        {{ heading }}
+    </p>
     <ul>
         {% for combo in combinations %}
         <li>{{ combo }}</li>
