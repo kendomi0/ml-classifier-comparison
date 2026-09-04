@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles.css') }}">
+    </head>
+<body>
+    <p>
+        {{ heading }}
+    </p>
+    <ul>
+        {% for combo in combinations %}
+        <li>{{ combo }}</li>
+        {% endfor %}
+    </ul>
+    <button id="toggle-plot-btn">
+        <span class="show-or-hide">Show</span> Scatter Plot for <span class="capitalized-all">{{ dataset }}</span> Dataset
+    </button>
+    <img id="scatter-plot" data-key="{{ plot_key }}">
+    <p>
+        <a href="/">Return to Start</a>
+    </p>
+    <script src="{{ url_for('static', filename='../static/display_results.js') }}"></script>
+</body>
+</html>

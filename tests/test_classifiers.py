@@ -1,25 +1,10 @@
-from classifiers import get_normalization_method, get_best, get_classifier, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classifier_map, normalization_methods, classify_random_subsampling_knn, get_evaluation_method, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, print_combination, display_selected_combos, calculate_cost, get_valid_number_of_combos, validate_combo_number_input, rank_results, prompt_number_of_combinations, check_valid_combination
+from classifiers import get_best, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classify_random_subsampling_knn, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, format_combination, display_selected_combos, calculate_cost, rank_results, display_combinations_heading, combination_headings
 from sklearn.model_selection import KFold, LeaveOneOut
 from data import datasets_dict
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 import pytest
 from unittest.mock import MagicMock
-
-
-@pytest.mark.parametrize("user_input", ["unnormalized", "minmax", "zscore"])
-def test_get_normalization_method_valid(monkeypatch, user_input):
-    monkeypatch.setattr("builtins.input", lambda _: user_input)
-    result = get_normalization_method()
-    assert result == user_input
-
-def test_get_normalization_method_invalid_then_valid(monkeypatch, capsys):
-    inputs = iter(["invalid", "unnormalized"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    result = get_normalization_method()
-    captured = capsys.readouterr()
-    assert "Invalid input" in captured.out
-    assert result == "unnormalized"
 
 def test_get_best():
     test_dict = {
@@ -32,59 +17,6 @@ def test_get_best():
     assert best_name == "Lucy"
     assert best_score == 100
 
-@pytest.mark.parametrize("user_input", ["naive bayes", "decision tree", "support vector machine", "artificial neural networks", "k-nearest-neighbor"])
-def test_get_classifier_valid(monkeypatch, user_input):
-    monkeypatch.setattr("builtins.input", lambda _: user_input)
-    evaluation_method="holdout"
-    result = get_classifier(evaluation_method)
-    assert result == user_input
-
-def test_get_classifier_invalid_then_valid(monkeypatch, capsys):
-    inputs = iter(["invalid", "decision tree"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    evaluation_method="holdout"
-    result = get_classifier(evaluation_method)
-    captured = capsys.readouterr()
-    assert "Invalid input" in captured.out
-    assert result == "decision tree"
-
-@pytest.mark.parametrize("user_input", ["nAIVE BAYES", "DECISion TReE", "SUppORt VecToR mAchInE", "ArtIfICial neURAL NETWORKS", "K-NEAREST-NEIGHBOR"])
-def test_get_classifier_valid_case_insensitive(monkeypatch, user_input):
-    monkeypatch.setattr("builtins.input", lambda _: user_input)
-    evaluation_method="holdout"
-    result = get_classifier(evaluation_method)
-    assert result == user_input.lower()
-
-def test_get_classifier_loo_ann(monkeypatch):
-    inputs = iter(["artificial neural networks", "naive bayes"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    evaluation_method = "leave-one-out"
-    get_classifier(evaluation_method)
-
-@pytest.mark.parametrize("user_input",
-    list(evaluation_methods.keys())
-)
-def test_get_evaluation_method_valid(monkeypatch, user_input):
-    monkeypatch.setattr("builtins.input", lambda _: user_input)
-    result = get_evaluation_method()
-    assert result == user_input
-
-@pytest.mark.parametrize("user_input",
-    [m.upper() for m in evaluation_methods.keys()]
-)
-def test_get_evaluation_method_case_insensitive(monkeypatch, user_input):
-    monkeypatch.setattr("builtins.input", lambda _: user_input)
-    result = get_evaluation_method()
-    assert result == user_input.lower()
-
-def test_get_evaluation_method_invalid_valid(monkeypatch, capsys):
-    inputs = iter(["invalid", list(evaluation_methods.keys())[0]])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    result = get_evaluation_method()
-    captured = capsys.readouterr()
-    assert "Invalid input" in captured.out
-    assert result == list(evaluation_methods.keys())[0]
-
 def test_classify_holdout():
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
     clf = GaussianNB()
@@ -92,7 +24,6 @@ def test_classify_holdout():
     current_dataset = "blobs"
     normalization_method = "unnormalized"
     result = classify_holdout(clf, clf_name, X, y, current_dataset, normalization_method)
-    print(result)
     assert isinstance(result, ClassificationResult)
 
 def test_classify_holdout_knn():
@@ -206,45 +137,11 @@ def test_classify(clf_name, current_dataset, normalization_method, evaluation_me
     else:
         mock_dict[evaluation_method][1].assert_called_once()
 
-def test_check_valid_combination_both(monkeypatch, capsys):
-    inputs = iter(["ajjj", "both", "leave-one-out", "all"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    evaluation_method, classifier_name = check_valid_combination("leave-one-out", "artificial neural networks")
-    captured = capsys.readouterr()
-    assert "Invalid input" in captured.out
-    assert evaluation_method == "leave-one-out"
-    assert classifier_name == "all"
-
-def test_check_valid_combination_clf(monkeypatch, capsys):
-    inputs = iter(["ajjj", "classifier", "artificial neural networks", "naive bayes"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    evaluation_method, classifier_name = check_valid_combination("leave-one-out", "artificial neural networks")
-    captured = capsys.readouterr()
-    assert "Invalid input" in captured.out
-    assert evaluation_method == "leave-one-out"
-    assert classifier_name == "naive bayes"
-
-def test_check_valid_combination_evaluation(monkeypatch, capsys):
-    inputs = iter(["ajjj", "evaluation method", "leave-one-out", "classifier", "all"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    evaluation_method, classifier_name = check_valid_combination("leave-one-out", "artificial neural networks")
-    captured = capsys.readouterr()
-    assert "Invalid input" in captured.out
-    assert evaluation_method == "leave-one-out"
-    assert classifier_name == "all"
-
-def test_check_valid_combination_already_valid():
-    evaluation_method, classifier_name = check_valid_combination("leave-one-out", "naive bayes")
-    assert evaluation_method == "leave-one-out"
-    assert classifier_name == "naive bayes"
-
 def test_run_classifier_loo_ann(mocker):
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
     mocker.patch("classifiers.classify")
-    mock_check_valid_combination = mocker.patch("classifiers.check_valid_combination", return_value=("all", "all"))
     run_classifier(X, y, current_dataset, evaluation_method="leave-one-out", normalization_method="all", classifier_name="artificial neural networks")
-    mock_check_valid_combination.assert_called_once()
         
 def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
     current_dataset = "blobs"
@@ -433,7 +330,87 @@ def test_sort_by_cost():
     sorted_results = sort_by_cost(results)
     assert sorted_results == [results_with_costs[0], results_with_costs[3], results_with_costs[1], results_with_costs[2]]
 
-def test_print_combination_isbest():
+def test_display_combinations_heading_some():
+    results = [
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="minmax",
+                dataset="blobs",
+                score="97.00%",
+            ),
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="unnormalized",
+                dataset="blobs",
+                score="94.00%",
+            ),
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="kfold",
+                normalization_method="zscore",
+                dataset="blobs",
+                score="94.00%",
+            )
+        ]
+    heading = display_combinations_heading(results, 2)
+    assert heading == combination_headings["some"].format(number_of_combos=2, total_results=len(results))
+
+def test_display_combinations_heading_all():
+    results = [
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="minmax",
+                dataset="blobs",
+                score="97.00%",
+            ),
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="unnormalized",
+                dataset="blobs",
+                score="94.00%",
+            )
+        ]
+    heading = display_combinations_heading(results, 2)
+    assert heading == combination_headings["all"].format(number_of_combos=2, total_results=len(results))
+
+def test_display_combinations_heading_best():
+    results = [
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="minmax",
+                dataset="blobs",
+                score="97.00%",
+            ),
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="unnormalized",
+                dataset="blobs",
+                score="94.00%",
+            )
+        ]
+    heading = display_combinations_heading(results, 1)
+    assert heading == combination_headings["best"].format(number_of_combos=2, total_results=len(results))
+
+def test_display_combinations_heading_only():
+    results = [
+            ClassificationResult(
+                classifier_name="naive bayes",
+                evaluation_method="holdout",
+                normalization_method="minmax",
+                dataset="blobs",
+                score="97.00%",
+            )
+        ]
+    heading = display_combinations_heading(results, 1)
+    assert heading == combination_headings["only"]
+
+def test_format_combination_isbest():
     result_list = [
         ClassificationResult(
             classifier_name="k-nearest-neighbor",
@@ -445,58 +422,7 @@ def test_print_combination_isbest():
             kfold_value=3
         )
     ]
-    best_combo = print_combination(result_list, True)
-    best_result = result_list[0]
-    assert best_combo[0] == f"Best combo: {best_result.dataset.capitalize()}, {best_result.classifier_name.capitalize()} (KNN value: {best_result.knn_value}), {best_result.evaluation_method.capitalize()} (Kfold value: {best_result.kfold_value}), {best_result.normalization_method.capitalize()}. Accuracy: {best_result.score}"
-
-@pytest.mark.parametrize("number_input", ["all", "4"])
-def test_prompt_number_of_combinations(monkeypatch, number_input):
-    results = [1, 2, 3, 4]
-    monkeypatch.setattr("builtins.input", lambda _: number_input)
-    number_of_combinations_input = prompt_number_of_combinations(results)
-    assert number_of_combinations_input == 4
-
-def test_validate_combo_number_input_invalid_valid(monkeypatch, capsys):
-    results = ["abc", "def", "ghi"]
-    inputs = iter(["4", "0", "3"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    result = validate_combo_number_input("ajaj", results)
-    captured = capsys.readouterr()
-    assert "Invalid string input" in captured.out
-    assert "Number of combinations to display cannot be higher than number of total combinations" in captured.out
-    assert "Number of combinations to display cannot be less than 1" in captured.out
-    assert result == 3
-
-def test_get_valid_number_of_combos(mocker):
-    results = [
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="minmax",
-            dataset="blobs",
-            score="97.00%",
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="unnormalized",
-            dataset="blobs",
-            score="97.00%",
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="kfold",
-            normalization_method="zscore",
-            dataset="blobs",
-            score="95.00%",
-        )
-    ]
-        
-    mock_prompt_number_of_combinations = mocker.patch("classifiers.prompt_number_of_combinations")
-    mock_validate_combo_number_input = mocker.patch("classifiers.validate_combo_number_input")
-    get_valid_number_of_combos(results)
-    mock_prompt_number_of_combinations.assert_called()
-    mock_validate_combo_number_input.assert_called_once()
+    best_combo = format_combination(result_list)
 
 def test_rank_results_with_recurring_scores(mocker):
     results = [
@@ -568,8 +494,7 @@ def test_rank_results_with_unique_scores():
     assert ranked_results == [results[0], results[2], results[1], results[3]]
 
 def test_display_selected_combos(mocker):
-    mock_print_combination = mocker.patch("classifiers.print_combination")
-    mock_validate_combo_number_input = mocker.patch("classifiers.validate_combo_number_input")
+    mock_format_combination = mocker.patch("classifiers.format_combination")
     results = [
         ClassificationResult(
             classifier_name="naive bayes",
@@ -595,4 +520,4 @@ def test_display_selected_combos(mocker):
     ]
     ranked_results = rank_results(results)
     display_selected_combos(results, 3)
-    mock_print_combination.assert_called_once_with(ranked_results[:3], number_of_total_results=3)
+    mock_format_combination.assert_called_once_with(ranked_results[:3])

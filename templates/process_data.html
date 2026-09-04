@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles.css') }}">
+</head>
+<body>
+    <form method="POST" action="/display">
+        <input type="hidden" name="results_key" value="{{ results_key }}">
+        <input type="hidden" name="dataset" value="{{ dataset }}">
+        <input type="hidden" name="plot_key" value="{{ plot_key }}">
+        <input type="hidden" id="total-combinations" value="{{ results_length }}">
+        <p class="loading-screen display-none">Generating combination...</p>
+        <p>
+            How many of the top combinations would you like to see out of {{ results_length }} total combination{% if results_length > 1 %}s{% endif %}?
+        </p>
+        
+        <button type="button" id="numeric-combos-btn">
+            Enter a specific number of combinations
+        </button>
+        <input type="number" id="numeric-combos-input" name="number-of-combos" min="1" max="{{ results_length }}" class="display-none" required>
+        <button type="submit" id="submit-combos-btn" value="submit" class="display-none">Submit</button>
+        <button type="submit" id="all-combos-btn" name="number-of-combos" value="all">
+            Choose all combinations
+        </button>
+    </form>
+    <script src="{{ url_for('static', filename='../static/process_data.js') }}"></script>
+</body>
+</html>

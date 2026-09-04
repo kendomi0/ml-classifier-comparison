@@ -38,6 +38,13 @@ normalization_methods_costs = {
     "zscore": 1
 }
 
+combination_headings = {
+    "some": "Top {number_of_combos} out of {total_results} total combinations: ",
+    "all": "All combinations: ",
+    "best": "Best combination: ",
+    "only": "Combination: "
+}
+
 @dataclass
 class ClassificationResult:
     classifier_name: str
@@ -215,33 +222,6 @@ evaluation_methods_costs = {
     "leave-one-out": 4
 }
 
-def get_classifier(evaluation_method):
-    classifier_msg = f"Which classifier? ({", ".join(classifier_map)}, or all): "
-    classifier = (input(classifier_msg)).lower()
-    while (classifier not in classifier_map and classifier != "all") or (evaluation_method == "leave-one-out" and classifier == "artificial neural networks"):
-        if evaluation_method == "leave-one-out" and classifier == "artificial neural networks":
-            print("Artificial neural networks is not available to use with leave-one-out, due to the high computational cost. Choose another classifier.")
-        else:
-            print("Invalid input, try again.")
-        classifier = (input(classifier_msg)).lower()
-    return classifier
-
-def get_normalization_method():
-    normalization_method_msg = f"Which normalization method? ({", ".join(normalization_methods)}, or all): "
-    normalization_method = (input(normalization_method_msg)).lower()
-    while normalization_method not in normalization_methods and normalization_method != "all":
-        print("Invalid input, try again.")
-        normalization_method = (input(normalization_method_msg)).lower()
-    return normalization_method
-
-def get_evaluation_method():
-    input_msg = f"Which evaluation method? ({", ".join(evaluation_methods)}): "
-    evaluation_method = (input(input_msg)).lower()
-    while evaluation_method not in evaluation_methods and evaluation_method != "all":
-        print("Invalid input, try again.")
-        evaluation_method = (input(input_msg)).lower()
-    return evaluation_method
-
 def classify(classifier, classifier_name, X, y, current_dataset, normalization_method, evaluation_method, lst):
     classify_default = evaluation_methods[evaluation_method][0]
     classify_knn = evaluation_methods[evaluation_method][1]
@@ -252,26 +232,9 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
     lst.append(result)
     return result
 
-def check_valid_combination(evaluation_method, classifier_name):
-    while evaluation_method == "leave-one-out" and classifier_name == "artificial neural networks":
-        print("Leave-one-out and artificial neural networks is an invalid combination due to the high computational cost.")
-        input_msg = "Would you like to choose a different evaluation method, different classifier, or both? Enter 'evaluation method', 'classifier', or 'both'."
-        choose_new = input(input_msg)
-        while choose_new not in ["evaluation method", "classifier", "both"]:
-            print("Invalid input.")
-            choose_new = input(input_msg)
-        if choose_new == "both":
-            evaluation_method = get_evaluation_method()
-            classifier_name = get_classifier(evaluation_method)
-        elif choose_new == "classifier":
-            classifier_name = get_classifier(evaluation_method)
-        elif choose_new == "evaluation method":
-            evaluation_method = get_evaluation_method()
-    return evaluation_method, classifier_name
-
 def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
     results = []
-    evaluation_method, classifier_name = check_valid_combination(evaluation_method, classifier_name)
+    #evaluation_method, classifier_name = check_valid_combination(evaluation_method, classifier_name)
     if evaluation_method == "all":
         evaluations = evaluation_methods.items()
     else:
@@ -330,7 +293,21 @@ def sort_by_cost(results):
         sorted_results = sorted(sorted_results, key=lambda result: (-float(result.score.strip("%")), result.cost))
     return sorted_results
 
-def print_combination(results, is_best_combo=False, number_of_total_results=None):
+def display_combinations_heading(results, number_of_combos):
+    heading = ""
+    total_results = len(results)
+    if number_of_combos == 1:
+        if total_results == 1:
+            heading = combination_headings["only"]
+        else:
+            heading = combination_headings["best"]
+    elif total_results > number_of_combos:
+        heading = combination_headings["some"].format(number_of_combos=number_of_combos, total_results=total_results)
+    else:
+        heading = combination_headings["all"]
+    return heading
+
+def format_combination(results):
     combos = []
     for index, result in enumerate(results):
         print_kfold_value = ""
@@ -341,46 +318,12 @@ def print_combination(results, is_best_combo=False, number_of_total_results=None
             print_knn_value = f" (KNN value: {result.knn_value})"
         display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}{print_knn_value}, {result.evaluation_method.capitalize()}{print_kfold_value}, {result.normalization_method.capitalize()}."
         display += f" Accuracy: {result.score}"
-        if is_best_combo:
-            display = f"Best combo: {display}"
-        else:
-            if result.cost is not None:
-                display += f", Computational cost: {result.cost}"
-            if len(results) > 1:
-                display = f"#{index+1}: {display}"
+        if result.cost is not None:
+            display += f", Computational cost: {result.cost}"
+        if len(results) > 1:
+            display = f"#{index+1}: {display}"
         combos.append(display)
-    if isinstance(number_of_total_results, int):
-        if len(results) < number_of_total_results:
-            print(f"Top {len(results)} out of {number_of_total_results} total combinations: ")
-        else:
-            print("All combinations: ")
-    for combo in combos:
-        print(combo)
     return combos
-
-def prompt_number_of_combinations(results):
-    input_msg = f"How many of the top combinations would you like to see out of {len(results)} total combinations? Type 'all' to see the complete ranking: "
-    number_of_combos_input = input(input_msg)
-    if number_of_combos_input.isnumeric():
-        number_of_combos_input = int(number_of_combos_input)
-    elif number_of_combos_input == "all":
-        number_of_combos_input = len(results)
-    return number_of_combos_input
-
-def validate_combo_number_input(number_of_combos_input, results):
-    while number_of_combos_input not in range(1, len(results)+1):
-        if isinstance(number_of_combos_input, str):
-            print("Invalid string input.")
-        elif number_of_combos_input < 1:
-            print("Number of combinations to display cannot be less than 1.")
-        elif number_of_combos_input > len(results):
-            print("Number of combinations to display cannot be higher than number of total combinations.")
-        number_of_combos_input = prompt_number_of_combinations(results)
-    return number_of_combos_input
-
-def get_valid_number_of_combos(results):
-    number_of_combos_input = prompt_number_of_combinations(results)
-    return validate_combo_number_input(number_of_combos_input, results)
 
 def rank_results(results):
     scores = [result.score for result in results]
@@ -392,33 +335,15 @@ def rank_results(results):
     return ranked_results
 
 def display_selected_combos(results, number_of_combos):
+    heading = display_combinations_heading(results, number_of_combos)
     combinations = []
     if len(results) == 1:
-        print_combination(results)
+        combinations = format_combination(results)
     else:
         ranked_results = rank_results(results)
         if number_of_combos == 1:
-            combinations = print_combination(ranked_results[:1], is_best_combo=True)
+            combinations = format_combination(ranked_results[:1])
         else:
-            combinations = print_combination(ranked_results[:number_of_combos], number_of_total_results=len(results))
-    return combinations
-
-if __name__ == "__main__":
-    from data import datasets_dict
-    from utils import get_user_choice
-
-    current_dataset = "blobs"
-    original_X, y = datasets_dict[current_dataset]
-    evaluation_method = "leave-one-out"
-    classifier_name = "artificial neural networks"
-    normalization_method = "all"
-    lst = []
-
-    results = run_classifier(
-        original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method
-        )
-    
-    number_of_combos = get_valid_number_of_combos(results)
-    
-    combinations = display_selected_combos(results, number_of_combos)
+            combinations = format_combination(ranked_results[:number_of_combos])
+    return heading, combinations
 

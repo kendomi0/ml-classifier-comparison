@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <form method="POST" action="/classifier">
+        <fieldset>
+            <legend>
+                Choose an evaluation method.
+            </legend>
+            <input type="hidden" name="dataset" value="{{ dataset }}">
+            <input type="radio" name="evaluation" value="holdout" required>
+                <label for="Holdout">
+                    Holdout
+                </label>
+            <input type="radio" name="evaluation" value="random subsampling">
+                <label for="Random subsampling">
+                    Random Subsampling
+                </label>
+            <input type="radio" name="evaluation" value="leave-one-out">
+                <label for="leave-one-out">
+                    Leave-One-Out
+                </label>
+            <input type="radio" name="evaluation" value="kfold">
+                <label for="K-fold">
+                    K-fold
+                </label>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+</body>
+</html>
