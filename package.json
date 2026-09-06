@@ -20,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/kendomi0/ml-classifier-comparison/issues"
   },
-  "homepage": "https://github.com/kendomi0/ml-classifier-comparison#readme"
+  "homepage": "https://github.com/kendomi0/ml-classifier-comparison#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.5.1": true
+  }
 }

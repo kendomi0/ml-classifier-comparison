@@ -4,3 +4,4 @@ NOTES.txt
 __pycache__/
 notes/
 /venv
+node_modules
