@@ -1,5 +1,7 @@
 # Machine Learning Classifier Comparison
 
+[View Live Demo on Render](https://ml-classifier-comparison.onrender.com/)
+
 This project allows users to choose between dozens of combinations of classifiers, evaluation methods, and normalization techniques on specific datasets to compare performance. Combinations are ranked by accuracy, with computational cost used as a tiebreaker, and the user can visualize datasets with scatter plots.
 
 This was originally a capstone project comparing these combinations manually. I then refactored it to let users interactively select combinations and automatically generate accuracy rankings.
@@ -13,12 +15,14 @@ Five datasets from sklearn:
 - **Anisotropically distributed data**
 - **Varied data**
 
-## Programming language and modules used
+## Technologies Used
 
-- Python 3.14
-- Scikit-learn
-- Numpy
-- Matplotlib
+- Back end: Python 3.14, Flask
+- Machine learning: scikit-learn
+- Numerical computing: NumPy
+- Plot generation: Matplotlib
+- Deployment: Render (via Gunicorn)
+- Front end: HTML with Jinja2 templating, CSS, JavaScript
 
 ## Methods compared
 
@@ -33,15 +37,12 @@ Five datasets from sklearn:
 - Holdout (train/test split)
 - Random subsampling
 - Leave-one-out cross-validation
-- K-fold cross-validation
+- K-fold cross-validation (k=3, 5, 10)
 
 **Normalization techniques**:
 - Min-max normalization
 - Z-score normalization  
 - Unnormalized
-
-## User selection and ranking
-![User selection and ranking](./assets/screenshots/user_selection.png)
 
 ## Dataset plots
 
@@ -52,8 +53,7 @@ Five datasets from sklearn:
 <img src="./assets/plots/varied_plot.png" width="500" height="360">
 
 ## Future Additions
-- Connect backend to Flask frontend
-- Deploy on Render
+- Stylize front end using Tailwind
 - Allow user to display top half or top quarter of ranked combinations
 
 ## Run Locally
@@ -62,9 +62,18 @@ Five datasets from sklearn:
 git clone https://github.com/kendomi0/ml-classifier-comparison.git
 cd ml-classifier-comparison
 
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+venv\Scripts\activate # Windows
+source venv/bin/activate # MacOS/Linux
+
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the main file to trigger user selection of combinations
-python main.py
+# Run the flask app
+python -m flask run
+
+# View app at http://127.0.0.1:5000
 ```
