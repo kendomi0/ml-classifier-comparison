@@ -1,0 +1,24 @@
+{
+  "name": "data-analysis-classification",
+  "version": "1.0.0",
+  "description": "[View Live Demo on Render](https://ml-classifier-comparison.onrender.com/)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kendomi0/ml-classifier-comparison.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kendomi0/ml-classifier-comparison/issues"
+  },
+  "homepage": "https://github.com/kendomi0/ml-classifier-comparison#readme"
+}
