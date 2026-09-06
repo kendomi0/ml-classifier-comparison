@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-.display-none {
-    display: none !important;
-}
-
 .capitalized-all {
     text-transform: capitalize;
 }

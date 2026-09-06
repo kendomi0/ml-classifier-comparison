@@ -11,8 +11,8 @@ function showPlot() {
 }
 
 function toggleBtn() {
-    scatterPlot.classList.toggle("display-none");
-    let isHidden = scatterPlot.classList.contains("display-none");
+    scatterPlot.classList.toggle("hidden");
+    let isHidden = scatterPlot.classList.contains("hidden");
     showOrHide.textContent = isHidden ? "Show": "Hide";
 }
 

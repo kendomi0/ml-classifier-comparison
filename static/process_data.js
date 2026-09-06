@@ -7,8 +7,8 @@ let form = document.querySelector("form");
 let loadingScreen = document.querySelector(".loading-screen");
 
 numericCombosBtn.addEventListener("click", () => {
-    numericCombosInput.classList.remove("display-none");
-    submitCombosBtn.classList.remove("display-none");
+    numericCombosInput.classList.remove("hidden");
+    submitCombosBtn.classList.remove("hidden");
     },
     { once: true}
 )
@@ -18,7 +18,7 @@ allCombosBtn.addEventListener("click", () => {
 })
 
 if (totalCombinations.value == 1) {
-    loadingScreen.classList.remove("display-none");
+    loadingScreen.classList.remove("hidden");
     console.log("combination is 1");
     window.addEventListener("load", () => {
         numericCombosInput.value = "1";

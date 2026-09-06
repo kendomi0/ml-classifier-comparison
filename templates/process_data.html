@@ -9,7 +9,7 @@
         <input type="hidden" name="dataset" value="{{ dataset }}">
         <input type="hidden" name="plot_key" value="{{ plot_key }}">
         <input type="hidden" id="total-combinations" value="{{ results_length }}">
-        <p class="loading-screen display-none">Generating combination...</p>
+        <p class="loading-screen hidden">Generating combination...</p>
         <p>
             How many of the top combinations would you like to see out of {{ results_length }} total combination{% if results_length > 1 %}s{% endif %}?
         </p>
@@ -17,8 +17,8 @@
         <button type="button" id="numeric-combos-btn">
             Enter a specific number of combinations
         </button>
-        <input type="number" id="numeric-combos-input" name="number-of-combos" min="1" max="{{ results_length }}" class="display-none" required>
-        <button type="submit" id="submit-combos-btn" value="submit" class="display-none">Submit</button>
+        <input type="number" id="numeric-combos-input" name="number-of-combos" min="1" max="{{ results_length }}" class="hidden" required>
+        <button type="submit" id="submit-combos-btn" value="submit" class="hidden">Submit</button>
         <button type="submit" id="all-combos-btn" name="number-of-combos" value="all">
             Choose all combinations
         </button>
