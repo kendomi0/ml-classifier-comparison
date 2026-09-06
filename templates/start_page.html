@@ -4,12 +4,14 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='../static/output.css') }}">
     </head>
 <body>
-    <p>
-        Machine Learning Classifier Comparison
-    </p>
-    <p>
-        Proceed to the next page to begin selection.
-    </p>
-    <button onclick="document.location='/dataset'">Next</button>
+    <main class="flex flex-col h-screen justify-center gap-8">
+        <h1 class="text-7xl text-center tracking-tight font-semibold">
+            Machine Learning Classifier Comparison
+        </h1>
+        <p class="text-2xl text-center">
+            Proceed to the next page to begin selection.
+        </p>
+        <button class="self-center px-6 py-1 text-xl" onclick="document.location='/dataset'">Next</button>
+    </main>
 </body>
 </html>

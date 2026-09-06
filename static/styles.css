@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@layer base {
+  body {
+    background-color: var(--color-slate-100);
+    color: var(--color-slate-800);
+  }
+
+  button {
+    background-color: var(--color-slate-300);
+    border-radius: calc(infinity * 1px);
+    cursor: pointer;
+  }
+}
+
 .capitalized-all {
     text-transform: capitalize;
 }
