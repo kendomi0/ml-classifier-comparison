@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 .display-none {
     display: none !important;
 }
