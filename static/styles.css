@@ -13,10 +13,6 @@
   }
 }
 
-.capitalized-all {
-    text-transform: capitalize;
-}
-
 .loading-screen {
     width: 100%;
     height: 100vh;
