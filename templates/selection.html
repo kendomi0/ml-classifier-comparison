@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='./output.css') }}">
+    </head>
+<body>
+    <div class="loading-screen hidden">
+        Running classifiers...
+    </div>
+    <form method="POST" action="{{ form_action_page }}">
+        <fieldset>
+            <legend>
+                Choose a{%if group == "evaluation"%}n{% endif %} <span class="choice-group">{{ group }}</span>{% if group == "evaluation" or group == "normalization" %} method{% endif %}{% if group == "dataset" %} to analyze{% endif %}.
+            </legend>
+
+            <input type="hidden" name="hidden_inputs_key" value="{{ hidden_inputs_key }}">
+            {% for input_name, input_value in hidden_inputs.items() %}
+            <input type="hidden" name="{{ input_name }}" value="{{ input_value }}">
+            {% endfor %}
+
+            {% for choice in choices %}
+            <input
+                type="radio"
+                name="{{ group }}"
+                value="{{ choice }}"
+                {% if choice in disabled_choices %}
+                    title="Artificial neural networks is not available to use with leave-one-out, due to the high computational cost."
+                    disabled
+                {% endif %}
+                required
+            >
+            <label class="capitalize">{{ choice }}</label>
+            {% endfor %}
+
+            {% if group == "classifier" or group == "normalization" %}
+            <input
+                type="radio"
+                name="{{ group }}"
+                value="all"
+            >
+            <label>All</label>
+            {% endif %}
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+    <script src="{{ url_for('static', filename='../static/selection.js') }}"></script>
+</body>
+</html>
