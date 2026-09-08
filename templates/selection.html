@@ -1,48 +1,64 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://kit.fontawesome.com/b3ffa80bf4.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{ url_for('static', filename='./output.css') }}">
     </head>
 <body>
     <div class="loading-screen hidden">
         Running classifiers...
     </div>
-    <form method="POST" action="{{ form_action_page }}">
-        <fieldset>
-            <legend>
-                Choose a{%if group == "evaluation"%}n{% endif %} <span class="choice-group">{{ group }}</span>{% if group == "evaluation" or group == "normalization" %} method{% endif %}{% if group == "dataset" %} to analyze{% endif %}.
-            </legend>
+    <main>
+        <form method="POST" action="{{ form_action_page }}">
+        <fieldset class="flex flex-col h-screen justify-center gap-8">
+            <div class="legend">
+                <legend class="text-5xl text-center tracking-tight">
+                    Choose a{%if group == "evaluation"%}n{% endif %} <span class="choice-group">{{ group }}</span>{% if group == "evaluation" or group == "normalization" %} method{% endif %}{% if group == "dataset" %} to analyze{% endif %}.
+                </legend>
+            </div>
 
             <input type="hidden" name="hidden_inputs_key" value="{{ hidden_inputs_key }}">
             {% for input_name, input_value in hidden_inputs.items() %}
             <input type="hidden" name="{{ input_name }}" value="{{ input_value }}">
             {% endfor %}
 
-            {% for choice in choices %}
-            <input
-                type="radio"
-                name="{{ group }}"
-                value="{{ choice }}"
-                {% if choice in disabled_choices %}
-                    title="Artificial neural networks is not available to use with leave-one-out, due to the high computational cost."
-                    disabled
-                {% endif %}
-                required
-            >
-            <label class="capitalize">{{ choice }}</label>
-            {% endfor %}
+            <div class="radio-group flex justify-center gap-5 text-xl tracking-tight">
+                {% for choice in choices %}
+                <label class="inline-flex content-center gap-3">
+                    <input
+                        type="radio"
+                        class="appearance-none w-4 h-4 self-center rounded-full outline-2 outline-slate-300 outline-offset-2 checked:bg-slate-500" 
+                        name="{{ group }}"
+                        value="{{ choice }}"
+                        {% if choice in disabled_choices %}
+                            title="Artificial neural networks is not available to use with leave-one-out, due to the high computational cost."
+                            disabled
+                        {% endif %}
+                        required
+                    >
+                    <span class="capitalize self-center">{{ choice }}</span>
+                </label>
+                {% endfor %}
 
-            {% if group == "classifier" or group == "normalization" %}
-            <input
-                type="radio"
-                name="{{ group }}"
-                value="all"
-            >
-            <label>All</label>
-            {% endif %}
-            <button type="submit">Submit</button>
+                {% if group == "classifier" or group == "normalization" %}
+                <label class="inline-flex content-center gap-3">
+                    <input
+                        class="appearance-none w-4 h-4 rounded-full outline-2 outline-slate-300 outline-offset-2 checked:bg-slate-500"
+                        type="radio"
+                        name="{{ group }}"
+                        value="all"
+                    >
+                    <span>All</span>
+                </label>
+                {% endif %}
+            </div>
+
+            <button class="self-center text-xl pl-6 pr-5 py-2" type="submit">Next
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </fieldset>
     </form>
+    </main>
     <script src="{{ url_for('static', filename='../static/selection.js') }}"></script>
 </body>
 </html>
