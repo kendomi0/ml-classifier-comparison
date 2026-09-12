@@ -1,9 +1,12 @@
+import { LoadingScreen } from "./loading-screen.js";
+
 let numericCombosBtn = document.getElementById("numeric-combos-btn");
 let numericCombosInput = document.getElementById("numeric-combos-input");
 let allCombosBtn = document.getElementById("all-combos-btn");
 let submitCombosBtn = document.getElementById("submit-combos-btn");
 let totalCombinations = document.getElementById("total-combinations");
 let form = document.querySelector("form");
+let container = document.querySelector("body");
 let loadingScreen = document.querySelector(".loading-screen");
 
 numericCombosBtn.addEventListener("click", () => {
@@ -18,8 +21,8 @@ allCombosBtn.addEventListener("click", () => {
 })
 
 if (totalCombinations.value == 1) {
-    loadingScreen.classList.remove("hidden");
-    console.log("combination is 1");
+    let processDataLoadingScreen = new LoadingScreen(container);
+    processDataLoadingScreen.showLoadingScreen();
     window.addEventListener("load", () => {
         numericCombosInput.value = "1";
         form.submit();
