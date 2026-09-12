@@ -7,7 +7,6 @@ let submitCombosBtn = document.getElementById("submit-combos-btn");
 let totalCombinations = document.getElementById("total-combinations");
 let form = document.querySelector("form");
 let container = document.querySelector("body");
-let loadingScreen = document.querySelector(".loading-screen");
 
 numericCombosBtn.addEventListener("click", () => {
     numericCombosInput.classList.remove("hidden");
