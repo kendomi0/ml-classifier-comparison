@@ -6,11 +6,12 @@ let clickCount = 0;
 function showPlot() {
     let key = scatterPlot.dataset.key;
     scatterPlot.src = "/plot/scatter?key=" + key + "&t=" + Date.now();
-    scatterPlot.style.display = "block";
+    scatterPlot.classList.add("block");
     showOrHide.textContent = "Hide";
 }
 
 function toggleBtn() {
+    scatterPlot.classList.toggle("block");
     scatterPlot.classList.toggle("hidden");
     let isHidden = scatterPlot.classList.contains("hidden");
     showOrHide.textContent = isHidden ? "Show": "Hide";
