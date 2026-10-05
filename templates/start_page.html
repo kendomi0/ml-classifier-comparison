@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://kit.fontawesome.com/b3ffa80bf4.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='../static/output.css') }}">
-    </head>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/b3ffa80bf4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/output.css') }}">
+</head>
 <body>
-    <main class="flex flex-col h-screen justify-center gap-8">
-        <h1 class="text-7xl text-center tracking-tight font-semibold">
+    <main class="flex flex-col h-screen justify-center items-center gap-8">
+        <h1 class="text-6xl sm:text-7xl text-center tracking-tight font-semibold max-w-9/10">
             Machine Learning Classifier Comparison
         </h1>
-        <p class="text-2xl text-center">
+        <p class="text-xl sm:text-2xl text-center max-w-5/6">
             Proceed to the next page to begin selection.
         </p>
-        <button class="self-center pl-6 pr-5 py-2 text-xl" onclick="document.location='/dataset'">Next
+        <button class="pl-6 pr-5 py-2 text-xl" onclick="document.location='/dataset'">Next
             <i class="fa-solid fa-arrow-right"></i>
         </button>
     </main>
