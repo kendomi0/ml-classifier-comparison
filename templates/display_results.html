@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='../static/styles.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='../static/output.css') }}">
     </head>
 <body>
-    <p>
-        {{ heading }}
-    </p>
-    <ul>
-        {% for combo in combinations %}
-        <li>{{ combo }}</li>
-        {% endfor %}
-    </ul>
-    <button id="toggle-plot-btn">
-        <span class="show-or-hide">Show</span> Scatter Plot for <span class="capitalized-all">{{ dataset }}</span> Dataset
-    </button>
-    <img id="scatter-plot" data-key="{{ plot_key }}">
-    <p>
-        <a href="/">Return to Start</a>
-    </p>
+    <div id="results" class="flex flex-col min-h-screen w-screen justify-center-safe items-center gap-5 py-5">
+        <div class="combinations">
+            <p class="text-center text-4xl tracking-tight mb-5">
+                {{ heading }}
+            </p>
+            <ul class="text-xl text-center flex-col gap-3">
+                {% for combo in combinations %}
+                <li>{{ combo }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <img id="scatter-plot" class="w-fit hidden" data-key="{{ plot_key }}">
+        <button id="toggle-plot-btn" class="w-fit text-xl rounded-full px-4 py-1">
+            <span class="default-text">
+                <span class="show-or-hide">Show</span> Scatter Plot for <span class="capitalize">{{ dataset }}</span> Dataset
+            </span>
+            <span id="loading-or-retry" class="hidden">
+            </span>
+        </button>
+        <p>
+            <a href="/" class="bg-slate-700 text-slate-200 text-xl rounded-full px-4 py-1">Return to Start</a>
+        </p>
+    </div>
     <script src="{{ url_for('static', filename='../static/display_results.js') }}"></script>
 </body>
 </html>
