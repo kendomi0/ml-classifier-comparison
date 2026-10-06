@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://kit.fontawesome.com/b3ffa80bf4.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='./output.css') }}">
-    </head>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/b3ffa80bf4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='./output.css') }}">
+</head>
 <body>
     <div class="loading-screen w-screen h-screen hidden">
         <div class="loading-screen-tagline max-w-9/10 flex flex-col gap-1 sm:flex-row">
@@ -16,8 +16,8 @@
     </div>
     <main>
         <form method="POST" action="{{ form_action_page }}">
-        <fieldset class="flex flex-col h-screen justify-center gap-8">
-            <div class="legend">
+        <fieldset class="flex flex-col h-screen items-center justify-center gap-8">
+            <div class="legend flex justify-center max-w-2/3 sm:max-w-5/6">
                 <legend class="text-5xl text-center tracking-tight">
                     Choose a{%if group == "evaluation"%}n{% endif %} <span class="choice-group">{{ group }}</span>{% if group == "evaluation" or group == "normalization" %} method{% endif %}{% if group == "dataset" %} to analyze{% endif %}.
                 </legend>
@@ -28,9 +28,9 @@
             <input type="hidden" name="{{ input_name }}" value="{{ input_value }}">
             {% endfor %}
 
-            <div class="radio-group flex justify-center gap-5 text-xl tracking-tight">
+            <div class="radio-group flex flex-col sm:flex-row flex-wrap justify-center gap-5 text-xl tracking-tight max-w-9/10">
                 {% for choice in choices %}
-                <label class="inline-flex content-center gap-3">
+                <label class="inline-flex sm:ml-0 gap-3">
                     <input
                         type="radio"
                         class="appearance-none w-4 h-4 self-center rounded-full outline-2 outline-slate-300 outline-offset-2 checked:bg-slate-500" 
@@ -42,19 +42,19 @@
                         {% endif %}
                         required
                     >
-                    <span class="capitalize self-center">{{ choice }}</span>
+                    <span class="capitalize ml-3 sm:ml-0">{{ choice }}</span>
                 </label>
                 {% endfor %}
 
                 {% if group == "classifier" or group == "normalization" %}
-                <label class="inline-flex content-center gap-3">
+                <label class="inline-flex sm:ml-0 gap-3">
                     <input
-                        class="appearance-none w-4 h-4 rounded-full outline-2 outline-slate-300 outline-offset-2 checked:bg-slate-500"
+                        class="appearance-none w-4 h-4 rounded-full self-center outline-2 outline-slate-300 outline-offset-2 checked:bg-slate-500"
                         type="radio"
                         name="{{ group }}"
                         value="all"
                     >
-                    <span>All</span>
+                    <span class="ml-3 sm:ml-0">All</span>
                 </label>
                 {% endif %}
             </div>
