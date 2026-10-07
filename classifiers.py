@@ -14,7 +14,7 @@ classifier_map = {
     "naive bayes": GaussianNB(),
     "decision tree": DecisionTreeClassifier(criterion="gini"),
     "support vector machine": SVC(decision_function_shape='ovo'),
-    "artificial neural networks": MLPClassifier(hidden_layer_sizes=(25, 15), activation='tanh', max_iter=2000, random_state=42),
+    "artificial neural networks": MLPClassifier(hidden_layer_sizes=(25, 15), activation='tanh', max_iter=2000, random_state=42, solver="lbfgs"),
     "k-nearest-neighbor": None,
 }
 
@@ -234,7 +234,6 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
 
 def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
     results = []
-    #evaluation_method, classifier_name = check_valid_combination(evaluation_method, classifier_name)
     if evaluation_method == "all":
         evaluations = evaluation_methods.items()
     else:
