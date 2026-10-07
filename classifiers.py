@@ -1,6 +1,3 @@
-import time
-import os
-import psutil
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
@@ -236,8 +233,6 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
     return result
 
 def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
-    proc = psutil.Process(os.getpid())
-    print(f"Memory before running any classifier: {proc.memory_info().rss / 1e6:.0f} MB", flush=True)
     results = []
     #evaluation_method, classifier_name = check_valid_combination(evaluation_method, classifier_name)
     if evaluation_method == "all":
@@ -261,11 +256,7 @@ def run_classifier(original_X, y, current_dataset, classifier_name, normalizatio
                 if evaluation_method_name == "leave-one-out" and clf_name == "artificial neural networks":
                     continue
                 X = normalizer(original_X)
-                print(f"Starting: {clf_name} / {normalization_method_name} / {evaluation_method_name}", flush=True)
-                start = time.time()
                 classify(clf_func, clf_name, X, y, current_dataset, normalization_method_name, evaluation_method_name, results)
-                print(f"Done in {time.time() - start:.1f}s, memory: {proc.memory_info().rss / 1e6:.0f} MB", flush=True)
-    print(f"Memory after running all classifiers: {proc.memory_info().rss / 1e6:.0f} MB", flush=True)
     return results
 
 def calculate_cost(result=ClassificationResult):
