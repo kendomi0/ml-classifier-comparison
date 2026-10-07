@@ -234,7 +234,6 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
 
 def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
     results = []
-    #evaluation_method, classifier_name = check_valid_combination(evaluation_method, classifier_name)
     if evaluation_method == "all":
         evaluations = evaluation_methods.items()
     else:
