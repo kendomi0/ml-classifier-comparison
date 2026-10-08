@@ -15,7 +15,7 @@ classifier_map = {
     "naive bayes": GaussianNB(),
     "decision tree": DecisionTreeClassifier(criterion="gini"),
     "support vector machine": SVC(decision_function_shape='ovo'),
-    "artificial neural networks": MLPClassifier(hidden_layer_sizes=(25, 15), activation='tanh', max_iter=100, random_state=42, solver="lbfgs"),
+    "artificial neural networks": MLPClassifier(hidden_layer_sizes=(25, 15), activation='tanh', max_iter=50, random_state=42, solver="lbfgs"),
     "k-nearest-neighbor": None,
 }
 
