@@ -1,7 +1,9 @@
 import time
+import warnings
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
+from sklearn.exceptions import ConvergenceWarning
 from utils import do_nothing
 import numpy as np
 from preprocessing import normalize_minmax, normalize_zscore
@@ -259,7 +261,8 @@ def run_classifier(original_X, y, current_dataset, classifier_name, normalizatio
                 X = normalizer(original_X)
                 start_time_current_combo = time.time()
                 print(f"Starting combination: {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name}")
-                classify(clf_func, clf_name, X, y, current_dataset, normalization_method_name, evaluation_method_name, results)
+                with warnings.catch_warnings(action="ignore", category=ConvergenceWarning):
+                    classify(clf_func, clf_name, X, y, current_dataset, normalization_method_name, evaluation_method_name, results)
                 print(f"Done in {time.time() - start_time_current_combo:.1f} sec (Combination of {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name})")
     print(f"All combinations done in {time.time() - start_time_all_combos:.1f} sec")
     return results
