@@ -1,6 +1,9 @@
+import time
+import warnings
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
+from sklearn.exceptions import ConvergenceWarning
 from utils import do_nothing
 import numpy as np
 from preprocessing import normalize_minmax, normalize_zscore
@@ -14,7 +17,7 @@ classifier_map = {
     "naive bayes": GaussianNB(),
     "decision tree": DecisionTreeClassifier(criterion="gini"),
     "support vector machine": SVC(decision_function_shape='ovo'),
-    "artificial neural networks": MLPClassifier(hidden_layer_sizes=(25, 15), activation='tanh', max_iter=2000, random_state=42, solver="lbfgs"),
+    "artificial neural networks": MLPClassifier(hidden_layer_sizes=(25, 15), activation='tanh', max_iter=50, random_state=42, solver="lbfgs"),
     "k-nearest-neighbor": None,
 }
 
@@ -233,6 +236,7 @@ def classify(classifier, classifier_name, X, y, current_dataset, normalization_m
     return result
 
 def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
+    start_time_all_combos = time.time()
     results = []
     if evaluation_method == "all":
         evaluations = evaluation_methods.items()
@@ -255,7 +259,12 @@ def run_classifier(original_X, y, current_dataset, classifier_name, normalizatio
                 if evaluation_method_name == "leave-one-out" and clf_name == "artificial neural networks":
                     continue
                 X = normalizer(original_X)
-                classify(clf_func, clf_name, X, y, current_dataset, normalization_method_name, evaluation_method_name, results)
+                start_time_current_combo = time.time()
+                print(f"Starting combination: {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name}")
+                with warnings.catch_warnings(action="ignore", category=ConvergenceWarning):
+                    classify(clf_func, clf_name, X, y, current_dataset, normalization_method_name, evaluation_method_name, results)
+                print(f"Done in {time.time() - start_time_current_combo:.1f} sec (Combination of {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name})")
+    print(f"All combinations done in {time.time() - start_time_all_combos:.1f} sec")
     return results
 
 def calculate_cost(result=ClassificationResult):
