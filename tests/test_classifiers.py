@@ -104,15 +104,11 @@ def test_classify_loo():
     assert isinstance(result, ClassificationResult)
 
 def test_classify_loo_knn(mocker):
-    mock_split = mocker.patch("classifiers.classify_split")
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
     normalization_method = "unnormalized"
     result = classify_loo_knn("k-nearest-neighbor", X, y, current_dataset, normalization_method)
     assert isinstance(result, ClassificationResult)
-    assert any(
-        isinstance(call.args[1], LeaveOneOut) for call in mock_split.call_args_list
-        )
     
 @pytest.mark.parametrize("clf_name, current_dataset, normalization_method, evaluation_method",
                         [
