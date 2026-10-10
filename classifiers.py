@@ -7,7 +7,7 @@ from sklearn.exceptions import ConvergenceWarning
 from utils import do_nothing
 import numpy as np
 from preprocessing import normalize_minmax, normalize_zscore
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
 from dataclasses import dataclass
@@ -193,14 +193,21 @@ def classify_loo(classifier, classifier_name, X, y, current_dataset, normalizati
 
 
 def classify_loo_knn(classifier_name, X, y, current_dataset, normalization_method):
-    evaluation_method="leave-one-out"
-    loo = LeaveOneOut()
+    evaluation_method = "leave-one-out"
     knn_vals = [3, 5, 7]
+    y = np.asarray(y)
+    n_classes = y.max() + 1
+
+    nn = NearestNeighbors(n_neighbors=max(knn_vals), n_jobs=-1).fit(X)
+    _, idx = nn.kneighbors()
+    neighbor_labels = y[idx]
+
     k_scores = {}
     for k in knn_vals:
-        classifier = KNeighborsClassifier(n_neighbors=k)
-        scores = classify_split(classifier, loo, X, y)
-        k_scores[k] = float(np.mean(scores))
+        votes = (neighbor_labels[:, :k, None] == np.arange(n_classes)).sum(axis=1)
+        preds = votes.argmax(axis=1)
+        k_scores[k] = float((preds == y).mean())
+
     best_kval, best_score = get_best(k_scores)
     return ClassificationResult(
         classifier_name=classifier_name,
