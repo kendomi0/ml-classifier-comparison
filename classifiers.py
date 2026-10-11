@@ -263,7 +263,7 @@ def run_classifier(original_X, y, current_dataset, classifier_name, normalizatio
                 normalization_method_name, normalizer = normalization
                 clf_name, clf_func = classifier
                 evaluation_method_name, _ = evaluation
-                if evaluation_method_name == "leave-one-out" and clf_name == "artificial neural networks":
+                if evaluation_method_name == "leave-one-out" and (clf_name == "artificial neural networks" or clf_name == "support vector machine"):
                     continue
                 X = normalizer(original_X)
                 start_time_current_combo = time.time()

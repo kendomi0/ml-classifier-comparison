@@ -48,6 +48,7 @@ def select_classifier():
     disabled_choices = set()
     if evaluation == "leave-one-out":
         disabled_choices.add("artificial neural networks")
+        disabled_choices.add("support vector machine")
     hidden_inputs_key = request.form["hidden_inputs_key"]
     hidden_inputs[hidden_inputs_key]["evaluation"] = evaluation
     return render_template(

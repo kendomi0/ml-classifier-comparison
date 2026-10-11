@@ -6,6 +6,8 @@ from sklearn.naive_bayes import GaussianNB
 import pytest
 from unittest.mock import MagicMock
 
+disabled_loo_choices = ["artificial neural networks", "support vector machine"]
+
 def test_get_best():
     test_dict = {
         "Anna": 91,
@@ -148,7 +150,7 @@ def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
     norm_methods = list(normalization_methods)
     evaluation_methods_list = list(evaluation_methods)
 
-    assert len(mock_run.call_args_list) == 57
+    assert len(mock_run.call_args_list) == 60 - (len(disabled_loo_choices) * 3)
 
     assert all(
         any(
@@ -160,7 +162,7 @@ def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
         for clf_name in clfs
         for normalization_method in norm_methods
         for evaluation_method in evaluation_methods_list
-        if not (evaluation_method == "leave-one-out" and clf_name == "artificial neural networks")
+        if not (evaluation_method == "leave-one-out" and clf_name in disabled_loo_choices)
     )
 
 @pytest.mark.parametrize("evaluation_method",
@@ -173,7 +175,7 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
     run_classifier(X, y, current_dataset, "all", "all", evaluation_method)
 
     clfs = list(classifier_map)
-    clfs_no_ann = [clf for clf in clfs if clf != "artificial neural networks"]
+    clfs_no_ann = [clf for clf in clfs if clf not in disabled_loo_choices]
     norm_methods = list(normalization_methods)
 
     if evaluation_method == "leave-one-out":
@@ -253,7 +255,7 @@ def test_run_classifier_all_classifiers_one_normalization(current_dataset, norma
     run_classifier(original_X, y, current_dataset, classifier, normalization_method, evaluation_method)
 
     clfs = list(classifier_map)
-    clfs_no_ann = [clf for clf in clfs if clf != "artificial neural networks"]
+    clfs_no_ann = [clf for clf in clfs if clf not in disabled_loo_choices]
 
     if evaluation_method == "leave-one-out":
         assert all(
