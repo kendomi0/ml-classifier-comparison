@@ -11,6 +11,12 @@ app = Flask(__name__)
 results_store = {}
 plot_data = {}
 hidden_inputs = {}
+selection_legends = {
+    "dataset": "Choose a dataset to analyze.",
+    "evaluation": "Choose an evaluation method.",
+    "classifier": "Choose a classifier.",
+    "normalization": "Choose a normalization method.",
+}
 
 @app.route("/")
 def start():
@@ -22,6 +28,7 @@ def select_dataset():
         "selection.html", 
         choices=datasets_dict.keys(),
         group="dataset",
+        selection_legends = selection_legends,
         form_action_page="/evaluation",
         hidden_inputs = hidden_inputs
     )
@@ -37,6 +44,7 @@ def select_evaluation_method():
         "selection.html", 
         choices = evaluation_methods.keys(),
         group = "evaluation",
+        selection_legends = selection_legends,
         form_action_page = "/classifier",
         hidden_inputs = hidden_inputs[hidden_inputs_key],
         hidden_inputs_key = hidden_inputs_key
@@ -55,6 +63,7 @@ def select_classifier():
         "selection.html", 
         choices = classifier_map.keys(),
         group = "classifier",
+        selection_legends = selection_legends,
         form_action_page = "/normalization",
         hidden_inputs = hidden_inputs[hidden_inputs_key],
         hidden_inputs_key = hidden_inputs_key,
@@ -70,6 +79,7 @@ def select_normalization_method():
         "selection.html", 
         choices = normalization_methods.keys(),
         group = "normalization",
+        selection_legends = selection_legends,
         form_action_page = "/process",
         hidden_inputs = hidden_inputs[hidden_inputs_key],
         hidden_inputs_key = hidden_inputs_key
