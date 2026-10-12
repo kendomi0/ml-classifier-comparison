@@ -139,7 +139,14 @@ def display_results():
     heading, combinations = display_selected_combos(results, number_of_combos)
     results_store.pop(results_key, None)
     hidden_inputs.pop(hidden_inputs_key, None)
-    return render_template("display_results.html", combinations=combinations, dataset=dataset, heading=heading, plot_key=plot_key)
+    return render_template(
+        "display_results.html", 
+        combinations=combinations,
+        dataset=dataset,
+        heading=heading,
+        plot_key=plot_key,
+        WEBSITE_NAME=WEBSITE_NAME
+        )
 
 @app.route('/plot/scatter')
 def display_scatter_plot():
