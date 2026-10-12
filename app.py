@@ -11,6 +11,8 @@ app = Flask(__name__)
 results_store = {}
 plot_data = {}
 hidden_inputs = {}
+
+WEBSITE_NAME = "Machine Learning Classifier Comparison"
 selection_legends = {
     "dataset": "Choose a dataset to analyze.",
     "evaluation": "Choose an evaluation method.",
@@ -20,7 +22,10 @@ selection_legends = {
 
 @app.route("/")
 def start():
-    return render_template("start_page.html")
+    return render_template(
+        "start_page.html",
+        WEBSITE_NAME = WEBSITE_NAME
+        )
 
 @app.route("/dataset")
 def select_dataset():
