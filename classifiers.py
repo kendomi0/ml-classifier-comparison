@@ -54,13 +54,21 @@ class ClassificationResult:
     evaluation_method: str
     normalization_method: str
     dataset: str
-    score: str
+    score: float
     knn_value: Optional[int] = None
     kfold_value: Optional[int] = None
     cost: Optional[int] = None
 
 def get_best(score_dict):
     return max(score_dict, key=score_dict.get), max(score_dict.values())
+
+def accuracy_to_percent(score):
+    new_score = score * (10**2)
+    str_score = f"{new_score:.2f}"
+    return float(str_score)
+
+def format_percent(percent):
+    return f"{percent:.2f}%"
 
 def classify_holdout(classifier, classifier_name, X, y, current_dataset, normalization_method):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
@@ -71,7 +79,7 @@ def classify_holdout(classifier, classifier_name, X, y, current_dataset, normali
         evaluation_method="holdout",
         normalization_method=normalization_method,
         dataset=current_dataset,
-        score=f"{holdout_score:.2%}"
+        score=accuracy_to_percent(holdout_score)
     )
 def classify_holdout_knn(classifier_name, X, y, current_dataset, normalization_method):
     k_vals = [3, 5, 7]
@@ -89,7 +97,7 @@ def classify_holdout_knn(classifier_name, X, y, current_dataset, normalization_m
         normalization_method=normalization_method,
         dataset=current_dataset,
         knn_value=best_kval,
-        score=f"{best_score:.2%}"
+        score=accuracy_to_percent(best_score)
     )
 
 def classify_random_subsampling(classifier, classifier_name, X, y, current_dataset, normalization_method):
@@ -104,7 +112,7 @@ def classify_random_subsampling(classifier, classifier_name, X, y, current_datas
         evaluation_method="random subsampling",
         normalization_method=normalization_method,
         dataset=current_dataset,
-        score=f"{average:.2%}"
+        score=accuracy_to_percent(average)
     )
 
 def classify_random_subsampling_knn(classifier_name, X, y, current_dataset, normalization_method):
@@ -126,7 +134,7 @@ def classify_random_subsampling_knn(classifier_name, X, y, current_dataset, norm
         normalization_method=normalization_method,
         dataset=current_dataset,
         knn_value=best_kval,
-        score=f"{best_score:.2%}"
+        score=accuracy_to_percent(best_score)
     )
 
 def classify_split(classifier, splitter, X, y):
@@ -153,7 +161,7 @@ def classify_kfold(classifier, classifier_name, X, y, current_dataset, normaliza
         normalization_method=normalization_method,
         dataset=current_dataset,
         kfold_value=best_kval,
-        score=f"{best_score:.2%}"
+        score=accuracy_to_percent(best_score)
     )
 
 def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_method):
@@ -175,7 +183,7 @@ def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_met
         dataset=current_dataset,
         knn_value=best_combo[0],
         kfold_value=best_combo[1],
-        score=f"{best_score:.2%}"
+        score=accuracy_to_percent(best_score)
     )
 
 def classify_loo(classifier, classifier_name, X, y, current_dataset, normalization_method):
@@ -188,7 +196,7 @@ def classify_loo(classifier, classifier_name, X, y, current_dataset, normalizati
         evaluation_method=evaluation_method,
         normalization_method=normalization_method,
         dataset=current_dataset,
-        score=f"{avg_score:.2%}"
+        score=accuracy_to_percent(avg_score)
     )
 
 
@@ -215,7 +223,7 @@ def classify_loo_knn(classifier_name, X, y, current_dataset, normalization_metho
         normalization_method=normalization_method,
         dataset=current_dataset,
         knn_value=best_kval,
-        score=f"{best_score:.2%}"
+        score=accuracy_to_percent(best_score)
     )
 
 evaluation_methods = {
@@ -283,7 +291,7 @@ def sort_by_cost(results):
     ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
     results_with_recurring_scores = {}
     results_with_unique_scores = ranked_results.copy()
-    scores = [float(result.score.strip("%")) for result in ranked_results]
+    scores = [result.score for result in ranked_results]
 
     for index, score in enumerate(scores):
         count = scores.count(score)
@@ -305,7 +313,7 @@ def sort_by_cost(results):
         sorted_results = unpacked_results_with_recurring_scores.copy()
     else:
         sorted_results = results_with_unique_scores + unpacked_results_with_recurring_scores
-        sorted_results = sorted(sorted_results, key=lambda result: (-float(result.score.strip("%")), result.cost))
+        sorted_results = sorted(sorted_results, key=lambda result: (-(result.score), result.cost))
     return sorted_results
 
 def display_combinations_heading(results, number_of_combos):
@@ -325,6 +333,7 @@ def display_combinations_heading(results, number_of_combos):
 def format_combination(results):
     combos = []
     for index, result in enumerate(results):
+        formatted_score = format_percent(result.score)
         print_kfold_value = ""
         if result.kfold_value is not None:
             print_kfold_value = f" (Kfold value: {result.kfold_value})"
@@ -332,7 +341,7 @@ def format_combination(results):
         if result.knn_value is not None:
             print_knn_value = f" (KNN value: {result.knn_value})"
         display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}{print_knn_value}, {result.evaluation_method.capitalize()}{print_kfold_value}, {result.normalization_method.capitalize()}."
-        display += f" Accuracy: {result.score}"
+        display += f" Accuracy: {formatted_score}"
         if result.cost is not None:
             display += f", Computational cost: {result.cost}"
         if len(results) > 1:

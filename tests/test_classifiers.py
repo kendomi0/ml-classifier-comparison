@@ -1,10 +1,11 @@
-from classifiers import get_best, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classify_random_subsampling_knn, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, format_combination, display_selected_combos, calculate_cost, rank_results, display_combinations_heading, combination_headings
+from classifiers import get_best, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classify_random_subsampling_knn, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, format_combination, display_selected_combos, calculate_cost, rank_results, display_combinations_heading, combination_headings, accuracy_to_percent, format_percent
 from sklearn.model_selection import KFold, LeaveOneOut
 from data import datasets_dict
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 import pytest
 from unittest.mock import MagicMock
+from decimal import Decimal
 
 disabled_loo_choices = ["artificial neural networks", "support vector machine"]
 
@@ -18,6 +19,22 @@ def test_get_best():
     best_name, best_score = get_best(test_dict)
     assert best_name == "Lucy"
     assert best_score == 100
+
+@pytest.mark.parametrize("score, expected_score",
+                       [
+                           (1.0, 100.0),
+                           (0.9734526, 97.35),
+                           (0.936, 93.6)
+                       ]
+                       )
+def test_accuracy_to_percent(score, expected_score):
+    converted_score = accuracy_to_percent(score)
+    assert converted_score == expected_score
+
+def test_convert_percentage():
+    score = 73.5
+    converted_percentage = format_percent(score)
+    assert converted_percentage == "73.50%"
 
 def test_classify_holdout():
     X, y = datasets.make_circles(n_samples=1000, shuffle=True, noise=0.05, random_state=42, factor=0.8)
@@ -298,28 +315,28 @@ def test_sort_by_cost():
             evaluation_method="holdout",
             normalization_method="minmax",
             dataset="blobs",
-            score="97.00%",
+            score=97.00,
         ),
         ClassificationResult(
             classifier_name="naive bayes",
             evaluation_method="holdout",
             normalization_method="unnormalized",
             dataset="blobs",
-            score="94.00%",
+            score=94.00,
         ),
         ClassificationResult(
             classifier_name="naive bayes",
             evaluation_method="kfold",
             normalization_method="zscore",
             dataset="blobs",
-            score="94.00%",
+            score=94.00,
         ),
         ClassificationResult(
             classifier_name="naive bayes",
             evaluation_method="random subsampling",
             normalization_method="unnormalized",
             dataset="blobs",
-            score="95.00%",
+            score=95.00,
         ),
     ]
     results_with_costs = results.copy()
@@ -415,7 +432,7 @@ def test_format_combination_isbest():
             evaluation_method="kfold",
             normalization_method="minmax",
             dataset="blobs",
-            score="95.00%",
+            score=95.0,
             knn_value=3,
             kfold_value=3
         )
@@ -429,28 +446,28 @@ def test_rank_results_with_recurring_scores(mocker):
             evaluation_method="holdout",
             normalization_method="minmax",
             dataset="blobs",
-            score="97.00%",
+            score=97.00,
         ),
         ClassificationResult(
             classifier_name="naive bayes",
             evaluation_method="holdout",
             normalization_method="unnormalized",
             dataset="blobs",
-            score="94.00%",
+            score=94.00,
         ),
         ClassificationResult(
             classifier_name="naive bayes",
             evaluation_method="kfold",
             normalization_method="zscore",
             dataset="blobs",
-            score="94.00%",
+            score=94.00,
         ),
         ClassificationResult(
             classifier_name="naive bayes",
             evaluation_method="random subsampling",
             normalization_method="unnormalized",
             dataset="blobs",
-            score="95.00%",
+            score=95.00,
         ),
     ]
     mock_sort_by_cost = mocker.patch("classifiers.sort_by_cost")
@@ -464,32 +481,39 @@ def test_rank_results_with_unique_scores():
             evaluation_method="holdout",
             normalization_method="minmax",
             dataset="blobs",
-            score="97.00%",
+            score=97.18,
         ),
         ClassificationResult(
             classifier_name="naive bayes",
             evaluation_method="holdout",
             normalization_method="unnormalized",
             dataset="blobs",
-            score="95.00%",
+            score=95.58,
         ),
         ClassificationResult(
             classifier_name="naive bayes",
             evaluation_method="kfold",
             normalization_method="zscore",
             dataset="blobs",
-            score="96.00%",
+            score=96.23,
         ),
         ClassificationResult(
             classifier_name="naive bayes",
             evaluation_method="random subsampling",
             normalization_method="unnormalized",
             dataset="blobs",
-            score="91.00%",
+            score=91.37,
+        ),
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="random subsampling",
+            normalization_method="unnormalized",
+            dataset="blobs",
+            score=100.00,
         ),
     ]
     ranked_results = rank_results(results)
-    assert ranked_results == [results[0], results[2], results[1], results[3]]
+    assert ranked_results == [results[4], results[0], results[2], results[1], results[3]]
 
 def test_display_selected_combos(mocker):
     mock_format_combination = mocker.patch("classifiers.format_combination")
