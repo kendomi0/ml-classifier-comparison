@@ -9,6 +9,75 @@ from decimal import Decimal
 
 disabled_loo_choices = ["artificial neural networks", "support vector machine"]
 
+results_unique_scores = [
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="holdout",
+            normalization_method="minmax",
+            dataset="blobs",
+            score=97.18,
+        ),
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="holdout",
+            normalization_method="unnormalized",
+            dataset="blobs",
+            score=95.58,
+        ),
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="kfold",
+            normalization_method="zscore",
+            dataset="blobs",
+            score=96.23,
+        ),
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="random subsampling",
+            normalization_method="unnormalized",
+            dataset="blobs",
+            score=91.37,
+        ),
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="random subsampling",
+            normalization_method="unnormalized",
+            dataset="blobs",
+            score=100.00,
+        ),
+    ]
+
+results_recurring_scores = [
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="holdout",
+            normalization_method="minmax",
+            dataset="blobs",
+            score=97.19,
+        ),
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="holdout",
+            normalization_method="unnormalized",
+            dataset="blobs",
+            score=94.12,
+        ),
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="kfold",
+            normalization_method="zscore",
+            dataset="blobs",
+            score=94.12,
+        ),
+        ClassificationResult(
+            classifier_name="naive bayes",
+            evaluation_method="random subsampling",
+            normalization_method="unnormalized",
+            dataset="blobs",
+            score=95.8,
+        ),
+    ]
+
 def test_get_best():
     test_dict = {
         "Anna": 91,
@@ -52,7 +121,6 @@ def test_classify_holdout_knn():
     normalization_method = "unnormalized"
     result = classify_holdout_knn(clf_name, X, y, current_dataset, normalization_method)
     assert isinstance(result, ClassificationResult)
-
 
 @pytest.mark.parametrize("current_dataset, normalization_method",
                        [
@@ -293,253 +361,54 @@ def test_run_classifier_all_classifiers_one_normalization(current_dataset, norma
         )
 
 def test_calculate_cost():
-    list_classifier_map = list(classifier_map)
-    list_evaluation_methods = list(evaluation_methods)
-    list_normalization_methods = list(normalization_methods)
-    list_datasets_dict = list(datasets_dict)
-
-    result = ClassificationResult(
-            classifier_name=list_classifier_map[0],
-            evaluation_method=list_evaluation_methods[0],
-            normalization_method=list_normalization_methods[0],
-            dataset=list_datasets_dict[0],
-            score="95.00%",
-        )
+    result = results_unique_scores[1]
     cost_of_result = calculate_cost(result)
     assert cost_of_result == 2
 
 def test_sort_by_cost():
-    results = [
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="minmax",
-            dataset="blobs",
-            score=97.00,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="unnormalized",
-            dataset="blobs",
-            score=94.00,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="kfold",
-            normalization_method="zscore",
-            dataset="blobs",
-            score=94.00,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="random subsampling",
-            normalization_method="unnormalized",
-            dataset="blobs",
-            score=95.00,
-        ),
-    ]
-    results_with_costs = results.copy()
+    results_with_costs = results_recurring_scores.copy()
     results_with_costs[1].cost = 2
     results_with_costs[2].cost = 5
-    sorted_results = sort_by_cost(results)
+    sorted_results = sort_by_cost(results_recurring_scores)
     assert sorted_results == [results_with_costs[0], results_with_costs[3], results_with_costs[1], results_with_costs[2]]
 
 def test_display_combinations_heading_some():
-    results = [
-            ClassificationResult(
-                classifier_name="naive bayes",
-                evaluation_method="holdout",
-                normalization_method="minmax",
-                dataset="blobs",
-                score="97.00%",
-            ),
-            ClassificationResult(
-                classifier_name="naive bayes",
-                evaluation_method="holdout",
-                normalization_method="unnormalized",
-                dataset="blobs",
-                score="94.00%",
-            ),
-            ClassificationResult(
-                classifier_name="naive bayes",
-                evaluation_method="kfold",
-                normalization_method="zscore",
-                dataset="blobs",
-                score="94.00%",
-            )
-        ]
-    heading = display_combinations_heading(results, 2)
-    assert heading == combination_headings["some"].format(number_of_combos=2, total_results=len(results))
+    heading = display_combinations_heading(results_unique_scores, 2)
+    assert heading == combination_headings["some"].format(number_of_combos=2, total_results=len(results_unique_scores))
 
 def test_display_combinations_heading_all():
-    results = [
-            ClassificationResult(
-                classifier_name="naive bayes",
-                evaluation_method="holdout",
-                normalization_method="minmax",
-                dataset="blobs",
-                score="97.00%",
-            ),
-            ClassificationResult(
-                classifier_name="naive bayes",
-                evaluation_method="holdout",
-                normalization_method="unnormalized",
-                dataset="blobs",
-                score="94.00%",
-            )
-        ]
-    heading = display_combinations_heading(results, 2)
-    assert heading == combination_headings["all"].format(number_of_combos=2, total_results=len(results))
+    heading = display_combinations_heading(results_unique_scores, 5)
+    assert heading == combination_headings["all"].format(number_of_combos=5, total_results=len(results_unique_scores))
 
 def test_display_combinations_heading_best():
-    results = [
-            ClassificationResult(
-                classifier_name="naive bayes",
-                evaluation_method="holdout",
-                normalization_method="minmax",
-                dataset="blobs",
-                score="97.00%",
-            ),
-            ClassificationResult(
-                classifier_name="naive bayes",
-                evaluation_method="holdout",
-                normalization_method="unnormalized",
-                dataset="blobs",
-                score="94.00%",
-            )
-        ]
-    heading = display_combinations_heading(results, 1)
-    assert heading == combination_headings["best"].format(number_of_combos=2, total_results=len(results))
+    heading = display_combinations_heading(results_unique_scores, 1)
+    assert heading == combination_headings["best"].format(number_of_combos=5, total_results=len(results_unique_scores))
 
 def test_display_combinations_heading_only():
-    results = [
-            ClassificationResult(
-                classifier_name="naive bayes",
-                evaluation_method="holdout",
-                normalization_method="minmax",
-                dataset="blobs",
-                score="97.00%",
-            )
-        ]
+    results = results_unique_scores[:1]
     heading = display_combinations_heading(results, 1)
     assert heading == combination_headings["only"]
 
-def test_format_combination_isbest():
-    result_list = [
-        ClassificationResult(
-            classifier_name="k-nearest-neighbor",
-            evaluation_method="kfold",
-            normalization_method="minmax",
-            dataset="blobs",
-            score=95.0,
-            knn_value=3,
-            kfold_value=3
-        )
-    ]
-    best_combo = format_combination(result_list)
+def test_format_combination():
+    format_combination(results_unique_scores)
 
 def test_rank_results_with_recurring_scores(mocker):
-    results = [
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="minmax",
-            dataset="blobs",
-            score=97.00,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="unnormalized",
-            dataset="blobs",
-            score=94.00,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="kfold",
-            normalization_method="zscore",
-            dataset="blobs",
-            score=94.00,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="random subsampling",
-            normalization_method="unnormalized",
-            dataset="blobs",
-            score=95.00,
-        ),
-    ]
     mock_sort_by_cost = mocker.patch("classifiers.sort_by_cost")
-    rank_results(results)
+    rank_results(results_recurring_scores)
     mock_sort_by_cost.assert_called_once()
 
 def test_rank_results_with_unique_scores():
-    results = [
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="minmax",
-            dataset="blobs",
-            score=97.18,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="unnormalized",
-            dataset="blobs",
-            score=95.58,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="kfold",
-            normalization_method="zscore",
-            dataset="blobs",
-            score=96.23,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="random subsampling",
-            normalization_method="unnormalized",
-            dataset="blobs",
-            score=91.37,
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="random subsampling",
-            normalization_method="unnormalized",
-            dataset="blobs",
-            score=100.00,
-        ),
+    ranked_results = rank_results(results_unique_scores)
+    assert ranked_results == [
+        results_unique_scores[4],
+        results_unique_scores[0],
+        results_unique_scores[2],
+        results_unique_scores[1],
+        results_unique_scores[3]
     ]
-    ranked_results = rank_results(results)
-    assert ranked_results == [results[4], results[0], results[2], results[1], results[3]]
 
 def test_display_selected_combos(mocker):
     mock_format_combination = mocker.patch("classifiers.format_combination")
-    results = [
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="minmax",
-            dataset="blobs",
-            score="92.00%",
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="holdout",
-            normalization_method="unnormalized",
-            dataset="blobs",
-            score="95.00%",
-        ),
-        ClassificationResult(
-            classifier_name="naive bayes",
-            evaluation_method="kfold",
-            normalization_method="zscore",
-            dataset="blobs",
-            score="97.00%",
-        )
-    ]
-    ranked_results = rank_results(results)
-    display_selected_combos(results, 3)
+    ranked_results = rank_results(results_unique_scores)
+    display_selected_combos(results_unique_scores, 3)
     mock_format_combination.assert_called_once_with(ranked_results[:3])
