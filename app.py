@@ -19,6 +19,12 @@ selection_legends = {
     "classifier": "Choose a classifier.",
     "normalization": "Choose a normalization method.",
 }
+selection_page_titles = {
+    "dataset": "Dataset",
+    "evaluation": "Evaluation Method",
+    "classifier": "Classifier",
+    "normalization": "Normalization Method"
+}
 
 @app.route("/")
 def start():
@@ -35,7 +41,9 @@ def select_dataset():
         group="dataset",
         selection_legends = selection_legends,
         form_action_page="/evaluation",
-        hidden_inputs = hidden_inputs
+        hidden_inputs = hidden_inputs,
+        WEBSITE_NAME = WEBSITE_NAME,
+        selection_page_titles = selection_page_titles
     )
 
 @app.route("/evaluation", methods=["POST"])
@@ -52,7 +60,9 @@ def select_evaluation_method():
         selection_legends = selection_legends,
         form_action_page = "/classifier",
         hidden_inputs = hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key = hidden_inputs_key
+        hidden_inputs_key = hidden_inputs_key,
+        WEBSITE_NAME = WEBSITE_NAME,
+        selection_page_titles = selection_page_titles
         )
 
 @app.route("/classifier", methods=["POST"])
@@ -72,7 +82,9 @@ def select_classifier():
         form_action_page = "/normalization",
         hidden_inputs = hidden_inputs[hidden_inputs_key],
         hidden_inputs_key = hidden_inputs_key,
-        disabled_choices = disabled_choices
+        disabled_choices = disabled_choices,
+        WEBSITE_NAME = WEBSITE_NAME,
+        selection_page_titles = selection_page_titles
         )
 
 @app.route("/normalization", methods=["POST"])
@@ -87,7 +99,9 @@ def select_normalization_method():
         selection_legends = selection_legends,
         form_action_page = "/process",
         hidden_inputs = hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key = hidden_inputs_key
+        hidden_inputs_key = hidden_inputs_key,
+        WEBSITE_NAME = WEBSITE_NAME,
+        selection_page_titles = selection_page_titles
         )
 
 @app.route("/process", methods=["POST"])
