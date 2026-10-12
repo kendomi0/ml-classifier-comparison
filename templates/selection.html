@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> {{ selection_page_titles[group] }} Selection | {{ WEBSITE_NAME }} </title>
+    <title>{{ selection_page_titles[group] }} Selection  | {{ WEBSITE_NAME }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/b3ffa80bf4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='./output.css') }}">
@@ -30,6 +30,8 @@
                 </span>
                 Artificial neural networks and support vector machine are not permitted to be used with leave-one-out, due to the high computational cost.
             </p>
+
+            <div class="website-name" data-website-name="{{ WEBSITE_NAME }}" hidden></div>
 
             <input type="hidden" id="choice-group" value="{{ group }}">
             <input type="hidden" name="hidden_inputs_key" value="{{ hidden_inputs_key }}">

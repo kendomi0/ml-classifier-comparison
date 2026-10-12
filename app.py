@@ -122,7 +122,7 @@ def process_data():
     plot_data[plot_key] = {"X": X, "y": y, "dataset": dataset}
 
     results_length = len(results)
-    return render_template("process_data.html", results_key=results_key, plot_key=plot_key, results_length = results_length, dataset=dataset, hidden_inputs_key=hidden_inputs_key)
+    return render_template("process_data.html", results_key=results_key, plot_key=plot_key, results_length = results_length, dataset=dataset, hidden_inputs_key=hidden_inputs_key, WEBSITE_NAME = WEBSITE_NAME)
 
 @app.route("/display", methods=["POST"])
 def display_results():
