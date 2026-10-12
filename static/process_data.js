@@ -7,6 +7,8 @@ let submitCombosBtn = document.getElementById("submit-combos-btn");
 let totalCombinations = document.getElementById("total-combinations");
 let form = document.querySelector("form");
 let container = document.querySelector("body");
+let pageTitle = document.querySelector("title");
+let loadingTitle = "Generating combination..."
 
 numericCombosBtn.addEventListener("click", () => {
     numericCombosInput.classList.remove("hidden");
@@ -20,7 +22,7 @@ allCombosBtn.addEventListener("click", () => {
 })
 
 if (totalCombinations.value == 1) {
-    let processDataLoadingScreen = new LoadingScreen(container);
+    let processDataLoadingScreen = new LoadingScreen(container, pageTitle, loadingTitle);
     processDataLoadingScreen.showLoadingScreen();
     window.addEventListener("load", () => {
         numericCombosInput.value = "1";

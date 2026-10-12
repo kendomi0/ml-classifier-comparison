@@ -11,16 +11,27 @@ app = Flask(__name__)
 results_store = {}
 plot_data = {}
 hidden_inputs = {}
+
+WEBSITE_NAME = "Machine Learning Classifier Comparison"
 selection_legends = {
     "dataset": "Choose a dataset to analyze.",
     "evaluation": "Choose an evaluation method.",
     "classifier": "Choose a classifier.",
     "normalization": "Choose a normalization method.",
 }
+selection_page_titles = {
+    "dataset": "Dataset",
+    "evaluation": "Evaluation Method",
+    "classifier": "Classifier",
+    "normalization": "Normalization Method"
+}
 
 @app.route("/")
 def start():
-    return render_template("start_page.html")
+    return render_template(
+        "start_page.html",
+        WEBSITE_NAME = WEBSITE_NAME
+        )
 
 @app.route("/dataset")
 def select_dataset():
@@ -30,7 +41,9 @@ def select_dataset():
         group="dataset",
         selection_legends = selection_legends,
         form_action_page="/evaluation",
-        hidden_inputs = hidden_inputs
+        hidden_inputs = hidden_inputs,
+        WEBSITE_NAME = WEBSITE_NAME,
+        selection_page_titles = selection_page_titles
     )
 
 @app.route("/evaluation", methods=["POST"])
@@ -47,7 +60,9 @@ def select_evaluation_method():
         selection_legends = selection_legends,
         form_action_page = "/classifier",
         hidden_inputs = hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key = hidden_inputs_key
+        hidden_inputs_key = hidden_inputs_key,
+        WEBSITE_NAME = WEBSITE_NAME,
+        selection_page_titles = selection_page_titles
         )
 
 @app.route("/classifier", methods=["POST"])
@@ -67,7 +82,9 @@ def select_classifier():
         form_action_page = "/normalization",
         hidden_inputs = hidden_inputs[hidden_inputs_key],
         hidden_inputs_key = hidden_inputs_key,
-        disabled_choices = disabled_choices
+        disabled_choices = disabled_choices,
+        WEBSITE_NAME = WEBSITE_NAME,
+        selection_page_titles = selection_page_titles
         )
 
 @app.route("/normalization", methods=["POST"])
@@ -82,7 +99,9 @@ def select_normalization_method():
         selection_legends = selection_legends,
         form_action_page = "/process",
         hidden_inputs = hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key = hidden_inputs_key
+        hidden_inputs_key = hidden_inputs_key,
+        WEBSITE_NAME = WEBSITE_NAME,
+        selection_page_titles = selection_page_titles
         )
 
 @app.route("/process", methods=["POST"])
@@ -103,7 +122,7 @@ def process_data():
     plot_data[plot_key] = {"X": X, "y": y, "dataset": dataset}
 
     results_length = len(results)
-    return render_template("process_data.html", results_key=results_key, plot_key=plot_key, results_length = results_length, dataset=dataset, hidden_inputs_key=hidden_inputs_key)
+    return render_template("process_data.html", results_key=results_key, plot_key=plot_key, results_length = results_length, dataset=dataset, hidden_inputs_key=hidden_inputs_key, WEBSITE_NAME = WEBSITE_NAME)
 
 @app.route("/display", methods=["POST"])
 def display_results():
@@ -120,7 +139,14 @@ def display_results():
     heading, combinations = display_selected_combos(results, number_of_combos)
     results_store.pop(results_key, None)
     hidden_inputs.pop(hidden_inputs_key, None)
-    return render_template("display_results.html", combinations=combinations, dataset=dataset, heading=heading, plot_key=plot_key)
+    return render_template(
+        "display_results.html", 
+        combinations=combinations,
+        dataset=dataset,
+        heading=heading,
+        plot_key=plot_key,
+        WEBSITE_NAME=WEBSITE_NAME
+        )
 
 @app.route('/plot/scatter')
 def display_scatter_plot():

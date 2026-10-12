@@ -1,8 +1,16 @@
 export class LoadingScreen {
-    constructor(container) {
+    constructor(container, pageTitle, loadingTitle) {
         this.form = container.querySelector("form");
         this.loadingScreen = container.querySelector(".loading-screen");
         this.loadingScreenTagline = container.querySelector(".loading-screen-tagline");
+        this.pageTitle = pageTitle;
+        this.loadingTitle = loadingTitle;
+        this.websiteNameElement = container.querySelector(".website-name");
+        this.websiteName = this.websiteNameElement.dataset.websiteName;
+    }
+
+    setLoadingScreenTitle() {
+        this.pageTitle.textContent = `${this.loadingTitle} | ${this.websiteName}`
     }
 
     showLoadingScreen() {
@@ -14,6 +22,7 @@ export class LoadingScreen {
             this.loadingScreen.classList.add("flex");
             this.loadingScreen.classList.add("flex-col");
             this.loadingScreen.classList.add("justify-center");
+            this.setLoadingScreenTitle();
         }
 
         if (!this.loadingScreenTagline) {
