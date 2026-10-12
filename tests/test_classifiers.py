@@ -1,11 +1,10 @@
-from classifiers import get_best, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classify_random_subsampling_knn, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, format_combination, display_selected_combos, calculate_cost, rank_results, display_combinations_heading, combination_headings, accuracy_to_percent, format_percent
-from sklearn.model_selection import KFold, LeaveOneOut
-from data import datasets_dict
+from unittest.mock import MagicMock
+from sklearn.model_selection import KFold
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 import pytest
-from unittest.mock import MagicMock
-from decimal import Decimal
+from classifiers import get_best, classify_holdout, classify_holdout_knn, run_classifier, classifier_map, normalization_methods, classify_random_subsampling, classify_random_subsampling_knn, evaluation_methods, classify, classify_split, classify_kfold, classify_kfold_knn, classify_loo, classify_loo_knn, ClassificationResult, sort_by_cost, format_combination, display_selected_combos, calculate_cost, rank_results, display_combinations_heading, combination_headings, accuracy_to_percent, format_percent
+from data import datasets_dict
 
 disabled_loo_choices = ["artificial neural networks", "support vector machine"]
 
