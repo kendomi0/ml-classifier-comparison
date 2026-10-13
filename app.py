@@ -23,47 +23,46 @@ selection_page_titles = {
     "dataset": "Dataset",
     "evaluation": "Evaluation Method",
     "classifier": "Classifier",
-    "normalization": "Normalization Method"
+    "normalization": "Normalization Method",
 }
+
 
 @app.route("/")
 def start():
-    return render_template(
-        "start_page.html",
-        WEBSITE_NAME = WEBSITE_NAME
-        )
+    return render_template("start_page.html", WEBSITE_NAME=WEBSITE_NAME)
+
 
 @app.route("/dataset")
 def select_dataset():
     return render_template(
-        "selection.html", 
+        "selection.html",
         choices=datasets_dict.keys(),
         group="dataset",
-        selection_legends = selection_legends,
+        selection_legends=selection_legends,
         form_action_page="/evaluation",
-        hidden_inputs = hidden_inputs,
-        WEBSITE_NAME = WEBSITE_NAME,
-        selection_page_titles = selection_page_titles
+        hidden_inputs=hidden_inputs,
+        WEBSITE_NAME=WEBSITE_NAME,
+        selection_page_titles=selection_page_titles,
     )
+
 
 @app.route("/evaluation", methods=["POST"])
 def select_evaluation_method():
     dataset = request.form["dataset"]
     hidden_inputs_key = str(uuid.uuid4())
-    hidden_inputs[hidden_inputs_key] = {
-        "dataset": dataset
-    }
+    hidden_inputs[hidden_inputs_key] = {"dataset": dataset}
     return render_template(
-        "selection.html", 
-        choices = evaluation_methods.keys(),
-        group = "evaluation",
-        selection_legends = selection_legends,
-        form_action_page = "/classifier",
-        hidden_inputs = hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key = hidden_inputs_key,
-        WEBSITE_NAME = WEBSITE_NAME,
-        selection_page_titles = selection_page_titles
-        )
+        "selection.html",
+        choices=evaluation_methods.keys(),
+        group="evaluation",
+        selection_legends=selection_legends,
+        form_action_page="/classifier",
+        hidden_inputs=hidden_inputs[hidden_inputs_key],
+        hidden_inputs_key=hidden_inputs_key,
+        WEBSITE_NAME=WEBSITE_NAME,
+        selection_page_titles=selection_page_titles,
+    )
+
 
 @app.route("/classifier", methods=["POST"])
 def select_classifier():
@@ -75,17 +74,18 @@ def select_classifier():
     hidden_inputs_key = request.form["hidden_inputs_key"]
     hidden_inputs[hidden_inputs_key]["evaluation"] = evaluation
     return render_template(
-        "selection.html", 
-        choices = classifier_map.keys(),
-        group = "classifier",
-        selection_legends = selection_legends,
-        form_action_page = "/normalization",
-        hidden_inputs = hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key = hidden_inputs_key,
-        disabled_choices = disabled_choices,
-        WEBSITE_NAME = WEBSITE_NAME,
-        selection_page_titles = selection_page_titles
-        )
+        "selection.html",
+        choices=classifier_map.keys(),
+        group="classifier",
+        selection_legends=selection_legends,
+        form_action_page="/normalization",
+        hidden_inputs=hidden_inputs[hidden_inputs_key],
+        hidden_inputs_key=hidden_inputs_key,
+        disabled_choices=disabled_choices,
+        WEBSITE_NAME=WEBSITE_NAME,
+        selection_page_titles=selection_page_titles,
+    )
+
 
 @app.route("/normalization", methods=["POST"])
 def select_normalization_method():
@@ -93,16 +93,17 @@ def select_normalization_method():
     hidden_inputs_key = request.form["hidden_inputs_key"]
     hidden_inputs[hidden_inputs_key]["classifier"] = classifier
     return render_template(
-        "selection.html", 
-        choices = normalization_methods.keys(),
-        group = "normalization",
-        selection_legends = selection_legends,
-        form_action_page = "/process",
-        hidden_inputs = hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key = hidden_inputs_key,
-        WEBSITE_NAME = WEBSITE_NAME,
-        selection_page_titles = selection_page_titles
-        )
+        "selection.html",
+        choices=normalization_methods.keys(),
+        group="normalization",
+        selection_legends=selection_legends,
+        form_action_page="/process",
+        hidden_inputs=hidden_inputs[hidden_inputs_key],
+        hidden_inputs_key=hidden_inputs_key,
+        WEBSITE_NAME=WEBSITE_NAME,
+        selection_page_titles=selection_page_titles,
+    )
+
 
 @app.route("/process", methods=["POST"])
 def process_data():
@@ -122,7 +123,16 @@ def process_data():
     plot_data[plot_key] = {"X": X, "y": y, "dataset": dataset}
 
     results_length = len(results)
-    return render_template("process_data.html", results_key=results_key, plot_key=plot_key, results_length = results_length, dataset=dataset, hidden_inputs_key=hidden_inputs_key, WEBSITE_NAME = WEBSITE_NAME)
+    return render_template(
+        "process_data.html",
+        results_key=results_key,
+        plot_key=plot_key,
+        results_length=results_length,
+        dataset=dataset,
+        hidden_inputs_key=hidden_inputs_key,
+        WEBSITE_NAME=WEBSITE_NAME,
+    )
+
 
 @app.route("/display", methods=["POST"])
 def display_results():
@@ -140,18 +150,19 @@ def display_results():
     results_store.pop(results_key, None)
     hidden_inputs.pop(hidden_inputs_key, None)
     return render_template(
-        "display_results.html", 
+        "display_results.html",
         combinations=combinations,
         dataset=dataset,
         heading=heading,
         plot_key=plot_key,
-        WEBSITE_NAME=WEBSITE_NAME
-        )
+        WEBSITE_NAME=WEBSITE_NAME,
+    )
 
-@app.route('/plot/scatter')
+
+@app.route("/plot/scatter")
 def display_scatter_plot():
     plot_key = request.args.get("key")
     data = plot_data.get(plot_key)
-    buf = create_and_save_plot(data['X'], data['y'], data['dataset'])
+    buf = create_and_save_plot(data["X"], data["y"], data["dataset"])
     plot_data.pop(plot_key, None)
-    return send_file(buf, mimetype='image/png')
+    return send_file(buf, mimetype="image/png")

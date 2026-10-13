@@ -16,8 +16,14 @@ from typing import Optional
 classifier_map = {
     "naive bayes": GaussianNB(),
     "decision tree": DecisionTreeClassifier(criterion="gini"),
-    "support vector machine": SVC(decision_function_shape='ovo'),
-    "artificial neural networks": MLPClassifier(hidden_layer_sizes=(25, 15), activation='tanh', max_iter=50, random_state=42, solver="lbfgs"),
+    "support vector machine": SVC(decision_function_shape="ovo"),
+    "artificial neural networks": MLPClassifier(
+        hidden_layer_sizes=(25, 15),
+        activation="tanh",
+        max_iter=50,
+        random_state=42,
+        solver="lbfgs",
+    ),
     "k-nearest-neighbor": None,
 }
 
@@ -32,21 +38,18 @@ classifier_costs = {
 normalization_methods = {
     "unnormalized": do_nothing,
     "minmax": normalize_minmax,
-    "zscore": normalize_zscore
+    "zscore": normalize_zscore,
 }
 
-normalization_methods_costs = {
-    "unnormalized": 0,
-    "minmax": 1,
-    "zscore": 1
-}
+normalization_methods_costs = {"unnormalized": 0, "minmax": 1, "zscore": 1}
 
 combination_headings = {
     "some": "Top {number_of_combos} out of {total_results} total combinations: ",
     "all": "All combinations: ",
     "best": "Best combination: ",
-    "only": "Combination: "
+    "only": "Combination: ",
 }
+
 
 @dataclass
 class ClassificationResult:
@@ -59,19 +62,27 @@ class ClassificationResult:
     kfold_value: Optional[int] = None
     cost: Optional[int] = None
 
+
 def get_best(score_dict):
     return max(score_dict, key=score_dict.get), max(score_dict.values())
+
 
 def accuracy_to_percent(score):
     new_score = score * (10**2)
     str_score = f"{new_score:.2f}"
     return float(str_score)
 
+
 def format_percent(percent):
     return f"{percent:.2f}%"
 
-def classify_holdout(classifier, classifier_name, X, y, current_dataset, normalization_method):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+def classify_holdout(
+    classifier, classifier_name, X, y, current_dataset, normalization_method
+):
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=42
+    )
     classifier.fit(X_train, y_train)
     holdout_score = classifier.score(X_test, y_test)
     return ClassificationResult(
@@ -79,14 +90,18 @@ def classify_holdout(classifier, classifier_name, X, y, current_dataset, normali
         evaluation_method="holdout",
         normalization_method=normalization_method,
         dataset=current_dataset,
-        score=accuracy_to_percent(holdout_score)
+        score=accuracy_to_percent(holdout_score),
     )
+
+
 def classify_holdout_knn(classifier_name, X, y, current_dataset, normalization_method):
     k_vals = [3, 5, 7]
     k_scores = {}
     for k in k_vals:
         classifier = KNeighborsClassifier(k)
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.3, random_state=42
+        )
         classifier.fit(X_train, y_train)
         score = classifier.score(X_test, y_test)
         k_scores[k] = score
@@ -97,10 +112,13 @@ def classify_holdout_knn(classifier_name, X, y, current_dataset, normalization_m
         normalization_method=normalization_method,
         dataset=current_dataset,
         knn_value=best_kval,
-        score=accuracy_to_percent(best_score)
+        score=accuracy_to_percent(best_score),
     )
 
-def classify_random_subsampling(classifier, classifier_name, X, y, current_dataset, normalization_method):
+
+def classify_random_subsampling(
+    classifier, classifier_name, X, y, current_dataset, normalization_method
+):
     scores = []
     for i in range(10):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
@@ -112,16 +130,21 @@ def classify_random_subsampling(classifier, classifier_name, X, y, current_datas
         evaluation_method="random subsampling",
         normalization_method=normalization_method,
         dataset=current_dataset,
-        score=accuracy_to_percent(average)
+        score=accuracy_to_percent(average),
     )
 
-def classify_random_subsampling_knn(classifier_name, X, y, current_dataset, normalization_method):
+
+def classify_random_subsampling_knn(
+    classifier_name, X, y, current_dataset, normalization_method
+):
     k_vals = [3, 5, 7]
     k_scores = {}
     for k in k_vals:
         scores = []
         for i in range(10):
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=i)
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=0.3, random_state=i
+            )
             k_next = KNeighborsClassifier(n_neighbors=k)
             k_next.fit(X_train, y_train)
             scores.append(k_next.score(X_test, y_test))
@@ -134,8 +157,9 @@ def classify_random_subsampling_knn(classifier_name, X, y, current_dataset, norm
         normalization_method=normalization_method,
         dataset=current_dataset,
         knn_value=best_kval,
-        score=accuracy_to_percent(best_score)
+        score=accuracy_to_percent(best_score),
     )
+
 
 def classify_split(classifier, splitter, X, y):
     scores = []
@@ -146,7 +170,10 @@ def classify_split(classifier, splitter, X, y):
         scores.append(classifier.score(X_test, y_test))
     return scores
 
-def classify_kfold(classifier, classifier_name, X, y, current_dataset, normalization_method):
+
+def classify_kfold(
+    classifier, classifier_name, X, y, current_dataset, normalization_method
+):
     evaluation_method = "kfold"
     k_folds = [3, 5, 10]
     k_accuracies = {}
@@ -161,11 +188,12 @@ def classify_kfold(classifier, classifier_name, X, y, current_dataset, normaliza
         normalization_method=normalization_method,
         dataset=current_dataset,
         kfold_value=best_kval,
-        score=accuracy_to_percent(best_score)
+        score=accuracy_to_percent(best_score),
     )
 
+
 def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_method):
-    evaluation_method="kfold"
+    evaluation_method = "kfold"
     knn_vals = [3, 5, 7]
     k_fold_vals = [3, 5, 10]
     knn_kfold_combos = {}
@@ -183,10 +211,13 @@ def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_met
         dataset=current_dataset,
         knn_value=best_combo[0],
         kfold_value=best_combo[1],
-        score=accuracy_to_percent(best_score)
+        score=accuracy_to_percent(best_score),
     )
 
-def classify_loo(classifier, classifier_name, X, y, current_dataset, normalization_method):
+
+def classify_loo(
+    classifier, classifier_name, X, y, current_dataset, normalization_method
+):
     evaluation_method = "leave-one-out"
     loo = LeaveOneOut()
     scores = classify_split(classifier, loo, X, y)
@@ -196,7 +227,7 @@ def classify_loo(classifier, classifier_name, X, y, current_dataset, normalizati
         evaluation_method=evaluation_method,
         normalization_method=normalization_method,
         dataset=current_dataset,
-        score=accuracy_to_percent(avg_score)
+        score=accuracy_to_percent(avg_score),
     )
 
 
@@ -223,34 +254,60 @@ def classify_loo_knn(classifier_name, X, y, current_dataset, normalization_metho
         normalization_method=normalization_method,
         dataset=current_dataset,
         knn_value=best_kval,
-        score=accuracy_to_percent(best_score)
+        score=accuracy_to_percent(best_score),
     )
+
 
 evaluation_methods = {
     "holdout": [classify_holdout, classify_holdout_knn],
-    "random subsampling": [classify_random_subsampling, classify_random_subsampling_knn],
+    "random subsampling": [
+        classify_random_subsampling,
+        classify_random_subsampling_knn,
+    ],
     "kfold": [classify_kfold, classify_kfold_knn],
-    "leave-one-out": [classify_loo, classify_loo_knn]
+    "leave-one-out": [classify_loo, classify_loo_knn],
 }
 
 evaluation_methods_costs = {
     "holdout": 1,
     "random subsampling": 2,
     "kfold": 3,
-    "leave-one-out": 4
+    "leave-one-out": 4,
 }
 
-def classify(classifier, classifier_name, X, y, current_dataset, normalization_method, evaluation_method, lst):
+
+def classify(
+    classifier,
+    classifier_name,
+    X,
+    y,
+    current_dataset,
+    normalization_method,
+    evaluation_method,
+    lst,
+):
     classify_default = evaluation_methods[evaluation_method][0]
     classify_knn = evaluation_methods[evaluation_method][1]
     if classifier_name == "k-nearest-neighbor":
-        result = classify_knn(classifier_name, X, y, current_dataset, normalization_method)
+        result = classify_knn(
+            classifier_name, X, y, current_dataset, normalization_method
+        )
     else:
-        result = classify_default(classifier, classifier_name, X, y, current_dataset, normalization_method)
+        result = classify_default(
+            classifier, classifier_name, X, y, current_dataset, normalization_method
+        )
     lst.append(result)
     return result
 
-def run_classifier(original_X, y, current_dataset, classifier_name, normalization_method, evaluation_method):
+
+def run_classifier(
+    original_X,
+    y,
+    current_dataset,
+    classifier_name,
+    normalization_method,
+    evaluation_method,
+):
     start_time_all_combos = time.time()
     results = []
     if evaluation_method == "all":
@@ -264,28 +321,54 @@ def run_classifier(original_X, y, current_dataset, classifier_name, normalizatio
     if normalization_method == "all":
         normalizations = normalization_methods.items()
     else:
-        normalizations = [(normalization_method, normalization_methods[normalization_method])]
+        normalizations = [
+            (normalization_method, normalization_methods[normalization_method])
+        ]
     for evaluation in evaluations:
         for classifier in classifiers:
             for normalization in normalizations:
                 normalization_method_name, normalizer = normalization
                 clf_name, clf_func = classifier
                 evaluation_method_name, _ = evaluation
-                if evaluation_method_name == "leave-one-out" and (clf_name == "artificial neural networks" or clf_name == "support vector machine"):
+                if evaluation_method_name == "leave-one-out" and (
+                    clf_name == "artificial neural networks"
+                    or clf_name == "support vector machine"
+                ):
                     continue
                 X = normalizer(original_X)
                 start_time_current_combo = time.time()
-                print(f"Starting combination: {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name}")
-                with warnings.catch_warnings(action="ignore", category=ConvergenceWarning):
-                    classify(clf_func, clf_name, X, y, current_dataset, normalization_method_name, evaluation_method_name, results)
-                print(f"Done in {time.time() - start_time_current_combo:.1f} sec (Combination of {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name})")
+                print(
+                    f"Starting combination: {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name}"
+                )
+                with warnings.catch_warnings(
+                    action="ignore", category=ConvergenceWarning
+                ):
+                    classify(
+                        clf_func,
+                        clf_name,
+                        X,
+                        y,
+                        current_dataset,
+                        normalization_method_name,
+                        evaluation_method_name,
+                        results,
+                    )
+                print(
+                    f"Done in {time.time() - start_time_current_combo:.1f} sec (Combination of {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name})"
+                )
     print(f"All combinations done in {time.time() - start_time_all_combos:.1f} sec")
     return results
 
+
 def calculate_cost(result=ClassificationResult):
     result.cost = 0
-    result.cost += classifier_costs[result.classifier_name] + normalization_methods_costs[result.normalization_method] + evaluation_methods_costs[result.evaluation_method]
+    result.cost += (
+        classifier_costs[result.classifier_name]
+        + normalization_methods_costs[result.normalization_method]
+        + evaluation_methods_costs[result.evaluation_method]
+    )
     return result.cost
+
 
 def sort_by_cost(results):
     ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
@@ -305,16 +388,25 @@ def sort_by_cost(results):
     for results in results_with_recurring_scores.values():
         for result in results:
             result.cost = calculate_cost(result)
-        results = sorted(results, key=lambda result:result.cost)
+        results = sorted(results, key=lambda result: result.cost)
 
-    unpacked_results_with_recurring_scores = [unpacked_result for result_list in results_with_recurring_scores.values() for unpacked_result in result_list]
+    unpacked_results_with_recurring_scores = [
+        unpacked_result
+        for result_list in results_with_recurring_scores.values()
+        for unpacked_result in result_list
+    ]
 
     if len(results_with_unique_scores) == 0:
         sorted_results = unpacked_results_with_recurring_scores.copy()
     else:
-        sorted_results = results_with_unique_scores + unpacked_results_with_recurring_scores
-        sorted_results = sorted(sorted_results, key=lambda result: (-(result.score), result.cost))
+        sorted_results = (
+            results_with_unique_scores + unpacked_results_with_recurring_scores
+        )
+        sorted_results = sorted(
+            sorted_results, key=lambda result: (-(result.score), result.cost)
+        )
     return sorted_results
+
 
 def display_combinations_heading(results, number_of_combos):
     heading = ""
@@ -325,10 +417,13 @@ def display_combinations_heading(results, number_of_combos):
         else:
             heading = combination_headings["best"]
     elif total_results > number_of_combos:
-        heading = combination_headings["some"].format(number_of_combos=number_of_combos, total_results=total_results)
+        heading = combination_headings["some"].format(
+            number_of_combos=number_of_combos, total_results=total_results
+        )
     else:
         heading = combination_headings["all"]
     return heading
+
 
 def format_combination(results):
     combos = []
@@ -349,6 +444,7 @@ def format_combination(results):
         combos.append(display)
     return combos
 
+
 def rank_results(results):
     scores = [result.score for result in results]
     scores_without_duplicates = set(scores)
@@ -357,6 +453,7 @@ def rank_results(results):
     else:
         ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
     return ranked_results
+
 
 def display_selected_combos(results, number_of_combos):
     heading = display_combinations_heading(results, number_of_combos)
@@ -370,4 +467,3 @@ def display_selected_combos(results, number_of_combos):
         else:
             combinations = format_combination(ranked_results[:number_of_combos])
     return heading, combinations
-
