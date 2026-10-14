@@ -1,5 +1,5 @@
 import pytest
-from utils import do_nothing
+from ml_comparison.utils import do_nothing
 
 
 def test_do_nothing():

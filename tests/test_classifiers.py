@@ -3,7 +3,7 @@ from sklearn.model_selection import KFold
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 import pytest
-from classifiers import (
+from ml_comparison.classifiers import (
     get_best,
     classify_holdout,
     classify_holdout_knn,
@@ -30,7 +30,7 @@ from classifiers import (
     accuracy_to_percent,
     format_percent,
 )
-from data import datasets_dict
+from ml_comparison.data import datasets_dict
 
 disabled_loo_choices = ["artificial neural networks", "support vector machine"]
 
@@ -262,7 +262,7 @@ def test_classify_loo_knn(mocker):
 def test_classify(
     clf_name, current_dataset, normalization_method, evaluation_method, mocker
 ):
-    mock_dict = mocker.patch("classifiers.evaluation_methods")
+    mock_dict = mocker.patch("ml_comparison.classifiers.evaluation_methods")
     clf = classifier_map[clf_name]
     X, y = datasets_dict[current_dataset]
     result_lst = []
@@ -285,7 +285,7 @@ def test_classify(
 def test_run_classifier_loo_ann(mocker):
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
-    mocker.patch("classifiers.classify")
+    mocker.patch("ml_comparison.classifiers.classify")
     run_classifier(
         X,
         y,
@@ -299,7 +299,7 @@ def test_run_classifier_loo_ann(mocker):
 def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
-    mock_run = mocker.patch("classifiers.classify")
+    mock_run = mocker.patch("ml_comparison.classifiers.classify")
     run_classifier(X, y, current_dataset, "all", "all", "all")
     clfs = list(classifier_map)
     norm_methods = list(normalization_methods)
@@ -329,7 +329,7 @@ def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
 def test_run_classifier_all_classifiers_all_normalization(evaluation_method, mocker):
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
-    mock_run = mocker.patch("classifiers.classify")
+    mock_run = mocker.patch("ml_comparison.classifiers.classify")
     run_classifier(X, y, current_dataset, "all", "all", evaluation_method)
 
     clfs = list(classifier_map)
@@ -395,7 +395,7 @@ def test_run_classifier_one_classifier_all_normalization(
 ):
     normalization_method = "all"
     original_X, y = datasets_dict[current_dataset]
-    mock_run = mocker.patch("classifiers.classify")
+    mock_run = mocker.patch("ml_comparison.classifiers.classify")
     norm_methods = list(normalization_methods)
     run_classifier(
         original_X,
@@ -426,7 +426,7 @@ def test_run_classifier_one_classifier_all_normalization(
 def test_run_classifier_all_classifiers_one_normalization(
     current_dataset, normalization_method, evaluation_method, mocker
 ):
-    mock_run = mocker.patch("classifiers.classify")
+    mock_run = mocker.patch("ml_comparison.classifiers.classify")
     classifier = "all"
     original_X, y = datasets_dict[current_dataset]
     run_classifier(
@@ -505,7 +505,7 @@ def test_format_combination():
 
 
 def test_rank_results_with_recurring_scores(mocker):
-    mock_sort_by_cost = mocker.patch("classifiers.sort_by_cost")
+    mock_sort_by_cost = mocker.patch("ml_comparison.classifiers.sort_by_cost")
     rank_results(results_recurring_scores)
     mock_sort_by_cost.assert_called_once()
 
@@ -522,7 +522,9 @@ def test_rank_results_with_unique_scores():
 
 
 def test_display_selected_combos(mocker):
-    mock_format_combination = mocker.patch("classifiers.format_combination")
+    mock_format_combination = mocker.patch(
+        "ml_comparison.classifiers.format_combination"
+    )
     ranked_results = rank_results(results_unique_scores)
     display_selected_combos(results_unique_scores, 3)
     mock_format_combination.assert_called_once_with(ranked_results[:3])
