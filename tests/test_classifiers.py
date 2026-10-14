@@ -522,7 +522,9 @@ def test_rank_results_with_unique_scores():
 
 
 def test_display_selected_combos(mocker):
-    mock_format_combination = mocker.patch("ml_comparison.classifiers.format_combination")
+    mock_format_combination = mocker.patch(
+        "ml_comparison.classifiers.format_combination"
+    )
     ranked_results = rank_results(results_unique_scores)
     display_selected_combos(results_unique_scores, 3)
     mock_format_combination.assert_called_once_with(ranked_results[:3])
