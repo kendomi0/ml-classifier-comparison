@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request
 from flask import send_file
-from data import datasets_dict
-from classifiers import evaluation_methods, classifier_map, normalization_methods
+from ml_comparison.data import datasets_dict
+from ml_comparison.classifiers import evaluation_methods, classifier_map, normalization_methods
 import uuid
-from plotting import create_and_save_plot
-from classifiers import run_classifier, display_selected_combos
+from ml_comparison.plotting import create_and_save_plot
+from ml_comparison.classifiers import run_classifier, display_selected_combos
 
 app = Flask(__name__)
 

@@ -1,5 +1,5 @@
 import numpy as np
-from preprocessing import normalize_minmax, normalize_zscore
+from ml_comparison.preprocessing import normalize_minmax, normalize_zscore
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn import datasets
 
