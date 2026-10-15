@@ -1,4 +1,5 @@
 import time
+import inspect
 import warnings
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
@@ -335,11 +336,11 @@ def run_classifier(
                     or clf_name == "support vector machine"
                 ):
                     continue
-                X = normalizer(original_X)
-                start_time_current_combo = time.time()
+                start_cpu_time_current_combo, start_perf_counter_current_combo  = time.process_time(), time.perf_counter()
                 print(
-                    f"Starting combination: {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name}"
+                    f"Starting combination: {current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
                 )
+                X = normalizer(original_X)
                 with warnings.catch_warnings(
                     action="ignore", category=ConvergenceWarning
                 ):
@@ -353,9 +354,11 @@ def run_classifier(
                         evaluation_method_name,
                         results,
                     )
-                print(
-                    f"Done in {time.time() - start_time_current_combo:.1f} sec (Combination of {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name})"
-                )
+                print(inspect.cleandoc(
+                    f"""CPU time: {time.process_time() - start_cpu_time_current_combo:.3f} sec (Combination of {current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name})
+                    Perf_counter time: {time.perf_counter() - start_perf_counter_current_combo:.3f} sec (Combination of {current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name})
+                    """
+                ))
     print(f"All combinations done in {time.time() - start_time_all_combos:.1f} sec")
     return results
 
