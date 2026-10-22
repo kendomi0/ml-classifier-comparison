@@ -4,5 +4,6 @@ NOTES.txt
 __pycache__/
 notes/
 /venv
+/.venv-wsl
 node_modules
 static/output.css
