@@ -265,7 +265,6 @@ def test_classify(
     mock_dict = mocker.patch("ml_comparison.classifiers.evaluation_methods")
     clf = classifier_map[clf_name]
     X, y = datasets_dict[current_dataset]
-    result_lst = []
     classify(
         clf,
         clf_name,
@@ -274,7 +273,6 @@ def test_classify(
         current_dataset,
         normalization_method,
         evaluation_method,
-        result_lst,
     )
     if clf_name != "k-nearest-neighbor":
         mock_dict[evaluation_method][0].assert_called_once()

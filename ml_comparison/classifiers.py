@@ -285,7 +285,6 @@ def classify(
     current_dataset,
     normalization_method,
     evaluation_method,
-    lst,
 ):
     classify_default = evaluation_methods[evaluation_method][0]
     classify_knn = evaluation_methods[evaluation_method][1]
@@ -297,7 +296,6 @@ def classify(
         result = classify_default(
             classifier, classifier_name, X, y, current_dataset, normalization_method
         )
-    lst.append(result)
     return result
 
 
@@ -344,7 +342,7 @@ def run_classifier(
                 with warnings.catch_warnings(
                     action="ignore", category=ConvergenceWarning
                 ):
-                    classify(
+                    result = classify(
                         clf_func,
                         clf_name,
                         X,
@@ -352,8 +350,8 @@ def run_classifier(
                         current_dataset,
                         normalization_method_name,
                         evaluation_method_name,
-                        results,
                     )
+                results.append(result)
                 print(inspect.cleandoc(
                     f"""CPU time: {time.process_time() - start_cpu_time_current_combo:.3f} sec (Combination of {current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name})
                     Perf_counter time: {time.perf_counter() - start_perf_counter_current_combo:.3f} sec (Combination of {current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name})
