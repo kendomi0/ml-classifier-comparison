@@ -62,6 +62,7 @@ class ClassificationResult:
     knn_value: Optional[int] = None
     kfold_value: Optional[int] = None
     cost: Optional[int] = None
+    runtime: Optional[float] = None
 
 
 def get_best(score_dict):
@@ -306,8 +307,8 @@ def run_classifier(
     classifier_name,
     normalization_method,
     evaluation_method,
+    addRuntime=False,
 ):
-    start_time_all_combos = time.time()
     results = []
     if evaluation_method == "all":
         evaluations = evaluation_methods.items()
@@ -323,6 +324,8 @@ def run_classifier(
         normalizations = [
             (normalization_method, normalization_methods[normalization_method])
         ]
+    start_cpu_time_all = time.process_time()
+    start_wall_clock_time_all = time.perf_counter()
     for evaluation in evaluations:
         for classifier in classifiers:
             for normalization in normalizations:
@@ -334,10 +337,13 @@ def run_classifier(
                     or clf_name == "support vector machine"
                 ):
                     continue
-                start_cpu_time_current_combo, start_perf_counter_current_combo  = time.process_time(), time.perf_counter()
-                print(
-                    f"Starting combination: {current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
-                )
+                start_cpu_time, start_wall_clock_time  = time.process_time(), time.perf_counter()
+                current_combination = f"{current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
+                starting_combination =  f"""
+                                    ***
+                                    Starting combination: {current_combination}
+                                    """
+                #print(inspect.cleandoc(starting_combination))
                 X = normalizer(original_X)
                 with warnings.catch_warnings(
                     action="ignore", category=ConvergenceWarning
@@ -351,13 +357,24 @@ def run_classifier(
                         normalization_method_name,
                         evaluation_method_name,
                     )
+                end_cpu_time = time.process_time() - start_cpu_time
+                end_wall_clock_time = time.perf_counter() - start_wall_clock_time
+                if addRuntime:
+                    result.runtime = end_cpu_time
                 results.append(result)
-                print(inspect.cleandoc(
-                    f"""CPU time: {time.process_time() - start_cpu_time_current_combo:.3f} sec (Combination of {current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name})
-                    Perf_counter time: {time.perf_counter() - start_perf_counter_current_combo:.3f} sec (Combination of {current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name})
-                    """
-                ))
-    print(f"All combinations done in {time.time() - start_time_all_combos:.1f} sec")
+                time_message = f"""
+                    CPU time: {(1000*end_cpu_time):.3f} ms, {end_cpu_time:.3f} sec (Combination of {current_combination})
+                    Wall clock time: {1000*end_wall_clock_time:.2f} ms, {end_wall_clock_time:.3f} sec (Combination of {current_combination})
+                    ***
+                """
+                combination_done_message = f"Combination of {current_combination} complete"
+                #print(combination_done_message)
+                print(inspect.cleandoc(time_message))
+    all_combinations_msg = f"""
+    All combinations done in {time.process_time() - start_cpu_time_all:.3f} sec (CPU time)
+    All combinations done in {time.perf_counter() - start_wall_clock_time_all:.3f} sec (Wall clock time)
+    """
+    #print(inspect.cleandoc(all_combinations_msg))
     return results
 
 
