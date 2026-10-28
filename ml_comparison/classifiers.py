@@ -378,7 +378,7 @@ def run_classifier(
     return results
 
 
-def calculate_cost(result=ClassificationResult):
+def calculate_cost(result: ClassificationResult):
     result.cost = 0
     result.cost += (
         classifier_costs[result.classifier_name]
