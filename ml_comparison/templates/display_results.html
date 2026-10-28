@@ -7,9 +7,12 @@
     </head>
 <body>
     <div id="results" class="flex flex-col min-h-screen w-screen justify-center-safe items-center gap-5 py-5">
-        <div class="combinations">
-            <p class="text-center text-4xl tracking-tight mb-5">
+        <div class="combinations flex flex-col gap-3">
+            <p class="text-center text-4xl tracking-tight">
                 {{ heading }}
+            </p>
+            <p class="text-center text-lg tracking-wide italic">
+                Computational cost tiers range from Tier 1 (lowest cost) to Tier 4 (highest cost), and are relative to the specific dataset.
             </p>
             <ul class="text-xl text-center flex-col gap-3">
                 {% for combo in combinations %}
