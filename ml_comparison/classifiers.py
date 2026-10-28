@@ -388,7 +388,7 @@ def calculate_cost(result=ClassificationResult):
     return result.cost
 
 
-def sort_by_cost(results):
+def rank_results(results):
     ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
     results_with_recurring_scores = {}
     results_with_unique_scores = ranked_results.copy()
@@ -461,16 +461,6 @@ def format_combination(results):
             display = f"#{index+1}: {display}"
         combos.append(display)
     return combos
-
-
-def rank_results(results):
-    scores = [result.score for result in results]
-    scores_without_duplicates = set(scores)
-    if len(scores) != len(scores_without_duplicates):
-        ranked_results = sort_by_cost(results)
-    else:
-        ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
-    return ranked_results
 
 
 def display_selected_combos(results, number_of_combos):

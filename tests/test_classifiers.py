@@ -20,11 +20,10 @@ from ml_comparison.classifiers import (
     classify_loo,
     classify_loo_knn,
     ClassificationResult,
-    sort_by_cost,
+    rank_results,
     format_combination,
     display_selected_combos,
     calculate_cost,
-    rank_results,
     display_combinations_heading,
     combination_headings,
     accuracy_to_percent,
@@ -458,11 +457,11 @@ def test_calculate_cost():
     assert cost_of_result == 2
 
 
-def test_sort_by_cost():
+def test_rank_results_costs():
     results_with_costs = results_recurring_scores.copy()
     results_with_costs[1].cost = 2
     results_with_costs[2].cost = 5
-    sorted_results = sort_by_cost(results_recurring_scores)
+    sorted_results = rank_results(results_recurring_scores)
     assert sorted_results == [
         results_with_costs[0],
         results_with_costs[3],
@@ -500,12 +499,6 @@ def test_display_combinations_heading_only():
 
 def test_format_combination():
     format_combination(results_unique_scores)
-
-
-def test_rank_results_with_recurring_scores(mocker):
-    mock_sort_by_cost = mocker.patch("ml_comparison.classifiers.sort_by_cost")
-    rank_results(results_recurring_scores)
-    mock_sort_by_cost.assert_called_once()
 
 
 def test_rank_results_with_unique_scores():
