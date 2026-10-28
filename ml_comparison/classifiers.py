@@ -400,11 +400,11 @@ def format_combination(results):
         formatted_score = format_percent(result.score)
         print_kfold_value = ""
         if result.kfold_value is not None:
-            print_kfold_value = f" (Kfold value: {result.kfold_value})"
+            print_kfold_value = f" (Kfold Value: {result.kfold_value})"
         print_knn_value = ""
         if result.knn_value is not None:
-            print_knn_value = f" (KNN value: {result.knn_value})"
-        display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}{print_knn_value}, {result.evaluation_method.capitalize()}{print_kfold_value}, {result.normalization_method.capitalize()} |  Accuracy: {formatted_score} | Runtime: {result.runtime:.4f} seconds | Computational Cost Tier: {result.cost_tier}"
+            print_knn_value = f" (KNN Value: {result.knn_value})"
+        display = f"{result.dataset.title()} ⋅ {result.classifier_name.title()}{print_knn_value} ⋅ {result.evaluation_method.title()}{print_kfold_value} ⋅ {result.normalization_method.title()} |  Accuracy: {formatted_score} ⋅ Runtime: {result.runtime:.4f} seconds ⋅ Computational Cost Tier: {result.cost_tier}"
         if len(results) > 1:
             display = f"#{index+1}: {display}"
         combos.append(display)
