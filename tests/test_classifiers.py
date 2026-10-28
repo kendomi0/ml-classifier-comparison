@@ -80,6 +80,13 @@ results_recurring_scores = [
         score=97.19,
     ),
     ClassificationResult(
+        classifier_name="artificial neural networks",
+        evaluation_method="random subsampling",
+        normalization_method="zscore",
+        dataset="blobs",
+        score=94.12,
+    ),
+    ClassificationResult(
         classifier_name="naive bayes",
         evaluation_method="holdout",
         normalization_method="unnormalized",
@@ -457,16 +464,18 @@ def test_calculate_cost():
     assert cost_of_result == 2
 
 
-def test_rank_results_costs():
-    results_with_costs = results_recurring_scores.copy()
-    results_with_costs[1].cost = 2
-    results_with_costs[2].cost = 5
+def test_rank_results_by_runtime():
+    results = results_recurring_scores.copy()
+    results[1].runtime = 0.734
+    results[2].runtime = 0.108
+    results[3].runtime = 0.254
     sorted_results = rank_results(results_recurring_scores)
     assert sorted_results == [
-        results_with_costs[0],
-        results_with_costs[3],
-        results_with_costs[1],
-        results_with_costs[2],
+        results[0],
+        results[4],
+        results[2],
+        results[3],
+        results[1],
     ]
 
 

@@ -367,7 +367,7 @@ def run_classifier(
                 """
                 combination_done_message = f"Combination of {current_combination} complete"
                 #print(combination_done_message)
-                print(inspect.cleandoc(time_message))
+                #print(inspect.cleandoc(time_message))
     all_combinations_msg = f"""
     All combinations done in {time.process_time() - start_cpu_time_all:.3f} sec (CPU time)
     All combinations done in {time.perf_counter() - start_wall_clock_time_all:.3f} sec (Wall clock time)
@@ -387,41 +387,8 @@ def calculate_cost(result: ClassificationResult):
 
 
 def rank_results(results):
-    ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
-    results_with_recurring_scores = {}
-    results_with_unique_scores = ranked_results.copy()
-    scores = [result.score for result in ranked_results]
-
-    for index, score in enumerate(scores):
-        count = scores.count(score)
-        if count > 1:
-            if score in results_with_recurring_scores:
-                results_with_recurring_scores[score].append(ranked_results[index])
-            else:
-                results_with_recurring_scores[score] = [ranked_results[index]]
-            results_with_unique_scores.remove(ranked_results[index])
-
-    for results in results_with_recurring_scores.values():
-        for result in results:
-            result.cost = calculate_cost(result)
-        results = sorted(results, key=lambda result: result.cost)
-
-    unpacked_results_with_recurring_scores = [
-        unpacked_result
-        for result_list in results_with_recurring_scores.values()
-        for unpacked_result in result_list
-    ]
-
-    if len(results_with_unique_scores) == 0:
-        sorted_results = unpacked_results_with_recurring_scores.copy()
-    else:
-        sorted_results = (
-            results_with_unique_scores + unpacked_results_with_recurring_scores
-        )
-        sorted_results = sorted(
-            sorted_results, key=lambda result: (-(result.score), result.cost)
-        )
-    return sorted_results
+    ranked_results = sorted(results, key=lambda result: (-result.score, result.runtime))
+    return ranked_results
 
 
 def display_combinations_heading(results, number_of_combos):
