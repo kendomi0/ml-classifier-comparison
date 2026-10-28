@@ -23,7 +23,7 @@ for dataset_name, data in datasets_dict.items():
                         classifier_name,
                         normalization_method,
                         evaluation_method,
-                        True)
+                        )
                     for result in results:
                         result_dict = {
                             "dataset": result.dataset,

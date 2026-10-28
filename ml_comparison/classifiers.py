@@ -307,7 +307,6 @@ def run_classifier(
     classifier_name,
     normalization_method,
     evaluation_method,
-    addRuntime=False,
 ):
     results = []
     if evaluation_method == "all":
@@ -359,11 +358,10 @@ def run_classifier(
                     )
                 end_cpu_time = time.process_time() - start_cpu_time
                 end_wall_clock_time = time.perf_counter() - start_wall_clock_time
-                if addRuntime:
-                    result.runtime = end_cpu_time
+                result.runtime = end_cpu_time
                 results.append(result)
                 time_message = f"""
-                    CPU time: {(1000*end_cpu_time):.3f} ms, {end_cpu_time:.3f} sec (Combination of {current_combination})
+                    CPU time (Runtime): {(1000*result.runtime):.3f} ms, {result.runtime:.3f} sec (Combination of {current_combination})
                     Wall clock time: {1000*end_wall_clock_time:.2f} ms, {end_wall_clock_time:.3f} sec (Combination of {current_combination})
                     ***
                 """
