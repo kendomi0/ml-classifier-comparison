@@ -40,6 +40,8 @@ results_unique_scores = [
         normalization_method="minmax",
         dataset="blobs",
         score=97.18,
+        cost_tier=1,
+        runtime=0.142,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -47,6 +49,8 @@ results_unique_scores = [
         normalization_method="unnormalized",
         dataset="blobs",
         score=95.58,
+        cost_tier=1,
+        runtime=0.132,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -54,13 +58,17 @@ results_unique_scores = [
         normalization_method="zscore",
         dataset="blobs",
         score=96.23,
+        cost_tier=2,
+        runtime=0.481,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
         evaluation_method="random subsampling",
-        normalization_method="unnormalized",
+        normalization_method="minmax",
         dataset="blobs",
         score=91.37,
+        cost_tier=2,
+        runtime=0.517,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -68,6 +76,8 @@ results_unique_scores = [
         normalization_method="unnormalized",
         dataset="blobs",
         score=100.00,
+        cost_tier=2,
+        runtime=0.123,
     ),
 ]
 
@@ -304,6 +314,8 @@ def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
+    mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
+    mock_get_cost_tier.return_value = 2
     run_classifier(X, y, current_dataset, "all", "all", "all")
     clfs = list(classifier_map)
     norm_methods = list(normalization_methods)
@@ -334,6 +346,8 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
+    mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
+    mock_get_cost_tier.return_value = 2
     run_classifier(X, y, current_dataset, "all", "all", evaluation_method)
 
     clfs = list(classifier_map)
@@ -400,6 +414,8 @@ def test_run_classifier_one_classifier_all_normalization(
     normalization_method = "all"
     original_X, y = datasets_dict[current_dataset]
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
+    mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
+    mock_get_cost_tier.return_value = 2
     norm_methods = list(normalization_methods)
     run_classifier(
         original_X,
@@ -431,6 +447,8 @@ def test_run_classifier_all_classifiers_one_normalization(
     current_dataset, normalization_method, evaluation_method, mocker
 ):
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
+    mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
+    mock_get_cost_tier.return_value = 2
     classifier = "all"
     original_X, y = datasets_dict[current_dataset]
     run_classifier(

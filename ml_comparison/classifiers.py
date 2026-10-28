@@ -52,7 +52,7 @@ class ClassificationResult:
     score: float
     knn_value: Optional[int] = None
     kfold_value: Optional[int] = None
-    cost: Optional[int] = None
+    cost_tier: Optional[int] = None
     runtime: Optional[float] = None
 
 
@@ -343,6 +343,7 @@ def run_classifier(
                 end_cpu_time = time.process_time() - start_cpu_time
                 end_wall_clock_time = time.perf_counter() - start_wall_clock_time
                 result.runtime = end_cpu_time
+                result.cost_tier = get_cost_tier(result)
                 results.append(result)
                 time_message = f"""
                     CPU time (Runtime): {(1000*result.runtime):.3f} ms, {result.runtime:.3f} sec (Combination of {current_combination})
@@ -403,10 +404,7 @@ def format_combination(results):
         print_knn_value = ""
         if result.knn_value is not None:
             print_knn_value = f" (KNN value: {result.knn_value})"
-        display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}{print_knn_value}, {result.evaluation_method.capitalize()}{print_kfold_value}, {result.normalization_method.capitalize()}."
-        display += f" Accuracy: {formatted_score}"
-        if result.cost is not None:
-            display += f", Computational cost: {result.cost}"
+        display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}{print_knn_value}, {result.evaluation_method.capitalize()}{print_kfold_value}, {result.normalization_method.capitalize()} |  Accuracy: {formatted_score} | Runtime: {result.runtime:.4f} seconds | Computational Cost Tier: {result.cost_tier}"
         if len(results) > 1:
             display = f"#{index+1}: {display}"
         combos.append(display)
