@@ -23,7 +23,7 @@ from ml_comparison.classifiers import (
     rank_results,
     format_combination,
     display_selected_combos,
-    calculate_cost,
+    get_cost_tier,
     display_combinations_heading,
     combination_headings,
     accuracy_to_percent,
@@ -458,10 +458,10 @@ def test_run_classifier_all_classifiers_one_normalization(
         )
 
 
-def test_calculate_cost():
-    result = results_unique_scores[1]
-    cost_of_result = calculate_cost(result)
-    assert cost_of_result == 2
+def test_get_cost_tier():
+    result = results_unique_scores[4]
+    cost_tier = get_cost_tier(result)
+    assert cost_tier == 2
 
 
 def test_rank_results_by_runtime():

@@ -7,6 +7,7 @@ from sklearn.svm import SVC
 from sklearn.exceptions import ConvergenceWarning
 from ml_comparison.utils import do_nothing
 import numpy as np
+import pandas as pd
 from ml_comparison.preprocessing import normalize_minmax, normalize_zscore
 from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.neural_network import MLPClassifier
@@ -28,21 +29,11 @@ classifier_map = {
     "k-nearest-neighbor": None,
 }
 
-classifier_costs = {
-    "naive bayes": 1,
-    "decision tree": 1,
-    "support vector machine": 2,
-    "k-nearest-neighbor": 2,
-    "artificial neural networks": 3,
-}
-
 normalization_methods = {
     "unnormalized": do_nothing,
     "minmax": normalize_minmax,
     "zscore": normalize_zscore,
 }
-
-normalization_methods_costs = {"unnormalized": 0, "minmax": 1, "zscore": 1}
 
 combination_headings = {
     "some": "Top {number_of_combos} out of {total_results} total combinations: ",
@@ -270,13 +261,6 @@ evaluation_methods = {
     "leave-one-out": [classify_loo, classify_loo_knn],
 }
 
-evaluation_methods_costs = {
-    "holdout": 1,
-    "random subsampling": 2,
-    "kfold": 3,
-    "leave-one-out": 4,
-}
-
 
 def classify(
     classifier,
@@ -376,14 +360,15 @@ def run_classifier(
     return results
 
 
-def calculate_cost(result: ClassificationResult):
-    result.cost = 0
-    result.cost += (
-        classifier_costs[result.classifier_name]
-        + normalization_methods_costs[result.normalization_method]
-        + evaluation_methods_costs[result.evaluation_method]
-    )
-    return result.cost
+def get_cost_tier(result: ClassificationResult):
+    result_costs = pd.read_csv("ml_comparison/cost_calculations/results_with_costs.csv")
+    return result_costs.loc[
+        (result_costs["dataset"] == result.dataset) &
+        (result_costs["classifier"] == result.classifier_name) &
+        (result_costs["evaluation_method"] == result.evaluation_method) &
+        (result_costs["normalization_method"] == result.normalization_method),
+        "cost_tier"
+    ].values[0]
 
 
 def rank_results(results):
