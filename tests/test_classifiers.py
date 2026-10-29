@@ -21,6 +21,8 @@ from ml_comparison.classifiers import (
     classify_loo_knn,
     ClassificationResult,
     rank_results,
+    get_results_with_same_scores,
+    get_decimal_places,
     format_combination,
     display_selected_combos,
     get_cost_tier,
@@ -95,6 +97,7 @@ results_recurring_scores = [
         normalization_method="zscore",
         dataset="blobs",
         score=94.12,
+        runtime = 0.75846,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -102,6 +105,7 @@ results_recurring_scores = [
         normalization_method="unnormalized",
         dataset="blobs",
         score=94.12,
+        runtime=0.27153,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -109,6 +113,7 @@ results_recurring_scores = [
         normalization_method="zscore",
         dataset="blobs",
         score=94.12,
+        runtime=0.27178,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -483,17 +488,13 @@ def test_get_cost_tier():
 
 
 def test_rank_results_by_runtime():
-    results = results_recurring_scores.copy()
-    results[1].runtime = 0.734
-    results[2].runtime = 0.108
-    results[3].runtime = 0.254
     sorted_results = rank_results(results_recurring_scores)
     assert sorted_results == [
-        results[0],
-        results[4],
-        results[2],
-        results[3],
-        results[1],
+        results_recurring_scores[0],
+        results_recurring_scores[4],
+        results_recurring_scores[2],
+        results_recurring_scores[3],
+        results_recurring_scores[1],
     ]
 
 
@@ -523,6 +524,26 @@ def test_display_combinations_heading_only():
     heading = display_combinations_heading(results, 1)
     assert heading == combination_headings["only"]
 
+def test_get_results_with_same_scores():
+    results = get_results_with_same_scores(results_recurring_scores)
+    expected_results = {94.12: [
+        results_recurring_scores[1],
+        results_recurring_scores[2],
+        results_recurring_scores[3]
+    ]}
+    assert results == expected_results
+
+def test_get_decimal_places():
+    decimal_places = get_decimal_places(
+        result=results_recurring_scores[2],
+        tied_results=[
+        results_recurring_scores[1],
+        results_recurring_scores[2],
+        results_recurring_scores[3]
+        ],
+        decimals=3
+    )
+    assert decimal_places == 4
 
 def test_format_combination():
     format_combination(results_unique_scores)

@@ -353,6 +353,9 @@
   .self-center {
     align-self: center;
   }
+  .rounded {
+    border-radius: 0.25rem;
+  }
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }

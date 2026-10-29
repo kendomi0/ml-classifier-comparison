@@ -19,6 +19,9 @@
                 <li>{{ combo }}</li>
                 {% endfor %}
             </ul>
+            <p class="text-center text-lg tracking-wide italic">
+                Runtimes are rounded to 3 decimal places by default, unless more precision is needed to differentiate it from others as a tiebreaker.
+            </p>
         </div>
         <img id="scatter-plot" class="w-fit hidden" data-key="{{ plot_key }}">
         <button id="toggle-plot-btn" class="w-fit text-xl rounded-full px-4 py-1">
