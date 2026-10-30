@@ -1,6 +1,7 @@
 NOTES.txt
 .pytest_cache/
 .vscode/
+.env
 __pycache__/
 notes/
 ml_comparison/static/output.css

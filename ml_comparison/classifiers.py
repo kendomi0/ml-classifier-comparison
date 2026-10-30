@@ -1,4 +1,5 @@
 import time
+import inspect
 import warnings
 from dataclasses import dataclass
 from typing import Optional
@@ -11,6 +12,7 @@ from sklearn.exceptions import ConvergenceWarning
 from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
+from config import ML_COMPARISON_DEBUG
 from ml_comparison.utils import do_nothing
 from ml_comparison.preprocessing import normalize_minmax, normalize_zscore
 
@@ -306,8 +308,6 @@ def run_classifier(
         normalizations = [
             (normalization_method, normalization_methods[normalization_method])
         ]
-    start_cpu_time_all = time.process_time()
-    start_wall_clock_time_all = time.perf_counter()
     for evaluation in evaluations:
         for classifier in classifiers:
             for normalization in normalizations:
@@ -321,11 +321,6 @@ def run_classifier(
                     continue
                 start_cpu_time, start_wall_clock_time  = time.process_time(), time.perf_counter()
                 current_combination = f"{current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
-                starting_combination =  f"""
-                                    ***
-                                    Starting combination: {current_combination}
-                                    """
-                #print(inspect.cleandoc(starting_combination))
                 X = normalizer(original_X)
                 with warnings.catch_warnings(
                     action="ignore", category=ConvergenceWarning
@@ -344,19 +339,14 @@ def run_classifier(
                 result.runtime = end_cpu_time
                 result.cost_tier = get_cost_tier(result)
                 results.append(result)
-                time_message = f"""
-                    CPU time (Runtime): {(1000*result.runtime):.3f} ms, {result.runtime:.3f} sec (Combination of {current_combination})
-                    Wall clock time: {1000*end_wall_clock_time:.2f} ms, {end_wall_clock_time:.3f} sec (Combination of {current_combination})
-                    ***
-                """
-                combination_done_message = f"Combination of {current_combination} complete"
-                #print(combination_done_message)
-                #print(inspect.cleandoc(time_message))
-    all_combinations_msg = f"""
-    All combinations done in {time.process_time() - start_cpu_time_all:.3f} sec (CPU time)
-    All combinations done in {time.perf_counter() - start_wall_clock_time_all:.3f} sec (Wall clock time)
-    """
-    #print(inspect.cleandoc(all_combinations_msg))
+                if ML_COMPARISON_DEBUG:
+                    time_message = f"""
+                        Combination: {current_combination}
+                        CPU time (Runtime): {(1000*result.runtime):.3f} ms, {result.runtime:.3f} sec
+                        Wall clock time: {1000*end_wall_clock_time:.2f} ms, {end_wall_clock_time:.3f} sec
+                        ***
+                    """
+                    print(inspect.cleandoc(time_message))
     return results
 
 
