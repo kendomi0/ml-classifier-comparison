@@ -1,19 +1,18 @@
 import time
-import inspect
 import warnings
+from dataclasses import dataclass
+from typing import Optional
+import numpy as np
+import pandas as pd
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.exceptions import ConvergenceWarning
-from ml_comparison.utils import do_nothing
-import numpy as np
-import pandas as pd
-from ml_comparison.preprocessing import normalize_minmax, normalize_zscore
 from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
-from dataclasses import dataclass
-from typing import Optional
+from ml_comparison.utils import do_nothing
+from ml_comparison.preprocessing import normalize_minmax, normalize_zscore
 
 classifier_map = {
     "naive bayes": GaussianNB(),
