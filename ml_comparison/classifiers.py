@@ -405,12 +405,6 @@ def get_results_with_same_scores(results):
 
 
 def get_decimal_places(result: ClassificationResult, tied_results: list, decimals: int):
-    """
-    runtimes = [round(result.runtime, decimals) for result in tied_results]
-    while len(set(runtimes)) != len(runtimes):
-        decimals += 1
-        runtimes = [round(result.runtime, decimals) for result in tied_results]
-    """
     result_runtime = result.runtime
     if result_runtime is None:
         return decimals
