@@ -12,7 +12,7 @@ from sklearn.exceptions import ConvergenceWarning
 from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
-from config import ML_COMPARISON_DEBUG
+from ml_comparison.config import ML_COMPARISON_DEBUG
 from ml_comparison.utils import do_nothing
 from ml_comparison.preprocessing import normalize_minmax, normalize_zscore
 
