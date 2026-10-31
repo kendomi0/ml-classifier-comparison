@@ -319,7 +319,10 @@ def run_classifier(
                     or clf_name == "support vector machine"
                 ):
                     continue
-                start_cpu_time, start_wall_clock_time  = time.process_time(), time.perf_counter()
+                start_cpu_time, start_wall_clock_time = (
+                    time.process_time(),
+                    time.perf_counter(),
+                )
                 current_combination = f"{current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
                 X = normalizer(original_X)
                 with warnings.catch_warnings(
@@ -353,11 +356,11 @@ def run_classifier(
 def get_cost_tier(result: ClassificationResult):
     result_costs = pd.read_csv("ml_comparison/cost_calculations/results_with_costs.csv")
     return result_costs.loc[
-        (result_costs["dataset"] == result.dataset) &
-        (result_costs["classifier"] == result.classifier_name) &
-        (result_costs["evaluation_method"] == result.evaluation_method) &
-        (result_costs["normalization_method"] == result.normalization_method),
-        "cost_tier"
+        (result_costs["dataset"] == result.dataset)
+        & (result_costs["classifier"] == result.classifier_name)
+        & (result_costs["evaluation_method"] == result.evaluation_method)
+        & (result_costs["normalization_method"] == result.normalization_method),
+        "cost_tier",
     ].values[0]
 
 
@@ -414,7 +417,7 @@ def format_combination(results):
             decimal_places = get_decimal_places(
                 result=result,
                 tied_results=results_with_duplicate_scores[result.score],
-                decimals=decimal_places
+                decimals=decimal_places,
             )
         formatted_score = format_percent(result.score)
         print_kfold_value = ""

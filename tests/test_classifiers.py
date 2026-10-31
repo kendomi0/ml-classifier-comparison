@@ -97,7 +97,7 @@ results_recurring_scores = [
         normalization_method="zscore",
         dataset="blobs",
         score=94.12,
-        runtime = 0.75846,
+        runtime=0.75846,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -524,26 +524,31 @@ def test_display_combinations_heading_only():
     heading = display_combinations_heading(results, 1)
     assert heading == combination_headings["only"]
 
+
 def test_get_results_with_same_scores():
     results = get_results_with_same_scores(results_recurring_scores)
-    expected_results = {94.12: [
-        results_recurring_scores[1],
-        results_recurring_scores[2],
-        results_recurring_scores[3]
-    ]}
+    expected_results = {
+        94.12: [
+            results_recurring_scores[1],
+            results_recurring_scores[2],
+            results_recurring_scores[3],
+        ]
+    }
     assert results == expected_results
+
 
 def test_get_decimal_places():
     decimal_places = get_decimal_places(
         result=results_recurring_scores[2],
         tied_results=[
-        results_recurring_scores[1],
-        results_recurring_scores[2],
-        results_recurring_scores[3]
+            results_recurring_scores[1],
+            results_recurring_scores[2],
+            results_recurring_scores[3],
         ],
-        decimals=3
+        decimals=3,
     )
     assert decimal_places == 4
+
 
 def test_format_combination():
     format_combination(results_unique_scores)
