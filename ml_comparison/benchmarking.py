@@ -1,8 +1,7 @@
-import os
+from dotenv import load_dotenv
 
-os.environ["OMP_NUM_THREADS"] = "1"
-os.environ["OPENBLAS_NUM_THREADS"] = "1"
-os.environ["MKL_NUM_THREADS"] = "1"
+load_dotenv()
+
 from ml_comparison.classifiers import (
     run_classifier,
     evaluation_methods,
