@@ -12,7 +12,8 @@ from ml_comparison.classifiers import (
 )
 import uuid
 from ml_comparison.plotting import create_and_save_plot
-from ml_comparison.classifiers import run_classifier, display_selected_combos
+from ml_comparison.classifiers import run_classifier
+from ml_comparison.ranking_formatting import display_selected_combos
 
 app = Flask(__name__)
 
