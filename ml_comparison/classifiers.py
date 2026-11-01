@@ -1,17 +1,20 @@
 import time
+import inspect
 import warnings
+from dataclasses import dataclass
+from typing import Optional
+import numpy as np
+import pandas as pd
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.exceptions import ConvergenceWarning
-from ml_comparison.utils import do_nothing
-import numpy as np
-from ml_comparison.preprocessing import normalize_minmax, normalize_zscore
 from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
-from dataclasses import dataclass
-from typing import Optional
+from ml_comparison.config import ML_COMPARISON_DEBUG
+from ml_comparison.utils import do_nothing
+from ml_comparison.preprocessing import normalize_minmax, normalize_zscore
 
 classifier_map = {
     "naive bayes": GaussianNB(),
@@ -27,21 +30,11 @@ classifier_map = {
     "k-nearest-neighbor": None,
 }
 
-classifier_costs = {
-    "naive bayes": 1,
-    "decision tree": 1,
-    "support vector machine": 2,
-    "k-nearest-neighbor": 2,
-    "artificial neural networks": 3,
-}
-
 normalization_methods = {
     "unnormalized": do_nothing,
     "minmax": normalize_minmax,
     "zscore": normalize_zscore,
 }
-
-normalization_methods_costs = {"unnormalized": 0, "minmax": 1, "zscore": 1}
 
 combination_headings = {
     "some": "Top {number_of_combos} out of {total_results} total combinations: ",
@@ -60,7 +53,8 @@ class ClassificationResult:
     score: float
     knn_value: Optional[int] = None
     kfold_value: Optional[int] = None
-    cost: Optional[int] = None
+    cost_tier: Optional[int] = None
+    runtime: Optional[float] = None
 
 
 def get_best(score_dict):
@@ -268,13 +262,6 @@ evaluation_methods = {
     "leave-one-out": [classify_loo, classify_loo_knn],
 }
 
-evaluation_methods_costs = {
-    "holdout": 1,
-    "random subsampling": 2,
-    "kfold": 3,
-    "leave-one-out": 4,
-}
-
 
 def classify(
     classifier,
@@ -284,7 +271,6 @@ def classify(
     current_dataset,
     normalization_method,
     evaluation_method,
-    lst,
 ):
     classify_default = evaluation_methods[evaluation_method][0]
     classify_knn = evaluation_methods[evaluation_method][1]
@@ -296,7 +282,6 @@ def classify(
         result = classify_default(
             classifier, classifier_name, X, y, current_dataset, normalization_method
         )
-    lst.append(result)
     return result
 
 
@@ -308,7 +293,6 @@ def run_classifier(
     normalization_method,
     evaluation_method,
 ):
-    start_time_all_combos = time.time()
     results = []
     if evaluation_method == "all":
         evaluations = evaluation_methods.items()
@@ -335,15 +319,16 @@ def run_classifier(
                     or clf_name == "support vector machine"
                 ):
                     continue
-                X = normalizer(original_X)
-                start_time_current_combo = time.time()
-                print(
-                    f"Starting combination: {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name}"
+                start_cpu_time, start_wall_clock_time = (
+                    time.process_time(),
+                    time.perf_counter(),
                 )
+                current_combination = f"{current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
+                X = normalizer(original_X)
                 with warnings.catch_warnings(
                     action="ignore", category=ConvergenceWarning
                 ):
-                    classify(
+                    result = classify(
                         clf_func,
                         clf_name,
                         X,
@@ -351,61 +336,37 @@ def run_classifier(
                         current_dataset,
                         normalization_method_name,
                         evaluation_method_name,
-                        results,
                     )
-                print(
-                    f"Done in {time.time() - start_time_current_combo:.1f} sec (Combination of {clf_name}, {evaluation_method_name}, {current_dataset}, {normalization_method_name})"
-                )
-    print(f"All combinations done in {time.time() - start_time_all_combos:.1f} sec")
+                end_cpu_time = time.process_time() - start_cpu_time
+                end_wall_clock_time = time.perf_counter() - start_wall_clock_time
+                result.runtime = end_cpu_time
+                result.cost_tier = get_cost_tier(result)
+                results.append(result)
+                if ML_COMPARISON_DEBUG:
+                    time_message = f"""
+                        Combination: {current_combination}
+                        CPU time (Runtime): {(1000*result.runtime):.3f} ms, {result.runtime:.3f} sec
+                        Wall clock time: {1000*end_wall_clock_time:.2f} ms, {end_wall_clock_time:.3f} sec
+                        ***
+                    """
+                    print(inspect.cleandoc(time_message))
     return results
 
 
-def calculate_cost(result=ClassificationResult):
-    result.cost = 0
-    result.cost += (
-        classifier_costs[result.classifier_name]
-        + normalization_methods_costs[result.normalization_method]
-        + evaluation_methods_costs[result.evaluation_method]
-    )
-    return result.cost
+def get_cost_tier(result: ClassificationResult):
+    result_costs = pd.read_csv("ml_comparison/cost_calculations/results_with_costs.csv")
+    return result_costs.loc[
+        (result_costs["dataset"] == result.dataset)
+        & (result_costs["classifier"] == result.classifier_name)
+        & (result_costs["evaluation_method"] == result.evaluation_method)
+        & (result_costs["normalization_method"] == result.normalization_method),
+        "cost_tier",
+    ].values[0]
 
 
-def sort_by_cost(results):
-    ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
-    results_with_recurring_scores = {}
-    results_with_unique_scores = ranked_results.copy()
-    scores = [result.score for result in ranked_results]
-
-    for index, score in enumerate(scores):
-        count = scores.count(score)
-        if count > 1:
-            if score in results_with_recurring_scores:
-                results_with_recurring_scores[score].append(ranked_results[index])
-            else:
-                results_with_recurring_scores[score] = [ranked_results[index]]
-            results_with_unique_scores.remove(ranked_results[index])
-
-    for results in results_with_recurring_scores.values():
-        for result in results:
-            result.cost = calculate_cost(result)
-        results = sorted(results, key=lambda result: result.cost)
-
-    unpacked_results_with_recurring_scores = [
-        unpacked_result
-        for result_list in results_with_recurring_scores.values()
-        for unpacked_result in result_list
-    ]
-
-    if len(results_with_unique_scores) == 0:
-        sorted_results = unpacked_results_with_recurring_scores.copy()
-    else:
-        sorted_results = (
-            results_with_unique_scores + unpacked_results_with_recurring_scores
-        )
-        sorted_results = sorted(
-            sorted_results, key=lambda result: (-(result.score), result.cost)
-        )
-    return sorted_results
+def rank_results(results):
+    ranked_results = sorted(results, key=lambda result: (-result.score, result.runtime))
+    return ranked_results
 
 
 def display_combinations_heading(results, number_of_combos):
@@ -425,34 +386,51 @@ def display_combinations_heading(results, number_of_combos):
     return heading
 
 
+def get_results_with_same_scores(results):
+    scores = [result.score for result in results]
+    duplicated_scores = [score for score in scores if scores.count(score) > 1]
+    duplicated_scores = set(duplicated_scores)
+    results_with_same_scores = {}
+    for result in results:
+        if result.score in duplicated_scores:
+            results_with_same_scores.setdefault(result.score, []).append(result)
+    return results_with_same_scores
+
+
+def get_decimal_places(result: ClassificationResult, tied_results: list, decimals: int):
+    result_runtime = result.runtime
+    if result_runtime is None:
+        return decimals
+    runtimes = [round(tied_result.runtime, decimals) for tied_result in tied_results]
+    while runtimes.count(round(result_runtime, decimals)) > 1:
+        decimals += 1
+        runtimes = [round(result.runtime, decimals) for result in tied_results]
+    return decimals
+
+
 def format_combination(results):
     combos = []
+    results_with_duplicate_scores = get_results_with_same_scores(results)
     for index, result in enumerate(results):
+        decimal_places = 3
+        if result.score in results_with_duplicate_scores:
+            decimal_places = get_decimal_places(
+                result=result,
+                tied_results=results_with_duplicate_scores[result.score],
+                decimals=decimal_places,
+            )
         formatted_score = format_percent(result.score)
         print_kfold_value = ""
         if result.kfold_value is not None:
-            print_kfold_value = f" (Kfold value: {result.kfold_value})"
+            print_kfold_value = f" (Kfold Value: {result.kfold_value})"
         print_knn_value = ""
         if result.knn_value is not None:
-            print_knn_value = f" (KNN value: {result.knn_value})"
-        display = f"{result.dataset.capitalize()}, {result.classifier_name.capitalize()}{print_knn_value}, {result.evaluation_method.capitalize()}{print_kfold_value}, {result.normalization_method.capitalize()}."
-        display += f" Accuracy: {formatted_score}"
-        if result.cost is not None:
-            display += f", Computational cost: {result.cost}"
+            print_knn_value = f" (KNN Value: {result.knn_value})"
+        display = f"{result.dataset.title()} ⋅ {result.classifier_name.title()}{print_knn_value} ⋅ {result.evaluation_method.title()}{print_kfold_value} ⋅ {result.normalization_method.title()} |  Accuracy: {formatted_score} ⋅ Runtime: {result.runtime:.{decimal_places}f} seconds ⋅ Computational Cost Tier: {result.cost_tier}"
         if len(results) > 1:
             display = f"#{index+1}: {display}"
         combos.append(display)
     return combos
-
-
-def rank_results(results):
-    scores = [result.score for result in results]
-    scores_without_duplicates = set(scores)
-    if len(scores) != len(scores_without_duplicates):
-        ranked_results = sort_by_cost(results)
-    else:
-        ranked_results = sorted(results, key=lambda result: result.score, reverse=True)
-    return ranked_results
 
 
 def display_selected_combos(results, number_of_combos):

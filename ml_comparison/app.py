@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from flask import Flask, render_template, request
 from flask import send_file
 from ml_comparison.data import datasets_dict

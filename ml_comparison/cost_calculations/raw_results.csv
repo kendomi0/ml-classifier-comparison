@@ -1,0 +1,2701 @@
+dataset,classifier,evaluation_method,normalization_method,runtime,run
+noisy circles,naive bayes,holdout,unnormalized,0.0025991000000000763,1
+noisy circles,naive bayes,holdout,unnormalized,0.0017135999999999818,2
+noisy circles,naive bayes,holdout,unnormalized,0.0016008999999999052,3
+noisy circles,naive bayes,holdout,unnormalized,0.0015321000000001472,4
+noisy circles,naive bayes,holdout,unnormalized,0.0017374999999999474,5
+noisy circles,naive bayes,holdout,unnormalized,0.0016220000000000123,6
+noisy circles,naive bayes,holdout,unnormalized,0.0017633000000001342,7
+noisy circles,naive bayes,holdout,unnormalized,0.00184110000000004,8
+noisy circles,naive bayes,holdout,unnormalized,0.0017816000000001608,9
+noisy circles,naive bayes,holdout,unnormalized,0.0021823000000000814,10
+noisy circles,naive bayes,holdout,minmax,0.002369400000000077,1
+noisy circles,naive bayes,holdout,minmax,0.0023119999999998697,2
+noisy circles,naive bayes,holdout,minmax,0.0027424000000000337,3
+noisy circles,naive bayes,holdout,minmax,0.0026250000000000995,4
+noisy circles,naive bayes,holdout,minmax,0.0026384000000001517,5
+noisy circles,naive bayes,holdout,minmax,0.002484299999999884,6
+noisy circles,naive bayes,holdout,minmax,0.00228650000000008,7
+noisy circles,naive bayes,holdout,minmax,0.0024687999999999377,8
+noisy circles,naive bayes,holdout,minmax,0.002504399999999851,9
+noisy circles,naive bayes,holdout,minmax,0.0024444999999999606,10
+noisy circles,naive bayes,holdout,zscore,0.002820900000000126,1
+noisy circles,naive bayes,holdout,zscore,0.0024075999999999542,2
+noisy circles,naive bayes,holdout,zscore,0.002608300000000119,3
+noisy circles,naive bayes,holdout,zscore,0.0028112000000000137,4
+noisy circles,naive bayes,holdout,zscore,0.002816399999999941,5
+noisy circles,naive bayes,holdout,zscore,0.0024329999999999075,6
+noisy circles,naive bayes,holdout,zscore,0.002978799999999948,7
+noisy circles,naive bayes,holdout,zscore,0.0025877000000000816,8
+noisy circles,naive bayes,holdout,zscore,0.002397700000000169,9
+noisy circles,naive bayes,holdout,zscore,0.0024690000000000545,10
+noisy circles,decision tree,holdout,unnormalized,0.004197500000000076,1
+noisy circles,decision tree,holdout,unnormalized,0.0031394999999998507,2
+noisy circles,decision tree,holdout,unnormalized,0.0028706999999998928,3
+noisy circles,decision tree,holdout,unnormalized,0.0027751000000000303,4
+noisy circles,decision tree,holdout,unnormalized,0.002633400000000119,5
+noisy circles,decision tree,holdout,unnormalized,0.0028281999999999474,6
+noisy circles,decision tree,holdout,unnormalized,0.0025160000000001848,7
+noisy circles,decision tree,holdout,unnormalized,0.0028618000000000254,8
+noisy circles,decision tree,holdout,unnormalized,0.0028873999999998734,9
+noisy circles,decision tree,holdout,unnormalized,0.0028682999999998238,10
+noisy circles,decision tree,holdout,minmax,0.003071599999999952,1
+noisy circles,decision tree,holdout,minmax,0.002818699999999952,2
+noisy circles,decision tree,holdout,minmax,0.0028399999999999537,3
+noisy circles,decision tree,holdout,minmax,0.0029225999999999974,4
+noisy circles,decision tree,holdout,minmax,0.002814700000000059,5
+noisy circles,decision tree,holdout,minmax,0.0029093000000000035,6
+noisy circles,decision tree,holdout,minmax,0.003275800000000162,7
+noisy circles,decision tree,holdout,minmax,0.0031562000000000534,8
+noisy circles,decision tree,holdout,minmax,0.003281399999999879,9
+noisy circles,decision tree,holdout,minmax,0.0031202000000001284,10
+noisy circles,decision tree,holdout,zscore,0.0040080000000000116,1
+noisy circles,decision tree,holdout,zscore,0.0035338000000000314,2
+noisy circles,decision tree,holdout,zscore,0.003487099999999854,3
+noisy circles,decision tree,holdout,zscore,0.0033699000000000368,4
+noisy circles,decision tree,holdout,zscore,0.003348899999999988,5
+noisy circles,decision tree,holdout,zscore,0.003541200000000133,6
+noisy circles,decision tree,holdout,zscore,0.0033646999999998872,7
+noisy circles,decision tree,holdout,zscore,0.003383600000000042,8
+noisy circles,decision tree,holdout,zscore,0.003680600000000034,9
+noisy circles,decision tree,holdout,zscore,0.0034572999999999965,10
+noisy circles,support vector machine,holdout,unnormalized,0.010056099999999901,1
+noisy circles,support vector machine,holdout,unnormalized,0.008481799999999984,2
+noisy circles,support vector machine,holdout,unnormalized,0.00848760000000004,3
+noisy circles,support vector machine,holdout,unnormalized,0.008476799999999951,4
+noisy circles,support vector machine,holdout,unnormalized,0.00841880000000006,5
+noisy circles,support vector machine,holdout,unnormalized,0.008397699999999952,6
+noisy circles,support vector machine,holdout,unnormalized,0.008646200000000048,7
+noisy circles,support vector machine,holdout,unnormalized,0.008535700000000146,8
+noisy circles,support vector machine,holdout,unnormalized,0.00858749999999997,9
+noisy circles,support vector machine,holdout,unnormalized,0.008566199999999968,10
+noisy circles,support vector machine,holdout,minmax,0.009071199999999946,1
+noisy circles,support vector machine,holdout,minmax,0.009122800000000097,2
+noisy circles,support vector machine,holdout,minmax,0.009085499999999858,3
+noisy circles,support vector machine,holdout,minmax,0.009179500000000118,4
+noisy circles,support vector machine,holdout,minmax,0.009214599999999962,5
+noisy circles,support vector machine,holdout,minmax,0.0092973999999999,6
+noisy circles,support vector machine,holdout,minmax,0.009032699999999894,7
+noisy circles,support vector machine,holdout,minmax,0.009094500000000005,8
+noisy circles,support vector machine,holdout,minmax,0.009144500000000111,9
+noisy circles,support vector machine,holdout,minmax,0.009260800000000069,10
+noisy circles,support vector machine,holdout,zscore,0.009133199999999952,1
+noisy circles,support vector machine,holdout,zscore,0.009368400000000277,2
+noisy circles,support vector machine,holdout,zscore,0.009147099999999853,3
+noisy circles,support vector machine,holdout,zscore,0.009331499999999604,4
+noisy circles,support vector machine,holdout,zscore,0.00933499999999965,5
+noisy circles,support vector machine,holdout,zscore,0.009374800000000238,6
+noisy circles,support vector machine,holdout,zscore,0.009214300000000009,7
+noisy circles,support vector machine,holdout,zscore,0.009344500000000089,8
+noisy circles,support vector machine,holdout,zscore,0.00926910000000003,9
+noisy circles,support vector machine,holdout,zscore,0.009075799999999745,10
+noisy circles,artificial neural networks,holdout,unnormalized,0.04966680000000023,1
+noisy circles,artificial neural networks,holdout,unnormalized,0.046250899999999984,2
+noisy circles,artificial neural networks,holdout,unnormalized,0.044765100000000224,3
+noisy circles,artificial neural networks,holdout,unnormalized,0.04447089999999987,4
+noisy circles,artificial neural networks,holdout,unnormalized,0.04428199999999993,5
+noisy circles,artificial neural networks,holdout,unnormalized,0.04376900000000017,6
+noisy circles,artificial neural networks,holdout,unnormalized,0.04389440000000011,7
+noisy circles,artificial neural networks,holdout,unnormalized,0.04322720000000002,8
+noisy circles,artificial neural networks,holdout,unnormalized,0.04307930000000004,9
+noisy circles,artificial neural networks,holdout,unnormalized,0.04227199999999964,10
+noisy circles,artificial neural networks,holdout,minmax,0.049983499999999736,1
+noisy circles,artificial neural networks,holdout,minmax,0.05106419999999989,2
+noisy circles,artificial neural networks,holdout,minmax,0.05117119999999975,3
+noisy circles,artificial neural networks,holdout,minmax,0.0500273,4
+noisy circles,artificial neural networks,holdout,minmax,0.04954780000000003,5
+noisy circles,artificial neural networks,holdout,minmax,0.048280800000000124,6
+noisy circles,artificial neural networks,holdout,minmax,0.04684589999999966,7
+noisy circles,artificial neural networks,holdout,minmax,0.045655299999999954,8
+noisy circles,artificial neural networks,holdout,minmax,0.04481160000000006,9
+noisy circles,artificial neural networks,holdout,minmax,0.048665499999999806,10
+noisy circles,artificial neural networks,holdout,zscore,0.0408527000000003,1
+noisy circles,artificial neural networks,holdout,zscore,0.042827200000000065,2
+noisy circles,artificial neural networks,holdout,zscore,0.043423300000000165,3
+noisy circles,artificial neural networks,holdout,zscore,0.041835499999999914,4
+noisy circles,artificial neural networks,holdout,zscore,0.041424799999999706,5
+noisy circles,artificial neural networks,holdout,zscore,0.04162050000000006,6
+noisy circles,artificial neural networks,holdout,zscore,0.044774700000000056,7
+noisy circles,artificial neural networks,holdout,zscore,0.043582199999999904,8
+noisy circles,artificial neural networks,holdout,zscore,0.04179130000000031,9
+noisy circles,artificial neural networks,holdout,zscore,0.04192420000000041,10
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.009038700000000066,1
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.008169300000000046,2
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.023503700000000016,3
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.006880900000000079,4
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.009816900000000128,5
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.007900599999999702,6
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.008158600000000238,7
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.008046999999999915,8
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.008115200000000211,9
+noisy circles,k-nearest-neighbor,holdout,unnormalized,0.00811010000000012,10
+noisy circles,k-nearest-neighbor,holdout,minmax,0.008621699999999954,1
+noisy circles,k-nearest-neighbor,holdout,minmax,0.008556700000000195,2
+noisy circles,k-nearest-neighbor,holdout,minmax,0.008427800000000207,3
+noisy circles,k-nearest-neighbor,holdout,minmax,0.008219700000000163,4
+noisy circles,k-nearest-neighbor,holdout,minmax,0.010066699999999873,5
+noisy circles,k-nearest-neighbor,holdout,minmax,0.012707600000000152,6
+noisy circles,k-nearest-neighbor,holdout,minmax,0.008388099999999898,7
+noisy circles,k-nearest-neighbor,holdout,minmax,0.009346499999999924,8
+noisy circles,k-nearest-neighbor,holdout,minmax,0.009714900000000082,9
+noisy circles,k-nearest-neighbor,holdout,minmax,0.00961029999999985,10
+noisy circles,k-nearest-neighbor,holdout,zscore,0.009106999999999754,1
+noisy circles,k-nearest-neighbor,holdout,zscore,0.00908130000000007,2
+noisy circles,k-nearest-neighbor,holdout,zscore,0.009098300000000226,3
+noisy circles,k-nearest-neighbor,holdout,zscore,0.009139999999999926,4
+noisy circles,k-nearest-neighbor,holdout,zscore,0.009332500000000188,5
+noisy circles,k-nearest-neighbor,holdout,zscore,0.009439299999999928,6
+noisy circles,k-nearest-neighbor,holdout,zscore,0.009440200000000232,7
+noisy circles,k-nearest-neighbor,holdout,zscore,0.009497300000000042,8
+noisy circles,k-nearest-neighbor,holdout,zscore,0.009374000000000215,9
+noisy circles,k-nearest-neighbor,holdout,zscore,0.008978100000000211,10
+noisy circles,naive bayes,random subsampling,unnormalized,0.0158501000000002,1
+noisy circles,naive bayes,random subsampling,unnormalized,0.015234300000000367,2
+noisy circles,naive bayes,random subsampling,unnormalized,0.01537659999999974,3
+noisy circles,naive bayes,random subsampling,unnormalized,0.015435299999999597,4
+noisy circles,naive bayes,random subsampling,unnormalized,0.015438499999999689,5
+noisy circles,naive bayes,random subsampling,unnormalized,0.015010299999999699,6
+noisy circles,naive bayes,random subsampling,unnormalized,0.015294599999999825,7
+noisy circles,naive bayes,random subsampling,unnormalized,0.015190200000000154,8
+noisy circles,naive bayes,random subsampling,unnormalized,0.015082900000000343,9
+noisy circles,naive bayes,random subsampling,unnormalized,0.015140199999999826,10
+noisy circles,naive bayes,random subsampling,minmax,0.015186799999999945,1
+noisy circles,naive bayes,random subsampling,minmax,0.015142400000000222,2
+noisy circles,naive bayes,random subsampling,minmax,0.015328100000000067,3
+noisy circles,naive bayes,random subsampling,minmax,0.015128400000000042,4
+noisy circles,naive bayes,random subsampling,minmax,0.015218799999999977,5
+noisy circles,naive bayes,random subsampling,minmax,0.015117599999999953,6
+noisy circles,naive bayes,random subsampling,minmax,0.01513909999999985,7
+noisy circles,naive bayes,random subsampling,minmax,0.01474709999999968,8
+noisy circles,naive bayes,random subsampling,minmax,0.015257199999999749,9
+noisy circles,naive bayes,random subsampling,minmax,0.014679400000000342,10
+noisy circles,naive bayes,random subsampling,zscore,0.014967299999999462,1
+noisy circles,naive bayes,random subsampling,zscore,0.014916000000000373,2
+noisy circles,naive bayes,random subsampling,zscore,0.015050399999999797,3
+noisy circles,naive bayes,random subsampling,zscore,0.016096499999999736,4
+noisy circles,naive bayes,random subsampling,zscore,0.015627699999999578,5
+noisy circles,naive bayes,random subsampling,zscore,0.0148400999999998,6
+noisy circles,naive bayes,random subsampling,zscore,0.01503679999999985,7
+noisy circles,naive bayes,random subsampling,zscore,0.014775799999999784,8
+noisy circles,naive bayes,random subsampling,zscore,0.015147699999999986,9
+noisy circles,naive bayes,random subsampling,zscore,0.015952099999999803,10
+noisy circles,decision tree,random subsampling,unnormalized,0.019869899999999774,1
+noisy circles,decision tree,random subsampling,unnormalized,0.019627299999999792,2
+noisy circles,decision tree,random subsampling,unnormalized,0.020000399999999807,3
+noisy circles,decision tree,random subsampling,unnormalized,0.019436900000000534,4
+noisy circles,decision tree,random subsampling,unnormalized,0.019156299999999682,5
+noisy circles,decision tree,random subsampling,unnormalized,0.019149900000000386,6
+noisy circles,decision tree,random subsampling,unnormalized,0.01915219999999973,7
+noisy circles,decision tree,random subsampling,unnormalized,0.019276200000000188,8
+noisy circles,decision tree,random subsampling,unnormalized,0.019046200000000013,9
+noisy circles,decision tree,random subsampling,unnormalized,0.018804799999999844,10
+noisy circles,decision tree,random subsampling,minmax,0.01925050000000006,1
+noisy circles,decision tree,random subsampling,minmax,0.019104799999999145,2
+noisy circles,decision tree,random subsampling,minmax,0.018898599999999988,3
+noisy circles,decision tree,random subsampling,minmax,0.018882699999999808,4
+noisy circles,decision tree,random subsampling,minmax,0.019569699999999912,5
+noisy circles,decision tree,random subsampling,minmax,0.01900119999999994,6
+noisy circles,decision tree,random subsampling,minmax,0.01866150000000033,7
+noisy circles,decision tree,random subsampling,minmax,0.018671699999999625,8
+noisy circles,decision tree,random subsampling,minmax,0.018565300000000562,9
+noisy circles,decision tree,random subsampling,minmax,0.018657600000000052,10
+noisy circles,decision tree,random subsampling,zscore,0.01889099999999999,1
+noisy circles,decision tree,random subsampling,zscore,0.018885399999999386,2
+noisy circles,decision tree,random subsampling,zscore,0.018686599999999665,3
+noisy circles,decision tree,random subsampling,zscore,0.019603499999999663,4
+noisy circles,decision tree,random subsampling,zscore,0.018676399999999482,5
+noisy circles,decision tree,random subsampling,zscore,0.019002500000000033,6
+noisy circles,decision tree,random subsampling,zscore,0.01853320000000025,7
+noisy circles,decision tree,random subsampling,zscore,0.018749500000000197,8
+noisy circles,decision tree,random subsampling,zscore,0.01867440000000009,9
+noisy circles,decision tree,random subsampling,zscore,0.018652999999999587,10
+noisy circles,support vector machine,random subsampling,unnormalized,0.06655260000000052,1
+noisy circles,support vector machine,random subsampling,unnormalized,0.0660286999999995,2
+noisy circles,support vector machine,random subsampling,unnormalized,0.06920750000000009,3
+noisy circles,support vector machine,random subsampling,unnormalized,0.06895269999999964,4
+noisy circles,support vector machine,random subsampling,unnormalized,0.06882350000000059,5
+noisy circles,support vector machine,random subsampling,unnormalized,0.07375869999999995,6
+noisy circles,support vector machine,random subsampling,unnormalized,0.07323539999999973,7
+noisy circles,support vector machine,random subsampling,unnormalized,0.07347940000000008,8
+noisy circles,support vector machine,random subsampling,unnormalized,0.07413259999999955,9
+noisy circles,support vector machine,random subsampling,unnormalized,0.08509170000000044,10
+noisy circles,support vector machine,random subsampling,minmax,0.07538709999999949,1
+noisy circles,support vector machine,random subsampling,minmax,0.07209820000000011,2
+noisy circles,support vector machine,random subsampling,minmax,0.07192579999999982,3
+noisy circles,support vector machine,random subsampling,minmax,0.07093029999999967,4
+noisy circles,support vector machine,random subsampling,minmax,0.07219970000000053,5
+noisy circles,support vector machine,random subsampling,minmax,0.07167080000000059,6
+noisy circles,support vector machine,random subsampling,minmax,0.07197660000000017,7
+noisy circles,support vector machine,random subsampling,minmax,0.07394630000000024,8
+noisy circles,support vector machine,random subsampling,minmax,0.0682160000000005,9
+noisy circles,support vector machine,random subsampling,minmax,0.07135090000000055,10
+noisy circles,support vector machine,random subsampling,zscore,0.07072900000000004,1
+noisy circles,support vector machine,random subsampling,zscore,0.07110820000000029,2
+noisy circles,support vector machine,random subsampling,zscore,0.07259700000000002,3
+noisy circles,support vector machine,random subsampling,zscore,0.0719473000000006,4
+noisy circles,support vector machine,random subsampling,zscore,0.07429089999999938,5
+noisy circles,support vector machine,random subsampling,zscore,0.07333069999999964,6
+noisy circles,support vector machine,random subsampling,zscore,0.0719246999999994,7
+noisy circles,support vector machine,random subsampling,zscore,0.06843129999999942,8
+noisy circles,support vector machine,random subsampling,zscore,0.06782359999999965,9
+noisy circles,support vector machine,random subsampling,zscore,0.06818819999999981,10
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.41354429999999986,1
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.3869769000000005,2
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.38874230000000054,3
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.38777439999999963,4
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.39575480000000063,5
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.38798000000000066,6
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.4012545999999997,7
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.38496929999999985,8
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.39511209999999863,9
+noisy circles,artificial neural networks,random subsampling,unnormalized,0.39248249999999985,10
+noisy circles,artificial neural networks,random subsampling,minmax,0.4257396,1
+noisy circles,artificial neural networks,random subsampling,minmax,0.4425291999999992,2
+noisy circles,artificial neural networks,random subsampling,minmax,0.4514718999999996,3
+noisy circles,artificial neural networks,random subsampling,minmax,0.4161740000000016,4
+noisy circles,artificial neural networks,random subsampling,minmax,0.4404900999999999,5
+noisy circles,artificial neural networks,random subsampling,minmax,0.45185049999999904,6
+noisy circles,artificial neural networks,random subsampling,minmax,0.44051350000000156,7
+noisy circles,artificial neural networks,random subsampling,minmax,0.4395773000000016,8
+noisy circles,artificial neural networks,random subsampling,minmax,0.42347930000000034,9
+noisy circles,artificial neural networks,random subsampling,minmax,0.43475980000000014,10
+noisy circles,artificial neural networks,random subsampling,zscore,0.3918552999999996,1
+noisy circles,artificial neural networks,random subsampling,zscore,0.3973379999999995,2
+noisy circles,artificial neural networks,random subsampling,zscore,0.39068539999999885,3
+noisy circles,artificial neural networks,random subsampling,zscore,0.4063674000000006,4
+noisy circles,artificial neural networks,random subsampling,zscore,0.4034557000000021,5
+noisy circles,artificial neural networks,random subsampling,zscore,0.40344400000000036,6
+noisy circles,artificial neural networks,random subsampling,zscore,0.3842197000000027,7
+noisy circles,artificial neural networks,random subsampling,zscore,0.39319280000000134,8
+noisy circles,artificial neural networks,random subsampling,zscore,0.38926190000000105,9
+noisy circles,artificial neural networks,random subsampling,zscore,0.3862776999999973,10
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.07281329999999997,1
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.07280350000000269,2
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.0725660000000019,3
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.07244679999999803,4
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.07140060000000048,5
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.07134079999999798,6
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.07101399999999813,7
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.0716941999999996,8
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.07114609999999999,9
+noisy circles,k-nearest-neighbor,random subsampling,unnormalized,0.0701197000000029,10
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.07069520000000296,1
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.07201989999999725,2
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.07320710000000119,3
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.0705543999999989,4
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.07098470000000034,5
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.07178870000000259,6
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.07179819999999992,7
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.07191159999999996,8
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.0735170000000025,9
+noisy circles,k-nearest-neighbor,random subsampling,minmax,0.07307169999999985,10
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.07043170000000032,1
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.0852776999999989,2
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.08139680000000027,3
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.07071840000000051,4
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.07027189999999806,5
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.07265779999999822,6
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.08261510000000172,7
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.08410570000000206,8
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.08500699999999739,9
+noisy circles,k-nearest-neighbor,random subsampling,zscore,0.0846650000000011,10
+noisy circles,naive bayes,kfold,unnormalized,0.02637239999999963,1
+noisy circles,naive bayes,kfold,unnormalized,0.024302800000000957,2
+noisy circles,naive bayes,kfold,unnormalized,0.022998000000001184,3
+noisy circles,naive bayes,kfold,unnormalized,0.024276900000000268,4
+noisy circles,naive bayes,kfold,unnormalized,0.02479539999999858,5
+noisy circles,naive bayes,kfold,unnormalized,0.023849800000000698,6
+noisy circles,naive bayes,kfold,unnormalized,0.02435780000000065,7
+noisy circles,naive bayes,kfold,unnormalized,0.022969200000002132,8
+noisy circles,naive bayes,kfold,unnormalized,0.02379099999999923,9
+noisy circles,naive bayes,kfold,unnormalized,0.023882799999999094,10
+noisy circles,naive bayes,kfold,minmax,0.025032499999998237,1
+noisy circles,naive bayes,kfold,minmax,0.02324700000000135,2
+noisy circles,naive bayes,kfold,minmax,0.024538500000002017,3
+noisy circles,naive bayes,kfold,minmax,0.024973100000000414,4
+noisy circles,naive bayes,kfold,minmax,0.023350900000000507,5
+noisy circles,naive bayes,kfold,minmax,0.02422639999999987,6
+noisy circles,naive bayes,kfold,minmax,0.025066199999997707,7
+noisy circles,naive bayes,kfold,minmax,0.023738200000000376,8
+noisy circles,naive bayes,kfold,minmax,0.02490460000000283,9
+noisy circles,naive bayes,kfold,minmax,0.02621019999999774,10
+noisy circles,naive bayes,kfold,zscore,0.025780799999999715,1
+noisy circles,naive bayes,kfold,zscore,0.023997899999997685,2
+noisy circles,naive bayes,kfold,zscore,0.025189600000000922,3
+noisy circles,naive bayes,kfold,zscore,0.024832499999998703,4
+noisy circles,naive bayes,kfold,zscore,0.024262499999998965,5
+noisy circles,naive bayes,kfold,zscore,0.023990399999998857,6
+noisy circles,naive bayes,kfold,zscore,0.025134300000001275,7
+noisy circles,naive bayes,kfold,zscore,0.0374742000000019,8
+noisy circles,naive bayes,kfold,zscore,0.025151300000000987,9
+noisy circles,naive bayes,kfold,zscore,0.036269799999999464,10
+noisy circles,decision tree,kfold,unnormalized,0.038593099999999936,1
+noisy circles,decision tree,kfold,unnormalized,0.034643800000001335,2
+noisy circles,decision tree,kfold,unnormalized,0.0349661999999995,3
+noisy circles,decision tree,kfold,unnormalized,0.03434120000000007,4
+noisy circles,decision tree,kfold,unnormalized,0.034322599999999426,5
+noisy circles,decision tree,kfold,unnormalized,0.035419600000000884,6
+noisy circles,decision tree,kfold,unnormalized,0.050638600000002754,7
+noisy circles,decision tree,kfold,unnormalized,0.03462820000000022,8
+noisy circles,decision tree,kfold,unnormalized,0.03428260000000094,9
+noisy circles,decision tree,kfold,unnormalized,0.03380900000000153,10
+noisy circles,decision tree,kfold,minmax,0.03457249999999945,1
+noisy circles,decision tree,kfold,minmax,0.034019099999998303,2
+noisy circles,decision tree,kfold,minmax,0.03991849999999886,3
+noisy circles,decision tree,kfold,minmax,0.03561300000000145,4
+noisy circles,decision tree,kfold,minmax,0.03508309999999781,5
+noisy circles,decision tree,kfold,minmax,0.035126500000000505,6
+noisy circles,decision tree,kfold,minmax,0.03479240000000061,7
+noisy circles,decision tree,kfold,minmax,0.03468769999999921,8
+noisy circles,decision tree,kfold,minmax,0.03978310000000107,9
+noisy circles,decision tree,kfold,minmax,0.03412579999999821,10
+noisy circles,decision tree,kfold,zscore,0.035397700000000754,1
+noisy circles,decision tree,kfold,zscore,0.03369899999999859,2
+noisy circles,decision tree,kfold,zscore,0.03508260000000263,3
+noisy circles,decision tree,kfold,zscore,0.03698500000000138,4
+noisy circles,decision tree,kfold,zscore,0.0369901999999982,5
+noisy circles,decision tree,kfold,zscore,0.03470280000000159,6
+noisy circles,decision tree,kfold,zscore,0.033295400000000086,7
+noisy circles,decision tree,kfold,zscore,0.034613900000000086,8
+noisy circles,decision tree,kfold,zscore,0.039495099999999894,9
+noisy circles,decision tree,kfold,zscore,0.03443490000000082,10
+noisy circles,support vector machine,kfold,unnormalized,0.13239859999999837,1
+noisy circles,support vector machine,kfold,unnormalized,0.13703590000000077,2
+noisy circles,support vector machine,kfold,unnormalized,0.14045270000000087,3
+noisy circles,support vector machine,kfold,unnormalized,0.14027369999999806,4
+noisy circles,support vector machine,kfold,unnormalized,0.14043209999999817,5
+noisy circles,support vector machine,kfold,unnormalized,0.14101320000000328,6
+noisy circles,support vector machine,kfold,unnormalized,0.1461252999999978,7
+noisy circles,support vector machine,kfold,unnormalized,0.1322511999999989,8
+noisy circles,support vector machine,kfold,unnormalized,0.14240999999999815,9
+noisy circles,support vector machine,kfold,unnormalized,0.14164699999999897,10
+noisy circles,support vector machine,kfold,minmax,0.1332634000000006,1
+noisy circles,support vector machine,kfold,minmax,0.13190810000000042,2
+noisy circles,support vector machine,kfold,minmax,0.14647880000000058,3
+noisy circles,support vector machine,kfold,minmax,0.13723719999999773,4
+noisy circles,support vector machine,kfold,minmax,0.13940210000000164,5
+noisy circles,support vector machine,kfold,minmax,0.1405118999999999,6
+noisy circles,support vector machine,kfold,minmax,0.1404925999999982,7
+noisy circles,support vector machine,kfold,minmax,0.14875770000000088,8
+noisy circles,support vector machine,kfold,minmax,0.13772760000000162,9
+noisy circles,support vector machine,kfold,minmax,0.1355314000000014,10
+noisy circles,support vector machine,kfold,zscore,0.13538720000000026,1
+noisy circles,support vector machine,kfold,zscore,0.13987420000000128,2
+noisy circles,support vector machine,kfold,zscore,0.14220949999999988,3
+noisy circles,support vector machine,kfold,zscore,0.13576429999999817,4
+noisy circles,support vector machine,kfold,zscore,0.14968870000000223,5
+noisy circles,support vector machine,kfold,zscore,0.13958760000000225,6
+noisy circles,support vector machine,kfold,zscore,0.14052679999999995,7
+noisy circles,support vector machine,kfold,zscore,0.1472900999999993,8
+noisy circles,support vector machine,kfold,zscore,0.1377580000000016,9
+noisy circles,support vector machine,kfold,zscore,0.13840130000000173,10
+noisy circles,artificial neural networks,kfold,unnormalized,0.8468938000000001,1
+noisy circles,artificial neural networks,kfold,unnormalized,0.8836385999999976,2
+noisy circles,artificial neural networks,kfold,unnormalized,0.888188900000003,3
+noisy circles,artificial neural networks,kfold,unnormalized,0.8598974000000013,4
+noisy circles,artificial neural networks,kfold,unnormalized,0.868086899999998,5
+noisy circles,artificial neural networks,kfold,unnormalized,0.8407802000000011,6
+noisy circles,artificial neural networks,kfold,unnormalized,0.8860424000000009,7
+noisy circles,artificial neural networks,kfold,unnormalized,0.8472184000000027,8
+noisy circles,artificial neural networks,kfold,unnormalized,0.8399684999999977,9
+noisy circles,artificial neural networks,kfold,unnormalized,0.7658508999999967,10
+noisy circles,artificial neural networks,kfold,minmax,0.8704064000000002,1
+noisy circles,artificial neural networks,kfold,minmax,0.8676749999999984,2
+noisy circles,artificial neural networks,kfold,minmax,0.877264199999999,3
+noisy circles,artificial neural networks,kfold,minmax,0.8931292999999982,4
+noisy circles,artificial neural networks,kfold,minmax,0.8683887999999982,5
+noisy circles,artificial neural networks,kfold,minmax,0.8594640000000027,6
+noisy circles,artificial neural networks,kfold,minmax,0.8815564000000009,7
+noisy circles,artificial neural networks,kfold,minmax,0.9096558999999971,8
+noisy circles,artificial neural networks,kfold,minmax,0.9191405999999986,9
+noisy circles,artificial neural networks,kfold,minmax,0.8778056000000021,10
+noisy circles,artificial neural networks,kfold,zscore,0.7883305000000007,1
+noisy circles,artificial neural networks,kfold,zscore,0.7795549000000008,2
+noisy circles,artificial neural networks,kfold,zscore,0.7792242000000016,3
+noisy circles,artificial neural networks,kfold,zscore,0.7748101999999975,4
+noisy circles,artificial neural networks,kfold,zscore,0.7728774999999999,5
+noisy circles,artificial neural networks,kfold,zscore,0.7988082999999975,6
+noisy circles,artificial neural networks,kfold,zscore,0.7732633999999976,7
+noisy circles,artificial neural networks,kfold,zscore,0.7737503999999973,8
+noisy circles,artificial neural networks,kfold,zscore,0.7921357000000029,9
+noisy circles,artificial neural networks,kfold,zscore,0.8246895999999992,10
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.10977700000000112,1
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.11206500000000119,2
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.11241330000000005,3
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.11189819999999884,4
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.10910989999999998,5
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.11783750000000026,6
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.10818350000000265,7
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.11349299999999829,8
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.10496869999999348,9
+noisy circles,k-nearest-neighbor,kfold,unnormalized,0.10336850000000197,10
+noisy circles,k-nearest-neighbor,kfold,minmax,0.10313440000000185,1
+noisy circles,k-nearest-neighbor,kfold,minmax,0.10430339999999916,2
+noisy circles,k-nearest-neighbor,kfold,minmax,0.10711990000000071,3
+noisy circles,k-nearest-neighbor,kfold,minmax,0.10592690000000005,4
+noisy circles,k-nearest-neighbor,kfold,minmax,0.104776600000001,5
+noisy circles,k-nearest-neighbor,kfold,minmax,0.1054688999999982,6
+noisy circles,k-nearest-neighbor,kfold,minmax,0.10921110000000311,7
+noisy circles,k-nearest-neighbor,kfold,minmax,0.1129353999999978,8
+noisy circles,k-nearest-neighbor,kfold,minmax,0.12238550000000004,9
+noisy circles,k-nearest-neighbor,kfold,minmax,0.1290358999999981,10
+noisy circles,k-nearest-neighbor,kfold,zscore,0.12147620000000359,1
+noisy circles,k-nearest-neighbor,kfold,zscore,0.12152430000000436,2
+noisy circles,k-nearest-neighbor,kfold,zscore,0.10292660000000353,3
+noisy circles,k-nearest-neighbor,kfold,zscore,0.10467949999999604,4
+noisy circles,k-nearest-neighbor,kfold,zscore,0.10176660000000481,5
+noisy circles,k-nearest-neighbor,kfold,zscore,0.10301370000000531,6
+noisy circles,k-nearest-neighbor,kfold,zscore,0.10344330000000213,7
+noisy circles,k-nearest-neighbor,kfold,zscore,0.10365740000000301,8
+noisy circles,k-nearest-neighbor,kfold,zscore,0.10471160000000168,9
+noisy circles,k-nearest-neighbor,kfold,zscore,0.10533069999999611,10
+noisy circles,naive bayes,leave-one-out,unnormalized,1.1338501999999977,1
+noisy circles,naive bayes,leave-one-out,unnormalized,1.109650600000002,2
+noisy circles,naive bayes,leave-one-out,unnormalized,1.1157442000000017,3
+noisy circles,naive bayes,leave-one-out,unnormalized,1.1015239999999977,4
+noisy circles,naive bayes,leave-one-out,unnormalized,1.112889800000005,5
+noisy circles,naive bayes,leave-one-out,unnormalized,1.1195896999999988,6
+noisy circles,naive bayes,leave-one-out,unnormalized,1.1200638999999981,7
+noisy circles,naive bayes,leave-one-out,unnormalized,1.1095232999999993,8
+noisy circles,naive bayes,leave-one-out,unnormalized,1.1397679999999895,9
+noisy circles,naive bayes,leave-one-out,unnormalized,1.0995824999999968,10
+noisy circles,naive bayes,leave-one-out,minmax,1.124297299999995,1
+noisy circles,naive bayes,leave-one-out,minmax,1.117711,2
+noisy circles,naive bayes,leave-one-out,minmax,1.1166292999999996,3
+noisy circles,naive bayes,leave-one-out,minmax,1.0999967000000055,4
+noisy circles,naive bayes,leave-one-out,minmax,1.1189252000000067,5
+noisy circles,naive bayes,leave-one-out,minmax,1.1133267000000018,6
+noisy circles,naive bayes,leave-one-out,minmax,1.107938400000009,7
+noisy circles,naive bayes,leave-one-out,minmax,1.1075842999999992,8
+noisy circles,naive bayes,leave-one-out,minmax,1.107132099999987,9
+noisy circles,naive bayes,leave-one-out,minmax,1.122304800000009,10
+noisy circles,naive bayes,leave-one-out,zscore,1.112290900000005,1
+noisy circles,naive bayes,leave-one-out,zscore,1.1152661999999935,2
+noisy circles,naive bayes,leave-one-out,zscore,1.0919823000000122,3
+noisy circles,naive bayes,leave-one-out,zscore,1.1057559999999995,4
+noisy circles,naive bayes,leave-one-out,zscore,1.1033296000000092,5
+noisy circles,naive bayes,leave-one-out,zscore,1.1200358999999906,6
+noisy circles,naive bayes,leave-one-out,zscore,1.112432400000003,7
+noisy circles,naive bayes,leave-one-out,zscore,1.1202664999999996,8
+noisy circles,naive bayes,leave-one-out,zscore,1.0995013,9
+noisy circles,naive bayes,leave-one-out,zscore,1.1077604999999977,10
+noisy circles,decision tree,leave-one-out,unnormalized,1.8961301000000077,1
+noisy circles,decision tree,leave-one-out,unnormalized,1.8854061999999914,2
+noisy circles,decision tree,leave-one-out,unnormalized,1.9099119000000115,3
+noisy circles,decision tree,leave-one-out,unnormalized,1.915728400000006,4
+noisy circles,decision tree,leave-one-out,unnormalized,1.9249518000000023,5
+noisy circles,decision tree,leave-one-out,unnormalized,1.9101544000000104,6
+noisy circles,decision tree,leave-one-out,unnormalized,1.887330899999995,7
+noisy circles,decision tree,leave-one-out,unnormalized,1.8796997000000033,8
+noisy circles,decision tree,leave-one-out,unnormalized,1.9098286000000115,9
+noisy circles,decision tree,leave-one-out,unnormalized,1.8884242000000029,10
+noisy circles,decision tree,leave-one-out,minmax,1.8871328999999974,1
+noisy circles,decision tree,leave-one-out,minmax,1.9109379000000075,2
+noisy circles,decision tree,leave-one-out,minmax,1.9187095999999997,3
+noisy circles,decision tree,leave-one-out,minmax,1.8954829000000046,4
+noisy circles,decision tree,leave-one-out,minmax,1.8734170999999975,5
+noisy circles,decision tree,leave-one-out,minmax,1.8969443000000012,6
+noisy circles,decision tree,leave-one-out,minmax,1.9290869999999956,7
+noisy circles,decision tree,leave-one-out,minmax,1.8891332000000034,8
+noisy circles,decision tree,leave-one-out,minmax,1.8959490000000017,9
+noisy circles,decision tree,leave-one-out,minmax,1.8803529999999995,10
+noisy circles,decision tree,leave-one-out,zscore,1.8780094999999903,1
+noisy circles,decision tree,leave-one-out,zscore,1.9031386999999995,2
+noisy circles,decision tree,leave-one-out,zscore,1.9004571000000112,3
+noisy circles,decision tree,leave-one-out,zscore,1.9178389000000209,4
+noisy circles,decision tree,leave-one-out,zscore,1.893293299999982,5
+noisy circles,decision tree,leave-one-out,zscore,1.8818703999999968,6
+noisy circles,decision tree,leave-one-out,zscore,1.8721748000000105,7
+noisy circles,decision tree,leave-one-out,zscore,1.8763703000000191,8
+noisy circles,decision tree,leave-one-out,zscore,1.8775758999999823,9
+noisy circles,decision tree,leave-one-out,zscore,1.8750354000000016,10
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.019830899999988105,1
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.016970599999979186,2
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.014590499999997064,3
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.014436600000010458,4
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.013637799999997924,5
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.014290499999987105,6
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.014391599999981963,7
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.014156200000002173,8
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.013497700000016266,9
+noisy circles,k-nearest-neighbor,leave-one-out,unnormalized,0.014019099999984519,10
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.015110099999986915,1
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.014521400000006679,2
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.014073200000012775,3
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.014118699999983164,4
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.014994399999977759,5
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.014166200000005347,6
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.014296400000006315,7
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.014586100000002489,8
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.015006900000003043,9
+noisy circles,k-nearest-neighbor,leave-one-out,minmax,0.01626970000000938,10
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.01610619999999585,1
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.014486000000005106,2
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.014762099999984457,3
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.014836899999977504,4
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.014835199999993165,5
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.014917700000012246,6
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.01603180000000748,7
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.014925099999999247,8
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.014401000000020758,9
+noisy circles,k-nearest-neighbor,leave-one-out,zscore,0.014646200000015597,10
+noisy moons,naive bayes,holdout,unnormalized,0.001864600000004657,1
+noisy moons,naive bayes,holdout,unnormalized,0.0014970000000005257,2
+noisy moons,naive bayes,holdout,unnormalized,0.0015826000000060958,3
+noisy moons,naive bayes,holdout,unnormalized,0.001619599999997945,4
+noisy moons,naive bayes,holdout,unnormalized,0.001568800000001147,5
+noisy moons,naive bayes,holdout,unnormalized,0.0016741000000024542,6
+noisy moons,naive bayes,holdout,unnormalized,0.001766200000020035,7
+noisy moons,naive bayes,holdout,unnormalized,0.00189409999998702,8
+noisy moons,naive bayes,holdout,unnormalized,0.0018943999999976313,9
+noisy moons,naive bayes,holdout,unnormalized,0.0020647999999994227,10
+noisy moons,naive bayes,holdout,minmax,0.0021116000000063195,1
+noisy moons,naive bayes,holdout,minmax,0.0024289000000123906,2
+noisy moons,naive bayes,holdout,minmax,0.001982099999992215,3
+noisy moons,naive bayes,holdout,minmax,0.00212659999999687,4
+noisy moons,naive bayes,holdout,minmax,0.002070799999984274,5
+noisy moons,naive bayes,holdout,minmax,0.002200700000003053,6
+noisy moons,naive bayes,holdout,minmax,0.002188300000000254,7
+noisy moons,naive bayes,holdout,minmax,0.001994400000000951,8
+noisy moons,naive bayes,holdout,minmax,0.0021146999999928084,9
+noisy moons,naive bayes,holdout,minmax,0.0019691999999906784,10
+noisy moons,naive bayes,holdout,zscore,0.0024322000000154276,1
+noisy moons,naive bayes,holdout,zscore,0.0021019000000137567,2
+noisy moons,naive bayes,holdout,zscore,0.002306800000013709,3
+noisy moons,naive bayes,holdout,zscore,0.0021483999999816206,4
+noisy moons,naive bayes,holdout,zscore,0.0024969000000112374,5
+noisy moons,naive bayes,holdout,zscore,0.002380499999986796,6
+noisy moons,naive bayes,holdout,zscore,0.0022998000000029606,7
+noisy moons,naive bayes,holdout,zscore,0.0021576000000038675,8
+noisy moons,naive bayes,holdout,zscore,0.0020877000000041335,9
+noisy moons,naive bayes,holdout,zscore,0.00242919999999458,10
+noisy moons,decision tree,holdout,unnormalized,0.0017500999999811029,1
+noisy moons,decision tree,holdout,unnormalized,0.0021339000000182295,2
+noisy moons,decision tree,holdout,unnormalized,0.0019909000000097876,3
+noisy moons,decision tree,holdout,unnormalized,0.0018828000000041811,4
+noisy moons,decision tree,holdout,unnormalized,0.0017464000000018132,5
+noisy moons,decision tree,holdout,unnormalized,0.0019254999999986921,6
+noisy moons,decision tree,holdout,unnormalized,0.0018605999999863343,7
+noisy moons,decision tree,holdout,unnormalized,0.0018702000000132557,8
+noisy moons,decision tree,holdout,unnormalized,0.0018618999999944208,9
+noisy moons,decision tree,holdout,unnormalized,0.0028725999999892338,10
+noisy moons,decision tree,holdout,minmax,0.00219100000001049,1
+noisy moons,decision tree,holdout,minmax,0.002315699999996923,2
+noisy moons,decision tree,holdout,minmax,0.0021688999999867065,3
+noisy moons,decision tree,holdout,minmax,0.002295099999997774,4
+noisy moons,decision tree,holdout,minmax,0.002089100000006283,5
+noisy moons,decision tree,holdout,minmax,0.002111899999988509,6
+noisy moons,decision tree,holdout,minmax,0.0021374999999750344,7
+noisy moons,decision tree,holdout,minmax,0.0022222999999996773,8
+noisy moons,decision tree,holdout,minmax,0.0022189999999966403,9
+noisy moons,decision tree,holdout,minmax,0.002326299999992898,10
+noisy moons,decision tree,holdout,zscore,0.0024404000000117776,1
+noisy moons,decision tree,holdout,zscore,0.0023146000000053846,2
+noisy moons,decision tree,holdout,zscore,0.002391099999982771,3
+noisy moons,decision tree,holdout,zscore,0.0022859000000039487,4
+noisy moons,decision tree,holdout,zscore,0.0022884999999917,5
+noisy moons,decision tree,holdout,zscore,0.0021509999999977936,6
+noisy moons,decision tree,holdout,zscore,0.0023111000000142212,7
+noisy moons,decision tree,holdout,zscore,0.0023505999999997584,8
+noisy moons,decision tree,holdout,zscore,0.002296800000010535,9
+noisy moons,decision tree,holdout,zscore,0.0024564999999938664,10
+noisy moons,support vector machine,holdout,unnormalized,0.0027206000000035147,1
+noisy moons,support vector machine,holdout,unnormalized,0.0027583000000106495,2
+noisy moons,support vector machine,holdout,unnormalized,0.0027856000000099357,3
+noisy moons,support vector machine,holdout,unnormalized,0.002703499999995529,4
+noisy moons,support vector machine,holdout,unnormalized,0.0026332999999851836,5
+noisy moons,support vector machine,holdout,unnormalized,0.0027858999999921252,6
+noisy moons,support vector machine,holdout,unnormalized,0.0028600999999923715,7
+noisy moons,support vector machine,holdout,unnormalized,0.0027485000000240234,8
+noisy moons,support vector machine,holdout,unnormalized,0.002724900000004027,9
+noisy moons,support vector machine,holdout,unnormalized,0.0029808999999829666,10
+noisy moons,support vector machine,holdout,minmax,0.0032657999999798903,1
+noisy moons,support vector machine,holdout,minmax,0.00349740000001475,2
+noisy moons,support vector machine,holdout,minmax,0.0034684000000027027,3
+noisy moons,support vector machine,holdout,minmax,0.0036389999999926204,4
+noisy moons,support vector machine,holdout,minmax,0.0035469999999975244,5
+noisy moons,support vector machine,holdout,minmax,0.003618200000005345,6
+noisy moons,support vector machine,holdout,minmax,0.0036840999999867563,7
+noisy moons,support vector machine,holdout,minmax,0.0033782000000144308,8
+noisy moons,support vector machine,holdout,minmax,0.0032596000000069125,9
+noisy moons,support vector machine,holdout,minmax,0.0035871999999983473,10
+noisy moons,support vector machine,holdout,zscore,0.003573200000005272,1
+noisy moons,support vector machine,holdout,zscore,0.003650500000020429,2
+noisy moons,support vector machine,holdout,zscore,0.003685399999994843,3
+noisy moons,support vector machine,holdout,zscore,0.0037163000000077773,4
+noisy moons,support vector machine,holdout,zscore,0.0036923999999771695,5
+noisy moons,support vector machine,holdout,zscore,0.00350789999998824,6
+noisy moons,support vector machine,holdout,zscore,0.0035222999999859894,7
+noisy moons,support vector machine,holdout,zscore,0.00372850000002245,8
+noisy moons,support vector machine,holdout,zscore,0.0035445000000038362,9
+noisy moons,support vector machine,holdout,zscore,0.003693699999985256,10
+noisy moons,artificial neural networks,holdout,unnormalized,0.028143999999997504,1
+noisy moons,artificial neural networks,holdout,unnormalized,0.02811869999999317,2
+noisy moons,artificial neural networks,holdout,unnormalized,0.027819099999987884,3
+noisy moons,artificial neural networks,holdout,unnormalized,0.028645800000020927,4
+noisy moons,artificial neural networks,holdout,unnormalized,0.028998199999989538,5
+noisy moons,artificial neural networks,holdout,unnormalized,0.02849559999998519,6
+noisy moons,artificial neural networks,holdout,unnormalized,0.02875470000000746,7
+noisy moons,artificial neural networks,holdout,unnormalized,0.029188000000004877,8
+noisy moons,artificial neural networks,holdout,unnormalized,0.028806199999991122,9
+noisy moons,artificial neural networks,holdout,unnormalized,0.02970510000000104,10
+noisy moons,artificial neural networks,holdout,minmax,0.0471800999999914,1
+noisy moons,artificial neural networks,holdout,minmax,0.048783000000014454,2
+noisy moons,artificial neural networks,holdout,minmax,0.04746719999999982,3
+noisy moons,artificial neural networks,holdout,minmax,0.046080699999976105,4
+noisy moons,artificial neural networks,holdout,minmax,0.047163299999994024,5
+noisy moons,artificial neural networks,holdout,minmax,0.04720800000001191,6
+noisy moons,artificial neural networks,holdout,minmax,0.04830630000000724,7
+noisy moons,artificial neural networks,holdout,minmax,0.047375200000004725,8
+noisy moons,artificial neural networks,holdout,minmax,0.04692539999999212,9
+noisy moons,artificial neural networks,holdout,minmax,0.050153000000022985,10
+noisy moons,artificial neural networks,holdout,zscore,0.021963100000021996,1
+noisy moons,artificial neural networks,holdout,zscore,0.020896600000014587,2
+noisy moons,artificial neural networks,holdout,zscore,0.020865499999985104,3
+noisy moons,artificial neural networks,holdout,zscore,0.020448899999991,4
+noisy moons,artificial neural networks,holdout,zscore,0.020933399999989888,5
+noisy moons,artificial neural networks,holdout,zscore,0.02197770000000787,6
+noisy moons,artificial neural networks,holdout,zscore,0.022009999999994534,7
+noisy moons,artificial neural networks,holdout,zscore,0.02185479999999984,8
+noisy moons,artificial neural networks,holdout,zscore,0.02131289999999808,9
+noisy moons,artificial neural networks,holdout,zscore,0.02053820000000428,10
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.00722569999999223,1
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.008582499999988613,2
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.008084999999994125,3
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.00817070000002218,4
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.008890700000023344,5
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.008340699999990875,6
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.008126500000003034,7
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.008657199999987597,8
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.008182500000003756,9
+noisy moons,k-nearest-neighbor,holdout,unnormalized,0.008279700000002777,10
+noisy moons,k-nearest-neighbor,holdout,minmax,0.008741000000014765,1
+noisy moons,k-nearest-neighbor,holdout,minmax,0.008599099999997861,2
+noisy moons,k-nearest-neighbor,holdout,minmax,0.0085645999999997,3
+noisy moons,k-nearest-neighbor,holdout,minmax,0.00856489999998189,4
+noisy moons,k-nearest-neighbor,holdout,minmax,0.00897679999999923,5
+noisy moons,k-nearest-neighbor,holdout,minmax,0.008655199999992647,6
+noisy moons,k-nearest-neighbor,holdout,minmax,0.008681400000000394,7
+noisy moons,k-nearest-neighbor,holdout,minmax,0.009586899999987963,8
+noisy moons,k-nearest-neighbor,holdout,minmax,0.009185699999989083,9
+noisy moons,k-nearest-neighbor,holdout,minmax,0.0080204000000208,10
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008150300000011157,1
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008293799999989915,2
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008337699999998449,3
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008444700000012517,4
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008443999999997231,5
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008121600000009721,6
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008256500000015876,7
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008403600000008282,8
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008394699999996647,9
+noisy moons,k-nearest-neighbor,holdout,zscore,0.008524099999988266,10
+noisy moons,naive bayes,random subsampling,unnormalized,0.014931199999978162,1
+noisy moons,naive bayes,random subsampling,unnormalized,0.01434259999999199,2
+noisy moons,naive bayes,random subsampling,unnormalized,0.014406199999996261,3
+noisy moons,naive bayes,random subsampling,unnormalized,0.014479800000003706,4
+noisy moons,naive bayes,random subsampling,unnormalized,0.014153699999980063,5
+noisy moons,naive bayes,random subsampling,unnormalized,0.015140600000023596,6
+noisy moons,naive bayes,random subsampling,unnormalized,0.015317199999998365,7
+noisy moons,naive bayes,random subsampling,unnormalized,0.01480540000000019,8
+noisy moons,naive bayes,random subsampling,unnormalized,0.014631399999984751,9
+noisy moons,naive bayes,random subsampling,unnormalized,0.014606999999983827,10
+noisy moons,naive bayes,random subsampling,minmax,0.01609199999998623,1
+noisy moons,naive bayes,random subsampling,minmax,0.01497969999999782,2
+noisy moons,naive bayes,random subsampling,minmax,0.015065199999980905,3
+noisy moons,naive bayes,random subsampling,minmax,0.015042300000004616,4
+noisy moons,naive bayes,random subsampling,minmax,0.01569849999998496,5
+noisy moons,naive bayes,random subsampling,minmax,0.014497499999976071,6
+noisy moons,naive bayes,random subsampling,minmax,0.015049899999979743,7
+noisy moons,naive bayes,random subsampling,minmax,0.01503959999999438,8
+noisy moons,naive bayes,random subsampling,minmax,0.014947000000006483,9
+noisy moons,naive bayes,random subsampling,minmax,0.015022799999997005,10
+noisy moons,naive bayes,random subsampling,zscore,0.015226699999999482,1
+noisy moons,naive bayes,random subsampling,zscore,0.015037000000006628,2
+noisy moons,naive bayes,random subsampling,zscore,0.014924999999976762,3
+noisy moons,naive bayes,random subsampling,zscore,0.016109900000003563,4
+noisy moons,naive bayes,random subsampling,zscore,0.015639499999991813,5
+noisy moons,naive bayes,random subsampling,zscore,0.015056000000015501,6
+noisy moons,naive bayes,random subsampling,zscore,0.015667899999982637,7
+noisy moons,naive bayes,random subsampling,zscore,0.015867600000007087,8
+noisy moons,naive bayes,random subsampling,zscore,0.015051900000003116,9
+noisy moons,naive bayes,random subsampling,zscore,0.015539300000000367,10
+noisy moons,decision tree,random subsampling,unnormalized,0.01549309999998627,1
+noisy moons,decision tree,random subsampling,unnormalized,0.015440899999987323,2
+noisy moons,decision tree,random subsampling,unnormalized,0.015128800000013598,3
+noisy moons,decision tree,random subsampling,unnormalized,0.01566060000001812,4
+noisy moons,decision tree,random subsampling,unnormalized,0.01578180000001339,5
+noisy moons,decision tree,random subsampling,unnormalized,0.015357300000005125,6
+noisy moons,decision tree,random subsampling,unnormalized,0.015421500000002197,7
+noisy moons,decision tree,random subsampling,unnormalized,0.015954899999996996,8
+noisy moons,decision tree,random subsampling,unnormalized,0.015276899999975058,9
+noisy moons,decision tree,random subsampling,unnormalized,0.01580780000000459,10
+noisy moons,decision tree,random subsampling,minmax,0.01653479999998808,1
+noisy moons,decision tree,random subsampling,minmax,0.015776200000004792,2
+noisy moons,decision tree,random subsampling,minmax,0.016441599999978962,3
+noisy moons,decision tree,random subsampling,minmax,0.017188000000004422,4
+noisy moons,decision tree,random subsampling,minmax,0.01718089999999961,5
+noisy moons,decision tree,random subsampling,minmax,0.0168692999999962,6
+noisy moons,decision tree,random subsampling,minmax,0.016666899999989937,7
+noisy moons,decision tree,random subsampling,minmax,0.015536700000012615,8
+noisy moons,decision tree,random subsampling,minmax,0.016088499999995065,9
+noisy moons,decision tree,random subsampling,minmax,0.016656699999998636,10
+noisy moons,decision tree,random subsampling,zscore,0.015667199999995773,1
+noisy moons,decision tree,random subsampling,zscore,0.015379800000005162,2
+noisy moons,decision tree,random subsampling,zscore,0.0156436000000042,3
+noisy moons,decision tree,random subsampling,zscore,0.01602160000001618,4
+noisy moons,decision tree,random subsampling,zscore,0.01623440000000187,5
+noisy moons,decision tree,random subsampling,zscore,0.01619460000000572,6
+noisy moons,decision tree,random subsampling,zscore,0.015408400000012534,7
+noisy moons,decision tree,random subsampling,zscore,0.015455900000006295,8
+noisy moons,decision tree,random subsampling,zscore,0.015301899999997204,9
+noisy moons,decision tree,random subsampling,zscore,0.01525230000001443,10
+noisy moons,support vector machine,random subsampling,unnormalized,0.024329099999988557,1
+noisy moons,support vector machine,random subsampling,unnormalized,0.023899499999998852,2
+noisy moons,support vector machine,random subsampling,unnormalized,0.023244300000015983,3
+noisy moons,support vector machine,random subsampling,unnormalized,0.022945500000020047,4
+noisy moons,support vector machine,random subsampling,unnormalized,0.02313719999997943,5
+noisy moons,support vector machine,random subsampling,unnormalized,0.024380399999984093,6
+noisy moons,support vector machine,random subsampling,unnormalized,0.025083000000023503,7
+noisy moons,support vector machine,random subsampling,unnormalized,0.026440000000008013,8
+noisy moons,support vector machine,random subsampling,unnormalized,0.026368300000001454,9
+noisy moons,support vector machine,random subsampling,unnormalized,0.024404799999985016,10
+noisy moons,support vector machine,random subsampling,minmax,0.029948799999999665,1
+noisy moons,support vector machine,random subsampling,minmax,0.028828500000003032,2
+noisy moons,support vector machine,random subsampling,minmax,0.027839199999988296,3
+noisy moons,support vector machine,random subsampling,minmax,0.02829900000000407,4
+noisy moons,support vector machine,random subsampling,minmax,0.027643900000015265,5
+noisy moons,support vector machine,random subsampling,minmax,0.0274579000000017,6
+noisy moons,support vector machine,random subsampling,minmax,0.02786249999999768,7
+noisy moons,support vector machine,random subsampling,minmax,0.027712299999990364,8
+noisy moons,support vector machine,random subsampling,minmax,0.0271906000000115,9
+noisy moons,support vector machine,random subsampling,minmax,0.026746600000024046,10
+noisy moons,support vector machine,random subsampling,zscore,0.02698920000000271,1
+noisy moons,support vector machine,random subsampling,zscore,0.02660040000000663,2
+noisy moons,support vector machine,random subsampling,zscore,0.02661059999999793,3
+noisy moons,support vector machine,random subsampling,zscore,0.02750960000000191,4
+noisy moons,support vector machine,random subsampling,zscore,0.026379100000013977,5
+noisy moons,support vector machine,random subsampling,zscore,0.02553330000000642,6
+noisy moons,support vector machine,random subsampling,zscore,0.026713099999994938,7
+noisy moons,support vector machine,random subsampling,zscore,0.025961999999992713,8
+noisy moons,support vector machine,random subsampling,zscore,0.025730699999996887,9
+noisy moons,support vector machine,random subsampling,zscore,0.02729569999999626,10
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.23313509999999837,1
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.24176839999998379,2
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.23801699999998505,3
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.23709519999999884,4
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.23867469999999003,5
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.23935649999998532,6
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.24547289999998156,7
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.255194500000016,8
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.2635008999999968,9
+noisy moons,artificial neural networks,random subsampling,unnormalized,0.2630994999999814,10
+noisy moons,artificial neural networks,random subsampling,minmax,0.4495679999999993,1
+noisy moons,artificial neural networks,random subsampling,minmax,0.4542906000000073,2
+noisy moons,artificial neural networks,random subsampling,minmax,0.45805029999999647,3
+noisy moons,artificial neural networks,random subsampling,minmax,0.4551222999999993,4
+noisy moons,artificial neural networks,random subsampling,minmax,0.4381309999999985,5
+noisy moons,artificial neural networks,random subsampling,minmax,0.44692609999998467,6
+noisy moons,artificial neural networks,random subsampling,minmax,0.44305330000000254,7
+noisy moons,artificial neural networks,random subsampling,minmax,0.4580709999999897,8
+noisy moons,artificial neural networks,random subsampling,minmax,0.44478820000000496,9
+noisy moons,artificial neural networks,random subsampling,minmax,0.45813239999998245,10
+noisy moons,artificial neural networks,random subsampling,zscore,0.19129279999998516,1
+noisy moons,artificial neural networks,random subsampling,zscore,0.1912082000000055,2
+noisy moons,artificial neural networks,random subsampling,zscore,0.1884448000000134,3
+noisy moons,artificial neural networks,random subsampling,zscore,0.1927564000000075,4
+noisy moons,artificial neural networks,random subsampling,zscore,0.18711049999998863,5
+noisy moons,artificial neural networks,random subsampling,zscore,0.18930919999999674,6
+noisy moons,artificial neural networks,random subsampling,zscore,0.1828911000000062,7
+noisy moons,artificial neural networks,random subsampling,zscore,0.1946561000000031,8
+noisy moons,artificial neural networks,random subsampling,zscore,0.19049809999998502,9
+noisy moons,artificial neural networks,random subsampling,zscore,0.19027159999998844,10
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07176939999999377,1
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07089969999998402,2
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07212710000001721,3
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07109310000001301,4
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07089400000000978,5
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07103879999999663,6
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07030299999999556,7
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07218639999999255,8
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07151730000001066,9
+noisy moons,k-nearest-neighbor,random subsampling,unnormalized,0.07154799999997863,10
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.07126390000001948,1
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.0706372000000215,2
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.07029110000001992,3
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.0730434000000173,4
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.06934269999999287,5
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.07108459999997763,6
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.07373479999998267,7
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.08773469999999861,8
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.07330089999999245,9
+noisy moons,k-nearest-neighbor,random subsampling,minmax,0.07117590000001428,10
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.0709590000000162,1
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.0717534999999998,2
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.07037739999998394,3
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.07061509999999771,4
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.07161380000002282,5
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.07103060000000028,6
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.07158139999998525,7
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.07234719999999584,8
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.07152869999998757,9
+noisy moons,k-nearest-neighbor,random subsampling,zscore,0.07060709999998949,10
+noisy moons,naive bayes,kfold,unnormalized,0.023879500000020926,1
+noisy moons,naive bayes,kfold,unnormalized,0.022840599999994993,2
+noisy moons,naive bayes,kfold,unnormalized,0.023966500000000224,3
+noisy moons,naive bayes,kfold,unnormalized,0.023085399999985157,4
+noisy moons,naive bayes,kfold,unnormalized,0.02405989999999747,5
+noisy moons,naive bayes,kfold,unnormalized,0.022074199999991606,6
+noisy moons,naive bayes,kfold,unnormalized,0.022900899999996227,7
+noisy moons,naive bayes,kfold,unnormalized,0.022272999999984222,8
+noisy moons,naive bayes,kfold,unnormalized,0.022255599999994047,9
+noisy moons,naive bayes,kfold,unnormalized,0.023133000000001402,10
+noisy moons,naive bayes,kfold,minmax,0.02395200000000841,1
+noisy moons,naive bayes,kfold,minmax,0.023347499999999854,2
+noisy moons,naive bayes,kfold,minmax,0.032731200000000626,3
+noisy moons,naive bayes,kfold,minmax,0.02775289999999586,4
+noisy moons,naive bayes,kfold,minmax,0.023990599999990536,5
+noisy moons,naive bayes,kfold,minmax,0.02240829999999505,6
+noisy moons,naive bayes,kfold,minmax,0.02323490000000561,7
+noisy moons,naive bayes,kfold,minmax,0.023035800000002382,8
+noisy moons,naive bayes,kfold,minmax,0.02334060000001159,9
+noisy moons,naive bayes,kfold,minmax,0.023041499999976622,10
+noisy moons,naive bayes,kfold,zscore,0.023617400000006228,1
+noisy moons,naive bayes,kfold,zscore,0.023224900000002435,2
+noisy moons,naive bayes,kfold,zscore,0.022514800000010382,3
+noisy moons,naive bayes,kfold,zscore,0.02272240000002057,4
+noisy moons,naive bayes,kfold,zscore,0.023367000000007465,5
+noisy moons,naive bayes,kfold,zscore,0.022684799999979077,6
+noisy moons,naive bayes,kfold,zscore,0.02316319999999905,7
+noisy moons,naive bayes,kfold,zscore,0.023332000000010567,8
+noisy moons,naive bayes,kfold,zscore,0.022432999999978165,9
+noisy moons,naive bayes,kfold,zscore,0.02288599999999974,10
+noisy moons,decision tree,kfold,unnormalized,0.024833000000000993,1
+noisy moons,decision tree,kfold,unnormalized,0.025041299999998046,2
+noisy moons,decision tree,kfold,unnormalized,0.024514100000004646,3
+noisy moons,decision tree,kfold,unnormalized,0.024665899999973817,4
+noisy moons,decision tree,kfold,unnormalized,0.027129800000011528,5
+noisy moons,decision tree,kfold,unnormalized,0.026071599999994532,6
+noisy moons,decision tree,kfold,unnormalized,0.027614599999992606,7
+noisy moons,decision tree,kfold,unnormalized,0.02602830000000722,8
+noisy moons,decision tree,kfold,unnormalized,0.024974599999978864,9
+noisy moons,decision tree,kfold,unnormalized,0.025031100000006745,10
+noisy moons,decision tree,kfold,minmax,0.02554659999998421,1
+noisy moons,decision tree,kfold,minmax,0.02522730000001161,2
+noisy moons,decision tree,kfold,minmax,0.025990299999989475,3
+noisy moons,decision tree,kfold,minmax,0.026864500000016278,4
+noisy moons,decision tree,kfold,minmax,0.026601799999980358,5
+noisy moons,decision tree,kfold,minmax,0.028189799999978504,6
+noisy moons,decision tree,kfold,minmax,0.028309300000017856,7
+noisy moons,decision tree,kfold,minmax,0.026573099999978922,8
+noisy moons,decision tree,kfold,minmax,0.025689400000004525,9
+noisy moons,decision tree,kfold,minmax,0.02595790000000875,10
+noisy moons,decision tree,kfold,zscore,0.025863200000003417,1
+noisy moons,decision tree,kfold,zscore,0.026211700000004612,2
+noisy moons,decision tree,kfold,zscore,0.025643300000012914,3
+noisy moons,decision tree,kfold,zscore,0.02573410000002241,4
+noisy moons,decision tree,kfold,zscore,0.025167399999986628,5
+noisy moons,decision tree,kfold,zscore,0.025139300000006415,6
+noisy moons,decision tree,kfold,zscore,0.02619419999999195,7
+noisy moons,decision tree,kfold,zscore,0.02623170000001096,8
+noisy moons,decision tree,kfold,zscore,0.025858999999996968,9
+noisy moons,decision tree,kfold,zscore,0.027206300000017336,10
+noisy moons,support vector machine,kfold,unnormalized,0.041000200000013365,1
+noisy moons,support vector machine,kfold,unnormalized,0.040228899999988244,2
+noisy moons,support vector machine,kfold,unnormalized,0.040678399999990233,3
+noisy moons,support vector machine,kfold,unnormalized,0.04147000000000389,4
+noisy moons,support vector machine,kfold,unnormalized,0.03979399999997213,5
+noisy moons,support vector machine,kfold,unnormalized,0.03979709999998704,6
+noisy moons,support vector machine,kfold,unnormalized,0.03954340000001366,7
+noisy moons,support vector machine,kfold,unnormalized,0.039348300000000336,8
+noisy moons,support vector machine,kfold,unnormalized,0.040986699999990606,9
+noisy moons,support vector machine,kfold,unnormalized,0.039787300000000414,10
+noisy moons,support vector machine,kfold,minmax,0.046278400000005604,1
+noisy moons,support vector machine,kfold,minmax,0.04553819999998154,2
+noisy moons,support vector machine,kfold,minmax,0.045620700000000625,3
+noisy moons,support vector machine,kfold,minmax,0.04604359999999019,4
+noisy moons,support vector machine,kfold,minmax,0.04539199999999255,5
+noisy moons,support vector machine,kfold,minmax,0.04611360000001241,6
+noisy moons,support vector machine,kfold,minmax,0.046156400000000986,7
+noisy moons,support vector machine,kfold,minmax,0.04639789999998811,8
+noisy moons,support vector machine,kfold,minmax,0.046473399999996445,9
+noisy moons,support vector machine,kfold,minmax,0.04726289999999267,10
+noisy moons,support vector machine,kfold,zscore,0.04445929999999976,1
+noisy moons,support vector machine,kfold,zscore,0.04505470000000855,2
+noisy moons,support vector machine,kfold,zscore,0.04294820000001209,3
+noisy moons,support vector machine,kfold,zscore,0.04811449999999695,4
+noisy moons,support vector machine,kfold,zscore,0.05070349999999735,5
+noisy moons,support vector machine,kfold,zscore,0.04806350000001203,6
+noisy moons,support vector machine,kfold,zscore,0.044256399999994755,7
+noisy moons,support vector machine,kfold,zscore,0.043732599999998456,8
+noisy moons,support vector machine,kfold,zscore,0.044796000000019376,9
+noisy moons,support vector machine,kfold,zscore,0.04350389999999038,10
+noisy moons,artificial neural networks,kfold,unnormalized,0.49364260000001536,1
+noisy moons,artificial neural networks,kfold,unnormalized,0.5014618000000155,2
+noisy moons,artificial neural networks,kfold,unnormalized,0.5147863999999913,3
+noisy moons,artificial neural networks,kfold,unnormalized,0.48680859999998916,4
+noisy moons,artificial neural networks,kfold,unnormalized,0.48877899999999386,5
+noisy moons,artificial neural networks,kfold,unnormalized,0.4976752000000033,6
+noisy moons,artificial neural networks,kfold,unnormalized,0.48323919999998566,7
+noisy moons,artificial neural networks,kfold,unnormalized,0.4684691000000214,8
+noisy moons,artificial neural networks,kfold,unnormalized,0.45738869999999565,9
+noisy moons,artificial neural networks,kfold,unnormalized,0.4835369000000185,10
+noisy moons,artificial neural networks,kfold,minmax,0.8888744999999858,1
+noisy moons,artificial neural networks,kfold,minmax,0.8885426999999879,2
+noisy moons,artificial neural networks,kfold,minmax,0.8864102000000003,3
+noisy moons,artificial neural networks,kfold,minmax,0.8871791999999914,4
+noisy moons,artificial neural networks,kfold,minmax,0.91089580000002,5
+noisy moons,artificial neural networks,kfold,minmax,0.9331354999999917,6
+noisy moons,artificial neural networks,kfold,minmax,0.9070263000000125,7
+noisy moons,artificial neural networks,kfold,minmax,0.92975899999999,8
+noisy moons,artificial neural networks,kfold,minmax,0.9553197999999838,9
+noisy moons,artificial neural networks,kfold,minmax,0.9099927000000037,10
+noisy moons,artificial neural networks,kfold,zscore,0.37130559999999946,1
+noisy moons,artificial neural networks,kfold,zscore,0.3785268999999971,2
+noisy moons,artificial neural networks,kfold,zscore,0.38487559999998666,3
+noisy moons,artificial neural networks,kfold,zscore,0.35737230000000864,4
+noisy moons,artificial neural networks,kfold,zscore,0.36136480000001825,5
+noisy moons,artificial neural networks,kfold,zscore,0.3670159000000126,6
+noisy moons,artificial neural networks,kfold,zscore,0.3784875999999997,7
+noisy moons,artificial neural networks,kfold,zscore,0.37764580000001047,8
+noisy moons,artificial neural networks,kfold,zscore,0.3578113000000087,9
+noisy moons,artificial neural networks,kfold,zscore,0.362303699999984,10
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.10494010000002163,1
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.10377499999998463,2
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.1026456999999823,3
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.10467669999999885,4
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.10245649999998818,5
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.10237960000000612,6
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.10515010000000302,7
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.10275090000001796,8
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.10425269999998932,9
+noisy moons,k-nearest-neighbor,kfold,unnormalized,0.10255430000000842,10
+noisy moons,k-nearest-neighbor,kfold,minmax,0.10517729999997982,1
+noisy moons,k-nearest-neighbor,kfold,minmax,0.10567709999997987,2
+noisy moons,k-nearest-neighbor,kfold,minmax,0.1041616999999917,3
+noisy moons,k-nearest-neighbor,kfold,minmax,0.13251869999999144,4
+noisy moons,k-nearest-neighbor,kfold,minmax,0.10195749999999748,5
+noisy moons,k-nearest-neighbor,kfold,minmax,0.10282609999998726,6
+noisy moons,k-nearest-neighbor,kfold,minmax,0.10297390000002338,7
+noisy moons,k-nearest-neighbor,kfold,minmax,0.12215759999998,8
+noisy moons,k-nearest-neighbor,kfold,minmax,0.10667499999999563,9
+noisy moons,k-nearest-neighbor,kfold,minmax,0.1018568000000073,10
+noisy moons,k-nearest-neighbor,kfold,zscore,0.10359479999999621,1
+noisy moons,k-nearest-neighbor,kfold,zscore,0.10243969999999081,2
+noisy moons,k-nearest-neighbor,kfold,zscore,0.10346480000001179,3
+noisy moons,k-nearest-neighbor,kfold,zscore,0.1024246000000062,4
+noisy moons,k-nearest-neighbor,kfold,zscore,0.1049222000000043,5
+noisy moons,k-nearest-neighbor,kfold,zscore,0.10708390000002055,6
+noisy moons,k-nearest-neighbor,kfold,zscore,0.10662449999998103,7
+noisy moons,k-nearest-neighbor,kfold,zscore,0.1050201000000186,8
+noisy moons,k-nearest-neighbor,kfold,zscore,0.10453970000000368,9
+noisy moons,k-nearest-neighbor,kfold,zscore,0.1026659000000052,10
+noisy moons,naive bayes,leave-one-out,unnormalized,1.1143591000000015,1
+noisy moons,naive bayes,leave-one-out,unnormalized,1.1175531000000092,2
+noisy moons,naive bayes,leave-one-out,unnormalized,1.101967000000002,3
+noisy moons,naive bayes,leave-one-out,unnormalized,1.1349810000000105,4
+noisy moons,naive bayes,leave-one-out,unnormalized,1.1204304000000036,5
+noisy moons,naive bayes,leave-one-out,unnormalized,1.1088359000000025,6
+noisy moons,naive bayes,leave-one-out,unnormalized,1.1204045000000065,7
+noisy moons,naive bayes,leave-one-out,unnormalized,1.1343315000000018,8
+noisy moons,naive bayes,leave-one-out,unnormalized,1.1259914999999978,9
+noisy moons,naive bayes,leave-one-out,unnormalized,1.1244751000000122,10
+noisy moons,naive bayes,leave-one-out,minmax,1.0995318000000225,1
+noisy moons,naive bayes,leave-one-out,minmax,1.1141429999999843,2
+noisy moons,naive bayes,leave-one-out,minmax,1.1097670999999991,3
+noisy moons,naive bayes,leave-one-out,minmax,1.0955200999999875,4
+noisy moons,naive bayes,leave-one-out,minmax,1.126012199999991,5
+noisy moons,naive bayes,leave-one-out,minmax,1.1179973000000132,6
+noisy moons,naive bayes,leave-one-out,minmax,1.126218399999999,7
+noisy moons,naive bayes,leave-one-out,minmax,1.1282549000000017,8
+noisy moons,naive bayes,leave-one-out,minmax,1.1380375999999899,9
+noisy moons,naive bayes,leave-one-out,minmax,1.0930754999999976,10
+noisy moons,naive bayes,leave-one-out,zscore,1.1260560999999996,1
+noisy moons,naive bayes,leave-one-out,zscore,1.120870000000025,2
+noisy moons,naive bayes,leave-one-out,zscore,1.1176499000000035,3
+noisy moons,naive bayes,leave-one-out,zscore,1.1014855999999895,4
+noisy moons,naive bayes,leave-one-out,zscore,1.1222828999999876,5
+noisy moons,naive bayes,leave-one-out,zscore,1.1344493,6
+noisy moons,naive bayes,leave-one-out,zscore,1.1323250000000087,7
+noisy moons,naive bayes,leave-one-out,zscore,1.1016847000000212,8
+noisy moons,naive bayes,leave-one-out,zscore,1.1101519000000053,9
+noisy moons,naive bayes,leave-one-out,zscore,1.1053535000000068,10
+noisy moons,decision tree,leave-one-out,unnormalized,1.364045400000009,1
+noisy moons,decision tree,leave-one-out,unnormalized,1.3513471999999922,2
+noisy moons,decision tree,leave-one-out,unnormalized,1.3657393000000013,3
+noisy moons,decision tree,leave-one-out,unnormalized,1.380479500000007,4
+noisy moons,decision tree,leave-one-out,unnormalized,1.3586512999999911,5
+noisy moons,decision tree,leave-one-out,unnormalized,1.358061699999979,6
+noisy moons,decision tree,leave-one-out,unnormalized,1.3420519999999954,7
+noisy moons,decision tree,leave-one-out,unnormalized,1.3549476999999968,8
+noisy moons,decision tree,leave-one-out,unnormalized,1.368725000000012,9
+noisy moons,decision tree,leave-one-out,unnormalized,1.3464859000000047,10
+noisy moons,decision tree,leave-one-out,minmax,1.3633332999999936,1
+noisy moons,decision tree,leave-one-out,minmax,1.7999128999999812,2
+noisy moons,decision tree,leave-one-out,minmax,1.7062476999999774,3
+noisy moons,decision tree,leave-one-out,minmax,1.4740725999999995,4
+noisy moons,decision tree,leave-one-out,minmax,1.5455961000000116,5
+noisy moons,decision tree,leave-one-out,minmax,1.6437616999999989,6
+noisy moons,decision tree,leave-one-out,minmax,1.5542648999999926,7
+noisy moons,decision tree,leave-one-out,minmax,1.5787447000000157,8
+noisy moons,decision tree,leave-one-out,minmax,1.4767855999999995,9
+noisy moons,decision tree,leave-one-out,minmax,1.5003745999999865,10
+noisy moons,decision tree,leave-one-out,zscore,1.5724911000000077,1
+noisy moons,decision tree,leave-one-out,zscore,1.593279200000012,2
+noisy moons,decision tree,leave-one-out,zscore,1.572653100000025,3
+noisy moons,decision tree,leave-one-out,zscore,1.5821908000000064,4
+noisy moons,decision tree,leave-one-out,zscore,1.5581669999999974,5
+noisy moons,decision tree,leave-one-out,zscore,1.4910554999999874,6
+noisy moons,decision tree,leave-one-out,zscore,1.529208600000004,7
+noisy moons,decision tree,leave-one-out,zscore,1.5661337999999887,8
+noisy moons,decision tree,leave-one-out,zscore,1.579020000000014,9
+noisy moons,decision tree,leave-one-out,zscore,1.564361099999985,10
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.017506600000047,1
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.015029599999991206,2
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.01651689999999917,3
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.023632200000008652,4
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.023471599999993487,5
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.021291099999984908,6
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.02002330000004804,7
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.021511000000032254,8
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.022970899999961603,9
+noisy moons,k-nearest-neighbor,leave-one-out,unnormalized,0.02059970000004796,10
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.01583639999995512,1
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.016942500000027394,2
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.016288700000018252,3
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.01543060000000196,4
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.018214300000011008,5
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.021549800000002506,6
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.024779099999989285,7
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.020871199999987766,8
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.019803299999978208,9
+noisy moons,k-nearest-neighbor,leave-one-out,minmax,0.019624899999996614,10
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.01860540000001265,1
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.018495599999994283,2
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.021632000000010976,3
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.018146199999989676,4
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.023077499999999418,5
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.02163300000000845,6
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.021709600000008322,7
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.020488800000009633,8
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.021900600000037684,9
+noisy moons,k-nearest-neighbor,leave-one-out,zscore,0.023866599999962546,10
+blobs,naive bayes,holdout,unnormalized,0.0025660000000016225,1
+blobs,naive bayes,holdout,unnormalized,0.0024323999999751322,2
+blobs,naive bayes,holdout,unnormalized,0.002147400000012567,3
+blobs,naive bayes,holdout,unnormalized,0.002196700000013152,4
+blobs,naive bayes,holdout,unnormalized,0.002084599999989223,5
+blobs,naive bayes,holdout,unnormalized,0.0020614000000023225,6
+blobs,naive bayes,holdout,unnormalized,0.00260430000002998,7
+blobs,naive bayes,holdout,unnormalized,0.002656599999966147,8
+blobs,naive bayes,holdout,unnormalized,0.0019676000000004024,9
+blobs,naive bayes,holdout,unnormalized,0.0023903000000018437,10
+blobs,naive bayes,holdout,minmax,0.002857199999994009,1
+blobs,naive bayes,holdout,minmax,0.0025190000000065993,2
+blobs,naive bayes,holdout,minmax,0.0031640999999922315,3
+blobs,naive bayes,holdout,minmax,0.003083899999978712,4
+blobs,naive bayes,holdout,minmax,0.002960099999995691,5
+blobs,naive bayes,holdout,minmax,0.0029533999999671323,6
+blobs,naive bayes,holdout,minmax,0.0029185000000211403,7
+blobs,naive bayes,holdout,minmax,0.002853799999968487,8
+blobs,naive bayes,holdout,minmax,0.0032874999999989996,9
+blobs,naive bayes,holdout,minmax,0.0036352000000192675,10
+blobs,naive bayes,holdout,zscore,0.0034524999999803185,1
+blobs,naive bayes,holdout,zscore,0.0032838999999853513,2
+blobs,naive bayes,holdout,zscore,0.003676499999983207,3
+blobs,naive bayes,holdout,zscore,0.002957999999978256,4
+blobs,naive bayes,holdout,zscore,0.002973300000007839,5
+blobs,naive bayes,holdout,zscore,0.0029538000000002285,6
+blobs,naive bayes,holdout,zscore,0.003216500000007727,7
+blobs,naive bayes,holdout,zscore,0.0025902000000428416,8
+blobs,naive bayes,holdout,zscore,0.002887200000031953,9
+blobs,naive bayes,holdout,zscore,0.0028992999999672975,10
+blobs,decision tree,holdout,unnormalized,0.003041300000006686,1
+blobs,decision tree,holdout,unnormalized,0.0029032999999571985,2
+blobs,decision tree,holdout,unnormalized,0.0022792999999978747,3
+blobs,decision tree,holdout,unnormalized,0.002617400000019643,4
+blobs,decision tree,holdout,unnormalized,0.0023982999999816457,5
+blobs,decision tree,holdout,unnormalized,0.002131700000006731,6
+blobs,decision tree,holdout,unnormalized,0.0021634000000290143,7
+blobs,decision tree,holdout,unnormalized,0.0016502999999943313,8
+blobs,decision tree,holdout,unnormalized,0.0024616000000037275,9
+blobs,decision tree,holdout,unnormalized,0.001757800000007137,10
+blobs,decision tree,holdout,minmax,0.002683400000023539,1
+blobs,decision tree,holdout,minmax,0.0027575000000297223,2
+blobs,decision tree,holdout,minmax,0.0023226000000136082,3
+blobs,decision tree,holdout,minmax,0.002815199999986362,4
+blobs,decision tree,holdout,minmax,0.0025719000000208325,5
+blobs,decision tree,holdout,minmax,0.0025372000000061234,6
+blobs,decision tree,holdout,minmax,0.003163300000039726,7
+blobs,decision tree,holdout,minmax,0.0030098000000293723,8
+blobs,decision tree,holdout,minmax,0.002648599999986345,9
+blobs,decision tree,holdout,minmax,0.002760099999989052,10
+blobs,decision tree,holdout,zscore,0.002731499999981679,1
+blobs,decision tree,holdout,zscore,0.0026384000000234664,2
+blobs,decision tree,holdout,zscore,0.0029228000000216525,3
+blobs,decision tree,holdout,zscore,0.0031369999999810716,4
+blobs,decision tree,holdout,zscore,0.0028869999999869833,5
+blobs,decision tree,holdout,zscore,0.0025405000000091604,6
+blobs,decision tree,holdout,zscore,0.0027845999999840387,7
+blobs,decision tree,holdout,zscore,0.0028270999999904234,8
+blobs,decision tree,holdout,zscore,0.002826300000037918,9
+blobs,decision tree,holdout,zscore,0.002942599999983031,10
+blobs,support vector machine,holdout,unnormalized,0.002741299999968305,1
+blobs,support vector machine,holdout,unnormalized,0.0027622999999721287,2
+blobs,support vector machine,holdout,unnormalized,0.003152999999997519,3
+blobs,support vector machine,holdout,unnormalized,0.0029266999999890686,4
+blobs,support vector machine,holdout,unnormalized,0.0028769999999553875,5
+blobs,support vector machine,holdout,unnormalized,0.002629000000013093,6
+blobs,support vector machine,holdout,unnormalized,0.0029420999999842934,7
+blobs,support vector machine,holdout,unnormalized,0.0027534000000173364,8
+blobs,support vector machine,holdout,unnormalized,0.0025683000000071843,9
+blobs,support vector machine,holdout,unnormalized,0.002849200000014207,10
+blobs,support vector machine,holdout,minmax,0.0034378999999944426,1
+blobs,support vector machine,holdout,minmax,0.0035522000000014486,2
+blobs,support vector machine,holdout,minmax,0.0031271999999944455,3
+blobs,support vector machine,holdout,minmax,0.003351400000042304,4
+blobs,support vector machine,holdout,minmax,0.0031336999999780346,5
+blobs,support vector machine,holdout,minmax,0.003536400000029971,6
+blobs,support vector machine,holdout,minmax,0.003389900000001944,7
+blobs,support vector machine,holdout,minmax,0.0035424000000148226,8
+blobs,support vector machine,holdout,minmax,0.0033298999999828993,9
+blobs,support vector machine,holdout,minmax,0.0033537000000478656,10
+blobs,support vector machine,holdout,zscore,0.0032817000000022745,1
+blobs,support vector machine,holdout,zscore,0.003604899999970712,2
+blobs,support vector machine,holdout,zscore,0.0038696000000300046,3
+blobs,support vector machine,holdout,zscore,0.003482000000019525,4
+blobs,support vector machine,holdout,zscore,0.004558200000019497,5
+blobs,support vector machine,holdout,zscore,0.004515700000013112,6
+blobs,support vector machine,holdout,zscore,0.004761500000029173,7
+blobs,support vector machine,holdout,zscore,0.0039512999999828935,8
+blobs,support vector machine,holdout,zscore,0.004236400000024787,9
+blobs,support vector machine,holdout,zscore,0.0036919000000352753,10
+blobs,artificial neural networks,holdout,unnormalized,0.019461999999975887,1
+blobs,artificial neural networks,holdout,unnormalized,0.018660300000021834,2
+blobs,artificial neural networks,holdout,unnormalized,0.017475700000034067,3
+blobs,artificial neural networks,holdout,unnormalized,0.016723599999977523,4
+blobs,artificial neural networks,holdout,unnormalized,0.015980200000001332,5
+blobs,artificial neural networks,holdout,unnormalized,0.01630049999999983,6
+blobs,artificial neural networks,holdout,unnormalized,0.01670089999998936,7
+blobs,artificial neural networks,holdout,unnormalized,0.01625440000003664,8
+blobs,artificial neural networks,holdout,unnormalized,0.01656260000004295,9
+blobs,artificial neural networks,holdout,unnormalized,0.01582220000000234,10
+blobs,artificial neural networks,holdout,minmax,0.0268357000000492,1
+blobs,artificial neural networks,holdout,minmax,0.027416700000003402,2
+blobs,artificial neural networks,holdout,minmax,0.026410699999985354,3
+blobs,artificial neural networks,holdout,minmax,0.026788500000009208,4
+blobs,artificial neural networks,holdout,minmax,0.02588869999999588,5
+blobs,artificial neural networks,holdout,minmax,0.026199599999984002,6
+blobs,artificial neural networks,holdout,minmax,0.02673099999998385,7
+blobs,artificial neural networks,holdout,minmax,0.02607860000000528,8
+blobs,artificial neural networks,holdout,minmax,0.025821699999994507,9
+blobs,artificial neural networks,holdout,minmax,0.026206999999999425,10
+blobs,artificial neural networks,holdout,zscore,0.015130900000031033,1
+blobs,artificial neural networks,holdout,zscore,0.015935399999989386,2
+blobs,artificial neural networks,holdout,zscore,0.014978400000018155,3
+blobs,artificial neural networks,holdout,zscore,0.015300000000024738,4
+blobs,artificial neural networks,holdout,zscore,0.014462900000012269,5
+blobs,artificial neural networks,holdout,zscore,0.01501500000000533,6
+blobs,artificial neural networks,holdout,zscore,0.015036499999951047,7
+blobs,artificial neural networks,holdout,zscore,0.01521050000002333,8
+blobs,artificial neural networks,holdout,zscore,0.016256600000019716,9
+blobs,artificial neural networks,holdout,zscore,0.015250199999968572,10
+blobs,k-nearest-neighbor,holdout,unnormalized,0.009699899999986883,1
+blobs,k-nearest-neighbor,holdout,unnormalized,0.00989169999996875,2
+blobs,k-nearest-neighbor,holdout,unnormalized,0.010172299999965162,3
+blobs,k-nearest-neighbor,holdout,unnormalized,0.009637499999996635,4
+blobs,k-nearest-neighbor,holdout,unnormalized,0.009593800000004649,5
+blobs,k-nearest-neighbor,holdout,unnormalized,0.009860899999978301,6
+blobs,k-nearest-neighbor,holdout,unnormalized,0.009788599999978942,7
+blobs,k-nearest-neighbor,holdout,unnormalized,0.009971199999995406,8
+blobs,k-nearest-neighbor,holdout,unnormalized,0.009792800000013813,9
+blobs,k-nearest-neighbor,holdout,unnormalized,0.010841800000036983,10
+blobs,k-nearest-neighbor,holdout,minmax,0.009934399999963262,1
+blobs,k-nearest-neighbor,holdout,minmax,0.01042730000000347,2
+blobs,k-nearest-neighbor,holdout,minmax,0.010578500000008262,3
+blobs,k-nearest-neighbor,holdout,minmax,0.011782100000004903,4
+blobs,k-nearest-neighbor,holdout,minmax,0.016945099999986724,5
+blobs,k-nearest-neighbor,holdout,minmax,0.013295999999968444,6
+blobs,k-nearest-neighbor,holdout,minmax,0.009922599999981685,7
+blobs,k-nearest-neighbor,holdout,minmax,0.010439299999973173,8
+blobs,k-nearest-neighbor,holdout,minmax,0.009902099999976599,9
+blobs,k-nearest-neighbor,holdout,minmax,0.009720200000003842,10
+blobs,k-nearest-neighbor,holdout,zscore,0.011135999999964952,1
+blobs,k-nearest-neighbor,holdout,zscore,0.010531900000046335,2
+blobs,k-nearest-neighbor,holdout,zscore,0.010320900000010624,3
+blobs,k-nearest-neighbor,holdout,zscore,0.010459099999991395,4
+blobs,k-nearest-neighbor,holdout,zscore,0.010470300000008592,5
+blobs,k-nearest-neighbor,holdout,zscore,0.009810099999981503,6
+blobs,k-nearest-neighbor,holdout,zscore,0.010507099999983893,7
+blobs,k-nearest-neighbor,holdout,zscore,0.009763899999995829,8
+blobs,k-nearest-neighbor,holdout,zscore,0.01044650000000047,9
+blobs,k-nearest-neighbor,holdout,zscore,0.010099900000000162,10
+blobs,naive bayes,random subsampling,unnormalized,0.02532730000001493,1
+blobs,naive bayes,random subsampling,unnormalized,0.01762530000002016,2
+blobs,naive bayes,random subsampling,unnormalized,0.018349000000000615,3
+blobs,naive bayes,random subsampling,unnormalized,0.017578099999980168,4
+blobs,naive bayes,random subsampling,unnormalized,0.019331599999986793,5
+blobs,naive bayes,random subsampling,unnormalized,0.017174000000011347,6
+blobs,naive bayes,random subsampling,unnormalized,0.018047500000022865,7
+blobs,naive bayes,random subsampling,unnormalized,0.018279400000039914,8
+blobs,naive bayes,random subsampling,unnormalized,0.018311100000005354,9
+blobs,naive bayes,random subsampling,unnormalized,0.017646300000023984,10
+blobs,naive bayes,random subsampling,minmax,0.01823789999997416,1
+blobs,naive bayes,random subsampling,minmax,0.01952640000001793,2
+blobs,naive bayes,random subsampling,minmax,0.019143700000029185,3
+blobs,naive bayes,random subsampling,minmax,0.019623799999976654,4
+blobs,naive bayes,random subsampling,minmax,0.018693499999983487,5
+blobs,naive bayes,random subsampling,minmax,0.018813100000045324,6
+blobs,naive bayes,random subsampling,minmax,0.01921799999996665,7
+blobs,naive bayes,random subsampling,minmax,0.01949139999999261,8
+blobs,naive bayes,random subsampling,minmax,0.019460199999969063,9
+blobs,naive bayes,random subsampling,minmax,0.019697000000007847,10
+blobs,naive bayes,random subsampling,zscore,0.019932799999992312,1
+blobs,naive bayes,random subsampling,zscore,0.020447100000012597,2
+blobs,naive bayes,random subsampling,zscore,0.01984939999999824,3
+blobs,naive bayes,random subsampling,zscore,0.02102270000000317,4
+blobs,naive bayes,random subsampling,zscore,0.018890599999963342,5
+blobs,naive bayes,random subsampling,zscore,0.019618600000001152,6
+blobs,naive bayes,random subsampling,zscore,0.018852200000026187,7
+blobs,naive bayes,random subsampling,zscore,0.02047890000000052,8
+blobs,naive bayes,random subsampling,zscore,0.01946170000002212,9
+blobs,naive bayes,random subsampling,zscore,0.019127900000000864,10
+blobs,decision tree,random subsampling,unnormalized,0.018121599999972204,1
+blobs,decision tree,random subsampling,unnormalized,0.017877800000007937,2
+blobs,decision tree,random subsampling,unnormalized,0.017227999999988697,3
+blobs,decision tree,random subsampling,unnormalized,0.016552600000011353,4
+blobs,decision tree,random subsampling,unnormalized,0.019538500000010117,5
+blobs,decision tree,random subsampling,unnormalized,0.016723899999988134,6
+blobs,decision tree,random subsampling,unnormalized,0.016555299999993167,7
+blobs,decision tree,random subsampling,unnormalized,0.015327700000000277,8
+blobs,decision tree,random subsampling,unnormalized,0.015180700000030356,9
+blobs,decision tree,random subsampling,unnormalized,0.015718300000003183,10
+blobs,decision tree,random subsampling,minmax,0.01609209999998029,1
+blobs,decision tree,random subsampling,minmax,0.015686700000003384,2
+blobs,decision tree,random subsampling,minmax,0.016769799999963197,3
+blobs,decision tree,random subsampling,minmax,0.016418299999998,4
+blobs,decision tree,random subsampling,minmax,0.017025400000022728,5
+blobs,decision tree,random subsampling,minmax,0.01662239999996018,6
+blobs,decision tree,random subsampling,minmax,0.016326199999980417,7
+blobs,decision tree,random subsampling,minmax,0.019077500000037162,8
+blobs,decision tree,random subsampling,minmax,0.01636159999998199,9
+blobs,decision tree,random subsampling,minmax,0.01757070000002159,10
+blobs,decision tree,random subsampling,zscore,0.016335700000013276,1
+blobs,decision tree,random subsampling,zscore,0.016421600000001035,2
+blobs,decision tree,random subsampling,zscore,0.01710689999998749,3
+blobs,decision tree,random subsampling,zscore,0.016868299999998726,4
+blobs,decision tree,random subsampling,zscore,0.016793499999948835,5
+blobs,decision tree,random subsampling,zscore,0.017096600000002127,6
+blobs,decision tree,random subsampling,zscore,0.016792300000020077,7
+blobs,decision tree,random subsampling,zscore,0.016644299999995837,8
+blobs,decision tree,random subsampling,zscore,0.01670649999999796,9
+blobs,decision tree,random subsampling,zscore,0.017138699999975415,10
+blobs,support vector machine,random subsampling,unnormalized,0.02288349999997763,1
+blobs,support vector machine,random subsampling,unnormalized,0.0222819000000527,2
+blobs,support vector machine,random subsampling,unnormalized,0.02263429999999289,3
+blobs,support vector machine,random subsampling,unnormalized,0.022621999999955733,4
+blobs,support vector machine,random subsampling,unnormalized,0.02368469999998979,5
+blobs,support vector machine,random subsampling,unnormalized,0.02325020000000677,6
+blobs,support vector machine,random subsampling,unnormalized,0.02332760000001599,7
+blobs,support vector machine,random subsampling,unnormalized,0.022418300000026647,8
+blobs,support vector machine,random subsampling,unnormalized,0.021790500000008706,9
+blobs,support vector machine,random subsampling,unnormalized,0.022705000000030395,10
+blobs,support vector machine,random subsampling,minmax,0.02428989999998521,1
+blobs,support vector machine,random subsampling,minmax,0.022225699999978588,2
+blobs,support vector machine,random subsampling,minmax,0.021023099999979422,3
+blobs,support vector machine,random subsampling,minmax,0.02156409999997777,4
+blobs,support vector machine,random subsampling,minmax,0.021082500000034088,5
+blobs,support vector machine,random subsampling,minmax,0.022497299999997722,6
+blobs,support vector machine,random subsampling,minmax,0.02215950000004341,7
+blobs,support vector machine,random subsampling,minmax,0.021423199999958342,8
+blobs,support vector machine,random subsampling,minmax,0.021802399999955924,9
+blobs,support vector machine,random subsampling,minmax,0.022458999999969365,10
+blobs,support vector machine,random subsampling,zscore,0.02287069999999858,1
+blobs,support vector machine,random subsampling,zscore,0.02217600000000175,2
+blobs,support vector machine,random subsampling,zscore,0.02252490000000762,3
+blobs,support vector machine,random subsampling,zscore,0.02312989999995807,4
+blobs,support vector machine,random subsampling,zscore,0.02328210000001718,5
+blobs,support vector machine,random subsampling,zscore,0.022798500000021704,6
+blobs,support vector machine,random subsampling,zscore,0.02250080000004573,7
+blobs,support vector machine,random subsampling,zscore,0.023766799999975774,8
+blobs,support vector machine,random subsampling,zscore,0.023320200000000568,9
+blobs,support vector machine,random subsampling,zscore,0.02251390000003539,10
+blobs,artificial neural networks,random subsampling,unnormalized,0.14048439999999118,1
+blobs,artificial neural networks,random subsampling,unnormalized,0.1387837999999988,2
+blobs,artificial neural networks,random subsampling,unnormalized,0.13543820000001006,3
+blobs,artificial neural networks,random subsampling,unnormalized,0.138203199999964,4
+blobs,artificial neural networks,random subsampling,unnormalized,0.1352559000000042,5
+blobs,artificial neural networks,random subsampling,unnormalized,0.13535170000000107,6
+blobs,artificial neural networks,random subsampling,unnormalized,0.13789230000003272,7
+blobs,artificial neural networks,random subsampling,unnormalized,0.1400752000000125,8
+blobs,artificial neural networks,random subsampling,unnormalized,0.13172350000002098,9
+blobs,artificial neural networks,random subsampling,unnormalized,0.15229059999995798,10
+blobs,artificial neural networks,random subsampling,minmax,0.18953440000001365,1
+blobs,artificial neural networks,random subsampling,minmax,0.18304449999999406,2
+blobs,artificial neural networks,random subsampling,minmax,0.17945700000001352,3
+blobs,artificial neural networks,random subsampling,minmax,0.18181589999994685,4
+blobs,artificial neural networks,random subsampling,minmax,0.1824771999999939,5
+blobs,artificial neural networks,random subsampling,minmax,0.18995329999995647,6
+blobs,artificial neural networks,random subsampling,minmax,0.1867483000000334,7
+blobs,artificial neural networks,random subsampling,minmax,0.17957710000001725,8
+blobs,artificial neural networks,random subsampling,minmax,0.18503010000000586,9
+blobs,artificial neural networks,random subsampling,minmax,0.18677769999999327,10
+blobs,artificial neural networks,random subsampling,zscore,0.12802370000002838,1
+blobs,artificial neural networks,random subsampling,zscore,0.1354645999999775,2
+blobs,artificial neural networks,random subsampling,zscore,0.14190869999998768,3
+blobs,artificial neural networks,random subsampling,zscore,0.1501905000000079,4
+blobs,artificial neural networks,random subsampling,zscore,0.13600509999997712,5
+blobs,artificial neural networks,random subsampling,zscore,0.139277600000014,6
+blobs,artificial neural networks,random subsampling,zscore,0.13188629999996238,7
+blobs,artificial neural networks,random subsampling,zscore,0.1339844000000312,8
+blobs,artificial neural networks,random subsampling,zscore,0.12915020000002642,9
+blobs,artificial neural networks,random subsampling,zscore,0.13554099999998925,10
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.08615729999996802,1
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.08526699999998755,2
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.08520260000000235,3
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.08360579999998663,4
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.08994920000003503,5
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.08613840000003847,6
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.08396749999997155,7
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.0837903000000324,8
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.08349470000001702,9
+blobs,k-nearest-neighbor,random subsampling,unnormalized,0.08411730000000261,10
+blobs,k-nearest-neighbor,random subsampling,minmax,0.08695279999994909,1
+blobs,k-nearest-neighbor,random subsampling,minmax,0.08869740000000093,2
+blobs,k-nearest-neighbor,random subsampling,minmax,0.0871078000000125,3
+blobs,k-nearest-neighbor,random subsampling,minmax,0.08651909999997542,4
+blobs,k-nearest-neighbor,random subsampling,minmax,0.08609369999999217,5
+blobs,k-nearest-neighbor,random subsampling,minmax,0.08807000000001608,6
+blobs,k-nearest-neighbor,random subsampling,minmax,0.09258080000000746,7
+blobs,k-nearest-neighbor,random subsampling,minmax,0.09234259999999495,8
+blobs,k-nearest-neighbor,random subsampling,minmax,0.09747310000000198,9
+blobs,k-nearest-neighbor,random subsampling,minmax,0.0958999999999719,10
+blobs,k-nearest-neighbor,random subsampling,zscore,0.10066460000001598,1
+blobs,k-nearest-neighbor,random subsampling,zscore,0.10078900000002022,2
+blobs,k-nearest-neighbor,random subsampling,zscore,0.10018390000004729,3
+blobs,k-nearest-neighbor,random subsampling,zscore,0.09760679999999411,4
+blobs,k-nearest-neighbor,random subsampling,zscore,0.10240440000001172,5
+blobs,k-nearest-neighbor,random subsampling,zscore,0.09661890000000994,6
+blobs,k-nearest-neighbor,random subsampling,zscore,0.09631619999998975,7
+blobs,k-nearest-neighbor,random subsampling,zscore,0.1006045000000313,8
+blobs,k-nearest-neighbor,random subsampling,zscore,0.10333590000004733,9
+blobs,k-nearest-neighbor,random subsampling,zscore,0.09375240000002805,10
+blobs,naive bayes,kfold,unnormalized,0.02773450000000821,1
+blobs,naive bayes,kfold,unnormalized,0.02761440000000448,2
+blobs,naive bayes,kfold,unnormalized,0.02838099999996757,3
+blobs,naive bayes,kfold,unnormalized,0.029516200000045956,4
+blobs,naive bayes,kfold,unnormalized,0.02941619999995737,5
+blobs,naive bayes,kfold,unnormalized,0.029291600000021845,6
+blobs,naive bayes,kfold,unnormalized,0.03656770000003462,7
+blobs,naive bayes,kfold,unnormalized,0.0312907999999652,8
+blobs,naive bayes,kfold,unnormalized,0.03578410000000076,9
+blobs,naive bayes,kfold,unnormalized,0.05118499999997539,10
+blobs,naive bayes,kfold,minmax,0.03982690000003686,1
+blobs,naive bayes,kfold,minmax,0.03335820000000922,2
+blobs,naive bayes,kfold,minmax,0.033652500000016516,3
+blobs,naive bayes,kfold,minmax,0.03342299999997067,4
+blobs,naive bayes,kfold,minmax,0.04821270000002187,5
+blobs,naive bayes,kfold,minmax,0.035999199999992015,6
+blobs,naive bayes,kfold,minmax,0.035487900000021,7
+blobs,naive bayes,kfold,minmax,0.03488620000001674,8
+blobs,naive bayes,kfold,minmax,0.03462560000002668,9
+blobs,naive bayes,kfold,minmax,0.03629829999999856,10
+blobs,naive bayes,kfold,zscore,0.03614769999995815,1
+blobs,naive bayes,kfold,zscore,0.03607040000002826,2
+blobs,naive bayes,kfold,zscore,0.03470790000000079,3
+blobs,naive bayes,kfold,zscore,0.034917699999994056,4
+blobs,naive bayes,kfold,zscore,0.03646520000000919,5
+blobs,naive bayes,kfold,zscore,0.03710480000000871,6
+blobs,naive bayes,kfold,zscore,0.03549240000000964,7
+blobs,naive bayes,kfold,zscore,0.038110500000016145,8
+blobs,naive bayes,kfold,zscore,0.03385580000002619,9
+blobs,naive bayes,kfold,zscore,0.03379000000001042,10
+blobs,decision tree,kfold,unnormalized,0.030931600000030812,1
+blobs,decision tree,kfold,unnormalized,0.029737699999998313,2
+blobs,decision tree,kfold,unnormalized,0.029599899999993795,3
+blobs,decision tree,kfold,unnormalized,0.029686000000026525,4
+blobs,decision tree,kfold,unnormalized,0.0296762000000399,5
+blobs,decision tree,kfold,unnormalized,0.02959329999998772,6
+blobs,decision tree,kfold,unnormalized,0.02874000000002752,7
+blobs,decision tree,kfold,unnormalized,0.028930899999977555,8
+blobs,decision tree,kfold,unnormalized,0.03220740000000433,9
+blobs,decision tree,kfold,unnormalized,0.03269010000002481,10
+blobs,decision tree,kfold,minmax,0.028687000000047647,1
+blobs,decision tree,kfold,minmax,0.02865189999999984,2
+blobs,decision tree,kfold,minmax,0.030211899999983416,3
+blobs,decision tree,kfold,minmax,0.029083399999990434,4
+blobs,decision tree,kfold,minmax,0.02819350000004306,5
+blobs,decision tree,kfold,minmax,0.028208399999982703,6
+blobs,decision tree,kfold,minmax,0.027678900000012163,7
+blobs,decision tree,kfold,minmax,0.027822800000024017,8
+blobs,decision tree,kfold,minmax,0.027157000000045173,9
+blobs,decision tree,kfold,minmax,0.027014699999995173,10
+blobs,decision tree,kfold,zscore,0.02773810000002186,1
+blobs,decision tree,kfold,zscore,0.0267385999999874,2
+blobs,decision tree,kfold,zscore,0.026591499999994994,3
+blobs,decision tree,kfold,zscore,0.026822900000013306,4
+blobs,decision tree,kfold,zscore,0.02668069999998579,5
+blobs,decision tree,kfold,zscore,0.02621310000000676,6
+blobs,decision tree,kfold,zscore,0.025409199999955945,7
+blobs,decision tree,kfold,zscore,0.025306099999966136,8
+blobs,decision tree,kfold,zscore,0.025002599999993436,9
+blobs,decision tree,kfold,zscore,0.024948800000004212,10
+blobs,support vector machine,kfold,unnormalized,0.03364210000000867,1
+blobs,support vector machine,kfold,unnormalized,0.032691600000021026,2
+blobs,support vector machine,kfold,unnormalized,0.03287430000000313,3
+blobs,support vector machine,kfold,unnormalized,0.032657400000005055,4
+blobs,support vector machine,kfold,unnormalized,0.032845599999973274,5
+blobs,support vector machine,kfold,unnormalized,0.033183500000006916,6
+blobs,support vector machine,kfold,unnormalized,0.032111500000041815,7
+blobs,support vector machine,kfold,unnormalized,0.03208660000001373,8
+blobs,support vector machine,kfold,unnormalized,0.03505760000001601,9
+blobs,support vector machine,kfold,unnormalized,0.0404835999999591,10
+blobs,support vector machine,kfold,minmax,0.03854999999998654,1
+blobs,support vector machine,kfold,minmax,0.040841999999997824,2
+blobs,support vector machine,kfold,minmax,0.03685960000001387,3
+blobs,support vector machine,kfold,minmax,0.03650310000000445,4
+blobs,support vector machine,kfold,minmax,0.042262300000004416,5
+blobs,support vector machine,kfold,minmax,0.050292099999978745,6
+blobs,support vector machine,kfold,minmax,0.05668500000001586,7
+blobs,support vector machine,kfold,minmax,0.045498399999985395,8
+blobs,support vector machine,kfold,minmax,0.04214140000004818,9
+blobs,support vector machine,kfold,minmax,0.04175950000001194,10
+blobs,support vector machine,kfold,zscore,0.04144769999999198,1
+blobs,support vector machine,kfold,zscore,0.043616700000029596,2
+blobs,support vector machine,kfold,zscore,0.04172640000001593,3
+blobs,support vector machine,kfold,zscore,0.0426890999999614,4
+blobs,support vector machine,kfold,zscore,0.043583699999999226,5
+blobs,support vector machine,kfold,zscore,0.04478349999999409,6
+blobs,support vector machine,kfold,zscore,0.04465410000000247,7
+blobs,support vector machine,kfold,zscore,0.044654400000013084,8
+blobs,support vector machine,kfold,zscore,0.04467729999998937,9
+blobs,support vector machine,kfold,zscore,0.04500309999997398,10
+blobs,artificial neural networks,kfold,unnormalized,0.3278559000000314,1
+blobs,artificial neural networks,kfold,unnormalized,0.32847390000000587,2
+blobs,artificial neural networks,kfold,unnormalized,0.2986086999999884,3
+blobs,artificial neural networks,kfold,unnormalized,0.2747066000000018,4
+blobs,artificial neural networks,kfold,unnormalized,0.3047151000000099,5
+blobs,artificial neural networks,kfold,unnormalized,0.2915586000000303,6
+blobs,artificial neural networks,kfold,unnormalized,0.28074620000001005,7
+blobs,artificial neural networks,kfold,unnormalized,0.2837939000000347,8
+blobs,artificial neural networks,kfold,unnormalized,0.30770110000003115,9
+blobs,artificial neural networks,kfold,unnormalized,0.2815230999999585,10
+blobs,artificial neural networks,kfold,minmax,0.3902900999999588,1
+blobs,artificial neural networks,kfold,minmax,0.38227740000002086,2
+blobs,artificial neural networks,kfold,minmax,0.37582099999997354,3
+blobs,artificial neural networks,kfold,minmax,0.3728428000000008,4
+blobs,artificial neural networks,kfold,minmax,0.36903890000002093,5
+blobs,artificial neural networks,kfold,minmax,0.3729283000000123,6
+blobs,artificial neural networks,kfold,minmax,0.42853189999999586,7
+blobs,artificial neural networks,kfold,minmax,0.3848330999999803,8
+blobs,artificial neural networks,kfold,minmax,0.3666565999999989,9
+blobs,artificial neural networks,kfold,minmax,0.3740927000000056,10
+blobs,artificial neural networks,kfold,zscore,0.25396569999998064,1
+blobs,artificial neural networks,kfold,zscore,0.25289090000001124,2
+blobs,artificial neural networks,kfold,zscore,0.2526970999999776,3
+blobs,artificial neural networks,kfold,zscore,0.2532719999999813,4
+blobs,artificial neural networks,kfold,zscore,0.2578439999999773,5
+blobs,artificial neural networks,kfold,zscore,0.26073239999999487,6
+blobs,artificial neural networks,kfold,zscore,0.25419560000000274,7
+blobs,artificial neural networks,kfold,zscore,0.24167349999999033,8
+blobs,artificial neural networks,kfold,zscore,0.24801139999999577,9
+blobs,artificial neural networks,kfold,zscore,0.25484330000000455,10
+blobs,k-nearest-neighbor,kfold,unnormalized,0.12323850000001357,1
+blobs,k-nearest-neighbor,kfold,unnormalized,0.12648980000000165,2
+blobs,k-nearest-neighbor,kfold,unnormalized,0.13446890000000167,3
+blobs,k-nearest-neighbor,kfold,unnormalized,0.12980420000002368,4
+blobs,k-nearest-neighbor,kfold,unnormalized,0.13043669999996155,5
+blobs,k-nearest-neighbor,kfold,unnormalized,0.15501009999996995,6
+blobs,k-nearest-neighbor,kfold,unnormalized,0.13688380000002098,7
+blobs,k-nearest-neighbor,kfold,unnormalized,0.13144099999999526,8
+blobs,k-nearest-neighbor,kfold,unnormalized,0.13220849999999018,9
+blobs,k-nearest-neighbor,kfold,unnormalized,0.13441519999997809,10
+blobs,k-nearest-neighbor,kfold,minmax,0.13410299999998188,1
+blobs,k-nearest-neighbor,kfold,minmax,0.1295716999999854,2
+blobs,k-nearest-neighbor,kfold,minmax,0.12336990000000014,3
+blobs,k-nearest-neighbor,kfold,minmax,0.1261164000000008,4
+blobs,k-nearest-neighbor,kfold,minmax,0.12866250000001855,5
+blobs,k-nearest-neighbor,kfold,minmax,0.1209184999999593,6
+blobs,k-nearest-neighbor,kfold,minmax,0.11967559999999366,7
+blobs,k-nearest-neighbor,kfold,minmax,0.12774749999999813,8
+blobs,k-nearest-neighbor,kfold,minmax,0.1185141999999928,9
+blobs,k-nearest-neighbor,kfold,minmax,0.11360919999998487,10
+blobs,k-nearest-neighbor,kfold,zscore,0.11206640000000334,1
+blobs,k-nearest-neighbor,kfold,zscore,0.11038619999999355,2
+blobs,k-nearest-neighbor,kfold,zscore,0.11064020000003438,3
+blobs,k-nearest-neighbor,kfold,zscore,0.11217759999999544,4
+blobs,k-nearest-neighbor,kfold,zscore,0.14489370000001145,5
+blobs,k-nearest-neighbor,kfold,zscore,0.1360080000000039,6
+blobs,k-nearest-neighbor,kfold,zscore,0.1399992999999995,7
+blobs,k-nearest-neighbor,kfold,zscore,0.14853120000003628,8
+blobs,k-nearest-neighbor,kfold,zscore,0.1409424999999942,9
+blobs,k-nearest-neighbor,kfold,zscore,0.15685189999999238,10
+blobs,naive bayes,leave-one-out,unnormalized,1.4934724999999958,1
+blobs,naive bayes,leave-one-out,unnormalized,1.4212325999999962,2
+blobs,naive bayes,leave-one-out,unnormalized,1.3991695999999934,3
+blobs,naive bayes,leave-one-out,unnormalized,1.3507104000000254,4
+blobs,naive bayes,leave-one-out,unnormalized,1.3493418999999562,5
+blobs,naive bayes,leave-one-out,unnormalized,1.3026189000000272,6
+blobs,naive bayes,leave-one-out,unnormalized,1.3095500000000015,7
+blobs,naive bayes,leave-one-out,unnormalized,1.4253962999999885,8
+blobs,naive bayes,leave-one-out,unnormalized,1.3561564999999973,9
+blobs,naive bayes,leave-one-out,unnormalized,1.397775700000011,10
+blobs,naive bayes,leave-one-out,minmax,1.415379900000005,1
+blobs,naive bayes,leave-one-out,minmax,1.4843409000000065,2
+blobs,naive bayes,leave-one-out,minmax,1.4480719999999678,3
+blobs,naive bayes,leave-one-out,minmax,1.569030199999986,4
+blobs,naive bayes,leave-one-out,minmax,1.4164061000000174,5
+blobs,naive bayes,leave-one-out,minmax,1.4203643999999827,6
+blobs,naive bayes,leave-one-out,minmax,1.4343539000000192,7
+blobs,naive bayes,leave-one-out,minmax,1.4792431999999849,8
+blobs,naive bayes,leave-one-out,minmax,1.4206641000000104,9
+blobs,naive bayes,leave-one-out,minmax,1.4456608999999503,10
+blobs,naive bayes,leave-one-out,zscore,1.32523070000002,1
+blobs,naive bayes,leave-one-out,zscore,1.2770040999999992,2
+blobs,naive bayes,leave-one-out,zscore,1.2736558999999943,3
+blobs,naive bayes,leave-one-out,zscore,1.2752390999999648,4
+blobs,naive bayes,leave-one-out,zscore,1.2865871999999854,5
+blobs,naive bayes,leave-one-out,zscore,1.270332499999995,6
+blobs,naive bayes,leave-one-out,zscore,1.313929900000005,7
+blobs,naive bayes,leave-one-out,zscore,1.3904899999999998,8
+blobs,naive bayes,leave-one-out,zscore,1.4272743999999875,9
+blobs,naive bayes,leave-one-out,zscore,1.380923600000017,10
+blobs,decision tree,leave-one-out,unnormalized,1.3786224000000402,1
+blobs,decision tree,leave-one-out,unnormalized,1.3483378000000243,2
+blobs,decision tree,leave-one-out,unnormalized,1.336317500000007,3
+blobs,decision tree,leave-one-out,unnormalized,1.3884348000000273,4
+blobs,decision tree,leave-one-out,unnormalized,1.361986399999978,5
+blobs,decision tree,leave-one-out,unnormalized,1.3632663999999863,6
+blobs,decision tree,leave-one-out,unnormalized,1.3388908000000015,7
+blobs,decision tree,leave-one-out,unnormalized,1.335994200000016,8
+blobs,decision tree,leave-one-out,unnormalized,1.299289299999998,9
+blobs,decision tree,leave-one-out,unnormalized,1.332155699999987,10
+blobs,decision tree,leave-one-out,minmax,1.2564031,1
+blobs,decision tree,leave-one-out,minmax,1.3121992000000091,2
+blobs,decision tree,leave-one-out,minmax,1.2714267000000063,3
+blobs,decision tree,leave-one-out,minmax,1.3089759999999728,4
+blobs,decision tree,leave-one-out,minmax,1.3511251999999558,5
+blobs,decision tree,leave-one-out,minmax,1.2795677000000296,6
+blobs,decision tree,leave-one-out,minmax,1.2899001999999768,7
+blobs,decision tree,leave-one-out,minmax,1.2160398999999984,8
+blobs,decision tree,leave-one-out,minmax,1.2402945000000045,9
+blobs,decision tree,leave-one-out,minmax,1.2232572000000346,10
+blobs,decision tree,leave-one-out,zscore,1.240351799999985,1
+blobs,decision tree,leave-one-out,zscore,1.225961600000005,2
+blobs,decision tree,leave-one-out,zscore,1.2145139000000427,3
+blobs,decision tree,leave-one-out,zscore,1.2189961000000267,4
+blobs,decision tree,leave-one-out,zscore,1.2267516999999657,5
+blobs,decision tree,leave-one-out,zscore,1.2360251999999718,6
+blobs,decision tree,leave-one-out,zscore,1.2629170000000158,7
+blobs,decision tree,leave-one-out,zscore,1.2206137000000012,8
+blobs,decision tree,leave-one-out,zscore,1.223066000000017,9
+blobs,decision tree,leave-one-out,zscore,1.2357261999999878,10
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.016408299999966403,1
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.014459200000032979,2
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.016281100000014703,3
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.014964200000008532,4
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.014290200000004916,5
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.01601229999999987,6
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.01525549999996656,7
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.015129300000012336,8
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.014374300000042695,9
+blobs,k-nearest-neighbor,leave-one-out,unnormalized,0.014655699999991612,10
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.01509240000001455,1
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.014947800000015832,2
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.014894700000013472,3
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.015393800000026658,4
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.015930500000024495,5
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.016301899999973557,6
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.014708000000041466,7
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.015798800000027313,8
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.01596340000003238,9
+blobs,k-nearest-neighbor,leave-one-out,minmax,0.015237800000022617,10
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.016726199999993696,1
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.01571760000001632,2
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.016474099999982172,3
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.015642799999966428,4
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.015853199999980916,5
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.01604170000001659,6
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.015065200000037748,7
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.015119599999991351,8
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.015447900000026493,9
+blobs,k-nearest-neighbor,leave-one-out,zscore,0.01659159999996973,10
+anisotropic,naive bayes,holdout,unnormalized,0.001724899999999252,1
+anisotropic,naive bayes,holdout,unnormalized,0.0013814999999794964,2
+anisotropic,naive bayes,holdout,unnormalized,0.0014845000000036634,3
+anisotropic,naive bayes,holdout,unnormalized,0.0014856000000236236,4
+anisotropic,naive bayes,holdout,unnormalized,0.0014391999999929794,5
+anisotropic,naive bayes,holdout,unnormalized,0.0016133999999965454,6
+anisotropic,naive bayes,holdout,unnormalized,0.0014244999999846186,7
+anisotropic,naive bayes,holdout,unnormalized,0.001423999999985881,8
+anisotropic,naive bayes,holdout,unnormalized,0.0017010999999911292,9
+anisotropic,naive bayes,holdout,unnormalized,0.0016155999999796222,10
+anisotropic,naive bayes,holdout,minmax,0.0018767000000252665,1
+anisotropic,naive bayes,holdout,minmax,0.001736700000037672,2
+anisotropic,naive bayes,holdout,minmax,0.0022141000000033273,3
+anisotropic,naive bayes,holdout,minmax,0.0017743999999879634,4
+anisotropic,naive bayes,holdout,minmax,0.0018453999999792359,5
+anisotropic,naive bayes,holdout,minmax,0.0020805000000336804,6
+anisotropic,naive bayes,holdout,minmax,0.0018756000000053064,7
+anisotropic,naive bayes,holdout,minmax,0.0017331000000240238,8
+anisotropic,naive bayes,holdout,minmax,0.001971299999979692,9
+anisotropic,naive bayes,holdout,minmax,0.0017712000000074113,10
+anisotropic,naive bayes,holdout,zscore,0.0020961000000170316,1
+anisotropic,naive bayes,holdout,zscore,0.0021532999999749336,2
+anisotropic,naive bayes,holdout,zscore,0.001963999999986754,3
+anisotropic,naive bayes,holdout,zscore,0.0019882999999936146,4
+anisotropic,naive bayes,holdout,zscore,0.002215999999975793,5
+anisotropic,naive bayes,holdout,zscore,0.001901599999996506,6
+anisotropic,naive bayes,holdout,zscore,0.0019100999999750456,7
+anisotropic,naive bayes,holdout,zscore,0.002046599999971477,8
+anisotropic,naive bayes,holdout,zscore,0.002009699999973691,9
+anisotropic,naive bayes,holdout,zscore,0.0018693999999754851,10
+anisotropic,decision tree,holdout,unnormalized,0.0014997000000107619,1
+anisotropic,decision tree,holdout,unnormalized,0.0012808000000177344,2
+anisotropic,decision tree,holdout,unnormalized,0.0012402999999494568,3
+anisotropic,decision tree,holdout,unnormalized,0.0013580000000388281,4
+anisotropic,decision tree,holdout,unnormalized,0.0013294000000314554,5
+anisotropic,decision tree,holdout,unnormalized,0.0013481999999953587,6
+anisotropic,decision tree,holdout,unnormalized,0.0013723000000140928,7
+anisotropic,decision tree,holdout,unnormalized,0.0012460000000373839,8
+anisotropic,decision tree,holdout,unnormalized,0.0015283000000181346,9
+anisotropic,decision tree,holdout,unnormalized,0.0013987000000383887,10
+anisotropic,decision tree,holdout,minmax,0.0015838000000485408,1
+anisotropic,decision tree,holdout,minmax,0.0017240999999899032,2
+anisotropic,decision tree,holdout,minmax,0.0018256999999834989,3
+anisotropic,decision tree,holdout,minmax,0.0016645000000039545,4
+anisotropic,decision tree,holdout,minmax,0.0015216999999552172,5
+anisotropic,decision tree,holdout,minmax,0.0016944000000194137,6
+anisotropic,decision tree,holdout,minmax,0.0017490999999836276,7
+anisotropic,decision tree,holdout,minmax,0.001769099999989976,8
+anisotropic,decision tree,holdout,minmax,0.001709199999993416,9
+anisotropic,decision tree,holdout,minmax,0.0017928999999980988,10
+anisotropic,decision tree,holdout,zscore,0.0017929999999637403,1
+anisotropic,decision tree,holdout,zscore,0.0017838999999639782,2
+anisotropic,decision tree,holdout,zscore,0.00183079999999336,3
+anisotropic,decision tree,holdout,zscore,0.001718400000015663,4
+anisotropic,decision tree,holdout,zscore,0.0020071000000143613,5
+anisotropic,decision tree,holdout,zscore,0.0018730999999547748,6
+anisotropic,decision tree,holdout,zscore,0.001762900000016998,7
+anisotropic,decision tree,holdout,zscore,0.00187409999995225,8
+anisotropic,decision tree,holdout,zscore,0.001783999999986463,9
+anisotropic,decision tree,holdout,zscore,0.0017181999999706932,10
+anisotropic,support vector machine,holdout,unnormalized,0.0015531999999893742,1
+anisotropic,support vector machine,holdout,unnormalized,0.0016881999999895925,2
+anisotropic,support vector machine,holdout,unnormalized,0.0013698999999860462,3
+anisotropic,support vector machine,holdout,unnormalized,0.0014567000000056396,4
+anisotropic,support vector machine,holdout,unnormalized,0.0016746000000011918,5
+anisotropic,support vector machine,holdout,unnormalized,0.0018726000000128806,6
+anisotropic,support vector machine,holdout,unnormalized,0.0014298000000394495,7
+anisotropic,support vector machine,holdout,unnormalized,0.0013836999999625732,8
+anisotropic,support vector machine,holdout,unnormalized,0.0016535999999973683,9
+anisotropic,support vector machine,holdout,unnormalized,0.001414199999999255,10
+anisotropic,support vector machine,holdout,minmax,0.001667799999950148,1
+anisotropic,support vector machine,holdout,minmax,0.0017666000000531312,2
+anisotropic,support vector machine,holdout,minmax,0.001972099999989041,3
+anisotropic,support vector machine,holdout,minmax,0.001850499999989097,4
+anisotropic,support vector machine,holdout,minmax,0.0017168999999626067,5
+anisotropic,support vector machine,holdout,minmax,0.0021642999999471613,6
+anisotropic,support vector machine,holdout,minmax,0.0017861000000038985,7
+anisotropic,support vector machine,holdout,minmax,0.0018201000000317435,8
+anisotropic,support vector machine,holdout,minmax,0.0019002999999884196,9
+anisotropic,support vector machine,holdout,minmax,0.0018776000000002568,10
+anisotropic,support vector machine,holdout,zscore,0.0018663999999830594,1
+anisotropic,support vector machine,holdout,zscore,0.0023932999999942695,2
+anisotropic,support vector machine,holdout,zscore,0.0020081000000118365,3
+anisotropic,support vector machine,holdout,zscore,0.0019206999999710206,4
+anisotropic,support vector machine,holdout,zscore,0.002087600000038492,5
+anisotropic,support vector machine,holdout,zscore,0.001956100000029437,6
+anisotropic,support vector machine,holdout,zscore,0.0018768999999565494,7
+anisotropic,support vector machine,holdout,zscore,0.0020389999999679276,8
+anisotropic,support vector machine,holdout,zscore,0.0019159999999942556,9
+anisotropic,support vector machine,holdout,zscore,0.0019709000000034393,10
+anisotropic,artificial neural networks,holdout,unnormalized,0.007178400000043439,1
+anisotropic,artificial neural networks,holdout,unnormalized,0.006421900000020742,2
+anisotropic,artificial neural networks,holdout,unnormalized,0.006487200000037774,3
+anisotropic,artificial neural networks,holdout,unnormalized,0.006415600000025279,4
+anisotropic,artificial neural networks,holdout,unnormalized,0.006753699999990204,5
+anisotropic,artificial neural networks,holdout,unnormalized,0.006718900000009853,6
+anisotropic,artificial neural networks,holdout,unnormalized,0.0067947000000003754,7
+anisotropic,artificial neural networks,holdout,unnormalized,0.006584599999996499,8
+anisotropic,artificial neural networks,holdout,unnormalized,0.006554199999982302,9
+anisotropic,artificial neural networks,holdout,unnormalized,0.006755600000019513,10
+anisotropic,artificial neural networks,holdout,minmax,0.008163499999966461,1
+anisotropic,artificial neural networks,holdout,minmax,0.008393800000021656,2
+anisotropic,artificial neural networks,holdout,minmax,0.00815949999997656,3
+anisotropic,artificial neural networks,holdout,minmax,0.008380499999987023,4
+anisotropic,artificial neural networks,holdout,minmax,0.008244599999954971,5
+anisotropic,artificial neural networks,holdout,minmax,0.008273400000007314,6
+anisotropic,artificial neural networks,holdout,minmax,0.008746000000030563,7
+anisotropic,artificial neural networks,holdout,minmax,0.008402699999976448,8
+anisotropic,artificial neural networks,holdout,minmax,0.008448799999996481,9
+anisotropic,artificial neural networks,holdout,minmax,0.00827559999999039,10
+anisotropic,artificial neural networks,holdout,zscore,0.00797099999999773,1
+anisotropic,artificial neural networks,holdout,zscore,0.007475699999986318,2
+anisotropic,artificial neural networks,holdout,zscore,0.007583699999997862,3
+anisotropic,artificial neural networks,holdout,zscore,0.008070400000008249,4
+anisotropic,artificial neural networks,holdout,zscore,0.007651699999996708,5
+anisotropic,artificial neural networks,holdout,zscore,0.007746999999994841,6
+anisotropic,artificial neural networks,holdout,zscore,0.007839100000012422,7
+anisotropic,artificial neural networks,holdout,zscore,0.007483200000024226,8
+anisotropic,artificial neural networks,holdout,zscore,0.00798370000001114,9
+anisotropic,artificial neural networks,holdout,zscore,0.0077191999999968175,10
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.007292099999972379,1
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.00713300000001027,2
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.007389800000055402,3
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.0071508000000335414,4
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.007283700000016324,5
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.007398399999999583,6
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.007246800000018538,7
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.007057200000019748,8
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.007190700000023753,9
+anisotropic,k-nearest-neighbor,holdout,unnormalized,0.007174699999950462,10
+anisotropic,k-nearest-neighbor,holdout,minmax,0.007553200000018023,1
+anisotropic,k-nearest-neighbor,holdout,minmax,0.007464900000002217,2
+anisotropic,k-nearest-neighbor,holdout,minmax,0.007696900000041751,3
+anisotropic,k-nearest-neighbor,holdout,minmax,0.007516200000054596,4
+anisotropic,k-nearest-neighbor,holdout,minmax,0.0075699000000213346,5
+anisotropic,k-nearest-neighbor,holdout,minmax,0.007383299999958126,6
+anisotropic,k-nearest-neighbor,holdout,minmax,0.007641400000011345,7
+anisotropic,k-nearest-neighbor,holdout,minmax,0.007572700000025634,8
+anisotropic,k-nearest-neighbor,holdout,minmax,0.007450100000028215,9
+anisotropic,k-nearest-neighbor,holdout,minmax,0.008069299999988289,10
+anisotropic,k-nearest-neighbor,holdout,zscore,0.007051199999978053,1
+anisotropic,k-nearest-neighbor,holdout,zscore,0.007249399999977868,2
+anisotropic,k-nearest-neighbor,holdout,zscore,0.0072446000000354616,3
+anisotropic,k-nearest-neighbor,holdout,zscore,0.007239499999968757,4
+anisotropic,k-nearest-neighbor,holdout,zscore,0.007196200000009867,5
+anisotropic,k-nearest-neighbor,holdout,zscore,0.007569999999986976,6
+anisotropic,k-nearest-neighbor,holdout,zscore,0.007204899999976533,7
+anisotropic,k-nearest-neighbor,holdout,zscore,0.007340599999963615,8
+anisotropic,k-nearest-neighbor,holdout,zscore,0.007202000000006592,9
+anisotropic,k-nearest-neighbor,holdout,zscore,0.007781200000010813,10
+anisotropic,naive bayes,random subsampling,unnormalized,0.013174400000025344,1
+anisotropic,naive bayes,random subsampling,unnormalized,0.012897500000008222,2
+anisotropic,naive bayes,random subsampling,unnormalized,0.012881199999981163,3
+anisotropic,naive bayes,random subsampling,unnormalized,0.01270700000003444,4
+anisotropic,naive bayes,random subsampling,unnormalized,0.012981200000012905,5
+anisotropic,naive bayes,random subsampling,unnormalized,0.013002999999969234,6
+anisotropic,naive bayes,random subsampling,unnormalized,0.013367700000003424,7
+anisotropic,naive bayes,random subsampling,unnormalized,0.012815299999999752,8
+anisotropic,naive bayes,random subsampling,unnormalized,0.013176199999975324,9
+anisotropic,naive bayes,random subsampling,unnormalized,0.014057600000001003,10
+anisotropic,naive bayes,random subsampling,minmax,0.013208000000020093,1
+anisotropic,naive bayes,random subsampling,minmax,0.013518999999973857,2
+anisotropic,naive bayes,random subsampling,minmax,0.013227099999994607,3
+anisotropic,naive bayes,random subsampling,minmax,0.013797199999999066,4
+anisotropic,naive bayes,random subsampling,minmax,0.014198399999997946,5
+anisotropic,naive bayes,random subsampling,minmax,0.014131099999985963,6
+anisotropic,naive bayes,random subsampling,minmax,0.013709399999981997,7
+anisotropic,naive bayes,random subsampling,minmax,0.013173900000026606,8
+anisotropic,naive bayes,random subsampling,minmax,0.013612200000011399,9
+anisotropic,naive bayes,random subsampling,minmax,0.01371369999998251,10
+anisotropic,naive bayes,random subsampling,zscore,0.01358909999999014,1
+anisotropic,naive bayes,random subsampling,zscore,0.013528400000041074,2
+anisotropic,naive bayes,random subsampling,zscore,0.013911399999983587,3
+anisotropic,naive bayes,random subsampling,zscore,0.013553599999966082,4
+anisotropic,naive bayes,random subsampling,zscore,0.013760900000022502,5
+anisotropic,naive bayes,random subsampling,zscore,0.013497000000029402,6
+anisotropic,naive bayes,random subsampling,zscore,0.014864299999999275,7
+anisotropic,naive bayes,random subsampling,zscore,0.013531699999987268,8
+anisotropic,naive bayes,random subsampling,zscore,0.013482800000019779,9
+anisotropic,naive bayes,random subsampling,zscore,0.013714300000003732,10
+anisotropic,decision tree,random subsampling,unnormalized,0.011507699999981469,1
+anisotropic,decision tree,random subsampling,unnormalized,0.011001299999975345,2
+anisotropic,decision tree,random subsampling,unnormalized,0.011092200000007324,3
+anisotropic,decision tree,random subsampling,unnormalized,0.011258600000019214,4
+anisotropic,decision tree,random subsampling,unnormalized,0.011315200000012737,5
+anisotropic,decision tree,random subsampling,unnormalized,0.011069899999995414,6
+anisotropic,decision tree,random subsampling,unnormalized,0.011275500000010652,7
+anisotropic,decision tree,random subsampling,unnormalized,0.011056400000029498,8
+anisotropic,decision tree,random subsampling,unnormalized,0.011107700000025034,9
+anisotropic,decision tree,random subsampling,unnormalized,0.011274700000001303,10
+anisotropic,decision tree,random subsampling,minmax,0.012111899999979414,1
+anisotropic,decision tree,random subsampling,minmax,0.012443099999984497,2
+anisotropic,decision tree,random subsampling,minmax,0.011900300000036168,3
+anisotropic,decision tree,random subsampling,minmax,0.011898799999983112,4
+anisotropic,decision tree,random subsampling,minmax,0.012613600000008773,5
+anisotropic,decision tree,random subsampling,minmax,0.01233639999998104,6
+anisotropic,decision tree,random subsampling,minmax,0.012350099999991926,7
+anisotropic,decision tree,random subsampling,minmax,0.012793600000009064,8
+anisotropic,decision tree,random subsampling,minmax,0.013122700000053555,9
+anisotropic,decision tree,random subsampling,minmax,0.011924300000032417,10
+anisotropic,decision tree,random subsampling,zscore,0.012078299999984665,1
+anisotropic,decision tree,random subsampling,zscore,0.012545900000020538,2
+anisotropic,decision tree,random subsampling,zscore,0.012179199999991397,3
+anisotropic,decision tree,random subsampling,zscore,0.011446700000021792,4
+anisotropic,decision tree,random subsampling,zscore,0.01173009999996566,5
+anisotropic,decision tree,random subsampling,zscore,0.011554700000033336,6
+anisotropic,decision tree,random subsampling,zscore,0.011601499999983389,7
+anisotropic,decision tree,random subsampling,zscore,0.011607900000001337,8
+anisotropic,decision tree,random subsampling,zscore,0.01169670000001588,9
+anisotropic,decision tree,random subsampling,zscore,0.011598399999968478,10
+anisotropic,support vector machine,random subsampling,unnormalized,0.01299469999997882,1
+anisotropic,support vector machine,random subsampling,unnormalized,0.012560400000040772,2
+anisotropic,support vector machine,random subsampling,unnormalized,0.012539699999990717,3
+anisotropic,support vector machine,random subsampling,unnormalized,0.012593199999969329,4
+anisotropic,support vector machine,random subsampling,unnormalized,0.012649400000043443,5
+anisotropic,support vector machine,random subsampling,unnormalized,0.012533899999993992,6
+anisotropic,support vector machine,random subsampling,unnormalized,0.012879899999973077,7
+anisotropic,support vector machine,random subsampling,unnormalized,0.01473279999999022,8
+anisotropic,support vector machine,random subsampling,unnormalized,0.013572400000043672,9
+anisotropic,support vector machine,random subsampling,unnormalized,0.013051599999982955,10
+anisotropic,support vector machine,random subsampling,minmax,0.01357669999998734,1
+anisotropic,support vector machine,random subsampling,minmax,0.013544599999988804,2
+anisotropic,support vector machine,random subsampling,minmax,0.013792299999977331,3
+anisotropic,support vector machine,random subsampling,minmax,0.013625500000046031,4
+anisotropic,support vector machine,random subsampling,minmax,0.014226800000017192,5
+anisotropic,support vector machine,random subsampling,minmax,0.013476500000024316,6
+anisotropic,support vector machine,random subsampling,minmax,0.014369299999998475,7
+anisotropic,support vector machine,random subsampling,minmax,0.0141303999999991,8
+anisotropic,support vector machine,random subsampling,minmax,0.013766000000032363,9
+anisotropic,support vector machine,random subsampling,minmax,0.01360090000002856,10
+anisotropic,support vector machine,random subsampling,zscore,0.01385579999998754,1
+anisotropic,support vector machine,random subsampling,zscore,0.013793799999973544,2
+anisotropic,support vector machine,random subsampling,zscore,0.013871699999981502,3
+anisotropic,support vector machine,random subsampling,zscore,0.013799799999958395,4
+anisotropic,support vector machine,random subsampling,zscore,0.014080399999954807,5
+anisotropic,support vector machine,random subsampling,zscore,0.014076600000009876,6
+anisotropic,support vector machine,random subsampling,zscore,0.014023199999996905,7
+anisotropic,support vector machine,random subsampling,zscore,0.014144700000031207,8
+anisotropic,support vector machine,random subsampling,zscore,0.013935699999990447,9
+anisotropic,support vector machine,random subsampling,zscore,0.014148000000034244,10
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.06256359999997585,1
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.06065870000003315,2
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.0590253999999959,3
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.06137949999998682,4
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.06332950000000892,5
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.06390129999999772,6
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.06266869999996061,7
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.06287680000002638,8
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.06300670000001674,9
+anisotropic,artificial neural networks,random subsampling,unnormalized,0.059940199999971355,10
+anisotropic,artificial neural networks,random subsampling,minmax,0.07610720000002402,1
+anisotropic,artificial neural networks,random subsampling,minmax,0.07559529999997494,2
+anisotropic,artificial neural networks,random subsampling,minmax,0.07088249999998197,3
+anisotropic,artificial neural networks,random subsampling,minmax,0.0750674000000231,4
+anisotropic,artificial neural networks,random subsampling,minmax,0.07651580000003833,5
+anisotropic,artificial neural networks,random subsampling,minmax,0.07857290000004014,6
+anisotropic,artificial neural networks,random subsampling,minmax,0.07572140000002037,7
+anisotropic,artificial neural networks,random subsampling,minmax,0.07268850000002658,8
+anisotropic,artificial neural networks,random subsampling,minmax,0.07164000000000215,9
+anisotropic,artificial neural networks,random subsampling,minmax,0.07415029999998524,10
+anisotropic,artificial neural networks,random subsampling,zscore,0.06474399999996194,1
+anisotropic,artificial neural networks,random subsampling,zscore,0.06525040000002491,2
+anisotropic,artificial neural networks,random subsampling,zscore,0.06630239999998366,3
+anisotropic,artificial neural networks,random subsampling,zscore,0.06600990000004003,4
+anisotropic,artificial neural networks,random subsampling,zscore,0.06740679999995791,5
+anisotropic,artificial neural networks,random subsampling,zscore,0.06562999999999874,6
+anisotropic,artificial neural networks,random subsampling,zscore,0.08034369999995761,7
+anisotropic,artificial neural networks,random subsampling,zscore,0.06618639999999232,8
+anisotropic,artificial neural networks,random subsampling,zscore,0.06755349999997406,9
+anisotropic,artificial neural networks,random subsampling,zscore,0.06744419999995444,10
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06618359999998802,1
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06713799999999992,2
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06649169999997184,3
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06663270000001376,4
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06652819999999338,5
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06610860000000685,6
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06669109999995726,7
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06622150000004012,8
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06648049999995465,9
+anisotropic,k-nearest-neighbor,random subsampling,unnormalized,0.06533760000002076,10
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.06350099999997383,1
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.06369930000005297,2
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.06586509999999635,3
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.06319369999999935,4
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.0633209000000079,5
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.06784880000003568,6
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.06616430000002538,7
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.06716860000000224,8
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.06681349999996655,9
+anisotropic,k-nearest-neighbor,random subsampling,minmax,0.06487260000000106,10
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.06257749999997486,1
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.06473110000001725,2
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.0635515999999825,3
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.0653972000000067,4
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.06857209999998304,5
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.0647907000000032,6
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.06361729999997578,7
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.06311049999999341,8
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.06278349999996635,9
+anisotropic,k-nearest-neighbor,random subsampling,zscore,0.06777620000002571,10
+anisotropic,naive bayes,kfold,unnormalized,0.020748900000000958,1
+anisotropic,naive bayes,kfold,unnormalized,0.020627200000035373,2
+anisotropic,naive bayes,kfold,unnormalized,0.021383000000014363,3
+anisotropic,naive bayes,kfold,unnormalized,0.02143469999998615,4
+anisotropic,naive bayes,kfold,unnormalized,0.021345300000007228,5
+anisotropic,naive bayes,kfold,unnormalized,0.021345199999984743,6
+anisotropic,naive bayes,kfold,unnormalized,0.021732699999972738,7
+anisotropic,naive bayes,kfold,unnormalized,0.02126989999999296,8
+anisotropic,naive bayes,kfold,unnormalized,0.020977399999992485,9
+anisotropic,naive bayes,kfold,unnormalized,0.022337200000038138,10
+anisotropic,naive bayes,kfold,minmax,0.022429699999975128,1
+anisotropic,naive bayes,kfold,minmax,0.022544900000013968,2
+anisotropic,naive bayes,kfold,minmax,0.022270800000001145,3
+anisotropic,naive bayes,kfold,minmax,0.023087200000020403,4
+anisotropic,naive bayes,kfold,minmax,0.021539299999972172,5
+anisotropic,naive bayes,kfold,minmax,0.02144029999999475,6
+anisotropic,naive bayes,kfold,minmax,0.02092490000001135,7
+anisotropic,naive bayes,kfold,minmax,0.02093600000000606,8
+anisotropic,naive bayes,kfold,minmax,0.02076879999998482,9
+anisotropic,naive bayes,kfold,minmax,0.02100070000000187,10
+anisotropic,naive bayes,kfold,zscore,0.02073880000000372,1
+anisotropic,naive bayes,kfold,zscore,0.021328799999992043,2
+anisotropic,naive bayes,kfold,zscore,0.02118969999997944,3
+anisotropic,naive bayes,kfold,zscore,0.021127599999999802,4
+anisotropic,naive bayes,kfold,zscore,0.021210499999995136,5
+anisotropic,naive bayes,kfold,zscore,0.021092699999996967,6
+anisotropic,naive bayes,kfold,zscore,0.020891199999994114,7
+anisotropic,naive bayes,kfold,zscore,0.020598799999959283,8
+anisotropic,naive bayes,kfold,zscore,0.0211088000000359,9
+anisotropic,naive bayes,kfold,zscore,0.02239520000000539,10
+anisotropic,decision tree,kfold,unnormalized,0.017752900000004956,1
+anisotropic,decision tree,kfold,unnormalized,0.01784119999996392,2
+anisotropic,decision tree,kfold,unnormalized,0.017690600000037193,3
+anisotropic,decision tree,kfold,unnormalized,0.018682899999987512,4
+anisotropic,decision tree,kfold,unnormalized,0.019543299999952524,5
+anisotropic,decision tree,kfold,unnormalized,0.01778039999999237,6
+anisotropic,decision tree,kfold,unnormalized,0.01739050000003317,7
+anisotropic,decision tree,kfold,unnormalized,0.017096299999991516,8
+anisotropic,decision tree,kfold,unnormalized,0.017306200000007266,9
+anisotropic,decision tree,kfold,unnormalized,0.018592300000022988,10
+anisotropic,decision tree,kfold,minmax,0.01862829999998894,1
+anisotropic,decision tree,kfold,minmax,0.018843600000025162,2
+anisotropic,decision tree,kfold,minmax,0.018095099999982267,3
+anisotropic,decision tree,kfold,minmax,0.018596500000001015,4
+anisotropic,decision tree,kfold,minmax,0.0186142000000018,5
+anisotropic,decision tree,kfold,minmax,0.018038700000033714,6
+anisotropic,decision tree,kfold,minmax,0.017537299999958122,7
+anisotropic,decision tree,kfold,minmax,0.01790040000003046,8
+anisotropic,decision tree,kfold,minmax,0.017671100000029583,9
+anisotropic,decision tree,kfold,minmax,0.01903229999999212,10
+anisotropic,decision tree,kfold,zscore,0.019661600000006274,1
+anisotropic,decision tree,kfold,zscore,0.019162699999981214,2
+anisotropic,decision tree,kfold,zscore,0.019631900000035785,3
+anisotropic,decision tree,kfold,zscore,0.019622000000026674,4
+anisotropic,decision tree,kfold,zscore,0.018658899999991263,5
+anisotropic,decision tree,kfold,zscore,0.018449599999996735,6
+anisotropic,decision tree,kfold,zscore,0.019013299999983246,7
+anisotropic,decision tree,kfold,zscore,0.019396099999994476,8
+anisotropic,decision tree,kfold,zscore,0.018995300000028692,9
+anisotropic,decision tree,kfold,zscore,0.018990599999995084,10
+anisotropic,support vector machine,kfold,unnormalized,0.021806000000026415,1
+anisotropic,support vector machine,kfold,unnormalized,0.02195989999995618,2
+anisotropic,support vector machine,kfold,unnormalized,0.02205109999999877,3
+anisotropic,support vector machine,kfold,unnormalized,0.02108909999998332,4
+anisotropic,support vector machine,kfold,unnormalized,0.02127419999999347,5
+anisotropic,support vector machine,kfold,unnormalized,0.021077900000022964,6
+anisotropic,support vector machine,kfold,unnormalized,0.021535599999992883,7
+anisotropic,support vector machine,kfold,unnormalized,0.021662499999990814,8
+anisotropic,support vector machine,kfold,unnormalized,0.0216886000000045,9
+anisotropic,support vector machine,kfold,unnormalized,0.020851600000014514,10
+anisotropic,support vector machine,kfold,minmax,0.02136409999997113,1
+anisotropic,support vector machine,kfold,minmax,0.021415600000011636,2
+anisotropic,support vector machine,kfold,minmax,0.021657099999970342,3
+anisotropic,support vector machine,kfold,minmax,0.020783800000003794,4
+anisotropic,support vector machine,kfold,minmax,0.02036819999995032,5
+anisotropic,support vector machine,kfold,minmax,0.020371599999975842,6
+anisotropic,support vector machine,kfold,minmax,0.018980100000021594,7
+anisotropic,support vector machine,kfold,minmax,0.01952240000002803,8
+anisotropic,support vector machine,kfold,minmax,0.019546099999956823,9
+anisotropic,support vector machine,kfold,minmax,0.019514399999991383,10
+anisotropic,support vector machine,kfold,zscore,0.020492200000035155,1
+anisotropic,support vector machine,kfold,zscore,0.01969170000000986,2
+anisotropic,support vector machine,kfold,zscore,0.019619799999986753,3
+anisotropic,support vector machine,kfold,zscore,0.020207599999992,4
+anisotropic,support vector machine,kfold,zscore,0.01999239999997826,5
+anisotropic,support vector machine,kfold,zscore,0.020030599999984133,6
+anisotropic,support vector machine,kfold,zscore,0.020421099999964554,7
+anisotropic,support vector machine,kfold,zscore,0.020404399999961242,8
+anisotropic,support vector machine,kfold,zscore,0.02067949999997154,9
+anisotropic,support vector machine,kfold,zscore,0.020789700000023004,10
+anisotropic,artificial neural networks,kfold,unnormalized,0.11031929999995782,1
+anisotropic,artificial neural networks,kfold,unnormalized,0.11018159999997579,2
+anisotropic,artificial neural networks,kfold,unnormalized,0.10924219999998286,3
+anisotropic,artificial neural networks,kfold,unnormalized,0.1108887999999979,4
+anisotropic,artificial neural networks,kfold,unnormalized,0.11066640000001371,5
+anisotropic,artificial neural networks,kfold,unnormalized,0.11145349999998189,6
+anisotropic,artificial neural networks,kfold,unnormalized,0.11346079999998437,7
+anisotropic,artificial neural networks,kfold,unnormalized,0.11254990000003318,8
+anisotropic,artificial neural networks,kfold,unnormalized,0.112447799999984,9
+anisotropic,artificial neural networks,kfold,unnormalized,0.110245099999986,10
+anisotropic,artificial neural networks,kfold,minmax,0.13795149999998557,1
+anisotropic,artificial neural networks,kfold,minmax,0.13470760000001292,2
+anisotropic,artificial neural networks,kfold,minmax,0.14173099999999295,3
+anisotropic,artificial neural networks,kfold,minmax,0.15052909999997155,4
+anisotropic,artificial neural networks,kfold,minmax,0.14991830000002437,5
+anisotropic,artificial neural networks,kfold,minmax,0.14777550000002293,6
+anisotropic,artificial neural networks,kfold,minmax,0.16863779999999906,7
+anisotropic,artificial neural networks,kfold,minmax,0.14969780000001265,8
+anisotropic,artificial neural networks,kfold,minmax,0.15182349999997768,9
+anisotropic,artificial neural networks,kfold,minmax,0.15540769999995518,10
+anisotropic,artificial neural networks,kfold,zscore,0.12543450000003986,1
+anisotropic,artificial neural networks,kfold,zscore,0.12867840000001252,2
+anisotropic,artificial neural networks,kfold,zscore,0.12538929999999482,3
+anisotropic,artificial neural networks,kfold,zscore,0.13403109999995877,4
+anisotropic,artificial neural networks,kfold,zscore,0.12786790000001247,5
+anisotropic,artificial neural networks,kfold,zscore,0.13187030000000277,6
+anisotropic,artificial neural networks,kfold,zscore,0.1276405000000409,7
+anisotropic,artificial neural networks,kfold,zscore,0.12492979999996123,8
+anisotropic,artificial neural networks,kfold,zscore,0.11916769999999133,9
+anisotropic,artificial neural networks,kfold,zscore,0.11919080000001259,10
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.09604039999999259,1
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.09611010000003262,2
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.09579810000002453,3
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.09620519999998578,4
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.09928869999998824,5
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.1032266000000277,6
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.11042209999999386,7
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.11146919999998772,8
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.11349460000002409,9
+anisotropic,k-nearest-neighbor,kfold,unnormalized,0.12234079999996084,10
+anisotropic,k-nearest-neighbor,kfold,minmax,0.11340080000002217,1
+anisotropic,k-nearest-neighbor,kfold,minmax,0.10800589999996646,2
+anisotropic,k-nearest-neighbor,kfold,minmax,0.09896910000003345,3
+anisotropic,k-nearest-neighbor,kfold,minmax,0.09928120000000717,4
+anisotropic,k-nearest-neighbor,kfold,minmax,0.0982234999999605,5
+anisotropic,k-nearest-neighbor,kfold,minmax,0.09735799999998562,6
+anisotropic,k-nearest-neighbor,kfold,minmax,0.09639310000000023,7
+anisotropic,k-nearest-neighbor,kfold,minmax,0.09909630000004199,8
+anisotropic,k-nearest-neighbor,kfold,minmax,0.1125360999999998,9
+anisotropic,k-nearest-neighbor,kfold,minmax,0.09557389999997667,10
+anisotropic,k-nearest-neighbor,kfold,zscore,0.0959355999999616,1
+anisotropic,k-nearest-neighbor,kfold,zscore,0.09548580000000584,2
+anisotropic,k-nearest-neighbor,kfold,zscore,0.09595600000000104,3
+anisotropic,k-nearest-neighbor,kfold,zscore,0.09726739999996425,4
+anisotropic,k-nearest-neighbor,kfold,zscore,0.10062340000001768,5
+anisotropic,k-nearest-neighbor,kfold,zscore,0.09957659999997759,6
+anisotropic,k-nearest-neighbor,kfold,zscore,0.10027199999996128,7
+anisotropic,k-nearest-neighbor,kfold,zscore,0.09843670000003613,8
+anisotropic,k-nearest-neighbor,kfold,zscore,0.09624729999995907,9
+anisotropic,k-nearest-neighbor,kfold,zscore,0.09473819999999478,10
+anisotropic,naive bayes,leave-one-out,unnormalized,0.3308112999999935,1
+anisotropic,naive bayes,leave-one-out,unnormalized,0.340313300000048,2
+anisotropic,naive bayes,leave-one-out,unnormalized,0.3524020999999493,3
+anisotropic,naive bayes,leave-one-out,unnormalized,0.34388990000002195,4
+anisotropic,naive bayes,leave-one-out,unnormalized,0.34374830000001566,5
+anisotropic,naive bayes,leave-one-out,unnormalized,0.35003440000002684,6
+anisotropic,naive bayes,leave-one-out,unnormalized,0.33464399999996886,7
+anisotropic,naive bayes,leave-one-out,unnormalized,0.3258615999999961,8
+anisotropic,naive bayes,leave-one-out,unnormalized,0.32515360000002147,9
+anisotropic,naive bayes,leave-one-out,unnormalized,0.32965230000002066,10
+anisotropic,naive bayes,leave-one-out,minmax,0.3555125999999973,1
+anisotropic,naive bayes,leave-one-out,minmax,0.3351970999999594,2
+anisotropic,naive bayes,leave-one-out,minmax,0.3320064000000116,3
+anisotropic,naive bayes,leave-one-out,minmax,0.32774630000000116,4
+anisotropic,naive bayes,leave-one-out,minmax,0.31817140000003974,5
+anisotropic,naive bayes,leave-one-out,minmax,0.32053469999999606,6
+anisotropic,naive bayes,leave-one-out,minmax,0.3183948000000214,7
+anisotropic,naive bayes,leave-one-out,minmax,0.31828000000001566,8
+anisotropic,naive bayes,leave-one-out,minmax,0.322108500000013,9
+anisotropic,naive bayes,leave-one-out,minmax,0.32221019999997225,10
+anisotropic,naive bayes,leave-one-out,zscore,0.3303882000000158,1
+anisotropic,naive bayes,leave-one-out,zscore,0.325104500000009,2
+anisotropic,naive bayes,leave-one-out,zscore,0.32962480000003325,3
+anisotropic,naive bayes,leave-one-out,zscore,0.32661880000000565,4
+anisotropic,naive bayes,leave-one-out,zscore,0.32176049999998213,5
+anisotropic,naive bayes,leave-one-out,zscore,0.33362549999998237,6
+anisotropic,naive bayes,leave-one-out,zscore,0.33514489999998887,7
+anisotropic,naive bayes,leave-one-out,zscore,0.33272510000000466,8
+anisotropic,naive bayes,leave-one-out,zscore,0.33070879999996805,9
+anisotropic,naive bayes,leave-one-out,zscore,0.3182340000000181,10
+anisotropic,decision tree,leave-one-out,unnormalized,0.27445840000001454,1
+anisotropic,decision tree,leave-one-out,unnormalized,0.28325059999997393,2
+anisotropic,decision tree,leave-one-out,unnormalized,0.2764810999999554,3
+anisotropic,decision tree,leave-one-out,unnormalized,0.27536969999999883,4
+anisotropic,decision tree,leave-one-out,unnormalized,0.2728126999999745,5
+anisotropic,decision tree,leave-one-out,unnormalized,0.2804083999999989,6
+anisotropic,decision tree,leave-one-out,unnormalized,0.28207910000003267,7
+anisotropic,decision tree,leave-one-out,unnormalized,0.27746259999997847,8
+anisotropic,decision tree,leave-one-out,unnormalized,0.27747569999996813,9
+anisotropic,decision tree,leave-one-out,unnormalized,0.26610870000001796,10
+anisotropic,decision tree,leave-one-out,minmax,0.2784620000000473,1
+anisotropic,decision tree,leave-one-out,minmax,0.28032369999999673,2
+anisotropic,decision tree,leave-one-out,minmax,0.28577050000001236,3
+anisotropic,decision tree,leave-one-out,minmax,0.27635029999999006,4
+anisotropic,decision tree,leave-one-out,minmax,0.27405070000003207,5
+anisotropic,decision tree,leave-one-out,minmax,0.27402459999996154,6
+anisotropic,decision tree,leave-one-out,minmax,0.2709080000000199,7
+anisotropic,decision tree,leave-one-out,minmax,0.27852990000002364,8
+anisotropic,decision tree,leave-one-out,minmax,0.2728267999999616,9
+anisotropic,decision tree,leave-one-out,minmax,0.2808763999999542,10
+anisotropic,decision tree,leave-one-out,zscore,0.27656780000000936,1
+anisotropic,decision tree,leave-one-out,zscore,0.2809687000000167,2
+anisotropic,decision tree,leave-one-out,zscore,0.28243290000000343,3
+anisotropic,decision tree,leave-one-out,zscore,0.278398100000004,4
+anisotropic,decision tree,leave-one-out,zscore,0.2743550000000141,5
+anisotropic,decision tree,leave-one-out,zscore,0.27973779999996395,6
+anisotropic,decision tree,leave-one-out,zscore,0.28509160000004385,7
+anisotropic,decision tree,leave-one-out,zscore,0.28356100000002016,8
+anisotropic,decision tree,leave-one-out,zscore,0.3221457000000214,9
+anisotropic,decision tree,leave-one-out,zscore,0.3029173999999557,10
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.01370299999996405,1
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.011783799999989242,2
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.012245599999971546,3
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.011471300000039264,4
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.012005100000010316,5
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.011596800000006624,6
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.011680900000044403,7
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.011622200000033445,8
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.011599700000033408,9
+anisotropic,k-nearest-neighbor,leave-one-out,unnormalized,0.011409700000001521,10
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.012828200000001289,1
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.011636699999996836,2
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.012165299999992385,3
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.011698000000023967,4
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.012468800000021929,5
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.012678100000016457,6
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.01341339999999036,7
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.013695100000006732,8
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.01281010000002425,9
+anisotropic,k-nearest-neighbor,leave-one-out,minmax,0.013023599999996804,10
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.012523799999996754,1
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.012968199999988883,2
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.012272300000006453,3
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.01282370000001265,4
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.012975299999993695,5
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.012961599999982809,6
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.013157200000023295,7
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.01265050000000656,8
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.014755399999955898,9
+anisotropic,k-nearest-neighbor,leave-one-out,zscore,0.012881200000038007,10
+varied,naive bayes,holdout,unnormalized,0.001765100000000075,1
+varied,naive bayes,holdout,unnormalized,0.0014340000000174769,2
+varied,naive bayes,holdout,unnormalized,0.0015184000000090236,3
+varied,naive bayes,holdout,unnormalized,0.0015566999999805375,4
+varied,naive bayes,holdout,unnormalized,0.0015281000000300082,5
+varied,naive bayes,holdout,unnormalized,0.002606599999978698,6
+varied,naive bayes,holdout,unnormalized,0.002581200000008721,7
+varied,naive bayes,holdout,unnormalized,0.0021854999999959546,8
+varied,naive bayes,holdout,unnormalized,0.0024526999999920918,9
+varied,naive bayes,holdout,unnormalized,0.0021929000000113774,10
+varied,naive bayes,holdout,minmax,0.0030019999999808533,1
+varied,naive bayes,holdout,minmax,0.003532000000006974,2
+varied,naive bayes,holdout,minmax,0.0038448000000244065,3
+varied,naive bayes,holdout,minmax,0.0036202000000002954,4
+varied,naive bayes,holdout,minmax,0.004097999999999047,5
+varied,naive bayes,holdout,minmax,0.003998400000000402,6
+varied,naive bayes,holdout,minmax,0.0035622000000330445,7
+varied,naive bayes,holdout,minmax,0.0025789999999688007,8
+varied,naive bayes,holdout,minmax,0.0020571999999674517,9
+varied,naive bayes,holdout,minmax,0.0021324999999592364,10
+varied,naive bayes,holdout,zscore,0.003887499999962074,1
+varied,naive bayes,holdout,zscore,0.0036380999999892083,2
+varied,naive bayes,holdout,zscore,0.002701999999999316,3
+varied,naive bayes,holdout,zscore,0.0031165999999984706,4
+varied,naive bayes,holdout,zscore,0.002547199999980876,5
+varied,naive bayes,holdout,zscore,0.0024251000000390377,6
+varied,naive bayes,holdout,zscore,0.0020435000000134096,7
+varied,naive bayes,holdout,zscore,0.002155500000014854,8
+varied,naive bayes,holdout,zscore,0.00204919999998765,9
+varied,naive bayes,holdout,zscore,0.001994100000047183,10
+varied,decision tree,holdout,unnormalized,0.0015463000000295324,1
+varied,decision tree,holdout,unnormalized,0.0014762000000132502,2
+varied,decision tree,holdout,unnormalized,0.0015846000000010463,3
+varied,decision tree,holdout,unnormalized,0.0014189999999985048,4
+varied,decision tree,holdout,unnormalized,0.0016286000000036438,5
+varied,decision tree,holdout,unnormalized,0.0015238999999951375,6
+varied,decision tree,holdout,unnormalized,0.0014881000000173117,7
+varied,decision tree,holdout,unnormalized,0.0015498999999863372,8
+varied,decision tree,holdout,unnormalized,0.0014979000000039377,9
+varied,decision tree,holdout,unnormalized,0.0015827000000285807,10
+varied,decision tree,holdout,minmax,0.0017912000000137596,1
+varied,decision tree,holdout,minmax,0.0020167999999785025,2
+varied,decision tree,holdout,minmax,0.0019158999999717707,3
+varied,decision tree,holdout,minmax,0.0019611000000168133,4
+varied,decision tree,holdout,minmax,0.0019053999999982807,5
+varied,decision tree,holdout,minmax,0.0019537000000013904,6
+varied,decision tree,holdout,minmax,0.0019684999999753927,7
+varied,decision tree,holdout,minmax,0.0020604000000048472,8
+varied,decision tree,holdout,minmax,0.001901700000018991,9
+varied,decision tree,holdout,minmax,0.0018908000000124048,10
+varied,decision tree,holdout,zscore,0.002336300000024494,1
+varied,decision tree,holdout,zscore,0.002088599999979124,2
+varied,decision tree,holdout,zscore,0.0020671999999990476,3
+varied,decision tree,holdout,zscore,0.002104599999995571,4
+varied,decision tree,holdout,zscore,0.0019988999999895896,5
+varied,decision tree,holdout,zscore,0.002085599999986698,6
+varied,decision tree,holdout,zscore,0.001958300000012514,7
+varied,decision tree,holdout,zscore,0.0020020999999701417,8
+varied,decision tree,holdout,zscore,0.002148799999986295,9
+varied,decision tree,holdout,zscore,0.0021131999999965956,10
+varied,support vector machine,holdout,unnormalized,0.0029615000000262626,1
+varied,support vector machine,holdout,unnormalized,0.002663899999959085,2
+varied,support vector machine,holdout,unnormalized,0.002628700000002482,3
+varied,support vector machine,holdout,unnormalized,0.0027115000000321743,4
+varied,support vector machine,holdout,unnormalized,0.002621299999987059,5
+varied,support vector machine,holdout,unnormalized,0.0026639000000159285,6
+varied,support vector machine,holdout,unnormalized,0.002699799999959396,7
+varied,support vector machine,holdout,unnormalized,0.0029243000000178654,8
+varied,support vector machine,holdout,unnormalized,0.0026351000000204294,9
+varied,support vector machine,holdout,unnormalized,0.0029610999999931664,10
+varied,support vector machine,holdout,minmax,0.002918899999997393,1
+varied,support vector machine,holdout,minmax,0.003060899999979938,2
+varied,support vector machine,holdout,minmax,0.002820199999973738,3
+varied,support vector machine,holdout,minmax,0.0032993000000374195,4
+varied,support vector machine,holdout,minmax,0.002962500000023738,5
+varied,support vector machine,holdout,minmax,0.003051200000015797,6
+varied,support vector machine,holdout,minmax,0.0029913999999848784,7
+varied,support vector machine,holdout,minmax,0.0030927000000247062,8
+varied,support vector machine,holdout,minmax,0.002938499999970645,9
+varied,support vector machine,holdout,minmax,0.0032137000000034277,10
+varied,support vector machine,holdout,zscore,0.003252299999985553,1
+varied,support vector machine,holdout,zscore,0.0031749999999988177,2
+varied,support vector machine,holdout,zscore,0.003226299999994353,3
+varied,support vector machine,holdout,zscore,0.003347200000007433,4
+varied,support vector machine,holdout,zscore,0.0034875999999712803,5
+varied,support vector machine,holdout,zscore,0.003557600000021921,6
+varied,support vector machine,holdout,zscore,0.0031814999999824067,7
+varied,support vector machine,holdout,zscore,0.0033626999999682994,8
+varied,support vector machine,holdout,zscore,0.0030451000000084605,9
+varied,support vector machine,holdout,zscore,0.003499799999985953,10
+varied,artificial neural networks,holdout,unnormalized,0.028881600000033814,1
+varied,artificial neural networks,holdout,unnormalized,0.028466100000002825,2
+varied,artificial neural networks,holdout,unnormalized,0.027670499999999265,3
+varied,artificial neural networks,holdout,unnormalized,0.02780790000002753,4
+varied,artificial neural networks,holdout,unnormalized,0.029048399999965113,5
+varied,artificial neural networks,holdout,unnormalized,0.029083700000001045,6
+varied,artificial neural networks,holdout,unnormalized,0.02922710000001416,7
+varied,artificial neural networks,holdout,unnormalized,0.027461999999957243,8
+varied,artificial neural networks,holdout,unnormalized,0.027351899999985108,9
+varied,artificial neural networks,holdout,unnormalized,0.027379700000039975,10
+varied,artificial neural networks,holdout,minmax,0.03483899999997675,1
+varied,artificial neural networks,holdout,minmax,0.03454900000002681,2
+varied,artificial neural networks,holdout,minmax,0.03492760000000317,3
+varied,artificial neural networks,holdout,minmax,0.03498380000002044,4
+varied,artificial neural networks,holdout,minmax,0.03568089999998847,5
+varied,artificial neural networks,holdout,minmax,0.035087400000008984,6
+varied,artificial neural networks,holdout,minmax,0.0343007999999827,7
+varied,artificial neural networks,holdout,minmax,0.034304800000029445,8
+varied,artificial neural networks,holdout,minmax,0.03428919999998925,9
+varied,artificial neural networks,holdout,minmax,0.03529470000000856,10
+varied,artificial neural networks,holdout,zscore,0.03082760000000917,1
+varied,artificial neural networks,holdout,zscore,0.03027270000001181,2
+varied,artificial neural networks,holdout,zscore,0.03083099999997785,3
+varied,artificial neural networks,holdout,zscore,0.031528199999968365,4
+varied,artificial neural networks,holdout,zscore,0.03187750000000733,5
+varied,artificial neural networks,holdout,zscore,0.031926599999962946,6
+varied,artificial neural networks,holdout,zscore,0.03289580000000569,7
+varied,artificial neural networks,holdout,zscore,0.032162499999969896,8
+varied,artificial neural networks,holdout,zscore,0.031309700000008434,9
+varied,artificial neural networks,holdout,zscore,0.03160320000000638,10
+varied,k-nearest-neighbor,holdout,unnormalized,0.007030400000019199,1
+varied,k-nearest-neighbor,holdout,unnormalized,0.006919699999968998,2
+varied,k-nearest-neighbor,holdout,unnormalized,0.007214800000042487,3
+varied,k-nearest-neighbor,holdout,unnormalized,0.006976400000041849,4
+varied,k-nearest-neighbor,holdout,unnormalized,0.007830500000011398,5
+varied,k-nearest-neighbor,holdout,unnormalized,0.007081400000004123,6
+varied,k-nearest-neighbor,holdout,unnormalized,0.007087200000000848,7
+varied,k-nearest-neighbor,holdout,unnormalized,0.0068584999999643514,8
+varied,k-nearest-neighbor,holdout,unnormalized,0.006755100000020775,9
+varied,k-nearest-neighbor,holdout,unnormalized,0.006961300000000392,10
+varied,k-nearest-neighbor,holdout,minmax,0.007527100000004339,1
+varied,k-nearest-neighbor,holdout,minmax,0.007354200000008859,2
+varied,k-nearest-neighbor,holdout,minmax,0.007276900000022124,3
+varied,k-nearest-neighbor,holdout,minmax,0.007275400000025911,4
+varied,k-nearest-neighbor,holdout,minmax,0.007504999999980555,5
+varied,k-nearest-neighbor,holdout,minmax,0.0074865999999929045,6
+varied,k-nearest-neighbor,holdout,minmax,0.007121299999994335,7
+varied,k-nearest-neighbor,holdout,minmax,0.007465800000034051,8
+varied,k-nearest-neighbor,holdout,minmax,0.007285400000000664,9
+varied,k-nearest-neighbor,holdout,minmax,0.007063700000003337,10
+varied,k-nearest-neighbor,holdout,zscore,0.007218399999999292,1
+varied,k-nearest-neighbor,holdout,zscore,0.007884400000023106,2
+varied,k-nearest-neighbor,holdout,zscore,0.0075322000000142,3
+varied,k-nearest-neighbor,holdout,zscore,0.007510499999966669,4
+varied,k-nearest-neighbor,holdout,zscore,0.007461700000021665,5
+varied,k-nearest-neighbor,holdout,zscore,0.008051700000009987,6
+varied,k-nearest-neighbor,holdout,zscore,0.007761700000003202,7
+varied,k-nearest-neighbor,holdout,zscore,0.007507599999996728,8
+varied,k-nearest-neighbor,holdout,zscore,0.007618900000011308,9
+varied,k-nearest-neighbor,holdout,zscore,0.007874400000048354,10
+varied,naive bayes,random subsampling,unnormalized,0.014129299999979139,1
+varied,naive bayes,random subsampling,unnormalized,0.013784799999996267,2
+varied,naive bayes,random subsampling,unnormalized,0.014179800000022169,3
+varied,naive bayes,random subsampling,unnormalized,0.013993500000026415,4
+varied,naive bayes,random subsampling,unnormalized,0.014328900000009526,5
+varied,naive bayes,random subsampling,unnormalized,0.014552600000001803,6
+varied,naive bayes,random subsampling,unnormalized,0.014358200000003762,7
+varied,naive bayes,random subsampling,unnormalized,0.014195099999994909,8
+varied,naive bayes,random subsampling,unnormalized,0.013972400000000107,9
+varied,naive bayes,random subsampling,unnormalized,0.014114399999982652,10
+varied,naive bayes,random subsampling,minmax,0.01487710000003517,1
+varied,naive bayes,random subsampling,minmax,0.014629000000013548,2
+varied,naive bayes,random subsampling,minmax,0.014735799999982646,3
+varied,naive bayes,random subsampling,minmax,0.014609199999995326,4
+varied,naive bayes,random subsampling,minmax,0.01507889999999179,5
+varied,naive bayes,random subsampling,minmax,0.014709699999968961,6
+varied,naive bayes,random subsampling,minmax,0.015111799999999675,7
+varied,naive bayes,random subsampling,minmax,0.014685200000030818,8
+varied,naive bayes,random subsampling,minmax,0.014874100000042745,9
+varied,naive bayes,random subsampling,minmax,0.014667499999973188,10
+varied,naive bayes,random subsampling,zscore,0.015073400000005677,1
+varied,naive bayes,random subsampling,zscore,0.014919899999995323,2
+varied,naive bayes,random subsampling,zscore,0.015251199999966047,3
+varied,naive bayes,random subsampling,zscore,0.014834000000007563,4
+varied,naive bayes,random subsampling,zscore,0.015108700000041608,5
+varied,naive bayes,random subsampling,zscore,0.014810899999986304,6
+varied,naive bayes,random subsampling,zscore,0.015100200000006225,7
+varied,naive bayes,random subsampling,zscore,0.01481240000003936,8
+varied,naive bayes,random subsampling,zscore,0.015071199999965756,9
+varied,naive bayes,random subsampling,zscore,0.015207800000041516,10
+varied,decision tree,random subsampling,unnormalized,0.014451099999973849,1
+varied,decision tree,random subsampling,unnormalized,0.01426379999998062,2
+varied,decision tree,random subsampling,unnormalized,0.014388400000029833,3
+varied,decision tree,random subsampling,unnormalized,0.014059499999973468,4
+varied,decision tree,random subsampling,unnormalized,0.014198299999975461,5
+varied,decision tree,random subsampling,unnormalized,0.014179500000011558,6
+varied,decision tree,random subsampling,unnormalized,0.014362899999980527,7
+varied,decision tree,random subsampling,unnormalized,0.013979100000028666,8
+varied,decision tree,random subsampling,unnormalized,0.014213900000015656,9
+varied,decision tree,random subsampling,unnormalized,0.014163100000018858,10
+varied,decision tree,random subsampling,minmax,0.014620900000011261,1
+varied,decision tree,random subsampling,minmax,0.01518930000003138,2
+varied,decision tree,random subsampling,minmax,0.015050400000006903,3
+varied,decision tree,random subsampling,minmax,0.014893599999993512,4
+varied,decision tree,random subsampling,minmax,0.01488539999996874,5
+varied,decision tree,random subsampling,minmax,0.014654000000007272,6
+varied,decision tree,random subsampling,minmax,0.015013900000042213,7
+varied,decision tree,random subsampling,minmax,0.014538400000049023,8
+varied,decision tree,random subsampling,minmax,0.01443979999999101,9
+varied,decision tree,random subsampling,minmax,0.014656699999989087,10
+varied,decision tree,random subsampling,zscore,0.014662599999951453,1
+varied,decision tree,random subsampling,zscore,0.0146389999999883,2
+varied,decision tree,random subsampling,zscore,0.01464439999995193,3
+varied,decision tree,random subsampling,zscore,0.014586199999996552,4
+varied,decision tree,random subsampling,zscore,0.014515800000026502,5
+varied,decision tree,random subsampling,zscore,0.014669900000001235,6
+varied,decision tree,random subsampling,zscore,0.014814300000011826,7
+varied,decision tree,random subsampling,zscore,0.014734899999950812,8
+varied,decision tree,random subsampling,zscore,0.015489500000001044,9
+varied,decision tree,random subsampling,zscore,0.015287599999965096,10
+varied,support vector machine,random subsampling,unnormalized,0.02660019999996166,1
+varied,support vector machine,random subsampling,unnormalized,0.025611099999991893,2
+varied,support vector machine,random subsampling,unnormalized,0.025973500000020522,3
+varied,support vector machine,random subsampling,unnormalized,0.025753299999962564,4
+varied,support vector machine,random subsampling,unnormalized,0.025639300000023013,5
+varied,support vector machine,random subsampling,unnormalized,0.025321200000007593,6
+varied,support vector machine,random subsampling,unnormalized,0.025331600000015442,7
+varied,support vector machine,random subsampling,unnormalized,0.02462070000001404,8
+varied,support vector machine,random subsampling,unnormalized,0.02489339999999629,9
+varied,support vector machine,random subsampling,unnormalized,0.02475520000001552,10
+varied,support vector machine,random subsampling,minmax,0.025427799999988565,1
+varied,support vector machine,random subsampling,minmax,0.025183400000003076,2
+varied,support vector machine,random subsampling,minmax,0.025178299999993214,3
+varied,support vector machine,random subsampling,minmax,0.025636300000030587,4
+varied,support vector machine,random subsampling,minmax,0.02556970000000547,5
+varied,support vector machine,random subsampling,minmax,0.025100599999973383,6
+varied,support vector machine,random subsampling,minmax,0.025088199999970584,7
+varied,support vector machine,random subsampling,minmax,0.024966100000028746,8
+varied,support vector machine,random subsampling,minmax,0.024996199999975488,9
+varied,support vector machine,random subsampling,minmax,0.025131600000008802,10
+varied,support vector machine,random subsampling,zscore,0.02534090000000333,1
+varied,support vector machine,random subsampling,zscore,0.024788199999989047,2
+varied,support vector machine,random subsampling,zscore,0.0256802000000107,3
+varied,support vector machine,random subsampling,zscore,0.025146899999981542,4
+varied,support vector machine,random subsampling,zscore,0.025549200000000383,5
+varied,support vector machine,random subsampling,zscore,0.0255462999999736,6
+varied,support vector machine,random subsampling,zscore,0.02582420000004504,7
+varied,support vector machine,random subsampling,zscore,0.026169400000014775,8
+varied,support vector machine,random subsampling,zscore,0.026040200000011282,9
+varied,support vector machine,random subsampling,zscore,0.02685079999997697,10
+varied,artificial neural networks,random subsampling,unnormalized,0.3053158000000167,1
+varied,artificial neural networks,random subsampling,unnormalized,0.29971530000000257,2
+varied,artificial neural networks,random subsampling,unnormalized,0.31604600000002847,3
+varied,artificial neural networks,random subsampling,unnormalized,0.31009599999998727,4
+varied,artificial neural networks,random subsampling,unnormalized,0.30878259999997226,5
+varied,artificial neural networks,random subsampling,unnormalized,0.30827990000000227,6
+varied,artificial neural networks,random subsampling,unnormalized,0.3094116999999983,7
+varied,artificial neural networks,random subsampling,unnormalized,0.3246034000000009,8
+varied,artificial neural networks,random subsampling,unnormalized,0.3190902000000051,9
+varied,artificial neural networks,random subsampling,unnormalized,0.32593109999999115,10
+varied,artificial neural networks,random subsampling,minmax,0.33853929999997945,1
+varied,artificial neural networks,random subsampling,minmax,0.33761880000002975,2
+varied,artificial neural networks,random subsampling,minmax,0.3405434000000014,3
+varied,artificial neural networks,random subsampling,minmax,0.32862559999995256,4
+varied,artificial neural networks,random subsampling,minmax,0.32495810000000347,5
+varied,artificial neural networks,random subsampling,minmax,0.33454499999999143,6
+varied,artificial neural networks,random subsampling,minmax,0.3350747999999726,7
+varied,artificial neural networks,random subsampling,minmax,0.3431438000000071,8
+varied,artificial neural networks,random subsampling,minmax,0.33074909999999136,9
+varied,artificial neural networks,random subsampling,minmax,0.32959990000000516,10
+varied,artificial neural networks,random subsampling,zscore,0.31541850000002114,1
+varied,artificial neural networks,random subsampling,zscore,0.3082206999999926,2
+varied,artificial neural networks,random subsampling,zscore,0.32527369999996836,3
+varied,artificial neural networks,random subsampling,zscore,0.32836079999998447,4
+varied,artificial neural networks,random subsampling,zscore,0.3201763999999798,5
+varied,artificial neural networks,random subsampling,zscore,0.3152906999999914,6
+varied,artificial neural networks,random subsampling,zscore,0.33539100000001554,7
+varied,artificial neural networks,random subsampling,zscore,0.3276730000000043,8
+varied,artificial neural networks,random subsampling,zscore,0.3268274000000133,9
+varied,artificial neural networks,random subsampling,zscore,0.3253917000000115,10
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.06803330000002461,1
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.07896279999999933,2
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.06887380000000576,3
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.06638540000000148,4
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.06659940000002962,5
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.06524559999996882,6
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.06553209999998444,7
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.06519550000001573,8
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.0659246999999823,9
+varied,k-nearest-neighbor,random subsampling,unnormalized,0.06516929999997956,10
+varied,k-nearest-neighbor,random subsampling,minmax,0.06685720000001538,1
+varied,k-nearest-neighbor,random subsampling,minmax,0.06740530000001854,2
+varied,k-nearest-neighbor,random subsampling,minmax,0.06596519999999373,3
+varied,k-nearest-neighbor,random subsampling,minmax,0.06342689999996765,4
+varied,k-nearest-neighbor,random subsampling,minmax,0.06470500000000357,5
+varied,k-nearest-neighbor,random subsampling,minmax,0.06509280000000217,6
+varied,k-nearest-neighbor,random subsampling,minmax,0.07256079999996246,7
+varied,k-nearest-neighbor,random subsampling,minmax,0.07825250000001915,8
+varied,k-nearest-neighbor,random subsampling,minmax,0.0653776999999991,9
+varied,k-nearest-neighbor,random subsampling,minmax,0.06645099999997228,10
+varied,k-nearest-neighbor,random subsampling,zscore,0.06877459999998337,1
+varied,k-nearest-neighbor,random subsampling,zscore,0.06747860000001538,2
+varied,k-nearest-neighbor,random subsampling,zscore,0.06893129999997427,3
+varied,k-nearest-neighbor,random subsampling,zscore,0.06977619999997842,4
+varied,k-nearest-neighbor,random subsampling,zscore,0.06970940000002201,5
+varied,k-nearest-neighbor,random subsampling,zscore,0.06590090000003102,6
+varied,k-nearest-neighbor,random subsampling,zscore,0.06771770000000288,7
+varied,k-nearest-neighbor,random subsampling,zscore,0.06716560000000982,8
+varied,k-nearest-neighbor,random subsampling,zscore,0.06514310000000023,9
+varied,k-nearest-neighbor,random subsampling,zscore,0.06598189999999704,10
+varied,naive bayes,kfold,unnormalized,0.020781900000031328,1
+varied,naive bayes,kfold,unnormalized,0.020892899999978454,2
+varied,naive bayes,kfold,unnormalized,0.020927000000028784,3
+varied,naive bayes,kfold,unnormalized,0.020386099999996077,4
+varied,naive bayes,kfold,unnormalized,0.020928700000013123,5
+varied,naive bayes,kfold,unnormalized,0.021654600000033497,6
+varied,naive bayes,kfold,unnormalized,0.020685500000013235,7
+varied,naive bayes,kfold,unnormalized,0.020921700000030796,8
+varied,naive bayes,kfold,unnormalized,0.020781499999998232,9
+varied,naive bayes,kfold,unnormalized,0.020990199999971537,10
+varied,naive bayes,kfold,minmax,0.021163500000000113,1
+varied,naive bayes,kfold,minmax,0.021161000000006425,2
+varied,naive bayes,kfold,minmax,0.021023200000001907,3
+varied,naive bayes,kfold,minmax,0.021844699999974182,4
+varied,naive bayes,kfold,minmax,0.02176150000002508,5
+varied,naive bayes,kfold,minmax,0.022117699999967044,6
+varied,naive bayes,kfold,minmax,0.02264279999997143,7
+varied,naive bayes,kfold,minmax,0.021765999999956875,8
+varied,naive bayes,kfold,minmax,0.02243959999998424,9
+varied,naive bayes,kfold,minmax,0.02206300000000283,10
+varied,naive bayes,kfold,zscore,0.022483800000031806,1
+varied,naive bayes,kfold,zscore,0.022732099999984712,2
+varied,naive bayes,kfold,zscore,0.022584499999993568,3
+varied,naive bayes,kfold,zscore,0.0213315000000307,4
+varied,naive bayes,kfold,zscore,0.0221180000000345,5
+varied,naive bayes,kfold,zscore,0.021446099999991475,6
+varied,naive bayes,kfold,zscore,0.021828300000038325,7
+varied,naive bayes,kfold,zscore,0.022271900000021105,8
+varied,naive bayes,kfold,zscore,0.022232800000040243,9
+varied,naive bayes,kfold,zscore,0.022561199999984183,10
+varied,decision tree,kfold,unnormalized,0.022895100000027924,1
+varied,decision tree,kfold,unnormalized,0.02312699999998813,2
+varied,decision tree,kfold,unnormalized,0.022754299999974137,3
+varied,decision tree,kfold,unnormalized,0.022696499999995012,4
+varied,decision tree,kfold,unnormalized,0.022163999999975204,5
+varied,decision tree,kfold,unnormalized,0.021973599999967064,6
+varied,decision tree,kfold,unnormalized,0.021412699999984852,7
+varied,decision tree,kfold,unnormalized,0.021112600000037673,8
+varied,decision tree,kfold,unnormalized,0.021552100000008068,9
+varied,decision tree,kfold,unnormalized,0.021435300000007373,10
+varied,decision tree,kfold,minmax,0.02150320000004058,1
+varied,decision tree,kfold,minmax,0.021744299999966188,2
+varied,decision tree,kfold,minmax,0.02259550000002264,3
+varied,decision tree,kfold,minmax,0.024517800000012357,4
+varied,decision tree,kfold,minmax,0.024324499999977434,5
+varied,decision tree,kfold,minmax,0.02383199999997032,6
+varied,decision tree,kfold,minmax,0.024016300000027968,7
+varied,decision tree,kfold,minmax,0.023906000000010863,8
+varied,decision tree,kfold,minmax,0.023912899999970705,9
+varied,decision tree,kfold,minmax,0.02324500000003127,10
+varied,decision tree,kfold,zscore,0.023493299999984174,1
+varied,decision tree,kfold,zscore,0.023539500000026692,2
+varied,decision tree,kfold,zscore,0.02381919999999127,3
+varied,decision tree,kfold,zscore,0.02392680000002656,4
+varied,decision tree,kfold,zscore,0.023751099999969938,5
+varied,decision tree,kfold,zscore,0.023816799999963223,6
+varied,decision tree,kfold,zscore,0.023956900000030146,7
+varied,decision tree,kfold,zscore,0.02384829999999738,8
+varied,decision tree,kfold,zscore,0.02379719999998997,9
+varied,decision tree,kfold,zscore,0.023630500000024313,10
+varied,support vector machine,kfold,unnormalized,0.04391950000001543,1
+varied,support vector machine,kfold,unnormalized,0.04229699999996228,2
+varied,support vector machine,kfold,unnormalized,0.04355759999998554,3
+varied,support vector machine,kfold,unnormalized,0.043207900000027166,4
+varied,support vector machine,kfold,unnormalized,0.04355320000001939,5
+varied,support vector machine,kfold,unnormalized,0.04319759999998496,6
+varied,support vector machine,kfold,unnormalized,0.043034199999965494,7
+varied,support vector machine,kfold,unnormalized,0.04344290000000228,8
+varied,support vector machine,kfold,unnormalized,0.04245109999999386,9
+varied,support vector machine,kfold,unnormalized,0.04429670000001806,10
+varied,support vector machine,kfold,minmax,0.046621899999991,1
+varied,support vector machine,kfold,minmax,0.04740500000002612,2
+varied,support vector machine,kfold,minmax,0.04778399999997873,3
+varied,support vector machine,kfold,minmax,0.04863149999999905,4
+varied,support vector machine,kfold,minmax,0.04795109999997749,5
+varied,support vector machine,kfold,minmax,0.0473168000000328,6
+varied,support vector machine,kfold,minmax,0.04760140000001911,7
+varied,support vector machine,kfold,minmax,0.04690460000000485,8
+varied,support vector machine,kfold,minmax,0.04528819999995903,9
+varied,support vector machine,kfold,minmax,0.043558200000006764,10
+varied,support vector machine,kfold,zscore,0.04417200000000321,1
+varied,support vector machine,kfold,zscore,0.04417119999999386,2
+varied,support vector machine,kfold,zscore,0.04414349999996148,3
+varied,support vector machine,kfold,zscore,0.045455699999990884,4
+varied,support vector machine,kfold,zscore,0.04620599999998376,5
+varied,support vector machine,kfold,zscore,0.04637790000003861,6
+varied,support vector machine,kfold,zscore,0.046279500000025564,7
+varied,support vector machine,kfold,zscore,0.04626780000000963,8
+varied,support vector machine,kfold,zscore,0.044078700000000026,9
+varied,support vector machine,kfold,zscore,0.04360080000003563,10
+varied,artificial neural networks,kfold,unnormalized,0.5716369999999529,1
+varied,artificial neural networks,kfold,unnormalized,0.6030726000000186,2
+varied,artificial neural networks,kfold,unnormalized,0.6141264999999976,3
+varied,artificial neural networks,kfold,unnormalized,0.5879153000000201,4
+varied,artificial neural networks,kfold,unnormalized,0.5882732000000033,5
+varied,artificial neural networks,kfold,unnormalized,0.5874354000000039,6
+varied,artificial neural networks,kfold,unnormalized,0.5749245999999744,7
+varied,artificial neural networks,kfold,unnormalized,0.5834615999999642,8
+varied,artificial neural networks,kfold,unnormalized,0.578942799999993,9
+varied,artificial neural networks,kfold,unnormalized,0.5787329999999997,10
+varied,artificial neural networks,kfold,minmax,0.6599116000000436,1
+varied,artificial neural networks,kfold,minmax,0.6443752999999788,2
+varied,artificial neural networks,kfold,minmax,0.6497320000000286,3
+varied,artificial neural networks,kfold,minmax,0.6890065999999706,4
+varied,artificial neural networks,kfold,minmax,0.6995476000000167,5
+varied,artificial neural networks,kfold,minmax,0.6957825000000071,6
+varied,artificial neural networks,kfold,minmax,0.6675577999999973,7
+varied,artificial neural networks,kfold,minmax,0.671936799999969,8
+varied,artificial neural networks,kfold,minmax,0.6801138000000151,9
+varied,artificial neural networks,kfold,minmax,0.6823064999999815,10
+varied,artificial neural networks,kfold,zscore,0.6128476000000092,1
+varied,artificial neural networks,kfold,zscore,0.6394516000000294,2
+varied,artificial neural networks,kfold,zscore,0.631647399999963,3
+varied,artificial neural networks,kfold,zscore,0.6271467999999913,4
+varied,artificial neural networks,kfold,zscore,0.6164367000000084,5
+varied,artificial neural networks,kfold,zscore,0.6150208999999904,6
+varied,artificial neural networks,kfold,zscore,0.6412475999999856,7
+varied,artificial neural networks,kfold,zscore,0.6025965999999698,8
+varied,artificial neural networks,kfold,zscore,0.6232625999999755,9
+varied,artificial neural networks,kfold,zscore,0.6593363000000068,10
+varied,k-nearest-neighbor,kfold,unnormalized,0.10475180000003093,1
+varied,k-nearest-neighbor,kfold,unnormalized,0.10397690000002058,2
+varied,k-nearest-neighbor,kfold,unnormalized,0.1006752999999776,3
+varied,k-nearest-neighbor,kfold,unnormalized,0.11999080000003914,4
+varied,k-nearest-neighbor,kfold,unnormalized,0.11989650000003849,5
+varied,k-nearest-neighbor,kfold,unnormalized,0.10873449999996865,6
+varied,k-nearest-neighbor,kfold,unnormalized,0.10863149999994448,7
+varied,k-nearest-neighbor,kfold,unnormalized,0.12303339999999707,8
+varied,k-nearest-neighbor,kfold,unnormalized,0.1038424000000191,9
+varied,k-nearest-neighbor,kfold,unnormalized,0.10610640000004423,10
+varied,k-nearest-neighbor,kfold,minmax,0.1070842999999968,1
+varied,k-nearest-neighbor,kfold,minmax,0.11620820000001686,2
+varied,k-nearest-neighbor,kfold,minmax,0.12398220000000038,3
+varied,k-nearest-neighbor,kfold,minmax,0.12543170000003556,4
+varied,k-nearest-neighbor,kfold,minmax,0.12275959999999486,5
+varied,k-nearest-neighbor,kfold,minmax,0.11347760000001017,6
+varied,k-nearest-neighbor,kfold,minmax,0.10965549999997393,7
+varied,k-nearest-neighbor,kfold,minmax,0.1093038000000206,8
+varied,k-nearest-neighbor,kfold,minmax,0.1131975000000125,9
+varied,k-nearest-neighbor,kfold,minmax,0.11208449999998038,10
+varied,k-nearest-neighbor,kfold,zscore,0.11565980000000309,1
+varied,k-nearest-neighbor,kfold,zscore,0.10810839999999189,2
+varied,k-nearest-neighbor,kfold,zscore,0.10789369999997689,3
+varied,k-nearest-neighbor,kfold,zscore,0.10857640000000401,4
+varied,k-nearest-neighbor,kfold,zscore,0.10503619999997227,5
+varied,k-nearest-neighbor,kfold,zscore,0.11004720000005364,6
+varied,k-nearest-neighbor,kfold,zscore,0.10823199999998678,7
+varied,k-nearest-neighbor,kfold,zscore,0.10395109999996066,8
+varied,k-nearest-neighbor,kfold,zscore,0.11413659999999481,9
+varied,k-nearest-neighbor,kfold,zscore,0.12013540000003786,10
+varied,naive bayes,leave-one-out,unnormalized,0.6104301999999961,1
+varied,naive bayes,leave-one-out,unnormalized,0.6073678999999856,2
+varied,naive bayes,leave-one-out,unnormalized,0.6272592999999915,3
+varied,naive bayes,leave-one-out,unnormalized,0.5791805999999724,4
+varied,naive bayes,leave-one-out,unnormalized,0.5708103000000051,5
+varied,naive bayes,leave-one-out,unnormalized,0.5901746999999773,6
+varied,naive bayes,leave-one-out,unnormalized,0.611372499999959,7
+varied,naive bayes,leave-one-out,unnormalized,0.5990689000000202,8
+varied,naive bayes,leave-one-out,unnormalized,0.5981318999999985,9
+varied,naive bayes,leave-one-out,unnormalized,0.5987722999999505,10
+varied,naive bayes,leave-one-out,minmax,0.591805700000009,1
+varied,naive bayes,leave-one-out,minmax,0.5864444000000049,2
+varied,naive bayes,leave-one-out,minmax,0.6163556000000199,3
+varied,naive bayes,leave-one-out,minmax,0.7030969000000482,4
+varied,naive bayes,leave-one-out,minmax,0.6254455999999777,5
+varied,naive bayes,leave-one-out,minmax,0.6215038999999933,6
+varied,naive bayes,leave-one-out,minmax,0.6059540999999626,7
+varied,naive bayes,leave-one-out,minmax,0.6152855999999929,8
+varied,naive bayes,leave-one-out,minmax,0.6015939000000117,9
+varied,naive bayes,leave-one-out,minmax,0.6189496999999733,10
+varied,naive bayes,leave-one-out,zscore,0.5954025000000343,1
+varied,naive bayes,leave-one-out,zscore,0.6226666000000023,2
+varied,naive bayes,leave-one-out,zscore,0.5937093999999661,3
+varied,naive bayes,leave-one-out,zscore,0.5922868000000108,4
+varied,naive bayes,leave-one-out,zscore,0.6039116999999692,5
+varied,naive bayes,leave-one-out,zscore,0.6092455000000427,6
+varied,naive bayes,leave-one-out,zscore,0.6402515999999991,7
+varied,naive bayes,leave-one-out,zscore,0.5982424000000037,8
+varied,naive bayes,leave-one-out,zscore,0.5854454999999916,9
+varied,naive bayes,leave-one-out,zscore,0.5911833000000115,10
+varied,decision tree,leave-one-out,unnormalized,0.640570700000012,1
+varied,decision tree,leave-one-out,unnormalized,0.6421736000000351,2
+varied,decision tree,leave-one-out,unnormalized,0.6538319000000001,3
+varied,decision tree,leave-one-out,unnormalized,0.6431855999999812,4
+varied,decision tree,leave-one-out,unnormalized,0.6704182999999944,5
+varied,decision tree,leave-one-out,unnormalized,0.7036029000000212,6
+varied,decision tree,leave-one-out,unnormalized,0.6805163000000221,7
+varied,decision tree,leave-one-out,unnormalized,0.6413354999999683,8
+varied,decision tree,leave-one-out,unnormalized,0.6519852000000128,9
+varied,decision tree,leave-one-out,unnormalized,0.6438261999999781,10
+varied,decision tree,leave-one-out,minmax,0.6552626000000146,1
+varied,decision tree,leave-one-out,minmax,0.6402743000000441,2
+varied,decision tree,leave-one-out,minmax,0.6514136000000121,3
+varied,decision tree,leave-one-out,minmax,0.6365258000000154,4
+varied,decision tree,leave-one-out,minmax,0.6330245000000332,5
+varied,decision tree,leave-one-out,minmax,0.6515868999999839,6
+varied,decision tree,leave-one-out,minmax,0.646062900000004,7
+varied,decision tree,leave-one-out,minmax,0.6494259000000397,8
+varied,decision tree,leave-one-out,minmax,0.6673947999999541,9
+varied,decision tree,leave-one-out,minmax,0.6580968000000098,10
+varied,decision tree,leave-one-out,zscore,0.6556363999999917,1
+varied,decision tree,leave-one-out,zscore,0.6465258999999719,2
+varied,decision tree,leave-one-out,zscore,0.6555303000000094,3
+varied,decision tree,leave-one-out,zscore,0.652681800000039,4
+varied,decision tree,leave-one-out,zscore,0.649322600000005,5
+varied,decision tree,leave-one-out,zscore,0.6610450000000014,6
+varied,decision tree,leave-one-out,zscore,0.6503367999999909,7
+varied,decision tree,leave-one-out,zscore,0.6655557999999928,8
+varied,decision tree,leave-one-out,zscore,0.6502649999999903,9
+varied,decision tree,leave-one-out,zscore,0.655288100000007,10
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.014235500000040702,1
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.012693600000034166,2
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.01288249999998925,3
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.01206420000005437,4
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.012395799999978863,5
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.012738400000046113,6
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.012828800000022511,7
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.012709500000028129,8
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.012171399999999721,9
+varied,k-nearest-neighbor,leave-one-out,unnormalized,0.01226379999997107,10
+varied,k-nearest-neighbor,leave-one-out,minmax,0.012502400000016678,1
+varied,k-nearest-neighbor,leave-one-out,minmax,0.013067100000000664,2
+varied,k-nearest-neighbor,leave-one-out,minmax,0.01284010000000535,3
+varied,k-nearest-neighbor,leave-one-out,minmax,0.012776599999995142,4
+varied,k-nearest-neighbor,leave-one-out,minmax,0.013055000000008476,5
+varied,k-nearest-neighbor,leave-one-out,minmax,0.01226859999997032,6
+varied,k-nearest-neighbor,leave-one-out,minmax,0.012715000000014243,7
+varied,k-nearest-neighbor,leave-one-out,minmax,0.01337600000005068,8
+varied,k-nearest-neighbor,leave-one-out,minmax,0.012724499999990257,9
+varied,k-nearest-neighbor,leave-one-out,minmax,0.012971600000014405,10
+varied,k-nearest-neighbor,leave-one-out,zscore,0.012742500000001655,1
+varied,k-nearest-neighbor,leave-one-out,zscore,0.01303229999996347,2
+varied,k-nearest-neighbor,leave-one-out,zscore,0.013720900000009806,3
+varied,k-nearest-neighbor,leave-one-out,zscore,0.013527100000032988,4
+varied,k-nearest-neighbor,leave-one-out,zscore,0.013441499999998996,5
+varied,k-nearest-neighbor,leave-one-out,zscore,0.014006300000005467,6
+varied,k-nearest-neighbor,leave-one-out,zscore,0.013846399999977166,7
+varied,k-nearest-neighbor,leave-one-out,zscore,0.012708400000008169,8
+varied,k-nearest-neighbor,leave-one-out,zscore,0.013565000000028249,9
+varied,k-nearest-neighbor,leave-one-out,zscore,0.013794899999993504,10

@@ -20,11 +20,12 @@ from ml_comparison.classifiers import (
     classify_loo,
     classify_loo_knn,
     ClassificationResult,
-    sort_by_cost,
+    rank_results,
+    get_results_with_same_scores,
+    get_decimal_places,
     format_combination,
     display_selected_combos,
-    calculate_cost,
-    rank_results,
+    get_cost_tier,
     display_combinations_heading,
     combination_headings,
     accuracy_to_percent,
@@ -41,6 +42,8 @@ results_unique_scores = [
         normalization_method="minmax",
         dataset="blobs",
         score=97.18,
+        cost_tier=1,
+        runtime=0.142,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -48,6 +51,8 @@ results_unique_scores = [
         normalization_method="unnormalized",
         dataset="blobs",
         score=95.58,
+        cost_tier=1,
+        runtime=0.132,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -55,13 +60,17 @@ results_unique_scores = [
         normalization_method="zscore",
         dataset="blobs",
         score=96.23,
+        cost_tier=2,
+        runtime=0.481,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
         evaluation_method="random subsampling",
-        normalization_method="unnormalized",
+        normalization_method="minmax",
         dataset="blobs",
         score=91.37,
+        cost_tier=2,
+        runtime=0.517,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -69,6 +78,8 @@ results_unique_scores = [
         normalization_method="unnormalized",
         dataset="blobs",
         score=100.00,
+        cost_tier=2,
+        runtime=0.123,
     ),
 ]
 
@@ -81,11 +92,20 @@ results_recurring_scores = [
         score=97.19,
     ),
     ClassificationResult(
+        classifier_name="artificial neural networks",
+        evaluation_method="random subsampling",
+        normalization_method="zscore",
+        dataset="blobs",
+        score=94.12,
+        runtime=0.75846,
+    ),
+    ClassificationResult(
         classifier_name="naive bayes",
         evaluation_method="holdout",
         normalization_method="unnormalized",
         dataset="blobs",
         score=94.12,
+        runtime=0.27153,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -93,6 +113,7 @@ results_recurring_scores = [
         normalization_method="zscore",
         dataset="blobs",
         score=94.12,
+        runtime=0.27178,
     ),
     ClassificationResult(
         classifier_name="naive bayes",
@@ -265,7 +286,6 @@ def test_classify(
     mock_dict = mocker.patch("ml_comparison.classifiers.evaluation_methods")
     clf = classifier_map[clf_name]
     X, y = datasets_dict[current_dataset]
-    result_lst = []
     classify(
         clf,
         clf_name,
@@ -274,7 +294,6 @@ def test_classify(
         current_dataset,
         normalization_method,
         evaluation_method,
-        result_lst,
     )
     if clf_name != "k-nearest-neighbor":
         mock_dict[evaluation_method][0].assert_called_once()
@@ -300,6 +319,8 @@ def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
+    mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
+    mock_get_cost_tier.return_value = 2
     run_classifier(X, y, current_dataset, "all", "all", "all")
     clfs = list(classifier_map)
     norm_methods = list(normalization_methods)
@@ -330,6 +351,8 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
+    mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
+    mock_get_cost_tier.return_value = 2
     run_classifier(X, y, current_dataset, "all", "all", evaluation_method)
 
     clfs = list(classifier_map)
@@ -396,6 +419,8 @@ def test_run_classifier_one_classifier_all_normalization(
     normalization_method = "all"
     original_X, y = datasets_dict[current_dataset]
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
+    mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
+    mock_get_cost_tier.return_value = 2
     norm_methods = list(normalization_methods)
     run_classifier(
         original_X,
@@ -427,6 +452,8 @@ def test_run_classifier_all_classifiers_one_normalization(
     current_dataset, normalization_method, evaluation_method, mocker
 ):
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
+    mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
+    mock_get_cost_tier.return_value = 2
     classifier = "all"
     original_X, y = datasets_dict[current_dataset]
     run_classifier(
@@ -454,22 +481,20 @@ def test_run_classifier_all_classifiers_one_normalization(
         )
 
 
-def test_calculate_cost():
-    result = results_unique_scores[1]
-    cost_of_result = calculate_cost(result)
-    assert cost_of_result == 2
+def test_get_cost_tier():
+    result = results_unique_scores[4]
+    cost_tier = get_cost_tier(result)
+    assert cost_tier == 2
 
 
-def test_sort_by_cost():
-    results_with_costs = results_recurring_scores.copy()
-    results_with_costs[1].cost = 2
-    results_with_costs[2].cost = 5
-    sorted_results = sort_by_cost(results_recurring_scores)
+def test_rank_results_by_runtime():
+    sorted_results = rank_results(results_recurring_scores)
     assert sorted_results == [
-        results_with_costs[0],
-        results_with_costs[3],
-        results_with_costs[1],
-        results_with_costs[2],
+        results_recurring_scores[0],
+        results_recurring_scores[4],
+        results_recurring_scores[2],
+        results_recurring_scores[3],
+        results_recurring_scores[1],
     ]
 
 
@@ -500,14 +525,33 @@ def test_display_combinations_heading_only():
     assert heading == combination_headings["only"]
 
 
+def test_get_results_with_same_scores():
+    results = get_results_with_same_scores(results_recurring_scores)
+    expected_results = {
+        94.12: [
+            results_recurring_scores[1],
+            results_recurring_scores[2],
+            results_recurring_scores[3],
+        ]
+    }
+    assert results == expected_results
+
+
+def test_get_decimal_places():
+    decimal_places = get_decimal_places(
+        result=results_recurring_scores[2],
+        tied_results=[
+            results_recurring_scores[1],
+            results_recurring_scores[2],
+            results_recurring_scores[3],
+        ],
+        decimals=3,
+    )
+    assert decimal_places == 4
+
+
 def test_format_combination():
     format_combination(results_unique_scores)
-
-
-def test_rank_results_with_recurring_scores(mocker):
-    mock_sort_by_cost = mocker.patch("ml_comparison.classifiers.sort_by_cost")
-    rank_results(results_recurring_scores)
-    mock_sort_by_cost.assert_called_once()
 
 
 def test_rank_results_with_unique_scores():
