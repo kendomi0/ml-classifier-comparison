@@ -4,6 +4,7 @@ import pandas as pd
 if TYPE_CHECKING:
     from ml_comparison.classifiers import ClassificationResult
 
+
 def get_cost_tier(result: ClassificationResult):
     result_costs = pd.read_csv("ml_comparison/cost_calculations/results_with_costs.csv")
     return result_costs.loc[

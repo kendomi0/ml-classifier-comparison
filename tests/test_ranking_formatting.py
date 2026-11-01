@@ -100,10 +100,12 @@ results_recurring_scores = [
     ),
 ]
 
+
 def test_convert_percentage():
     score = 73.5
     converted_percentage = format_percent(score)
     assert converted_percentage == "73.50%"
+
 
 def test_rank_results_by_runtime():
     sorted_results = rank_results(results_recurring_scores)

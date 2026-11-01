@@ -1,6 +1,7 @@
 from ml_comparison.cost_calculations.cost_tiers import get_cost_tier
 from ml_comparison.classifiers import ClassificationResult
 
+
 def test_get_cost_tier():
     result = ClassificationResult(
         classifier_name="naive bayes",

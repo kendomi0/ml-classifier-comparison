@@ -15,6 +15,7 @@ combination_headings = {
 def format_percent(percent):
     return f"{percent:.2f}%"
 
+
 def rank_results(results):
     ranked_results = sorted(results, key=lambda result: (-result.score, result.runtime))
     return ranked_results

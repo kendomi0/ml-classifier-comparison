@@ -26,6 +26,7 @@ from ml_comparison.data import datasets_dict
 
 disabled_loo_choices = ["artificial neural networks", "support vector machine"]
 
+
 def test_get_best():
     test_dict = {"Anna": 91, "Jenna": 76, "Lucy": 100, "Joe": 67}
     best_name, best_score = get_best(test_dict)
