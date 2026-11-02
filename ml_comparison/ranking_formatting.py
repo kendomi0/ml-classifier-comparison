@@ -1,7 +1,20 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
+from dataclasses import dataclass
+from ml_comparison.cost_calculations.cost_tiers import get_cost_tier
 
 if TYPE_CHECKING:
     from ml_comparison.classifiers import ClassificationResult
+
+@dataclass
+class FormattedResult:
+    dataset: str
+    evaluation_method: str
+    classifier: str
+    normalization_method: str
+    formatted_score: str
+    cost_tier: int
+    formatted_runtime: str
+    ranking: Optional[int] = None
 
 
 combination_headings = {
@@ -16,9 +29,19 @@ def format_percent(percent):
     return f"{percent:.2f}%"
 
 
+def get_given_results(results, number_of_combinations):
+    return results[:number_of_combinations]
+
+
 def rank_results(results):
     ranked_results = sorted(results, key=lambda result: (-result.score, result.runtime))
     return ranked_results
+
+
+def get_given_ranked_results(results, number_of_combinations):
+    ranked_results = rank_results(results)
+    given_ranked_results = get_given_results(ranked_results, number_of_combinations)
+    return given_ranked_results
 
 
 def display_combinations_heading(results, number_of_combos):
@@ -60,8 +83,15 @@ def get_decimal_places(result: ClassificationResult, tied_results: list, decimal
     return decimals
 
 
-def format_combination(results):
-    combos = []
+def get_table_headers(number_of_combinations):
+    headers = ["Dataset", "Evaluation Method", "Classifier", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"]
+    if number_of_combinations > 1:
+        headers.insert(0, "Ranking")
+    return headers
+
+def format_results(results: list[ClassificationResult], number_of_combinations):
+    results = get_given_ranked_results(results, number_of_combinations)
+    formatted_results = []
     results_with_duplicate_scores = get_results_with_same_scores(results)
     for index, result in enumerate(results):
         decimal_places = 3
@@ -71,29 +101,15 @@ def format_combination(results):
                 tied_results=results_with_duplicate_scores[result.score],
                 decimals=decimal_places,
             )
-        formatted_score = format_percent(result.score)
-        print_kfold_value = ""
-        if result.kfold_value is not None:
-            print_kfold_value = f" (Kfold Value: {result.kfold_value})"
-        print_knn_value = ""
-        if result.knn_value is not None:
-            print_knn_value = f" (KNN Value: {result.knn_value})"
-        display = f"{result.dataset.title()} ⋅ {result.classifier_name.title()}{print_knn_value} ⋅ {result.evaluation_method.title()}{print_kfold_value} ⋅ {result.normalization_method.title()} |  Accuracy: {formatted_score} ⋅ Runtime: {result.runtime:.{decimal_places}f} seconds ⋅ Computational Cost Tier: {result.cost_tier}"
-        if len(results) > 1:
-            display = f"#{index+1}: {display}"
-        combos.append(display)
-    return combos
-
-
-def display_selected_combos(results, number_of_combos):
-    heading = display_combinations_heading(results, number_of_combos)
-    combinations = []
-    if len(results) == 1:
-        combinations = format_combination(results)
-    else:
-        ranked_results = rank_results(results)
-        if number_of_combos == 1:
-            combinations = format_combination(ranked_results[:1])
-        else:
-            combinations = format_combination(ranked_results[:number_of_combos])
-    return heading, combinations
+        formatted_result = FormattedResult(
+            dataset=result.dataset.title(),
+            evaluation_method=result.evaluation_method.title(),
+            classifier=result.classifier_name.title(),
+            normalization_method=result.normalization_method.title(),
+            formatted_score=format_percent(result.score),
+            cost_tier=get_cost_tier(result), # type: ignore
+            formatted_runtime=f"{result.runtime:.{decimal_places}f}",
+            ranking=index+1
+        )
+        formatted_results.append(formatted_result)
+    return formatted_results

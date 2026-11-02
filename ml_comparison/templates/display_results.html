@@ -14,11 +14,25 @@
             <p class="text-center text-lg tracking-wide italic">
                 Computational cost tiers range from Tier 1 (lowest cost) to Tier 4 (highest cost), and are relative to the specific dataset.
             </p>
-            <ul class="text-xl text-center flex-col gap-3">
-                {% for combo in combinations %}
-                <li>{{ combo }}</li>
+            <table class="text-xl text-center flex-col gap-3">
+                {% for header in table_headers %}
+                <th>{{ header }}</th>
                 {% endfor %}
-            </ul>
+                {% for combo in combinations %}
+                <tr>
+                    {% if number_of_combinations > 1 %}
+                    <td>{{ combo.ranking }}</td>
+                    {% endif %}
+                    <td>{{ combo.dataset }}</td>
+                    <td>{{ combo.evaluation_method }}</td>
+                    <td>{{ combo.classifier }}</td>
+                    <td>{{ combo.normalization_method }}</td>
+                    <td>{{ combo.formatted_score }}</td>
+                    <td>{{ combo.formatted_runtime }}</td>
+                    <td>{{ combo.cost_tier }}</td>
+                </tr>
+                {% endfor %}
+            </table>
             <p class="text-center text-lg tracking-wide italic">
                 Runtimes are rounded to 3 decimal places by default, unless more precision is needed to differentiate it from others as a tiebreaker.
             </p>
