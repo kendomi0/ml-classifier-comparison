@@ -86,6 +86,7 @@ def get_decimal_places(result: ClassificationResult, tied_results: list, decimal
 def get_table_headers(number_of_combinations):
     headers = ["Dataset", "Evaluation Method", "Classifier", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"]
     if number_of_combinations > 1:
+        headers = [item for item in headers if item not in ["Dataset", "Evaluation Method"]]
         headers.insert(0, "Ranking")
     return headers
 

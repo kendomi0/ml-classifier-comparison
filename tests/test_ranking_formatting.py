@@ -191,7 +191,7 @@ def test_rank_results_with_unique_scores():
 @pytest.mark.parametrize(
     "number_of_combinations, expected_headers", 
     [
-        (3, ["Ranking", "Dataset", "Evaluation Method", "Classifier", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"]),
+        (3, ["Ranking", "Classifier", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"]),
         (1, ["Dataset", "Evaluation Method", "Classifier", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"])
     ]
 

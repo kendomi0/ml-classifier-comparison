@@ -11,6 +11,10 @@
             <p class="text-center text-4xl tracking-tight">
                 {{ heading }}
             </p>
+            {% if number_of_combinations > 1 %}
+            <p class="text-center capitalize"><span class="font-bold">Dataset:</span> {{ dataset }}</p>
+            <p class="text-center capitalize"><span class="font-bold">Evaluation Method:</span> {{ combinations[0].evaluation_method }}</p>
+            {% endif %}
             <p class="text-center text-lg tracking-wide italic">
                 Computational cost tiers range from Tier 1 (lowest cost) to Tier 4 (highest cost), and are relative to the specific dataset.
             </p>
@@ -23,8 +27,10 @@
                     {% if number_of_combinations > 1 %}
                     <td>{{ combo.ranking }}</td>
                     {% endif %}
+                    {% if number_of_combinations == 1 %}
                     <td>{{ combo.dataset }}</td>
-                    <td>{{ combo.evaluation_method }}</td>
+                    <td>{{ combo.evaluation_method }} </td>
+                    {% endif %}
                     <td>{{ combo.classifier }}</td>
                     <td>{{ combo.normalization_method }}</td>
                     <td>{{ combo.formatted_score }}</td>
