@@ -83,12 +83,31 @@ def get_decimal_places(result: ClassificationResult, tied_results: list, decimal
     return decimals
 
 
-def get_table_headers(number_of_combinations):
+def get_table_headers(number_of_combinations, show_classifier, show_normalization):
     headers = ["Dataset", "Evaluation Method", "Classifier", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"]
     if number_of_combinations > 1:
         headers = [item for item in headers if item not in ["Dataset", "Evaluation Method"]]
         headers.insert(0, "Ranking")
+    if not show_classifier:
+        headers.remove("Classifier")
+    if not show_normalization:
+        headers.remove("Normalization Method")
     return headers
+
+
+def are_there_multiple_methods(results: list[ClassificationResult], method_type):
+    methods = [getattr(result, method_type) for result in results]
+    return len(set(methods)) > 1
+
+
+def show_method_as_table_header(results: list[ClassificationResult], method_type, number_of_combinations):
+    if number_of_combinations < 1:
+        raise ValueError("Number of combinations cannot be less than 1")
+    if number_of_combinations == 1:
+        return True
+    multiple_methods = are_there_multiple_methods(results, method_type)
+    return multiple_methods
+
 
 def format_results(results: list[ClassificationResult], number_of_combinations):
     results = get_given_ranked_results(results, number_of_combinations)
