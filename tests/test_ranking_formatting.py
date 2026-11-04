@@ -15,7 +15,7 @@ from ml_comparison.ranking_formatting import (
     get_given_ranked_results,
     are_there_multiple_methods,
     show_method_as_table_header,
-    FormattedResult
+    FormattedResult,
 )
 
 results_unique_scores = [
@@ -105,7 +105,7 @@ results_recurring_scores = [
         normalization_method="unnormalized",
         dataset="blobs",
         score=95.8,
-        runtime=0.1235
+        runtime=0.1235,
     ),
 ]
 
@@ -191,18 +191,73 @@ def test_rank_results_with_unique_scores():
 
 
 @pytest.mark.parametrize(
-    "number_of_combinations, show_classifier, show_normalization, expected_headers", 
+    "number_of_combinations, show_classifier, show_normalization, expected_headers",
     [
-        (3, True, True, ["Ranking", "Classifier", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"]),
-        (1, True, True, ["Dataset", "Evaluation Method", "Classifier", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"]),
-        (2, False, True, ["Ranking", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"]),
-        (4, True, False, ["Ranking", "Classifier", "Accuracy", "Runtime (s)", "Computational Cost Tier"]),
-        (5, False, False, ["Ranking", "Accuracy", "Runtime (s)", "Computational Cost Tier"]),
-    ]
-
+        (
+            3,
+            True,
+            True,
+            [
+                "Ranking",
+                "Classifier",
+                "Normalization Method",
+                "Accuracy",
+                "Runtime (s)",
+                "Computational Cost Tier",
+            ],
+        ),
+        (
+            1,
+            True,
+            True,
+            [
+                "Dataset",
+                "Evaluation Method",
+                "Classifier",
+                "Normalization Method",
+                "Accuracy",
+                "Runtime (s)",
+                "Computational Cost Tier",
+            ],
+        ),
+        (
+            2,
+            False,
+            True,
+            [
+                "Ranking",
+                "Normalization Method",
+                "Accuracy",
+                "Runtime (s)",
+                "Computational Cost Tier",
+            ],
+        ),
+        (
+            4,
+            True,
+            False,
+            [
+                "Ranking",
+                "Classifier",
+                "Accuracy",
+                "Runtime (s)",
+                "Computational Cost Tier",
+            ],
+        ),
+        (
+            5,
+            False,
+            False,
+            ["Ranking", "Accuracy", "Runtime (s)", "Computational Cost Tier"],
+        ),
+    ],
 )
-def test_get_table_headers(number_of_combinations, expected_headers, show_classifier, show_normalization):
-    headers = get_table_headers(number_of_combinations, show_classifier, show_normalization)
+def test_get_table_headers(
+    number_of_combinations, expected_headers, show_classifier, show_normalization
+):
+    headers = get_table_headers(
+        number_of_combinations, show_classifier, show_normalization
+    )
     assert headers == expected_headers
 
 
@@ -210,7 +265,7 @@ def test_format_results():
     results = [
         results_recurring_scores[0],
         results_recurring_scores[2],
-        results_recurring_scores[3]
+        results_recurring_scores[3],
     ]
     formatted_results = format_results(results, 3)
     assert formatted_results == [
@@ -222,7 +277,7 @@ def test_format_results():
             formatted_score="97.19%",
             cost_tier=1,
             formatted_runtime="0.493",
-            ranking=1
+            ranking=1,
         ),
         FormattedResult(
             dataset="Blobs",
@@ -232,7 +287,7 @@ def test_format_results():
             formatted_score="94.12%",
             cost_tier=1,
             formatted_runtime="0.2715",
-            ranking=2
+            ranking=2,
         ),
         FormattedResult(
             dataset="Blobs",
@@ -242,9 +297,10 @@ def test_format_results():
             formatted_score="94.12%",
             cost_tier=2,
             formatted_runtime="0.2718",
-            ranking=3
-        )
+            ranking=3,
+        ),
     ]
+
 
 def test_get_given_results():
     given_results = get_given_results(results_unique_scores, 2)
@@ -252,6 +308,7 @@ def test_get_given_results():
         results_unique_scores[0],
         results_unique_scores[1],
     ]
+
 
 def test_get_given_ranked_results():
     results = get_given_ranked_results(results_unique_scores, 3)
@@ -261,15 +318,23 @@ def test_get_given_ranked_results():
         results_unique_scores[2],
     ]
 
+
 @pytest.mark.parametrize(
-    "results, method_type, expected_value", 
+    "results, method_type, expected_value",
     [
         (results_unique_scores, "evaluation_method", True),
         (results_recurring_scores, "normalization_method", True),
-        ([results_unique_scores[0], results_unique_scores[1]], "evaluation_method", False),
-        ([results_unique_scores[0], results_unique_scores[3]], "normalization_method", False)
-    ]
-
+        (
+            [results_unique_scores[0], results_unique_scores[1]],
+            "evaluation_method",
+            False,
+        ),
+        (
+            [results_unique_scores[0], results_unique_scores[3]],
+            "normalization_method",
+            False,
+        ),
+    ],
 )
 def test_are_there_multiple_methods(results, method_type, expected_value):
     multiple_evaluation_methods = are_there_multiple_methods(results, method_type)
@@ -277,15 +342,28 @@ def test_are_there_multiple_methods(results, method_type, expected_value):
 
 
 @pytest.mark.parametrize(
-    "results, method_type, number_of_combinations, expected_value", 
+    "results, method_type, number_of_combinations, expected_value",
     [
         (results_unique_scores, "evaluation_method", 5, True),
         (results_recurring_scores, "normalization_method", 5, True),
-        ([results_unique_scores[0], results_unique_scores[1]], "evaluation_method", 1, True),
-        ([results_unique_scores[0], results_unique_scores[3]], "normalization_method", 2, False)
-    ]
-
+        (
+            [results_unique_scores[0], results_unique_scores[1]],
+            "evaluation_method",
+            1,
+            True,
+        ),
+        (
+            [results_unique_scores[0], results_unique_scores[3]],
+            "normalization_method",
+            2,
+            False,
+        ),
+    ],
 )
-def test_show_method_as_table_header(results, method_type, number_of_combinations, expected_value):
-    show_method = show_method_as_table_header(results, method_type, number_of_combinations)
+def test_show_method_as_table_header(
+    results, method_type, number_of_combinations, expected_value
+):
+    show_method = show_method_as_table_header(
+        results, method_type, number_of_combinations
+    )
     assert show_method is expected_value

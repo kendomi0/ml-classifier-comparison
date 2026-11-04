@@ -5,6 +5,7 @@ from ml_comparison.cost_calculations.cost_tiers import get_cost_tier
 if TYPE_CHECKING:
     from ml_comparison.classifiers import ClassificationResult
 
+
 @dataclass
 class FormattedResult:
     dataset: str
@@ -84,9 +85,19 @@ def get_decimal_places(result: ClassificationResult, tied_results: list, decimal
 
 
 def get_table_headers(number_of_combinations, show_classifier, show_normalization):
-    headers = ["Dataset", "Evaluation Method", "Classifier", "Normalization Method", "Accuracy", "Runtime (s)", "Computational Cost Tier"]
+    headers = [
+        "Dataset",
+        "Evaluation Method",
+        "Classifier",
+        "Normalization Method",
+        "Accuracy",
+        "Runtime (s)",
+        "Computational Cost Tier",
+    ]
     if number_of_combinations > 1:
-        headers = [item for item in headers if item not in ["Dataset", "Evaluation Method"]]
+        headers = [
+            item for item in headers if item not in ["Dataset", "Evaluation Method"]
+        ]
         headers.insert(0, "Ranking")
     if not show_classifier:
         headers.remove("Classifier")
@@ -100,7 +111,9 @@ def are_there_multiple_methods(results: list[ClassificationResult], method_type)
     return len(set(methods)) > 1
 
 
-def show_method_as_table_header(results: list[ClassificationResult], method_type, number_of_combinations):
+def show_method_as_table_header(
+    results: list[ClassificationResult], method_type, number_of_combinations
+):
     if number_of_combinations < 1:
         raise ValueError("Number of combinations cannot be less than 1")
     if number_of_combinations == 1:
@@ -127,9 +140,9 @@ def format_results(results: list[ClassificationResult], number_of_combinations):
             classifier=result.classifier_name.title(),
             normalization_method=result.normalization_method.title(),
             formatted_score=format_percent(result.score),
-            cost_tier=get_cost_tier(result), # type: ignore
+            cost_tier=get_cost_tier(result),  # type: ignore
             formatted_runtime=f"{result.runtime:.{decimal_places}f}",
-            ranking=index+1
+            ranking=index + 1,
         )
         formatted_results.append(formatted_result)
     return formatted_results
