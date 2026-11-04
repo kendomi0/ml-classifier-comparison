@@ -78,7 +78,7 @@ def get_decimal_places(result: ClassificationResult, tied_results: list, decimal
     if result_runtime is None:
         return decimals
     runtimes = [round(tied_result.runtime, decimals) for tied_result in tied_results]
-    while runtimes.count(round(result_runtime, decimals)) > 1:
+    while runtimes.count(round(result_runtime, decimals)) > 1 and decimals < 10:
         decimals += 1
         runtimes = [round(result.runtime, decimals) for result in tied_results]
     return decimals
