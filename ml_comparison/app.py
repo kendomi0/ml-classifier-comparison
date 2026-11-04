@@ -13,7 +13,12 @@ from ml_comparison.classifiers import (
 import uuid
 from ml_comparison.plotting import create_and_save_plot
 from ml_comparison.classifiers import run_classifier
-from ml_comparison.ranking_formatting import display_selected_combos
+from ml_comparison.ranking_formatting import (
+    display_combinations_heading,
+    format_results,
+    get_table_headers,
+    show_method_as_table_header,
+)
 
 app = Flask(__name__)
 
@@ -155,15 +160,31 @@ def display_results():
         number_of_combos = int(number_of_combos)
     else:
         number_of_combos = len(results)
-    heading, combinations = display_selected_combos(results, number_of_combos)
+    show_normalization_table_header = show_method_as_table_header(
+        results, "normalization_method", number_of_combos
+    )
+    show_classifier_header = show_method_as_table_header(
+        results, "classifier_name", number_of_combos
+    )
+    heading = display_combinations_heading(results, number_of_combos)
+    combinations = format_results(results, number_of_combos)
     results_store.pop(results_key, None)
     hidden_inputs.pop(hidden_inputs_key, None)
+    table_headers = get_table_headers(
+        number_of_combinations=number_of_combos,
+        show_classifier=show_classifier_header,
+        show_normalization=show_normalization_table_header,
+    )
     return render_template(
         "display_results.html",
         combinations=combinations,
+        number_of_combinations=number_of_combos,
+        show_normalization_header=show_normalization_table_header,
+        show_classifier_header=show_classifier_header,
         dataset=dataset,
         heading=heading,
         plot_key=plot_key,
+        table_headers=table_headers,
         WEBSITE_NAME=WEBSITE_NAME,
     )
 
