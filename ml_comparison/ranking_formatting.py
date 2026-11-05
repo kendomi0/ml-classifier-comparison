@@ -19,10 +19,10 @@ class FormattedResult:
 
 
 combination_headings = {
-    "some": "Top {number_of_combos} out of {total_results} total combinations: ",
-    "all": "All combinations: ",
-    "best": "Best combination: ",
-    "only": "Combination: ",
+    "some": "Top {number_of_combos} out of {total_results} Total Combinations",
+    "all": "All Results",
+    "best": "Top Result",
+    "only": "Results",
 }
 
 

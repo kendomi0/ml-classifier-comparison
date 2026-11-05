@@ -6,77 +6,89 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='../static/output.css') }}">
     </head>
 <body>
-    <div id="results" class="flex flex-col min-h-screen justify-center-safe items-center-safe gap-5 py-5">
-        <div class="combinations flex flex-col gap-3">
-            <p class="text-center text-4xl tracking-wide">
-                {{ heading }}
-            </p>
-            {% if number_of_combinations > 1 %}
-            <p class="text-center capitalize"><span class="font-bold">Dataset:</span> {{ dataset }}</p>
-            <p class="text-center capitalize"><span class="font-bold">Evaluation Method:</span> {{ combinations[0].evaluation_method }}</p>
+    <div id="results" class="flex flex-col min-h-screen justify-center-safe items-center-safe py-10">
+        <div class="flex flex-col gap-5">
+            <div class="combinations flex flex-col gap-3">
+                <p class="text-4xl">
+                    {{ heading }}
+                </p>
 
-            {% if not show_classifier_header %}
-            <p class="text-center capitalize"><span class="font-bold">Classifier:</span> {{ combinations[0].classifier }}</p>
-            {% endif %}
+                <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3">
+                    {% if number_of_combinations > 1 %}
 
-            {% if not show_normalization_header %}
-            <p class="text-center capitalize"><span class="font-bold">Normalization Method:</span> {{ combinations[0].normalization_method }}</p>
-            {% endif %}
+                        <p class="text-center capitalize badge badge-xl rounded-2xl border-primary"><span class="font-bold">Dataset:</span> {{ dataset }}</p>
+                        <p class="text-center capitalize badge badge-xl rounded-2xl border-primary"><span class="font-bold">Evaluation Method:</span> {{ combinations[0].evaluation_method }}</p>
 
-            {% endif %}
-            <p class="text-center text-lg tracking-wide italic">
-                Computational cost tiers range from Tier 1 (lowest cost) to Tier 4 (highest cost), and are relative to the specific dataset.
-            </p>
-            
-            <table class="table text-xl text-center">
-                <thead>
-                    {% for header in table_headers %}
-                    <th>{{ header }}</th>
-                    {% endfor %}
-                </thead>
-                <tbody>
-                    {% for combo in combinations %}
-                    <tr>
-                        {% if number_of_combinations > 1 %}
-                        <td>{{ combo.ranking }}</td>
+                        {% if not show_classifier_header %}
+                        <p class="text-center capitalize badge badge-xl rounded-2xl border-primary"><span class="font-bold">Classifier:</span> {{ combinations[0].classifier }}</p>
                         {% endif %}
 
-                        {% if number_of_combinations == 1 %}
-                        <td>{{ combo.dataset }}</td>
-                        <td>{{ combo.evaluation_method }} </td>
+                        {% if not show_normalization_header %}
+                        <p class="text-center capitalize badge badge-xl rounded-2xl border-primary"><span class="font-bold">Normalization Method:</span> {{ combinations[0].normalization_method }}</p>
                         {% endif %}
 
-                        {% if show_classifier_header %}
-                        <td>{{ combo.classifier }}</td>
-                        {% endif %}
+                    {% endif %}
+                </div>
+                
+                <table class="table text-xl text-center">
+                    <thead>
+                        {% for header in table_headers %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for combo in combinations %}
+                        <tr>
+                            {% if number_of_combinations > 1 %}
+                            <td>{{ combo.ranking }}</td>
+                            {% endif %}
 
-                        {% if show_normalization_header %}
-                        <td>{{ combo.normalization_method }}</td>
-                        {% endif %}
+                            {% if number_of_combinations == 1 %}
+                            <td>{{ combo.dataset }}</td>
+                            <td>{{ combo.evaluation_method }} </td>
+                            {% endif %}
 
-                        <td>{{ combo.formatted_score }}</td>
-                        <td>{{ combo.formatted_runtime }}</td>
-                        <td>{{ combo.cost_tier }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                            {% if show_classifier_header %}
+                            <td>{{ combo.classifier }}</td>
+                            {% endif %}
 
-            <p class="text-center text-lg tracking-wide italic">
-                Runtimes are rounded to 3 decimal places by default, unless more precision is needed to differentiate it from others as a tiebreaker.
-            </p>
+                            {% if show_normalization_header %}
+                            <td>{{ combo.normalization_method }}</td>
+                            {% endif %}
+
+                            <td>{{ combo.formatted_score }}</td>
+                            <td>{{ combo.formatted_runtime }}</td>
+                            <td>{{ combo.cost_tier }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <p class="badge badge-soft badge-info rounded-xl">
+                    Computational cost tiers range from Tier 1 (lowest cost) to Tier 4 (highest cost), and are relative to the specific dataset.
+                </p>
+                <p class="badge badge-soft badge-info rounded-xl">
+                    Runtimes are rounded to 3 decimal places by default, unless more precision is needed to differentiate it from others as a tiebreaker.
+                </p>
+            </div>
+
+            <img id="scatter-plot" class="w-fit hidden" data-key="{{ plot_key }}">
+
+            <div class="flex gap-3">
+                <button id="toggle-plot-btn" class="btn btn-lg text-xl rounded-2xl tracking-wide whitespace-nowrap bg-base-300 text-base-content">
+                    <span class="default-text">
+                        <span class="show-or-hide">Show</span> Scatter Plot for <span class="capitalize">{{ dataset }}</span> Dataset
+                    </span>
+                    <span id="loading-or-retry" class="hidden">
+                    </span>
+                </button>
+
+                <p>
+                    <a href="/" class="btn btn-lg text-xl rounded-2xl tracking-wide whitespace-nowrap bg-base-300 text-base-content">Return to Start</a>
+                </p>
+            </div>
+
         </div>
-        <img id="scatter-plot" class="w-fit hidden" data-key="{{ plot_key }}">
-        <button id="toggle-plot-btn" class="btn btn-lg text-xl rounded-2xl tracking-wide whitespace-nowrap bg-base-300 text-base-content">
-            <span class="default-text">
-                <span class="show-or-hide">Show</span> Scatter Plot for <span class="capitalize">{{ dataset }}</span> Dataset
-            </span>
-            <span id="loading-or-retry" class="hidden">
-            </span>
-        </button>
-        <p>
-            <a href="/" class="btn btn-lg text-xl rounded-2xl tracking-wide bg-base-300 text-base-content">Return to Start</a>
-        </p>
     </div>
     <script src="{{ url_for('static', filename='../static/display_results.js') }}"></script>
 </body>
