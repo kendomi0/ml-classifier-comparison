@@ -3,7 +3,7 @@ import { LoadingScreen } from "./loading-screen.js";
 const choiceGroup = document.getElementById("choice-group").value;
 const container = document.querySelector("body");
 const pageTitle = document.querySelector("title");
-const loadingTitle = "Running classifiers..."
+const loadingTitle = "Classifying..."
 let selectionLoadingScreen = new LoadingScreen(container, pageTitle, loadingTitle);
 
 if (choiceGroup == "normalization") {
