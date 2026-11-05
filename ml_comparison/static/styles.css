@@ -1,16 +1,15 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: wireframe --default;
+}
 
 @layer base {
   body {
     width: 100vw;
     height: 100vh;
-    background-color: var(--color-slate-100);
-    color: var(--color-slate-800);
   }
 
   button {
-    background-color: var(--color-slate-300);
     border-radius: calc(infinity * 1px);
     cursor: pointer;
   }

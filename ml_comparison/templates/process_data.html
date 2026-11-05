@@ -10,7 +10,7 @@
     <div class="loading-screen w-screen h-screen hidden">
         <div class="loading-screen-tagline max-w-9/10 flex flex-col gap-1 sm:flex-row">
             <i class="fa-solid fa-circle-notch text-5xl self-center animate-spin mr-1"></i>
-            <div class="text-5xl text-slate-700 text-center tracking-tighter">
+            <div class="text-5xl text-center tracking-tighter">
                 Generating combination...
             </div>
         </div>
@@ -30,13 +30,13 @@
             
             <div class="w-fit self-center flex flex-col justify-content gap-5">
                 <div class="flex flex-col sm:flex-row gap-2">
-                    <button type="button" id="numeric-combos-btn" class="w-fit self-center text-xl sm:text-2xl tracking-tight px-3 sm:px-5 py-1 sm:py-2">
+                    <button type="button" id="numeric-combos-btn" class="w-fit self-center text-xl sm:text-2xl tracking-tight px-3 sm:px-5 py-1 sm:py-2 bg-base-300 text-base-content">
                         Enter a specific number of combinations
                     </button>
-                    <input type="number" id="numeric-combos-input" name="number-of-combos" min="1" max="{{ results_length }}" class="hidden border border-slate-400 rounded-full w-fit h-full self-center p-1 sm:py-3 sm:px-2" required>
-                    <button type="submit" id="submit-combos-btn" value="submit" class="hidden w-fit self-center px-3 sm:px-5 py-1 sm:py-2 text-xl sm:text-2xl tracking-tight">Submit</button>
+                    <input type="number" id="numeric-combos-input" name="number-of-combos" min="1" max="{{ results_length }}" class="hidden border border-primary rounded-full w-fit h-full self-center p-1 sm:py-3 sm:px-2" required>
+                    <button type="submit" id="submit-combos-btn" value="submit" class="hidden w-fit self-center px-3 sm:px-5 py-1 sm:py-2 text-xl sm:text-2xl tracking-tight bg-base-300 text-base-content">Submit</button>
                 </div>
-                <button type="submit" id="all-combos-btn" name="number-of-combos" value="all" class="max-w-7/8 self-center text-xl sm:text-2xl tracking-tight px-3 sm:px-5 py-1 sm:py-2 bg-slate-700 text-slate-200">
+                <button type="submit" id="all-combos-btn" name="number-of-combos" value="all" class="max-w-7/8 self-center text-xl sm:text-2xl tracking-tight px-3 sm:px-5 py-1 sm:py-2 bg-base-300 text-base-content">
                     Choose all combinations
                 </button>
             </div>
