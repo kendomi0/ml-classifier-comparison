@@ -8,15 +8,17 @@
 </head>
 <body>
     <main class="flex flex-col h-screen justify-center items-center gap-8">
-        <h1 class="text-6xl sm:text-7xl text-center font-semibold max-w-9/10">
-            {{ WEBSITE_NAME }}
-        </h1>
-        <p class="text-xl sm:text-2xl text-center max-w-5/6">
-            Proceed to the next page to begin selection.
-        </p>
-        <button class="btn btn-lg text-xl rounded-2xl bg-base-300 text-base-content" onclick="document.location='/dataset'">Next
-            <i class="fa-solid fa-arrow-right"></i>
-        </button>
+        <div class="flex flex-col items-center gap-8 max-w-2/5">
+            <h1 class="text-6xl sm:text-7xl text-center font-semibold">
+                {{ WEBSITE_NAME }}
+            </h1>
+            <p class="text-xl sm:text-2xl text-center">
+                Compare how <span class="text-info">4</span> evaluation methods, <span class="text-info">5</span> classifiers, and <span class="text-info">3</span> normalization options perform on <span class="text-info">5</span> datasets.
+            </p>
+            <button class="btn w-fit btn-lg text-xl rounded-2xl bg-base-300 text-base-content" onclick="document.location='/dataset'">Start
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
     </main>
 </body>
 </html>
