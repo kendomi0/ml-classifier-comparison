@@ -3,6 +3,21 @@
   themes: wireframe --default;
 }
 
+@theme {
+  --color-tier-1-bg: #e0f5d6; /* coolors: tea green shade 300 */
+  --color-tier-1-text: #1E4D2B; /* coolors: dark spruce */
+  --color-tier-1-border: #c1dfb2;
+  --color-tier-2-bg: #fcf292; /* coolors: banana cream shade 300 */
+  --color-tier-2-text: #5E3F2C;
+  --color-tier-2-border: #e9db56;
+  --color-tier-3-bg: #ffbb99; /* coolors: tangerine dream shade 300 */
+  --color-tier-3-text: #3c1400;
+  --color-tier-3-border: #ed8e5f;
+  --color-tier-4-bg: #FFCECE;
+  --color-tier-4-text: #520000;
+  --color-tier-4-border: #BE3C3C;
+}
+
 @layer base {
   body {
     width: 100%;

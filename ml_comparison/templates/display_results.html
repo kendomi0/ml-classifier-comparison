@@ -1,3 +1,9 @@
+{% set tier_colors = {
+  1: 'bg-tier-1-bg text-tier-1-text border-tier-1-border',
+  2: 'bg-tier-2-bg text-tier-2-text border-tier-2-border',
+  3: 'bg-tier-3-bg text-tier-3-text border-tier-3-border',
+  4: 'bg-tier-4-bg text-tier-4-text border-tier-4-border'
+} %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,7 +64,9 @@
 
                                 <td>{{ combo.formatted_score }}</td>
                                 <td>{{ combo.formatted_runtime }}</td>
-                                <td>{{ combo.cost_tier }}</td>
+                                <td>
+                                    <span class="badge badge-md badge-soft rounded-xl h-auto py-1 text-lg font-medium {{ tier_colors.get(combo.cost_tier, 'bg-base-200') }}">{{ combo.cost_tier }}</span>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
