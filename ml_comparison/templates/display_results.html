@@ -7,84 +7,84 @@
     </head>
 <body>
     <div id="results" class="flex flex-col min-h-screen justify-center-safe items-center-safe py-10">
-        <div class="flex flex-col gap-5">
-            <div class="combinations flex flex-col gap-3">
-                <p class="text-4xl">
+        <div class="flex flex-col gap-8 items-center-safe">
+            <div class="combinations flex flex-col items-center-safe gap-8 w-min max-w-[calc(100vw-2rem)]">
+                <p class="text-5xl text-center font-semibold">
                     {{ heading }}
                 </p>
 
-                <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3">
-                    {% if number_of_combinations > 1 %}
+                {% if number_of_combinations > 1 %}
+                <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center-safe items-center-safe">
 
-                        <p class="text-center capitalize badge badge-xl rounded-2xl border-primary"><span class="font-bold">Dataset:</span> {{ dataset }}</p>
-                        <p class="text-center capitalize badge badge-xl rounded-2xl border-primary"><span class="font-bold">Evaluation Method:</span> {{ combinations[0].evaluation_method }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-primary"><span class="font-semibold">Dataset:</span> {{ dataset }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-primary"><span class="font-semibold">Evaluation Method:</span> {{ combinations[0].evaluation_method }}</p>
 
                         {% if not show_classifier_header %}
-                        <p class="text-center capitalize badge badge-xl rounded-2xl border-primary"><span class="font-bold">Classifier:</span> {{ combinations[0].classifier }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-primary"><span class="font-semibold">Classifier:</span> {{ combinations[0].classifier }}</p>
                         {% endif %}
 
                         {% if not show_normalization_header %}
-                        <p class="text-center capitalize badge badge-xl rounded-2xl border-primary"><span class="font-bold">Normalization Method:</span> {{ combinations[0].normalization_method }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-primary"><span class="font-semibold">Normalization Method:</span> {{ combinations[0].normalization_method }}</p>
                         {% endif %}
-
-                    {% endif %}
                 </div>
+                {% endif %}
                 
-                <table class="table text-xl text-center">
-                    <thead>
-                        {% for header in table_headers %}
-                        <th>{{ header }}</th>
-                        {% endfor %}
-                    </thead>
-                    <tbody>
-                        {% for combo in combinations %}
-                        <tr>
-                            {% if number_of_combinations > 1 %}
-                            <td>{{ combo.ranking }}</td>
-                            {% endif %}
+                <div class="overflow-x-auto max-w-full max-h-[60vh] sm:overflow-clip sm:max-h-none border border-base-300 rounded-2xl">
+                    <table class="table table-pin-rows text-xl text-center">
+                        <thead>
+                            {% for header in table_headers %}
+                            <th class="sticky top-0 z-10 uppercase font-semibold bg-base-200">{{ header }}</th>
+                            {% endfor %}
+                        </thead>
+                        <tbody>
+                            {% for combo in combinations %}
+                            <tr class="duration-120 ease-in hover:bg-base-200">
+                                {% if number_of_combinations > 1 %}
+                                <td>{{ combo.ranking }}</td>
+                                {% endif %}
 
-                            {% if number_of_combinations == 1 %}
-                            <td>{{ combo.dataset }}</td>
-                            <td>{{ combo.evaluation_method }} </td>
-                            {% endif %}
+                                {% if number_of_combinations == 1 %}
+                                <td>{{ combo.dataset }}</td>
+                                <td>{{ combo.evaluation_method }} </td>
+                                {% endif %}
 
-                            {% if show_classifier_header %}
-                            <td>{{ combo.classifier }}</td>
-                            {% endif %}
+                                {% if show_classifier_header %}
+                                <td>{{ combo.classifier }}</td>
+                                {% endif %}
 
-                            {% if show_normalization_header %}
-                            <td>{{ combo.normalization_method }}</td>
-                            {% endif %}
+                                {% if show_normalization_header %}
+                                <td>{{ combo.normalization_method }}</td>
+                                {% endif %}
 
-                            <td>{{ combo.formatted_score }}</td>
-                            <td>{{ combo.formatted_runtime }}</td>
-                            <td>{{ combo.cost_tier }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
-                <p class="badge badge-soft badge-info rounded-xl">
-                    Computational cost tiers range from Tier 1 (lowest cost) to Tier 4 (highest cost), and are relative to the specific dataset.
-                </p>
-                <p class="badge badge-soft badge-info rounded-xl">
-                    Runtimes are rounded to 3 decimal places by default, unless more precision is needed to differentiate it from others as a tiebreaker.
-                </p>
+                                <td>{{ combo.formatted_score }}</td>
+                                <td>{{ combo.formatted_runtime }}</td>
+                                <td>{{ combo.cost_tier }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+  
             </div>
 
             <img id="scatter-plot" class="w-fit hidden" data-key="{{ plot_key }}">
 
-            <div class="flex gap-3">
-                <button id="toggle-plot-btn" class="btn btn-lg text-xl rounded-2xl tracking-wide whitespace-nowrap bg-base-300 text-base-content">
+            <div class="flex flex-col items-center-safe sm:flex-row gap-7 sm:gap-8">
+                <button id="toggle-plot-btn" class="btn btn-lg text-xl rounded-2xl tracking-wide whitespace-nowrap btn-soft btn-info">
                     <span class="default-text">
-                        <span class="show-or-hide">Show</span> Scatter Plot for <span class="capitalize">{{ dataset }}</span> Dataset
+                        <span class="show-or-hide">Show</span>
+                        <span class="sm:hidden inline"> Dataset</span> 
+                        Scatter Plot
+                        <span class="hidden sm:inline">
+                            for <span class="capitalize">{{ dataset }}</span> Dataset
+                        </span>
                     </span>
                     <span id="loading-or-retry" class="hidden">
                     </span>
                 </button>
 
                 <p>
-                    <a href="/" class="btn btn-lg text-xl rounded-2xl tracking-wide whitespace-nowrap bg-base-300 text-base-content">Return to Start</a>
+                    <a href="/" class="btn btn-lg text-xl rounded-2xl tracking-wide whitespace-nowrap">Return to Start</a>
                 </p>
             </div>
 
