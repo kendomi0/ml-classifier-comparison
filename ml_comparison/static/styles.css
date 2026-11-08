@@ -16,6 +16,10 @@
   --color-tier-4-bg: #FFCECE;
   --color-tier-4-text: #520000;
   --color-tier-4-border: #BE3C3C;
+  --color-purple-accent-lighter: #d3cdf9; /* coolors: medium slate blue shade 500 */
+  --color-purple-accent: #4f34e8; /* coolors: medium slate blue shade 600 */
+  --color-purple-accent-darker: #3217cd; /* coolors: medium slate blue shade 700 */
+  --color-purple-accent-border: #2f218b;
 }
 
 @layer base {
