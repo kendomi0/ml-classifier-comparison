@@ -41,35 +41,48 @@
 
             <div class="radio-group flex flex-col sm:flex-row flex-wrap justify-center gap-5 text-xl max-w-9/10">
                 {% for choice in choices %}
-                <label class="inline-flex sm:ml-0 gap-3">
+                <label class="items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-zinc-200 px-5 py-3 transition cursor-pointer
+              hover:border-medium-slate-blue-500
+              has-checked:border-medium-slate-blue-800 has-checked:bg-medium-slate-blue-25 has-checked:shadow-md has-checked:shadow-medium-slate-blue-800/20
+              has-focus-visible:ring-2 has-focus-visible:medium-slate-blue-500 has-focus-visible:ring-offset-2">
                     <input
                         type="radio"
-                        class="appearance-none w-4 h-4 self-center rounded-full outline-2 outline-offset-2 checked:bg-base-content {{ 'hidden' if choice in disabled_choices }}" 
+                        class="peer sr-only" 
                         name="{{ group }}"
                         value="{{ choice }}"
                         {% if choice in disabled_choices %} disabled {% endif %}
                         required
                     >
-                    <span class="capitalize ml-3 sm:ml-0 {{ 'text-primary line-through' if choice in disabled_choices }}">
+                    <span class="inline-flex w-5 h-5 rounded-full border-[1.5px] border-zinc-400 transition
+                 peer-checked:border-medium-slate-blue-700 peer-checked:bg-medium-slate-blue-600
+                 peer-checked:shadow-[inset_0_0_0_3px_white]"></span>
+                    <span class="capitalize ml-3 sm:ml-0 peer-checked:text-medium-slate-blue-900 {{ 'text-primary line-through' if choice in disabled_choices }}">
                         {{ choice }}
                     </span>
                 </label>
                 {% endfor %}
 
                 {% if group == "classifier" or group == "normalization" %}
-                <label class="inline-flex sm:ml-0 gap-3">
+                <label class="items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-zinc-200 px-5 py-3 transition cursor-pointer
+              hover:border-medium-slate-blue-500
+              has-checked:border-medium-slate-blue-700 has-checked:bg-medium-slate-blue-25 has-checked:shadow-md has-checked:shadow-medium-slate-blue-700/20
+              has-focus-visible:ring-2 has-focus-visible:medium-slate-blue-500 has-focus-visible:ring-offset-2">
                     <input
-                        class="appearance-none w-4 h-4 rounded-full self-center outline-2 outline-offset-2 checked:bg-base-content"
+                        class="peer sr-only"
                         type="radio"
                         name="{{ group }}"
                         value="all"
                     >
+                    <span class="inline-flex w-5 h-5 rounded-full border-[1.5px] border-zinc-400 transition
+                    peer-checked:border-medium-slate-blue-700 peer-checked:bg-medium-slate-blue-600
+                    peer-checked:shadow-[inset_0_0_0_3px_white]"></span>
                     <span class="ml-3 sm:ml-0">All</span>
                 </label>
                 {% endif %}
             </div>
 
-            <button class="self-center btn btn-lg text-xl rounded-2xl bg-base-300 text-base-content" type="submit">Next
+            <button class="self-center btn btn-lg text-xl rounded-2xl border-purple-accent-border bg-medium-slate-blue-600 text-white 
+            shadow-lg shadow-medium-slate-blue-500 duration-120 ease-in hover:bg-medium-slate-blue-700" type="submit">Next
                 <i class="fa-solid fa-arrow-right"></i>
             </button>
         </fieldset>
