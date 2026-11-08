@@ -24,7 +24,7 @@
                 </legend>
             </div>
             
-            <p class="text-center text-lg font-bold max-w-5/6 -my-4 sm:my-0 {{ 'hidden' if not disabled_choices }}">
+            <p class="text-center text-lg font-bold max-w-1/2 -my-4 sm:my-0 {{ 'hidden' if not disabled_choices }}">
                 <span class="block mb-2 sm:mb-0 sm:inline">
                     <i class="fa-solid fa-circle-info"></i>
                 </span>
@@ -39,7 +39,7 @@
             <input type="hidden" name="{{ input_name }}" value="{{ input_value }}">
             {% endfor %}
 
-            <div class="radio-group flex flex-col sm:flex-row flex-wrap justify-center gap-5 text-xl max-w-9/10">
+            <div class="radio-group flex flex-col sm:flex-row flex-wrap justify-center gap-5 text-xl sm:max-w-2/3">
                 {% for choice in choices %}
                 <label class="items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-zinc-200 px-5 py-3 transition cursor-pointer
               hover:border-medium-slate-blue-500
