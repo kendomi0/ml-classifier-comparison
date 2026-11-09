@@ -10,13 +10,6 @@ let container = document.querySelector("body");
 let pageTitle = document.querySelector("title");
 let loadingTitle = "Generating combination..."
 
-numericCombosBtn.addEventListener("click", () => {
-    numericCombosInput.classList.remove("hidden");
-    submitCombosBtn.classList.remove("hidden");
-    },
-    { once: true}
-)
-
 allCombosBtn.addEventListener("click", () => {
     numericCombosInput.disabled = true;
 })
