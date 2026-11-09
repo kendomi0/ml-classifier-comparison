@@ -45,20 +45,20 @@
             <div class="radio-group flex flex-col sm:flex-row flex-wrap justify-center gap-5 text-xl sm:max-w-2/3">
                 {% for choice in choices %}
                 <label class="items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-zinc-200 px-5 py-3 transition cursor-pointer
-              hover:border-medium-slate-blue-500
+              {{ 'hover:border-medium-slate-blue-500' if choice not in disabled_choices }}
               has-checked:border-medium-slate-blue-800 has-checked:bg-medium-slate-blue-25 has-checked:shadow-md has-checked:shadow-medium-slate-blue-800/20
-              has-focus-visible:ring-2 has-focus-visible:medium-slate-blue-500 has-focus-visible:ring-offset-2">
+              has-focus-visible:ring-2 has-focus-visible:medium-slate-blue-500 has-focus-visible:ring-offset-2' if choice not in disabled_choices">
                     <input
                         type="radio"
-                        class="peer sr-only" 
+                        class="peer sr-only {{ 'hidden' if choice in disabled_choices }}" 
                         name="{{ group }}"
                         value="{{ choice }}"
                         {% if choice in disabled_choices %} disabled {% endif %}
                         required
                     >
-                    <span class="inline-flex w-5 h-5 rounded-full border-[1.5px] border-zinc-400 transition
+                    <span class="{{ 'inline-flex w-5 h-5 rounded-full border-[1.5px] border-zinc-400 transition
                  peer-checked:border-medium-slate-blue-700 peer-checked:bg-medium-slate-blue-600
-                 peer-checked:shadow-[inset_0_0_0_3px_white]"></span>
+                 peer-checked:shadow-[inset_0_0_0_3px_white]' if choice not in disabled_choices }} {{'hidden' if choice in disabled_choices }}"></span>
                     <span class="capitalize ml-3 sm:ml-0 peer-checked:text-medium-slate-blue-900 {{ 'text-primary line-through' if choice in disabled_choices }}">
                         {{ choice }}
                     </span>
