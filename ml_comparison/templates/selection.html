@@ -44,7 +44,7 @@
 
             <div class="radio-group flex flex-col sm:flex-row flex-wrap justify-center gap-5 text-xl sm:max-w-2/3">
                 {% for choice in choices %}
-                <label class="items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-zinc-200 px-5 py-3 transition cursor-pointer
+                <label class="items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-zinc-200 px-5 py-3 transition cursor-pointer has-disabled:cursor-not-allowed
               {{ 'hover:border-medium-slate-blue-500' if choice not in disabled_choices }}
               has-checked:border-medium-slate-blue-800 has-checked:bg-medium-slate-blue-25 has-checked:shadow-md has-checked:shadow-medium-slate-blue-800/20
               has-focus-visible:ring-2 has-focus-visible:medium-slate-blue-500 has-focus-visible:ring-offset-2' if choice not in disabled_choices">
