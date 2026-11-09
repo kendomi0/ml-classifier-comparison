@@ -8,10 +8,44 @@
 </head>
 <body>
     <div class="loading-screen h-screen hidden">
-        <div class="loading-screen-tagline max-w-9/10 flex flex-col items-center-safe gap-5 sm:flex-row">
-            <span class="loading loading-spinner loading-xl"></span>
-            <div class="text-5xl text-center">
+        <div class="loading-screen-tagline max-w-9/10 flex flex-col items-center-safe gap-10  text-medium-slate-blue-800">
+            <svg class="size-24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <circle cx="12" cy="2" r="0" fill="currentColor">
+                    <animate attributeName="r" begin="0" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+                <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(45 12 12)">
+                    <animate attributeName="r" begin="0.125s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+                <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(90 12 12)">
+                    <animate attributeName="r" begin="0.25s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+                <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(135 12 12)">
+                    <animate attributeName="r" begin="0.375s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+                <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(180 12 12)">
+                    <animate attributeName="r" begin="0.5s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+                <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(225 12 12)">
+                    <animate attributeName="r" begin="0.625s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+                <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(270 12 12)">
+                    <animate attributeName="r" begin="0.75s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+                <circle cx="12" cy="2" r="0" fill="currentColor" transform="rotate(315 12 12)">
+                    <animate attributeName="r" begin="0.875s" calcMode="spline" dur="1s" keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite" values="0;2;0;0" />
+                </circle>
+            </svg>
+            <p class="text-5xl font-medium text-center">
                 Classifying...
+            </p>
+            <div class="opacity-75 flex items-center justify-center gap-1.5">
+                <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path fill="currentColor" d="M12.75 7a.75.75 0 0 0-1.5 0v5a.75.75 0 0 0 .352.636l3 1.875a.75.75 0 1 0 .796-1.272l-2.648-1.655z" />
+                    <path fill="currentColor" fill-rule="evenodd" d="M12 3.25a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5M4.75 12a7.25 7.25 0 1 1 14.5 0a7.25 7.25 0 0 1-14.5 0" clip-rule="evenodd" />
+                </svg>
+                <p class="font-medium text-sm">This may take a moment</p>
             </div>
         </div>
     </div>
