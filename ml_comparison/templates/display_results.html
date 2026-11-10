@@ -22,15 +22,15 @@
                 {% if number_of_combinations > 1 %}
                 <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center-safe items-center-safe">
 
-                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-primary"><span class="font-semibold">Dataset:</span> {{ dataset }}</p>
-                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-primary"><span class="font-semibold">Evaluation Method:</span> {{ combinations[0].evaluation_method }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-medium-slate-blue-600"><span class="font-semibold">Dataset:</span> {{ dataset }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-medium-slate-blue-600"><span class="font-semibold">Evaluation Method:</span> {{ combinations[0].evaluation_method }}</p>
 
                         {% if not show_classifier_header %}
-                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-primary"><span class="font-semibold">Classifier:</span> {{ combinations[0].classifier }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-medium-slate-blue-600"><span class="font-semibold">Classifier:</span> {{ combinations[0].classifier }}</p>
                         {% endif %}
 
                         {% if not show_normalization_header %}
-                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-primary"><span class="font-semibold">Normalization Method:</span> {{ combinations[0].normalization_method }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-medium-slate-blue-600"><span class="font-semibold">Normalization Method:</span> {{ combinations[0].normalization_method }}</p>
                         {% endif %}
                 </div>
                 {% endif %}
@@ -44,7 +44,7 @@
                         </thead>
                         <tbody>
                             {% for combo in combinations %}
-                            <tr class="duration-120 ease-in hover:bg-base-200">
+                            <tr class="duration-120 ease-in {{ 'bg-medium-slate-blue-25 text-medium-slate-blue-800 font-medium pointer-events-none' if combo.ranking == 1 and number_of_combinations > 1 }} hover:bg-medium-slate-blue-lightest">
                                 {% if number_of_combinations > 1 %}
                                 <td>{{ combo.ranking }}</td>
                                 {% endif %}
@@ -55,15 +55,15 @@
                                 {% endif %}
 
                                 {% if show_classifier_header %}
-                                <td>{{ combo.classifier }}</td>
+                                <td class="whitespace-nowrap">{{ combo.classifier }}</td>
                                 {% endif %}
 
                                 {% if show_normalization_header %}
                                 <td>{{ combo.normalization_method }}</td>
                                 {% endif %}
 
-                                <td>{{ combo.formatted_score }}</td>
-                                <td>{{ combo.formatted_runtime }}</td>
+                                <td class="tabular-nums">{{ combo.formatted_score }}</td>
+                                <td class="tabular-nums">{{ combo.formatted_runtime }}</td>
                                 <td>
                                     <span class="badge badge-md badge-soft rounded-xl h-auto py-1 text-lg font-medium {{ tier_colors.get(combo.cost_tier, 'bg-base-200') }}">{{ combo.cost_tier }}</span>
                                 </td>
@@ -78,7 +78,8 @@
             <img id="scatter-plot" class="w-fit hidden" data-key="{{ plot_key }}">
 
             <div class="flex flex-col items-center-safe sm:flex-row gap-7 sm:gap-8">
-                <button id="toggle-plot-btn" class="btn btn-lg text-xl rounded-2xl tracking-wide whitespace-nowrap btn-soft btn-info">
+                <button id="toggle-plot-btn" class="btn btn-lg text-xl rounded-2xl border-purple-accent-border bg-medium-slate-blue-600 text-white whitespace-nowrap
+            shadow-lg shadow-medium-slate-blue-500 duration-120 ease-in hover:bg-medium-slate-blue-700">
                     <span class="default-text">
                         <span class="show-or-hide">Show</span>
                         <span class="sm:hidden inline"> Dataset</span> 
@@ -92,7 +93,7 @@
                 </button>
 
                 <p>
-                    <a href="/" class="btn btn-lg text-xl rounded-2xl tracking-wide whitespace-nowrap">Return to Start</a>
+                    <a href="/" class="btn btn-lg text-xl rounded-2xl border-primary tracking-wide whitespace-nowrap">Return to Start</a>
                 </p>
             </div>
 
