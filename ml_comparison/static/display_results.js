@@ -6,6 +6,16 @@ let defaultText = document.querySelector(".default-text");
 let combinations = document.querySelector(".combinations");
 let firstClick = true;
 
+let costTierIcon = document.getElementById("cost-tier-icon");
+let runtimeIcon = document.getElementById("runtime-icon");
+let rankingIcon = document.getElementById("ranking-icon");
+
+let costTierQna = document.getElementById("cost-tier-qna");
+let rankingQna = document.getElementById("ranking-qna");
+let runtimeQna = document.getElementById("runtime-qna");
+
+// Scatter plot button
+
 function toggleBtn() {
     scatterPlot.classList.toggle("block");
     scatterPlot.classList.toggle("hidden");
@@ -67,5 +77,29 @@ function runButtonFns() {
 }
 
 togglePlotBtn.addEventListener("click", runButtonFns);
+
+// Header icons
+
+iconsAndQnas = new Map([
+    [costTierIcon, costTierQna],
+    [runtimeIcon, runtimeQna],
+    [rankingIcon, rankingQna]
+])
+
+function scrollAndOpenQna(qna) {
+    qna.scrollIntoView({
+        behavior: "smooth", 
+        block: "start",
+    })
+    qna.open = true;
+}
+
+iconsAndQnas.forEach((qna, icon) => {
+    console.log(typeof icon)
+    icon.addEventListener("click", () => {
+        scrollAndOpenQna(qna);
+        }
+    )
+});
 
 
