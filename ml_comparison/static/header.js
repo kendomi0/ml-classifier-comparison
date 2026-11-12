@@ -3,7 +3,7 @@ class SiteHeader extends HTMLElement {
     this.innerHTML = `
       <div class="navbar border-b border-medium-slate-blue-50">
         <div class="flex-1">
-          <a class="btn btn-ghost text-xl text-medium-slate-blue-900">
+          <a class="btn btn-ghost text-xl text-medium-slate-blue-900" href="/">
           ML Classifier Comparison
           </a>
         </div>
