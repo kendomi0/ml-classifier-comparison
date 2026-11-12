@@ -29,8 +29,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="{{ url_for('static', filename='../static/output.css') }}">
     </head>
-<body>
-    <div id="results" class="flex flex-col min-h-screen justify-center-safe items-center-safe py-10">
+<body class="flex flex-col min-h-screen">
+    <script src="{{ url_for('static', filename='./header.js') }}"></script>
+    <site-header></site-header>
+    <div id="results" class="flex flex-col flex-1 justify-center-safe items-center-safe py-8">
         <div class="flex flex-col gap-8 items-center-safe">
             <div class="combinations flex flex-col items-center-safe gap-8 w-min max-w-[calc(100vw-2rem)]">
                 <p class="text-5xl text-center font-semibold">
@@ -134,12 +136,10 @@
                     <span id="loading-or-retry" class="hidden">
                     </span>
                 </button>
-
                 <p>
                     <a href="/" class="btn btn-lg text-xl rounded-2xl border-primary tracking-wide whitespace-nowrap">Return to Start</a>
                 </p>
             </div>
-
         </div>
     </div>
     <script src="{{ url_for('static', filename='../static/display_results.js') }}"></script>

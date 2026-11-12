@@ -6,8 +6,10 @@
     <script src="https://kit.fontawesome.com/b3ffa80bf4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='../static/output.css') }}">
 </head>
-<body>
-    <main class="flex flex-col h-screen justify-center items-center gap-8">
+<body class="flex flex-col min-h-screen">
+    <script src="{{ url_for('static', filename='./header.js') }}"></script>
+    <site-header></site-header>
+    <main class="flex flex-col flex-1 justify-center items-center gap-8 py-8">
         <div class="flex flex-col items-center gap-8 max-w-2/5">
             <h1 class="text-6xl sm:text-7xl text-center font-semibold">
                 {{ WEBSITE_NAME }}

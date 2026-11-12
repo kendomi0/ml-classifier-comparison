@@ -6,8 +6,10 @@
     <script src="https://kit.fontawesome.com/b3ffa80bf4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='./output.css') }}">
 </head>
-<body>
-    <div class="loading-screen h-screen hidden">
+<body class="flex flex-col min-h-screen">
+    <script src="{{ url_for('static', filename='./header.js') }}"></script>
+    <site-header></site-header>
+    <div class="loading-screen hidden">
         <div class="loading-screen-tagline max-w-9/10 flex flex-col items-center-safe gap-10  text-medium-slate-blue-800">
             <svg class="size-24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0z" fill="none" />
@@ -49,9 +51,9 @@
             </div>
         </div>
     </div>
-    <main>
-        <form method="POST" action="{{ form_action_page }}">
-        <fieldset class="flex flex-col h-screen items-center-safe justify-center gap-8">
+    <main class="flex flex-1 py-8">
+        <form class="flex flex-1" method="POST" action="{{ form_action_page }}">
+        <fieldset class="flex flex-col flex-1 items-center-safe justify-center gap-8">
             <div class="legend flex justify-center max-w-2/3 sm:max-w-5/6">
                 <legend class="text-5xl text-center">
                     {{ selection_legends[group] }}
