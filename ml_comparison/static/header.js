@@ -7,7 +7,25 @@ class SiteHeader extends HTMLElement {
           ML Classifier Comparison
           </a>
         </div>
-        <div class="flex-none">
+        <div class="flex">
+          <label class="swap swap-rotate mr-1">
+            <input type="checkbox" class="theme-controller" value="wireframe" />
+
+            <!-- sun icon -->
+            <svg class="swap-off text-medium-slate-blue-600" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5m-1-6v4h2V1zm0 18v4h2v-4zm12-8h-4v2h4zM5 11H1v2h4zm11.24 6.66l2.47 2.47l1.41-1.41l-2.47-2.47zM3.87 5.28l2.47 2.47l1.41-1.41l-2.47-2.47zm2.47 10.96l-2.47 2.47l1.41 1.41l2.47-2.47zM18.72 3.87l-2.47 2.47l1.41 1.41l2.47-2.47z" />
+            </svg>
+
+            <!-- moon icon -->
+            <svg class="swap-on text-medium-slate-blue-600" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path fill="currentColor" d="M12 21q-3.75 0-6.375-2.625T3 12t2.625-6.375T12 3q.35 0 .688.025t.662.075q-1.025.725-1.638 1.888T11.1 7.5q0 2.25 1.575 3.825T16.5 12.9q1.375 0 2.525-.613T20.9 10.65q.05.325.075.662T21 12q0 3.75-2.625 6.375T12 21" />
+            </svg>
+          </label>
+        </div>
+
+
           <a class="btn btn-ghost btn-lg btn-square" href="https://github.com/kendomi0/ml-classifier-comparison" target="_blank" rel="noopener noreferrer">
               <svg class="text-medium-slate-blue-600" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 32 32">
                   <path d="M0 0h32v32H0z" fill="none" />
@@ -20,3 +38,12 @@ class SiteHeader extends HTMLElement {
   }
 }
 customElements.define('site-header', SiteHeader);
+
+const toggle = document.querySelector('.theme-controller');
+
+toggle.checked = localStorage.getItem('theme') === 'night';
+
+toggle.addEventListener('change', () => {
+  localStorage.setItem('theme', toggle.checked ? 'night' : 'wireframe')
+  }
+)
