@@ -1,9 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: wireframe --default, night --prefersdark;
+  themes: wireframe, black --prefersdark;
 }
 
-@theme {
+@theme static {
   --color-tier-1-bg: #e0f5d6; /* coolors: tea green shade 300 */
   --color-tier-1-text: #1E4D2B; /* coolors: dark spruce */
   --color-tier-1-border: #c1dfb2;
@@ -16,15 +16,89 @@
   --color-tier-4-bg: #FFCECE;
   --color-tier-4-text: #520000;
   --color-tier-4-border: #BE3C3C;
+
   --color-medium-slate-blue-lightest: #FCFCFF;
   --color-medium-slate-blue-25: #F6F4FE;
   --color-medium-slate-blue-50: #e9e6fc;
-  --color-medium-slate-blue-500: #d3cdf9;
+  --color-medium-slate-blue-100: #d3cdf9;
+  --color-medium-slate-blue-200: #bdb3f7;
+  --color-medium-slate-blue-300: #a79af4;
+  --color-medium-slate-blue-400: #9281f1;
+  --color-medium-slate-blue-500: #7b68ee;
   --color-medium-slate-blue-600: #4f34e8;
   --color-medium-slate-blue-700: #3217cd;
   --color-medium-slate-blue-800: #26119a;
   --color-medium-slate-blue-900: #190b67;
-  --color-purple-accent-border: #2f218b;
+  --color-medium-slate-blue-950: #0d0633;
+  --color-medium-slate-blue-darkest: #050216;
+  --color-medium-slate-blue-border: #2f218b;
+  --color-medium-slate-blue-shade-12: #100742;
+  --color-medium-slate-blue-shade-13: #0B052C;
+}
+
+@plugin "daisyui/theme" {
+  name: "wireframe";
+  default: true;
+  color-scheme: light;
+  --accent-main: var(--color-medium-slate-blue-600);
+  --accent-1: var(--color-medium-slate-blue-lightest);
+  --accent-2: var(--color-medium-slate-blue-25);
+  --accent-3: var(--color-medium-slate-blue-50);
+  --accent-4: var(--color-medium-slate-blue-100);
+  --accent-5: var(--color-medium-slate-blue-700);
+  --accent-6: var(--color-medium-slate-blue-800);
+  --accent-7: var(--color-medium-slate-blue-900);
+  --accent-border: var(--color-medium-slate-blue-border);
+  --main-button-text: #FFFFFF;
+  --button-shadow: var(--color-medium-slate-blue-100);
+  --border-hover: var(--color-medium-slate-blue-100);
+  --winning-combination-text: var(--color-medium-slate-blue-800);
+  --winning-combination-bg: var(--color-medium-slate-blue-25);
+  --loading-screen-text: var(--color-medium-slate-blue-800);
+  --custom-shadow-opacity: var(--shadow-lg);
+}
+
+@plugin "daisyui/theme" {
+  name: "black";
+  prefersdark: true;
+  color-scheme: dark;
+  --color-base-content: var(--color-medium-slate-blue-50);
+  --color-base-100: var(--color-medium-slate-blue-darkest);
+  --color-base-300: var(--color-zinc-800);
+  --accent-main: var(--color-medium-slate-blue-200);
+  --accent-1: var(--color-medium-slate-blue-shade-13);
+  --accent-2: var(--color-medium-slate-blue-900);
+  --accent-3: var(--color-medium-slate-blue-900);
+  --accent-4: var(--color-medium-slate-blue-900);
+  --accent-5: var(--color-medium-slate-blue-50);
+  --accent-6: var(--color-medium-slate-blue-300);
+  --accent-7: var(--color-medium-slate-blue-100);
+  --accent-border: var(--color-medium-slate-blue-25);
+  --main-button-text: black;
+  --button-shadow: color-mix(in oklab, var(--color-medium-slate-blue-500) 50%, transparent);
+  --border-hover: var(--color-medium-slate-blue-200);
+  --winning-combination-text: var(--color-medium-slate-blue-50);
+  --winning-combination-bg: var(--color-medium-slate-blue-shade-12);
+  --loading-screen-text: var(--color-medium-slate-blue-100);
+}
+
+
+@theme inline {
+  --color-accent-main: var(--accent-main);
+  --color-accent-1: var(--accent-1);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-accent-4: var(--accent-4);
+  --color-accent-5: var(--accent-5);
+  --color-accent-6: var(--accent-6);
+  --color-accent-7: var(--accent-7);
+  --color-accent-border: var(--accent-border);
+  --color-main-button-text: var(--main-button-text);
+  --color-button-shadow: var(--button-shadow);
+  --color-border-hover: var(--border-hover);
+  --color-winning-combination-text: var(--winning-combination-text);
+  --color-winning-combination-bg: var(--winning-combination-bg);
+  --color-loading-screen-text: var(--loading-screen-text);
 }
 
 @layer base {

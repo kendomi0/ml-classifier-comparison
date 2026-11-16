@@ -42,15 +42,15 @@
                 {% if number_of_combinations > 1 %}
                 <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center-safe items-center-safe">
 
-                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-medium-slate-blue-600"><span class="font-semibold">Dataset:</span> {{ dataset }}</p>
-                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-medium-slate-blue-600"><span class="font-semibold">Evaluation Method:</span> {{ combinations[0].evaluation_method }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-accent-main"><span class="font-semibold">Dataset:</span> {{ dataset }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-accent-main"><span class="font-semibold">Evaluation Method:</span> {{ combinations[0].evaluation_method }}</p>
 
                         {% if not show_classifier_header %}
-                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-medium-slate-blue-600"><span class="font-semibold">Classifier:</span> {{ combinations[0].classifier }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-accent-main"><span class="font-semibold">Classifier:</span> {{ combinations[0].classifier }}</p>
                         {% endif %}
 
                         {% if not show_normalization_header %}
-                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-medium-slate-blue-600"><span class="font-semibold">Normalization Method:</span> {{ combinations[0].normalization_method }}</p>
+                        <p class="text-center capitalize badge badge-lg py-4 rounded-2xl border-accent-main"><span class="font-semibold">Normalization Method:</span> {{ combinations[0].normalization_method }}</p>
                         {% endif %}
                 </div>
                 {% endif %}
@@ -63,7 +63,7 @@
                                 <div class="flex gap-2 justify-center">
                                     {{ header }}
                                     {% if header in icon_headers %}
-                                        <svg id="{{ icon_headers[header] }}" class="inline text-medium-slate-blue-600  hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                                        <svg id="{{ icon_headers[header] }}" class="inline text-accent-main  hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
                                             <path d="M0 0h24v24H0z" fill="none" />
                                             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0m9-4h.01M12 11v5" />
                                         </svg>
@@ -74,7 +74,7 @@
                         </thead>
                         <tbody>
                             {% for combo in combinations %}
-                            <tr class="duration-120 ease-in {{ 'bg-medium-slate-blue-25 text-medium-slate-blue-800 font-medium pointer-events-none' if combo.ranking == 1 and number_of_combinations > 1 }} hover:bg-medium-slate-blue-lightest">
+                            <tr class="duration-120 ease-in {{ 'bg-winning-combination-bg text-winning-combination-text font-medium pointer-events-none' if combo.ranking == 1 and number_of_combinations > 1 }} hover:bg-accent-1">
                                 {% if number_of_combinations > 1 %}
                                 <td>{{ combo.ranking }}</td>
                                 {% endif %}
@@ -107,7 +107,7 @@
                 <details id="{{ id }}" class="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl" name="results-faq">
                     <summary class="collapse-title font-semibold">
                         <div class="flex gap-2">
-                            <svg class="inline text-medium-slate-blue-600" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                            <svg class="inline text-accent-main" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0z" fill="none" />
                                 <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0m9-4h.01M12 11v5" />
                             </svg>
@@ -123,8 +123,8 @@
             <img id="scatter-plot" class="w-fit hidden" data-key="{{ plot_key }}">
 
             <div class="flex flex-col items-center-safe sm:flex-row gap-7 sm:gap-8">
-                <button id="toggle-plot-btn" class="btn btn-lg text-xl rounded-2xl border-purple-accent-border bg-medium-slate-blue-600 text-white whitespace-nowrap
-            shadow-lg shadow-medium-slate-blue-500 duration-120 ease-in hover:bg-medium-slate-blue-700">
+                <button id="toggle-plot-btn" class="btn btn-lg text-xl rounded-2xl border-accent-border bg-accent-main text-main-button-text whitespace-nowrap
+            shadow-lg shadow-button-shadow duration-120 ease-in hover:bg-accent-5">
                     <span class="default-text">
                         <span class="show-or-hide">Show</span>
                         <span class="sm:hidden inline"> Dataset</span> 
@@ -137,7 +137,7 @@
                     </span>
                 </button>
                 <p>
-                    <a href="/" class="btn btn-lg text-xl rounded-2xl border-primary tracking-wide whitespace-nowrap">Return to Start</a>
+                    <a href="/" class="btn btn-lg text-xl rounded-2xl border-primary tracking-wide whitespace-nowrap hover:bg-base-300">Return to Start</a>
                 </p>
             </div>
         </div>
