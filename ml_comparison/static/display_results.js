@@ -95,11 +95,12 @@ function scrollAndOpenQna(qna) {
 }
 
 iconsAndQnas.forEach((qna, icon) => {
-    console.log(typeof icon)
-    icon.addEventListener("click", () => {
-        scrollAndOpenQna(qna);
-        }
-    )
+    if (icon) {
+        icon.addEventListener("click", () => {
+            scrollAndOpenQna(qna);
+            }
+        )
+    }
 });
 
 

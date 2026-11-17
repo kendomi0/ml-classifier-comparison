@@ -11,10 +11,19 @@
     'Ranking': 'ranking-icon'
 } %}
 
-{% set accordions = {
+{% set qnas = {
     'ranking-qna': {
         'What breaks a tie when accuracies are the same?': 'Runtime is the tiebreaker. It is rounded to 3 decimals by default, with more being added to the display when needed to indicate which result is the tiebreaker.'
     },
+    'runtime-qna': {
+        'How is runtime calculated?': 'Runtime measures the CPU time of the processes.'
+    },
+    'cost-tier-qna': {
+        'How do the computational cost tiers work?': 'Computational cost tiers are ranked from lowest (Tier 1) to highest (Tier 4). They are relative to the dataset. Cost is measured by runtime. You can read more about how computational cost is derived on the Computational Cost page.'
+    }
+    } %}
+
+{% set qnas_without_ranking = {
     'runtime-qna': {
         'How is runtime calculated?': 'Runtime measures the CPU time of the processes.'
     },
@@ -102,21 +111,23 @@
                         </tbody>
                     </table>
                 </div>
-            {% for id, qna in accordions.items() %}
-                {% for question, answer in qna.items() %}
-                <details id="{{ id }}" class="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl" name="results-faq">
-                    <summary class="collapse-title font-semibold">
-                        <div class="flex gap-2">
-                            <svg class="inline text-accent-main" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
-                                <path d="M0 0h24v24H0z" fill="none" />
-                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0m9-4h.01M12 11v5" />
-                            </svg>
-                            {{ question }}
-                        </div>
-                    </summary>
-                    <div class="collapse-content text-sm">{{ answer }}</div>
-                </details>
-                {% endfor %}
+            {% for element_id, qna in qnas.items() %}
+                {% if element_id != 'ranking-qna' or number_of_combinations != 1 %}
+                    {% for question, answer in qna.items() %}
+                    <details id="{{ element_id }}" class="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl" name="results-faq">
+                        <summary class="collapse-title font-semibold">
+                            <div class="flex gap-2">
+                                <svg class="inline text-accent-main" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0m9-4h.01M12 11v5" />
+                                </svg>
+                                {{ question }}
+                            </div>
+                        </summary>
+                        <div class="collapse-content text-sm">{{ answer }}</div>
+                    </details>
+                    {% endfor %}
+                {% endif %}
             {% endfor %}
         </div>
 
