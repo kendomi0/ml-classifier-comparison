@@ -3,7 +3,7 @@ class SiteHeader extends HTMLElement {
     this.innerHTML = `
       <div class="navbar border-b border-base-300">
         <div class="flex-1">
-          <a class="btn btn-ghost text-xl text-accent-7" href="/">
+          <a class="btn btn-ghost text-xl text-accent-7 hover:bg-base-300 rounded-md border-none" href="/">
           <span class="home-text hidden sm:inline">ML Classifier Comparison</span>
           <span class="home-icon sm:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
@@ -17,7 +17,7 @@ class SiteHeader extends HTMLElement {
           </a>
         </div>
         <div class="flex">
-          <label class="swap swap-rotate mr-1">
+          <label class="swap swap-rotate mr-1 hover:bg-base-300 btn btn-ghost btn-lg btn-square rounded-md border-none">
             <input type="checkbox" class="theme-controller" value="wireframe" />
 
             <!-- sun icon -->
@@ -35,7 +35,7 @@ class SiteHeader extends HTMLElement {
         </div>
 
 
-          <a class="btn btn-ghost btn-lg btn-square" href="https://github.com/kendomi0/ml-classifier-comparison" target="_blank" rel="noopener noreferrer">
+          <a class="btn btn-ghost btn-lg btn-square rounded-md border-none hover:bg-base-300" href="https://github.com/kendomi0/ml-classifier-comparison" target="_blank" rel="noopener noreferrer">
               <svg class="text-accent-main" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 32 32">
                   <path d="M0 0h32v32H0z" fill="none" />
                   <path fill="currentColor" fill-rule="evenodd" d="M16 2a14 14 0 0 0-4.43 27.28c.7.13 1-.3 1-.67v-2.38c-3.89.84-4.71-1.88-4.71-1.88a3.7 3.7 0 0 0-1.62-2.05c-1.27-.86.1-.85.1-.85a2.94 2.94 0 0 1 2.14 1.45a3 3 0 0 0 4.08 1.16a2.93 2.93 0 0 1 .88-1.87c-3.1-.36-6.37-1.56-6.37-6.92a5.4 5.4 0 0 1 1.44-3.76a5 5 0 0 1 .14-3.7s1.17-.38 3.85 1.43a13.3 13.3 0 0 1 7 0c2.67-1.81 3.84-1.43 3.84-1.43a5 5 0 0 1 .14 3.7a5.4 5.4 0 0 1 1.44 3.76c0 5.38-3.27 6.56-6.39 6.91a3.33 3.33 0 0 1 .95 2.59v3.84c0 .46.25.81 1 .67A14 14 0 0 0 16 2" />
