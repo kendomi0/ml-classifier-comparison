@@ -84,11 +84,11 @@
                 </div>
                 {% endif %}
                 
-                <div class="overflow-x-auto max-w-full max-h-[60vh] sm:overflow-clip sm:max-h-none border border-base-300 rounded-2xl">
+                <div class="max-w-full overflow-x-auto sm:overflow-x-clip max-h-[60vh] sm:overflow-clip sm:max-h-none border border-base-300 rounded-2xl">
                     <table class="table table-pin-rows text-xl text-center">
                         <thead>
                             {% for header in table_headers %}
-                            <th class="sticky top-0 z-10 uppercase font-semibold bg-base-200">
+                            <th class="sticky top-0 sm:top-16 z-10 uppercase font-semibold bg-base-200">
                                 <div class="flex gap-2 justify-center">
                                     {{ header }}
                                     {% if header in icon_headers %}

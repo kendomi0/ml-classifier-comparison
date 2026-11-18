@@ -104,12 +104,15 @@
 @layer base {
   body {
     width: 100%;
-    height: 100vh;
   }
 
   button {
     border-radius: calc(infinity * 1px);
     cursor: pointer;
+  }
+
+  site-header  {
+    display: contents;
   }
 }
 

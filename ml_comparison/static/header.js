@@ -1,11 +1,11 @@
 class SiteHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      <div class="navbar border-b border-base-300">
+      <div class="navbar bg-base-100 border-b border-base-300 sticky top-0 z-50">
         <div class="flex-1">
           <a class="btn btn-ghost text-xl text-accent-7 hover:bg-base-300 rounded-md border-none" href="/">
           <span class="home-text hidden sm:inline">ML Classifier Comparison</span>
-          <span class="home-icon sm:hidden" aria-label:"Home button">
+          <span class="home-icon sm:hidden" aria-label="Home button">
             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0z" fill="none" />
               <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -42,7 +42,6 @@ class SiteHeader extends HTMLElement {
               </svg>
           </a>
         </div>
-      </div>
       `;
   }
 }
