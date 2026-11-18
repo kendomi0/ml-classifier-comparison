@@ -49,13 +49,13 @@
                 <div class="flex flex-col max-w-1/2">
                     <div class="w-fit self-center flex flex-col justify-content gap-5">
                         <p class="text-center text-4xl font-semibold mb-5">How many results would you like to view?</p>
-                        <button type="submit" id="all-combos-btn" name="number-of-combos" value="all" class="self-stretch btn btn-lg text-xl rounded-2xl border-accent-border bg-accent-main text-main-button-text
+                        <button type="submit" id="all-combos-btn" name="number-of-combos" value="all" class="self-stretch btn btn-lg text-xl rounded-2xl h-auto min-h-12 py-1 border-accent-border bg-accent-main text-main-button-text
                 shadow-lg shadow-button-shadow duration-120 ease-in hover:bg-accent-5" formnovalidate>
                             View all {{ results_length }} results
                         </button>
                         <div class="divider font-semibold">or</div>
                         <div class="flex flex-col items-stretch lg:flex-row gap-2">
-                            <input type="number" id="numeric-combos-input" name="number-of-combos" placeholder="Enter a number" min="1" max="{{ results_length }}" class="placeholder:text-sm sm:placeholder:text-xl border border-primary rounded-3xl h-full input input-xl pb-2 sm:pb-1 px-4 w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" aria-label="Enter a number" required>
+                            <input type="number" id="numeric-combos-input" name="number-of-combos" placeholder="Enter a number" min="1" max="{{ results_length }}" class="placeholder:text-sm sm:placeholder:text-xl border border-primary rounded-2xl h-full input input-xl pb-2 sm:pb-1 px-4 w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" aria-label="Enter a number" required>
 
                             <button type="submit" id="submit-combos-btn" value="submit" class="btn btn-lg text-xl rounded-2xl transition duration-200" disabled>
                                 Submit
