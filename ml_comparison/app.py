@@ -11,7 +11,6 @@ from ml_comparison.classifiers import (
     normalization_methods,
 )
 import uuid
-from ml_comparison.plotting import create_and_save_plot
 from ml_comparison.classifiers import run_classifier
 from ml_comparison.ranking_formatting import (
     display_combinations_heading,
@@ -187,12 +186,3 @@ def display_results():
         table_headers=table_headers,
         WEBSITE_NAME=WEBSITE_NAME,
     )
-
-
-@app.route("/plot/scatter")
-def display_scatter_plot():
-    plot_key = request.args.get("key")
-    data = plot_data.get(plot_key)
-    buf = create_and_save_plot(data["X"], data["y"], data["dataset"])
-    plot_data.pop(plot_key, None)
-    return send_file(buf, mimetype="image/png")

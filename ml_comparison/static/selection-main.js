@@ -10,7 +10,9 @@ let selectionLoadingScreen = new LoadingScreen(container, pageTitle, loadingTitl
 const form = document.querySelector("form");
 const submitBtn = form.querySelector('button[type="submit"]');
 const nextArrow = document.querySelector(".next-arrow");
-const submitMsg = document.querySelector(".submit-msg")
+const submitMsg = document.querySelector(".submit-msg");
+
+let scatterPlots = document.querySelectorAll(".scatter-plot");
 
 if (choiceGroup == "normalization") {
     selectionLoadingScreen.form.addEventListener("submit", selectionLoadingScreen.showLoadingScreen.bind(selectionLoadingScreen));
@@ -27,3 +29,44 @@ form.addEventListener('change', () => {
     submitBtn.classList.add(...classesForValidSubmitBtn.split(' '));
     submitBtn.classList.remove(...classesToRemove.split(' '));
 });
+
+
+// Scatter plot tooltip
+
+const plotDir = "./static/images/plots"
+
+const plotImages = {
+    "noisy-circles-plot": {
+        "light": "noisy_circles_plot_light.png",
+        "dark": "noisy_circles_plot_dark.png"
+    },
+    "noisy-moons-plot": {
+        "light": "noisy_moons_plot_light.png",
+        "dark": "noisy_moons_plot_dark.png"
+    },
+    "blobs-plot": {
+        "light": "blobs_plot_light.png",
+        "dark": "blobs_plot_dark.png"
+    },
+    "anisotropic-plot": {
+        "light": "anisotropic_plot_light.png",
+        "dark": "anisotropic_plot_dark.png"
+    },
+    "varied-plot": {
+        "light": "varied_plot_light.png",
+        "dark": "varied_plot_dark.png"
+    }
+}
+
+if (scatterPlots) {
+    const storedTheme = localStorage.getItem('theme');
+    const themes = {
+        "black": "dark", 
+        "wireframe": "light"
+    }
+    const theme = themes[storedTheme]
+    scatterPlots.forEach((plot) => {
+        plot.src = `${plotDir}/${plotImages[plot.id][theme]}`
+    })
+
+}

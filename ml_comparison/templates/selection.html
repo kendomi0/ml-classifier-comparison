@@ -67,7 +67,18 @@
                         required
                     >
                     <span class="capitalize ml-3 sm:ml-0 peer-checked:text-accent-7 {{ 'text-primary line-through' if choice in disabled_choices }}">
+                    <div class="flex justify-center gap-2">
                         {{ choice }}
+                        {% if group == "dataset" %}
+                        <div class="tooltip tooltip-bottom">
+                            <div class="tooltip-content max-w-100">
+                                <img id="{{ choice | lower | replace(' ', '-') }}-plot" class="scatter-plot " alt="{{ choice }} scatter plot">
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-scatter preview-icon"><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="18.5" cy="5.5" r=".5" fill="currentColor"/><circle cx="11.5" cy="11.5" r=".5" fill="currentColor"/><circle cx="7.5" cy="16.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="14.5" r=".5" fill="currentColor"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+                            </svg>
+                        </div>
+                        {% endif %}
+                    </div>
                     </span>
                 </label>
                 {% endfor %}
