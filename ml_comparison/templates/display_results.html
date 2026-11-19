@@ -88,8 +88,8 @@
                     <table class="table table-pin-rows text-xl text-center">
                         <thead>
                             {% for header in table_headers %}
-                            <th class="sticky top-0 sm:top-16 z-10 uppercase font-semibold bg-base-200">
-                                <div class="flex gap-2 justify-center">
+                            <th class="sticky top-0 sm:top-16 z-10 uppercase font-semibold bg-base-200 align-middle">
+                                <div class="inline-flex gap-2 items-center-safe">
                                     {{ header }}
                                     {% if header in icon_headers %}
                                         <svg id="{{ icon_headers[header] }}" aria-label="More info about {{ icon_headers[header] }}" class="inline text-accent-main  hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
