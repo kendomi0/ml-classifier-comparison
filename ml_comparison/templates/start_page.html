@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>{{ WEBSITE_NAME }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='../static/output.css') }}">
 </head>
 <body>
-    <main class="flex flex-col h-screen justify-center items-center gap-8">
-        <h1 class="text-6xl sm:text-7xl text-center tracking-tight font-semibold max-w-9/10">
-            {{ WEBSITE_NAME }}
-        </h1>
-        <p class="text-xl sm:text-2xl text-center max-w-5/6">
-            Proceed to the next page to begin selection.
-        </p>
-        <button class="pl-6 pr-5 py-2 text-xl" onclick="document.location='/dataset'">Next
-            <i class="fa-solid fa-arrow-right"></i>
-        </button>
+    <site-header></site-header>
+    <script src="{{ url_for('static', filename='./header.js') }}"></script>
+    <main class="flex flex-col flex-1 justify-center items-center gap-8 py-8">
+        <div class="flex flex-col items-center gap-8 max-w-2/5">
+            <h1 class="text-6xl sm:text-7xl text-center font-semibold">
+                {{ WEBSITE_NAME }}
+            </h1>
+            <p class="text-2xl text-center">
+                Compare how <span class="text-accent-main">4</span> evaluation methods, <span class="text-accent-main">5</span> classifiers, and <span class="text-accent-main">3</span> normalization options perform on <span class="text-accent-main">5</span> datasets.
+            </p>
+            <button class="btn w-fit btn-xl text-2xl rounded-2xl border-accent-border bg-accent-main text-main-button-text
+         shadow-button-shadow shadow-lg whitespace-nowrap duration-120 ease-in hover:bg-accent-5 transition" onclick="document.location='/dataset'">Select Options
+                <i class="fa-solid fa-arrow-right pl-2"></i>
+            </button>
+        </div>
     </main>
 </body>
 </html>

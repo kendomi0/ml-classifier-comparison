@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Number of Top Combinations to View | {{ WEBSITE_NAME }} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,41 +7,76 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='../static/output.css') }}">
 </head>
 <body>
-    <div class="loading-screen w-screen h-screen hidden">
-        <div class="loading-screen-tagline max-w-9/10 flex flex-col gap-1 sm:flex-row">
-            <i class="fa-solid fa-circle-notch text-5xl self-center animate-spin mr-1"></i>
-            <div class="text-5xl text-slate-700 text-center tracking-tighter">
+    <site-header></site-header>
+    <script src="{{ url_for('static', filename='./header.js') }}"></script>
+    <div class="loading-screen hidden">
+        <div class="loading-screen-tagline text-loading-screen-text max-w-9/10 flex flex-col items-center-safe gap-10">
+            <div class="loader-2"></div>
+            <p class="text-4xl sm:text-5xl font-medium text-center">
                 Generating combination...
+            </p>
+            <div class="opacity-75 flex items-center justify-center gap-1.5">
+                <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path fill="currentColor" d="M12.75 7a.75.75 0 0 0-1.5 0v5a.75.75 0 0 0 .352.636l3 1.875a.75.75 0 1 0 .796-1.272l-2.648-1.655z" />
+                    <path fill="currentColor" fill-rule="evenodd" d="M12 3.25a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5M4.75 12a7.25 7.25 0 1 1 14.5 0a7.25 7.25 0 0 1-14.5 0" clip-rule="evenodd" />
+                </svg>
+                <p class="font-medium text-sm">This may take a moment</p>
             </div>
         </div>
     </div>
-    <form method="POST" action="/display">
-        <div class="flex flex-col h-screen justify-center gap-2">
-            <input type="hidden" name="results_key" value="{{ results_key }}">
-            <input type="hidden" name="dataset" value="{{ dataset }}">
-            <input type="hidden" name="plot_key" value="{{ plot_key }}">
-            <input type="hidden" name="hidden_inputs_key" value="{{ hidden_inputs_key }}">
-            <input type="hidden" id="total-combinations" value="{{ results_length }}">
-            <div class="website-name" data-website-name="{{ WEBSITE_NAME }}" hidden></div>
-            
-            <p class="text-center self-center text-3xl max-w-2/3 tracking-tight mb-3">
-                How many of the top combinations would you like to see out of {{ results_length }} total combination{% if results_length > 1 %}s{% endif %}?
-            </p>
-            
-            <div class="w-fit self-center flex flex-col justify-content gap-5">
-                <div class="flex flex-col sm:flex-row gap-2">
-                    <button type="button" id="numeric-combos-btn" class="w-fit self-center text-xl sm:text-2xl tracking-tight px-3 sm:px-5 py-1 sm:py-2">
-                        Enter a specific number of combinations
-                    </button>
-                    <input type="number" id="numeric-combos-input" name="number-of-combos" min="1" max="{{ results_length }}" class="hidden border border-slate-400 rounded-full w-fit h-full self-center p-1 sm:py-3 sm:px-2" required>
-                    <button type="submit" id="submit-combos-btn" value="submit" class="hidden w-fit self-center px-3 sm:px-5 py-1 sm:py-2 text-xl sm:text-2xl tracking-tight">Submit</button>
+    <main class="flex flex-1 py-8">
+        <form class="flex flex-1" method="POST" action="/display">
+            <div class="flex flex-col flex-1 justify-center-safe items-center gap-2">
+                <input type="hidden" name="results_key" value="{{ results_key }}">
+                <input type="hidden" name="dataset" value="{{ dataset }}">
+                <input type="hidden" name="plot_key" value="{{ plot_key }}">
+                <input type="hidden" name="hidden_inputs_key" value="{{ hidden_inputs_key }}">
+                <input type="hidden" id="total-combinations" value="{{ results_length }}">
+                <div class="website-name" data-website-name="{{ WEBSITE_NAME }}" hidden></div>
+                
+                <div class="flex flex-col max-w-1/2">
+                    <div class="w-fit self-center flex flex-col justify-content gap-5">
+                        <p class="text-center text-4xl font-semibold mb-5">How many results would you like to view?</p>
+                        <button type="submit" id="all-combos-btn" name="number-of-combos" value="all" class="self-stretch btn btn-lg text-xl rounded-2xl h-auto min-h-12 py-1 border-accent-border bg-accent-main text-main-button-text
+                shadow-lg shadow-button-shadow duration-120 ease-in hover:bg-accent-5" formnovalidate>
+                            View all {{ results_length }} results
+                        </button>
+                        <div class="divider font-semibold">or</div>
+                        <div class="flex flex-col items-stretch lg:flex-row gap-5 lg:gap-2">
+                            <input type="number" id="numeric-combos-input" name="number-of-combos" placeholder="Enter a number" min="1" max="{{ results_length }}" class="placeholder:text-sm sm:placeholder:text-xl border border-primary rounded-2xl h-full input input-xl py-1 px-4 w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" aria-label="Enter a number" required>
+
+                            <button type="submit" id="submit-combos-btn" value="submit" class="btn btn-lg text-xl rounded-2xl transition duration-200" disabled>
+                                Submit
+                                <span class="invalid-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 16l-4-4m0 0L8 8m4 4l4-4m-4 4l-4 4" />
+                                    </svg>
+                                </span>
+                                <span class="valid-icon hidden">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12l6 6L20 6" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" id="all-combos-btn" name="number-of-combos" value="all" class="max-w-7/8 self-center text-xl sm:text-2xl tracking-tight px-3 sm:px-5 py-1 sm:py-2 bg-slate-700 text-slate-200">
-                    Choose all combinations
-                </button>
+                <div class="toast toast-center opacity-0 pointer-events-none transition-opacity duration-300 animate-none">
+                    <div class="alert alert-warning rounded-2xl text-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4m-7.621 2.2c-.91 1.575-1.364 2.363-1.296 3.01a2 2 0 0 0 .813 1.408C4.422 20 5.331 20 7.15 20h9.703c1.817 0 2.726 0 3.251-.382a2 2 0 0 0 .814-1.409c.068-.646-.386-1.434-1.296-3.01l-4.85-8.4c-.909-1.574-1.364-2.362-1.958-2.626a2 2 0 0 0-1.627 0c-.593.264-1.048 1.052-1.957 2.625zm7.672.8v.1h-.1V16z" />
+                        </svg>
+                        <span class="text-medium">The number must be between 1 and {{ results_length }}.</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </main>
+  
     <script type="module" src="{{ url_for('static', filename='../static/process_data.js') }}"></script>
 </body>
 </html>

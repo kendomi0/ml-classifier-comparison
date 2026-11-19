@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>{{ selection_page_titles[group] }} Selection  | {{ WEBSITE_NAME }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,29 +7,42 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='./output.css') }}">
 </head>
 <body>
-    <div class="loading-screen w-screen h-screen hidden">
-        <div class="loading-screen-tagline max-w-9/10 flex flex-col gap-1 sm:flex-row">
-            <i class="fa-solid fa-spinner text-5xl self-center animate-spin mr-1"></i>
-            <div class="text-5xl text-slate-700 text-center tracking-tighter">
-                Running classifiers...
+    <site-header></site-header>
+    <script src="{{ url_for('static', filename='./header.js') }}"></script>
+    <div class="loading-screen hidden">
+        <div class="loading-screen-tagline max-w-9/10 flex flex-col items-center-safe gap-10 text-loading-screen-text">
+            <div class="loader-1"></div>
+            <p class="text-4xl sm:text-5xl font-medium text-center">
+                Classifying...
+            </p>
+            <div class="opacity-75 flex items-center justify-center gap-1.5">
+                <svg class="shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path fill="currentColor" d="M12.75 7a.75.75 0 0 0-1.5 0v5a.75.75 0 0 0 .352.636l3 1.875a.75.75 0 1 0 .796-1.272l-2.648-1.655z" />
+                    <path fill="currentColor" fill-rule="evenodd" d="M12 3.25a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5M4.75 12a7.25 7.25 0 1 1 14.5 0a7.25 7.25 0 0 1-14.5 0" clip-rule="evenodd" />
+                </svg>
+                <p class="font-medium text-sm">This may take a moment</p>
             </div>
         </div>
     </div>
-    <main>
-        <form method="POST" action="{{ form_action_page }}">
-        <fieldset class="flex flex-col h-screen items-center-safe justify-center gap-8">
+    <main class="flex flex-1 py-8">
+        <form class="flex flex-1" method="POST" action="{{ form_action_page }}">
+        <fieldset class="flex flex-col flex-1 items-center-safe justify-center gap-8">
             <div class="legend flex justify-center max-w-2/3 sm:max-w-5/6">
-                <legend class="text-5xl text-center tracking-tight">
+                <legend class="text-5xl text-center">
                     {{ selection_legends[group] }}
                 </legend>
             </div>
             
-            <p class="tracking-tight text-center text-lg font-bold text-slate-500 max-w-5/6 -my-4 sm:my-0 {{ 'hidden' if not disabled_choices }}">
-                <span class="block mb-2 sm:mb-0 sm:inline">
-                    <i class="fa-solid fa-circle-info"></i>
-                </span>
-                Artificial neural networks and support vector machine are not permitted to be used with leave-one-out, due to the high computational cost.
-            </p>
+            <div class="text-lg text-center font-medium max-w-3/4 sm:max-w-3/10 rounded-2xl {{ 'hidden' if not disabled_choices }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="inline text-accent-main">
+                    <path d="M0 0h16v16H0z" fill="none" />
+                    <path fill="currentColor" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638l-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89l-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622l-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01l.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637l.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89l.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622l.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2a1 1 0 0 1 0-2" />
+                </svg>
+                <p class="text-base-content inline ml-2">
+                    Artificial neural networks and support vector machine are not permitted to be used with leave&#8209;one&#8209;out, due to the high computational cost.
+                </p>
+            </div>
 
             <div class="website-name" data-website-name="{{ WEBSITE_NAME }}" hidden></div>
 
@@ -39,27 +52,33 @@
             <input type="hidden" name="{{ input_name }}" value="{{ input_value }}">
             {% endfor %}
 
-            <div class="radio-group flex flex-col sm:flex-row flex-wrap justify-center gap-5 text-xl tracking-tight max-w-9/10">
+            <div class="radio-group flex flex-col sm:flex-row [flex-wrap:balance] justify-center gap-5 text-xl sm:max-w-2/3">
                 {% for choice in choices %}
-                <label class="inline-flex sm:ml-0 gap-3">
+                <label class="items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-base-300 px-5 py-3 transition cursor-pointer has-disabled:cursor-not-allowed
+              {{ 'hover:border-border-hover' if choice not in disabled_choices }}
+              has-checked:border-accent-6 has-checked:bg-accent-2 has-checked:shadow-md has-checked:shadow-accent-6/20
+              has-focus-visible:ring-2 has-focus-visible:ring-accent-4 has-focus-visible:ring-offset-2' if choice not in disabled_choices">
                     <input
                         type="radio"
-                        class="appearance-none w-4 h-4 self-center rounded-full outline-2 outline-slate-300 outline-offset-2 checked:bg-slate-500 {{ 'hidden' if choice in disabled_choices }}" 
+                        class="peer radio radio-md checked:border-accent-5 checked:text-accent-main {{ 'hidden' if choice in disabled_choices }}" 
                         name="{{ group }}"
                         value="{{ choice }}"
                         {% if choice in disabled_choices %} disabled {% endif %}
                         required
                     >
-                    <span class="capitalize ml-3 sm:ml-0 {{ 'text-slate-500 line-through' if choice in disabled_choices }}">
+                    <span class="capitalize ml-3 sm:ml-0 peer-checked:text-accent-7 {{ 'text-primary line-through' if choice in disabled_choices }}">
                         {{ choice }}
                     </span>
                 </label>
                 {% endfor %}
 
                 {% if group == "classifier" or group == "normalization" %}
-                <label class="inline-flex sm:ml-0 gap-3">
+                <label class="items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-base-300 px-5 py-3 transition cursor-pointer
+              hover:border-border-hover
+              has-checked:border-accent-6 has-checked:bg-accent-2 has-checked:shadow-md has-checked:shadow-accent-5/20
+              has-focus-visible:ring-2 has-focus-visible:accent-4 has-focus-visible:ring-offset-2">
                     <input
-                        class="appearance-none w-4 h-4 rounded-full self-center outline-2 outline-slate-300 outline-offset-2 checked:bg-slate-500"
+                        class="peer radio radio-md checked:border-accent-5 checked:text-accent-main"
                         type="radio"
                         name="{{ group }}"
                         value="all"
@@ -69,8 +88,13 @@
                 {% endif %}
             </div>
 
-            <button class="self-center text-xl pl-6 pr-5 py-2" type="submit">Next
-                <i class="fa-solid fa-arrow-right"></i>
+            <button class="self-center btn btn-lg text-xl rounded-2xl border-base-300 transition duration-200" type="submit" disabled>
+                <span class="submit-msg">Select an option 
+                    <span class="hidden sm:inline">to continue</span>
+                </span>
+                <span class="next-arrow hidden">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
             </button>
         </fieldset>
     </form>

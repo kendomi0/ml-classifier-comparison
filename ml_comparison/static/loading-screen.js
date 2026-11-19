@@ -7,6 +7,7 @@ export class LoadingScreen {
         this.loadingTitle = loadingTitle;
         this.websiteNameElement = container.querySelector(".website-name");
         this.websiteName = this.websiteNameElement.dataset.websiteName;
+        this.main = container.querySelector("main");
     }
 
     setLoadingScreenTitle() {
@@ -20,6 +21,7 @@ export class LoadingScreen {
         else {
             this.loadingScreen.classList.remove("hidden");
             this.loadingScreen.classList.add("flex");
+            this.loadingScreen.classList.add("flex-1");
             this.loadingScreen.classList.add("flex-col");
             this.loadingScreen.classList.add("justify-center");
             this.setLoadingScreenTitle();
@@ -38,5 +40,7 @@ export class LoadingScreen {
         else {
             this.form.classList.add("hidden");
         }
+
+        this.main.classList.add('hidden');
     }
 }
