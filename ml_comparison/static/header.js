@@ -18,16 +18,16 @@ class SiteHeader extends HTMLElement {
         </div>
         <div class="flex">
           <label class="swap swap-rotate mr-1 hover:bg-base-300 btn btn-ghost btn-lg btn-square rounded-md border-none">
-            <input type="checkbox" class="theme-controller" value="wireframe" />
+            <input type="checkbox" id="theme-toggle" />
 
             <!-- sun icon -->
-            <svg class="swap-off text-accent-main" xmlns="http://www.w3.org/2000/svg" aria-label="Display light theme" width="2em" height="2em" viewBox="0 0 24 24">
+            <svg class="swap-on text-accent-main" xmlns="http://www.w3.org/2000/svg" aria-label="Display light theme" width="2em" height="2em" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0z" fill="none" />
               <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5m-1-6v4h2V1zm0 18v4h2v-4zm12-8h-4v2h4zM5 11H1v2h4zm11.24 6.66l2.47 2.47l1.41-1.41l-2.47-2.47zM3.87 5.28l2.47 2.47l1.41-1.41l-2.47-2.47zm2.47 10.96l-2.47 2.47l1.41 1.41l2.47-2.47zM18.72 3.87l-2.47 2.47l1.41 1.41l2.47-2.47z" />
             </svg>
 
             <!-- moon icon -->
-            <svg class="swap-on text-accent-main" xmlns="http://www.w3.org/2000/svg" aria-label="Display dark theme" width="2em" height="2em" viewBox="0 0 24 24">
+            <svg class="swap-off text-accent-main" xmlns="http://www.w3.org/2000/svg" aria-label="Display dark theme" width="2em" height="2em" viewBox="0 0 24 24">
               <path d="M0 0h24v24H0z" fill="none" />
               <path fill="currentColor" d="M12 21q-3.75 0-6.375-2.625T3 12t2.625-6.375T12 3q.35 0 .688.025t.662.075q-1.025.725-1.638 1.888T11.1 7.5q0 2.25 1.575 3.825T16.5 12.9q1.375 0 2.525-.613T20.9 10.65q.05.325.075.662T21 12q0 3.75-2.625 6.375T12 21" />
             </svg>
@@ -47,11 +47,54 @@ class SiteHeader extends HTMLElement {
 }
 customElements.define('site-header', SiteHeader);
 
-const toggle = document.querySelector('.theme-controller');
+const toggle = document.querySelector('#theme-toggle');
+const root = document.documentElement;
 
-toggle.checked = localStorage.getItem('theme') === 'black';
+function getPreferredTheme() {
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const preferredTheme = prefersDark ? "black" : "wireframe";
+  return preferredTheme
+}
+
+function getCurrentTheme() {
+  return root.getAttribute('data-theme');
+}
+
+function setToggleState() {
+  const currentTheme = getCurrentTheme()
+  if (currentTheme == 'black') {
+    toggle.checked = true;
+  }
+}
+
+function setInitialTheme() {
+  let theme = getPreferredTheme();
+  root.setAttribute('data-theme', theme);
+}
+
+function setThemeUponLoad() {
+  if (localStorage.getItem('theme') == null) {
+    setInitialTheme()
+  }
+  else {
+    root.setAttribute('data-theme', localStorage.getItem('theme'))
+  }
+  setToggleState()
+}
+
+function toggleTheme() {
+  const oppositeTheme = root.getAttribute('data-theme') === "black" ? "wireframe" : "black"
+  root.setAttribute('data-theme', oppositeTheme);
+}
+
+function storeTheme() {
+  const currentTheme = getCurrentTheme();
+  localStorage.setItem('theme', currentTheme);
+}
+
+setThemeUponLoad()
 
 toggle.addEventListener('change', () => {
-  localStorage.setItem('theme', toggle.checked ? 'black' : 'wireframe')
-  }
-)
+  toggleTheme();
+  storeTheme();
+})
