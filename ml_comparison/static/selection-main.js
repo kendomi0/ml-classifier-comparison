@@ -59,14 +59,13 @@ const plotImages = {
 }
 
 if (scatterPlots) {
-    const storedTheme = localStorage.getItem('theme');
+    const currentTheme = document.documentElement.getAttribute('data-theme');
     const themes = {
         "black": "dark", 
         "wireframe": "light"
     }
-    const theme = themes[storedTheme]
+    const theme = themes[currentTheme]
     scatterPlots.forEach((plot) => {
         plot.src = `${plotDir}/${plotImages[plot.id][theme]}`
     })
-
 }
