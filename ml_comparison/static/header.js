@@ -65,6 +65,9 @@ function setToggleState() {
   if (currentTheme == 'black') {
     toggle.checked = true;
   }
+  else {
+    toggle.checked = false;
+  }
 }
 
 function setInitialTheme() {
@@ -97,4 +100,15 @@ setThemeUponLoad()
 toggle.addEventListener('change', () => {
   toggleTheme();
   storeTheme();
+})
+
+const userPreference = window.matchMedia('(prefers-color-scheme: dark)');
+
+userPreference.addEventListener('change', () => {
+  const currentTheme = getCurrentTheme()
+  if (((userPreference.matches) && (currentTheme == 'wireframe')) || ((!userPreference.matches) && (currentTheme == 'black'))) {
+    toggleTheme();
+    storeTheme();
+    setToggleState();
+  }
 })
