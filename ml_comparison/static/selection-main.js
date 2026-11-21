@@ -37,6 +37,13 @@ const plotDir = "./static/images/plots"
 
 const datasets = ["noisy circles", "noisy moons", "blobs", "anisotropic", "varied"]
 
+const userPreference = window.matchMedia('(prefers-color-scheme: dark)');
+
+const themes = {
+    "black": "dark", 
+    "wireframe": "light"
+}
+
 datasets.forEach((dataset) => {
     const datasetHyphens = dataset.replace(" ", "-");
     const datasetUnderscores = dataset.replace(" ", "_");
@@ -48,10 +55,6 @@ datasets.forEach((dataset) => {
 
     modalIcon.addEventListener('click', (event) => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
-        const themes = {
-        "black": "dark", 
-        "wireframe": "light"
-        }
         const theme = themes[currentTheme]
         event.stopPropagation();
         event.preventDefault();
@@ -61,5 +64,11 @@ datasets.forEach((dataset) => {
 
     modalClose.addEventListener('click', () => {
         modal.close();
+    })
+
+    userPreference.addEventListener('change', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const theme = themes[currentTheme]
+        plot.src =`${plotDir}/${datasetUnderscores}_plot_${theme}.png`
     })
 })
