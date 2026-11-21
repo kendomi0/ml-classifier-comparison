@@ -3,6 +3,8 @@
   themes: wireframe, black --prefersdark;
 }
 
+@custom-variant dark (&:where([data-theme=black], [data-theme=black] *));
+
 @theme static {
   --color-tier-1-bg: #e0f5d6; /* coolors: tea green shade 300 */
   --color-tier-1-text: #1E4D2B; /* coolors: dark spruce */
