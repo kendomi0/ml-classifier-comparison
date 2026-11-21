@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 BASE_DIR = Path(__file__).resolve().parent
 output_dir = BASE_DIR / "static" / "images" / "plots"
 
+
 def create_and_save_scatter_plot(X, y, current_dataset, use_dark):
     if use_dark:
         theme = "dark"
@@ -17,7 +18,7 @@ def create_and_save_scatter_plot(X, y, current_dataset, use_dark):
     file_path = f"{current_dataset.replace(" ", "_")}_plot_{theme}.png"
     with plt.style.context(style):
         plt.figure(figsize=(8, 6))
-        plt.scatter(X[:, 0], X[:, 1], c=y, cmap=color_map, edgecolors='k')
+        plt.scatter(X[:, 0], X[:, 1], c=y, cmap=color_map, edgecolors="k")
         plt.title(f"{current_dataset.title()}")
         plt.savefig(output_dir / file_path, dpi=300, bbox_inches="tight")
 
@@ -27,8 +28,5 @@ def generate_plots(datasets):
         for value in [True, False]:
             X, y = data
             create_and_save_scatter_plot(
-                X=X,
-                y=y,
-                current_dataset=dataset_name,
-                use_dark=value
+                X=X, y=y, current_dataset=dataset_name, use_dark=value
             )
