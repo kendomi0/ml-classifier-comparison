@@ -33,7 +33,7 @@
                     {{ selection_legends[group] }}
                 </legend>
             </div>
-            
+
             <div class="text-lg text-center font-medium max-w-3/4 sm:max-w-3/10 rounded-2xl {{ 'hidden' if not disabled_choices }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="inline text-accent-main">
                     <path d="M0 0h16v16H0z" fill="none" />
@@ -64,19 +64,23 @@
                         name="{{ group }}"
                         value="{{ choice }}"
                         {% if choice in disabled_choices %} disabled {% endif %}
-                        required
                     >
                     <span class="capitalize ml-3 sm:ml-0 peer-checked:text-accent-7 {{ 'text-primary line-through' if choice in disabled_choices }}">
                     <div class="flex justify-center gap-2">
                         {{ choice }}
                         {% if group == "dataset" %}
-                        <div class="tooltip tooltip-bottom">
-                            <div class="tooltip-content max-w-100">
-                                <img id="{{ choice | lower | replace(' ', '-') }}-plot" class="scatter-plot " alt="{{ choice }} scatter plot">
-                            </div>
+                        <div id="{{ choice | lower | replace(' ', '-') }}-icon" class="modal-icons">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-scatter preview-icon"><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="18.5" cy="5.5" r=".5" fill="currentColor"/><circle cx="11.5" cy="11.5" r=".5" fill="currentColor"/><circle cx="7.5" cy="16.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="14.5" r=".5" fill="currentColor"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/>
                             </svg>
                         </div>
+                        <dialog id="{{ choice | lower | replace(' ', '-') }}-modal" class="modal plot-modals">
+                            <div class="modal-box lg:max-w-1/2 w-fit">
+                                <form method="dialog">
+                                    <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 modal-close">✕</button>
+                                </form>
+                                <img alt="{{ choice }} scatter plot" class="plot w-150 h-auto">
+                            </div>
+                        </dialog>
                         {% endif %}
                     </div>
                     </span>

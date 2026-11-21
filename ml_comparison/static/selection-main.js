@@ -31,41 +31,35 @@ form.addEventListener('change', () => {
 });
 
 
-// Scatter plot tooltip
+// Scatter plot modals
 
 const plotDir = "./static/images/plots"
 
-const plotImages = {
-    "noisy-circles-plot": {
-        "light": "noisy_circles_plot_light.png",
-        "dark": "noisy_circles_plot_dark.png"
-    },
-    "noisy-moons-plot": {
-        "light": "noisy_moons_plot_light.png",
-        "dark": "noisy_moons_plot_dark.png"
-    },
-    "blobs-plot": {
-        "light": "blobs_plot_light.png",
-        "dark": "blobs_plot_dark.png"
-    },
-    "anisotropic-plot": {
-        "light": "anisotropic_plot_light.png",
-        "dark": "anisotropic_plot_dark.png"
-    },
-    "varied-plot": {
-        "light": "varied_plot_light.png",
-        "dark": "varied_plot_dark.png"
-    }
-}
+const datasets = ["noisy circles", "noisy moons", "blobs", "anisotropic", "varied"]
 
-if (scatterPlots) {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const themes = {
+datasets.forEach((dataset) => {
+    const datasetHyphens = dataset.replace(" ", "-");
+    const datasetUnderscores = dataset.replace(" ", "_");
+
+    const modal = document.getElementById(`${datasetHyphens}-modal`);
+    const modalIcon = document.getElementById(`${datasetHyphens}-icon`);
+    const modalClose = modal.querySelector('.modal-close');
+    const plot = modal.querySelector('.plot');
+
+    modalIcon.addEventListener('click', (event) => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const themes = {
         "black": "dark", 
         "wireframe": "light"
-    }
-    const theme = themes[currentTheme]
-    scatterPlots.forEach((plot) => {
-        plot.src = `${plotDir}/${plotImages[plot.id][theme]}`
+        }
+        const theme = themes[currentTheme]
+        event.stopPropagation();
+        event.preventDefault();
+        modal.showModal();
+        plot.src =`${plotDir}/${datasetUnderscores}_plot_${theme}.png`
     })
-}
+
+    modalClose.addEventListener('click', () => {
+        modal.close();
+    })
+})
