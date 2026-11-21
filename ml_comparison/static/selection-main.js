@@ -45,8 +45,8 @@ const themes = {
 }
 
 datasets.forEach((dataset) => {
-    const datasetHyphens = dataset.replace(" ", "-");
-    const datasetUnderscores = dataset.replace(" ", "_");
+    const datasetHyphens = dataset.replaceAll(" ", "-");
+    const datasetUnderscores = dataset.replaceAll(" ", "_");
 
     const modal = document.getElementById(`${datasetHyphens}-modal`);
     const modalIcon = document.getElementById(`${datasetHyphens}-icon`);
