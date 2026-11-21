@@ -62,6 +62,11 @@ datasets.forEach((dataset) => {
         plot.src =`${plotDir}/${datasetUnderscores}_plot_${theme}.png`
     })
 
+    modal.addEventListener('click', (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+    });
+
     modalClose.addEventListener('click', () => {
         modal.close();
     })
