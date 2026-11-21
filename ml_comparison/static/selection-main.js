@@ -37,43 +37,47 @@ const plotDir = "./static/images/plots"
 
 const datasets = ["noisy circles", "noisy moons", "blobs", "anisotropic", "varied"]
 
+const modalIcons = document.querySelectorAll('.modal-icons');
+
 const userPreference = window.matchMedia('(prefers-color-scheme: dark)');
 
 const themes = {
     "black": "dark", 
     "wireframe": "light"
+};
+
+if (modalIcons.length) {
+    datasets.forEach((dataset) => {
+        const datasetHyphens = dataset.replaceAll(" ", "-");
+        const datasetUnderscores = dataset.replaceAll(" ", "_");
+
+        const modal = document.getElementById(`${datasetHyphens}-modal`);
+        const modalIcon = document.getElementById(`${datasetHyphens}-icon`);
+        const modalClose = modal.querySelector('.modal-close');
+        const plot = modal.querySelector('.plot');
+
+        modalIcon.addEventListener('click', (event) => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const theme = themes[currentTheme]
+            event.stopPropagation();
+            event.preventDefault();
+            modal.showModal();
+            plot.src =`${plotDir}/${datasetUnderscores}_plot_${theme}.png`
+        })
+
+        modal.addEventListener('click', (event) => {
+            event.stopPropagation();
+            event.preventDefault();
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.close();
+        })
+
+        userPreference.addEventListener('change', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const theme = themes[currentTheme]
+            plot.src =`${plotDir}/${datasetUnderscores}_plot_${theme}.png`
+        })
+    })
 }
-
-datasets.forEach((dataset) => {
-    const datasetHyphens = dataset.replaceAll(" ", "-");
-    const datasetUnderscores = dataset.replaceAll(" ", "_");
-
-    const modal = document.getElementById(`${datasetHyphens}-modal`);
-    const modalIcon = document.getElementById(`${datasetHyphens}-icon`);
-    const modalClose = modal.querySelector('.modal-close');
-    const plot = modal.querySelector('.plot');
-
-    modalIcon.addEventListener('click', (event) => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const theme = themes[currentTheme]
-        event.stopPropagation();
-        event.preventDefault();
-        modal.showModal();
-        plot.src =`${plotDir}/${datasetUnderscores}_plot_${theme}.png`
-    })
-
-    modal.addEventListener('click', (event) => {
-        event.stopPropagation();
-        event.preventDefault();
-    });
-
-    modalClose.addEventListener('click', () => {
-        modal.close();
-    })
-
-    userPreference.addEventListener('change', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const theme = themes[currentTheme]
-        plot.src =`${plotDir}/${datasetUnderscores}_plot_${theme}.png`
-    })
-})
