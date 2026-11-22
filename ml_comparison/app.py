@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from flask import Flask, render_template, request
-from flask import send_file
 from ml_comparison.data import datasets_dict
 from ml_comparison.classifiers import (
     evaluation_methods,
@@ -22,21 +21,26 @@ from ml_comparison.ranking_formatting import (
 app = Flask(__name__)
 
 results_store = {}
-plot_data = {}
-hidden_inputs = {}
 
 WEBSITE_NAME = "Machine Learning Classifier Comparison"
-selection_legends = {
-    "dataset": "Choose a dataset to analyze.",
-    "evaluation": "Choose an evaluation method.",
-    "classifier": "Choose a classifier.",
-    "normalization": "Choose a normalization method.",
-}
-selection_page_titles = {
-    "dataset": "Dataset",
-    "evaluation": "Evaluation Method",
-    "classifier": "Classifier",
-    "normalization": "Normalization Method",
+
+selection = {
+    "dataset": {
+        "legend": "1. Dataset",
+        "choices": datasets_dict.keys(),
+    },
+    "evaluation": {
+        "legend": "2. Evaluation Method",
+        "choices": evaluation_methods.keys(),
+    },
+    "classifier": {
+        "legend": "3. Classifier",
+        "choices": classifier_map.keys(),
+    },
+    "normalization": {
+        "legend": "4. Normalization Method",
+        "choices": normalization_methods.keys(),
+    }
 }
 
 
@@ -45,77 +49,14 @@ def start():
     return render_template("start_page.html", WEBSITE_NAME=WEBSITE_NAME)
 
 
-@app.route("/dataset")
-def select_dataset():
+@app.route("/selection")
+def select_options():
+    disabled_choices = ""
     return render_template(
         "selection.html",
-        choices=datasets_dict.keys(),
-        group="dataset",
-        selection_legends=selection_legends,
-        form_action_page="/evaluation",
-        hidden_inputs=hidden_inputs,
-        WEBSITE_NAME=WEBSITE_NAME,
-        selection_page_titles=selection_page_titles,
-    )
-
-
-@app.route("/evaluation", methods=["POST"])
-def select_evaluation_method():
-    dataset = request.form["dataset"]
-    hidden_inputs_key = str(uuid.uuid4())
-    hidden_inputs[hidden_inputs_key] = {"dataset": dataset}
-    return render_template(
-        "selection.html",
-        choices=evaluation_methods.keys(),
-        group="evaluation",
-        selection_legends=selection_legends,
-        form_action_page="/classifier",
-        hidden_inputs=hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key=hidden_inputs_key,
-        WEBSITE_NAME=WEBSITE_NAME,
-        selection_page_titles=selection_page_titles,
-    )
-
-
-@app.route("/classifier", methods=["POST"])
-def select_classifier():
-    evaluation = request.form["evaluation"]
-    disabled_choices = set()
-    if evaluation == "leave-one-out":
-        disabled_choices.add("artificial neural networks")
-        disabled_choices.add("support vector machine")
-    hidden_inputs_key = request.form["hidden_inputs_key"]
-    hidden_inputs[hidden_inputs_key]["evaluation"] = evaluation
-    return render_template(
-        "selection.html",
-        choices=classifier_map.keys(),
-        group="classifier",
-        selection_legends=selection_legends,
-        form_action_page="/normalization",
-        hidden_inputs=hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key=hidden_inputs_key,
         disabled_choices=disabled_choices,
-        WEBSITE_NAME=WEBSITE_NAME,
-        selection_page_titles=selection_page_titles,
-    )
-
-
-@app.route("/normalization", methods=["POST"])
-def select_normalization_method():
-    classifier = request.form["classifier"]
-    hidden_inputs_key = request.form["hidden_inputs_key"]
-    hidden_inputs[hidden_inputs_key]["classifier"] = classifier
-    return render_template(
-        "selection.html",
-        choices=normalization_methods.keys(),
-        group="normalization",
-        selection_legends=selection_legends,
-        form_action_page="/process",
-        hidden_inputs=hidden_inputs[hidden_inputs_key],
-        hidden_inputs_key=hidden_inputs_key,
-        WEBSITE_NAME=WEBSITE_NAME,
-        selection_page_titles=selection_page_titles,
-    )
+        selection=selection,
+        WEBSITE_NAME=WEBSITE_NAME)
 
 
 @app.route("/process", methods=["POST"])
@@ -127,22 +68,15 @@ def process_data():
     normalization = request.form["normalization"]
     results = run_classifier(X, y, dataset, classifier, normalization, evaluation)
 
-    hidden_inputs_key = request.form["hidden_inputs_key"]
-
     results_key = str(uuid.uuid4())
     results_store[results_key] = results
-
-    plot_key = str(uuid.uuid4())
-    plot_data[plot_key] = {"X": X, "y": y, "dataset": dataset}
 
     results_length = len(results)
     return render_template(
         "process_data.html",
         results_key=results_key,
-        plot_key=plot_key,
         results_length=results_length,
         dataset=dataset,
-        hidden_inputs_key=hidden_inputs_key,
         WEBSITE_NAME=WEBSITE_NAME,
     )
 
@@ -151,8 +85,6 @@ def process_data():
 def display_results():
     dataset = request.form["dataset"]
     results_key = request.form["results_key"]
-    plot_key = request.form["plot_key"]
-    hidden_inputs_key = request.form["hidden_inputs_key"]
     results = results_store.get(results_key)
     number_of_combos = request.form["number-of-combos"]
     if number_of_combos != "all":
@@ -168,7 +100,6 @@ def display_results():
     heading = display_combinations_heading(results, number_of_combos)
     combinations = format_results(results, number_of_combos)
     results_store.pop(results_key, None)
-    hidden_inputs.pop(hidden_inputs_key, None)
     table_headers = get_table_headers(
         number_of_combinations=number_of_combos,
         show_classifier=show_classifier_header,
@@ -182,7 +113,6 @@ def display_results():
         show_classifier_header=show_classifier_header,
         dataset=dataset,
         heading=heading,
-        plot_key=plot_key,
         table_headers=table_headers,
         WEBSITE_NAME=WEBSITE_NAME,
     )

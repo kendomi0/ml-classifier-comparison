@@ -1,34 +1,97 @@
 import { LoadingScreen } from "./loading-screen.js";
 
-const choiceGroup = document.getElementById("choice-group").value;
+const form = document.querySelector('form');
+
+// Loading screen
 
 const container = document.querySelector("body");
 const pageTitle = document.querySelector("title");
+
 const loadingTitle = "Classifying..."
+
 let selectionLoadingScreen = new LoadingScreen(container, pageTitle, loadingTitle);
 
-const form = document.querySelector("form");
+selectionLoadingScreen.form.addEventListener("submit", selectionLoadingScreen.showLoadingScreen.bind(selectionLoadingScreen));
+
+// Enabling/disabling submit button
+
 const submitBtn = form.querySelector('button[type="submit"]');
 const nextArrow = document.querySelector(".next-arrow");
 const submitMsg = document.querySelector(".submit-msg");
 
-let scatterPlots = document.querySelectorAll(".scatter-plot");
-
-if (choiceGroup == "normalization") {
-    selectionLoadingScreen.form.addEventListener("submit", selectionLoadingScreen.showLoadingScreen.bind(selectionLoadingScreen));
-}
+const fieldsets = Array.from(document.querySelectorAll('fieldset'))
 
 const classesForValidSubmitBtn = "border-accent-border bg-accent-main text-main-button-text shadow-lg shadow-button-shadow duration-120 ease-in hover:bg-accent-5"
 
 const classesToRemove = "border-base-300 transition-none animation-none"
 
-form.addEventListener('change', () => {
+function checkIfFieldsetsAreChecked() {
+    return fieldsets.every(fieldset =>
+        fieldset.querySelector('input[type="radio"]:checked') !== null
+    )
+}
+
+function enableSubmitButton() {
     submitBtn.disabled = false;
     submitMsg.textContent = "Next";
     nextArrow.classList.remove("hidden");
     submitBtn.classList.add(...classesForValidSubmitBtn.split(' '));
     submitBtn.classList.remove(...classesToRemove.split(' '));
-});
+}
+
+function disableSubmitButton() {
+    submitBtn.disabled = true;
+    submitMsg.textContent = "Select all options to continue";
+    nextArrow.classList.add("hidden");
+    submitBtn.classList.remove(...classesForValidSubmitBtn.split(' '));
+    submitBtn.classList.add(...classesToRemove.split(' '));
+}
+
+form.addEventListener('change', () => {
+        const allChecked = checkIfFieldsetsAreChecked()
+        if (allChecked) {
+            enableSubmitButton();
+        }
+        else {
+            disableSubmitButton();
+        }
+    });
+
+// Disabling choices and showing disclaimers
+
+const looInput = document.querySelector("input[value='leave-one-out']")
+
+const disabledLooChoices = ["artificial neural networks", "support vector machine"]
+
+const evaluationFieldset = document.getElementById("evaluation-fieldset");
+
+const classifierDisclaimer = document.getElementById("classifier-disclaimer");
+
+function disableChoices(choices, disclaimer) {
+    choices.forEach((choice) => {
+        const disallowedChoice = document.querySelector(`input[value='${choice}']`)
+        disallowedChoice.checked = false;
+        disallowedChoice.disabled = true;
+    })
+    disclaimer.classList.remove('hidden');
+}
+
+function enableChoices(choices, disclaimer) {
+    choices.forEach((choice) => {
+        const allowedChoice = document.querySelector(`input[value='${choice}']`)
+        allowedChoice.disabled = false;
+    })
+    disclaimer.classList.add('hidden');
+}
+
+evaluationFieldset.addEventListener('change', () => {
+    if (looInput.checked) {
+        disableChoices(disabledLooChoices, classifierDisclaimer);
+    }
+    else {
+        enableChoices(disabledLooChoices, classifierDisclaimer);
+    }
+})
 
 
 // Scatter plot modals
