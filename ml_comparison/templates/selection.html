@@ -106,10 +106,12 @@
             </div>
         </fieldset>
         {% endfor %}
-        <button id="submit-selection" class="self-center btn btn-lg text-xl rounded-2xl border-base-300 transition duration-200" type="submit" disabled>
-            <span class="submit-msg">Select all options
-                <span class="hidden sm:inline">to continue</span>
-            </span>
+        <button id="submit-selection" class="group self-center btn btn-lg text-xl rounded-2xl
+        enabled:transition enabled:border-accent-border enabled:bg-accent-main enabled:text-main-button-text enabled:shadow-lg enabled:shadow-button-shadow enabled:duration-120 enabled:ease-in enabled:hover:bg-accent-5
+        disabled:border-base-300 disabled:transition-none
+        " type="submit" disabled>
+            <span class="submit-msg-short">Select all options</span>
+            <span class="submit-msg-more hidden sm:group-disabled:inline group-enabled:hidden">to continue</span>
             <span class="next-arrow hidden">
                 <i class="fa-solid fa-arrow-right"></i>
             </span>

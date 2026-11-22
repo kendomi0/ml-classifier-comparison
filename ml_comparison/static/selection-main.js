@@ -17,13 +17,14 @@ selectionLoadingScreen.form.addEventListener("submit", selectionLoadingScreen.sh
 
 const submitBtn = form.querySelector('button[type="submit"]');
 const nextArrow = document.querySelector(".next-arrow");
-const submitMsg = document.querySelector(".submit-msg");
+const submitMsgShort = document.querySelector(".submit-msg-short");
 
 const fieldsets = Array.from(document.querySelectorAll('fieldset'))
 
-const classesForValidSubmitBtn = "border-accent-border bg-accent-main text-main-button-text shadow-lg shadow-button-shadow duration-120 ease-in hover:bg-accent-5"
-
-const classesToRemove = "border-base-300 transition-none animation-none"
+const enabledSubmitMsg = "Next";
+const disabledSubmitMsg = "Select all options"
+const spanMsg = "to continue"
+const submitMsgMore = document.querySelector('.submit-msg-more');
 
 function checkIfFieldsetsAreChecked() {
     return fieldsets.every(fieldset =>
@@ -33,29 +34,28 @@ function checkIfFieldsetsAreChecked() {
 
 function enableSubmitButton() {
     submitBtn.disabled = false;
-    submitMsg.textContent = "Next";
+    submitMsgShort.textContent = enabledSubmitMsg;
     nextArrow.classList.remove("hidden");
-    submitBtn.classList.add(...classesForValidSubmitBtn.split(' '));
-    submitBtn.classList.remove(...classesToRemove.split(' '));
 }
 
 function disableSubmitButton() {
     submitBtn.disabled = true;
-    submitMsg.textContent = "Select all options to continue";
+    submitMsgShort.textContent = disabledSubmitMsg;
+    submitMsgMore.textContent = spanMsg;
     nextArrow.classList.add("hidden");
-    submitBtn.classList.remove(...classesForValidSubmitBtn.split(' '));
-    submitBtn.classList.add(...classesToRemove.split(' '));
 }
 
 form.addEventListener('change', () => {
-        const allChecked = checkIfFieldsetsAreChecked()
-        if (allChecked) {
-            enableSubmitButton();
-        }
-        else {
-            disableSubmitButton();
-        }
-    });
+    const allChecked = checkIfFieldsetsAreChecked()
+    if (allChecked) {
+        enableSubmitButton();
+    }
+    else {
+        disableSubmitButton();
+    }
+});
+
+disableSubmitButton();
 
 // Disabling choices and showing disclaimers
 
