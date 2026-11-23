@@ -37,6 +37,8 @@
                 </legend>
             </div>
 
+            <p class="text-base text-center max-w-3/4 sm:max-w-1/2 text-zinc-700 dark:text-zinc-200">{{ 'Select one or more.' if group in checkbox_groups else 'Select one.' }}</p>
+
             {% if group == "dataset" or group == "classifier" %}
             <div id="{{ group }}-disclaimer" class="text-lg text-center font-medium max-w-3/4 sm:max-w-1/2 rounded-2xl {{ 'hidden' if group == 'classifier' }}">
                 {% if group == "classifier" %}
@@ -49,7 +51,7 @@
                 </p>
                 {% endif %}
                 {% if group == "dataset" %}
-                <p class="text-zinc-700 dark:text-zinc-200 inline ml-1">
+                <p class="text-zinc-700 dark:text-zinc-200 font-normal text-base inline ml-1">
                     Click
                     <svg class="text-accent-main inline" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-scatter preview-icon"><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="18.5" cy="5.5" r=".5" fill="currentColor"/><circle cx="11.5" cy="11.5" r=".5" fill="currentColor"/><circle cx="7.5" cy="16.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="14.5" r=".5" fill="currentColor"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/>
                     </svg>
