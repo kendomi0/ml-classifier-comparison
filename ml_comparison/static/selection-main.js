@@ -28,7 +28,7 @@ const submitMsgMore = document.querySelector('.submit-msg-more');
 
 function checkIfFieldsetsAreChecked() {
     return fieldsets.every(fieldset =>
-        fieldset.querySelector('input[type="radio"]:checked') !== null
+        fieldset.querySelector('input:checked') !== null
     )
 }
 
@@ -56,6 +56,29 @@ form.addEventListener('change', () => {
 });
 
 disableSubmitButton();
+
+// Unselecting choices when 'all' is selected
+
+const classifierFieldset = document.getElementById("classifier-fieldset")
+const normalizationFieldset = document.getElementById("normalization-fieldset")
+
+const checkboxFieldsets = [classifierFieldset, normalizationFieldset]
+
+checkboxFieldsets.forEach((fieldset) => {
+    const allOption = fieldset.querySelector("input[value='all']")
+    const possibleOptions = fieldset.querySelectorAll("input")
+    const otherOptions = (Array.from(possibleOptions)).filter(option => option != allOption);
+    fieldset.addEventListener('change', (event) => {
+        if ((event.target == allOption) && (allOption.checked)) {
+                otherOptions.forEach((option) => {
+                    option.checked = false;
+                })
+        }
+        else {
+            allOption.checked = false;
+        }
+    })
+})
 
 // Disabling choices and showing disclaimers
 

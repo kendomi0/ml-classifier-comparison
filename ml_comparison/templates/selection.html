@@ -1,3 +1,4 @@
+{% set checkbox_groups = ["classifier", "normalization"] %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,8 +67,9 @@
                 has-enabled:has-checked:border-accent-6 has-enabled:has-checked:bg-accent-2 has-enabled:has-checked:shadow-md has-enabled:has-checked:shadow-accent-6/20 
                 has-enabled:has-focus-visible:ring-2 has-enabled:has-focus-visible:ring-accent-4 has-enabled:has-focus-visible:ring-offset-2">
                     <input
-                        type="radio"
-                        class="peer radio radio-md checked:border-accent-5 checked:text-accent-main disabled:hidden" 
+                        type="{{'checkbox' if group in checkbox_groups else 'radio'}}"
+                        class="peer {{ 'checkbox' if group in checkbox_groups else 'radio radio-md' }}
+                        checked:border-accent-5 checked:text-accent-main disabled:hidden" 
                         name="{{ group }}"
                         value="{{ choice }}"
                         {% if choice in disabled_choices %} disabled {% endif %}

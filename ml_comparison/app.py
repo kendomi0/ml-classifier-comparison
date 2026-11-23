@@ -75,9 +75,16 @@ def process_data():
     dataset = request.form["dataset"]
     X, y = datasets_dict[dataset]
     evaluation = request.form["evaluation"]
-    classifier = request.form["classifier"]
-    normalization = request.form["normalization"]
-    results = run_classifier(X, y, dataset, classifier, normalization, evaluation)
+    classifiers = request.form.getlist("classifier")
+    normalizations = request.form.getlist("normalization")
+    results = run_classifier(
+        original_X=X,
+        y=y,
+        dataset=dataset,
+        selected_classifiers=classifiers,
+        selected_normalization_methods=normalizations,
+        evaluation_method=evaluation
+    )
 
     results_key = str(uuid.uuid4())
     results_store[results_key] = results
