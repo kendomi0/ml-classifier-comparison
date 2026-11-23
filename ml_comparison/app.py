@@ -32,19 +32,23 @@ normalization_choices.append("all")
 
 selection = {
     "dataset": {
-        "legend": "1. Dataset",
+        "number": "1",
+        "legend": "Dataset",
         "choices": datasets_dict.keys(),
     },
     "evaluation": {
-        "legend": "2. Evaluation Method",
+        "number": "2",
+        "legend": "Evaluation Method",
         "choices": evaluation_methods.keys(),
     },
     "classifier": {
-        "legend": "3. Classifier",
+        "number": "3",
+        "legend": "Classifier",
         "choices": classifier_choices,
     },
     "normalization": {
-        "legend": "4. Normalization Method",
+        "number": "4",
+        "legend": "Normalization Method",
         "choices": normalization_choices,
     }
 }
