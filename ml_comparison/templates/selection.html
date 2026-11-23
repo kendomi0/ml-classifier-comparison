@@ -61,7 +61,10 @@
             <div class="radio-group flex flex-col sm:flex-row supports-[flex-wrap:balance]:[flex-wrap:balance] flex-wrap justify-center gap-5 text-xl">
                 {% for choice in selection[group]["choices"] %}
                 <label class="group items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-zinc-300 dark:border-zinc-600 px-5 py-3 w-70 h-20 transition has-disabled:cursor-not-allowed
-                has-enabled:cursor-pointer has-enabled:hover:border-border-hover has-enabled:has-checked:border-accent-6 has-enabled:has-checked:bg-accent-2 has-enabled:has-checked:shadow-md has-enabled:has-checked:shadow-accent-6/20 has-enabled:has-focus-visible:ring-2 has-enabled:has-focus-visible:ring-accent-4 has-enabled:has-focus-visible:ring-offset-2">
+                has-enabled:cursor-pointer has-enabled:hover:border-border-hover has-enabled:hover:-translate-y-0.5
+                has-enabled:hover:shadow-lg has-enabled:hover:dark:shadow-base-300
+                has-enabled:has-checked:border-accent-6 has-enabled:has-checked:bg-accent-2 has-enabled:has-checked:shadow-md has-enabled:has-checked:shadow-accent-6/20 
+                has-enabled:has-focus-visible:ring-2 has-enabled:has-focus-visible:ring-accent-4 has-enabled:has-focus-visible:ring-offset-2">
                     <input
                         type="radio"
                         class="peer radio radio-md checked:border-accent-5 checked:text-accent-main disabled:hidden" 
