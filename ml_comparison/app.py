@@ -50,7 +50,7 @@ selection = {
         "number": "4",
         "legend": "Normalization Method",
         "choices": normalization_choices,
-    }
+    },
 }
 
 
@@ -66,7 +66,8 @@ def select_options():
         "selection.html",
         disabled_choices=disabled_choices,
         selection=selection,
-        WEBSITE_NAME=WEBSITE_NAME)
+        WEBSITE_NAME=WEBSITE_NAME,
+    )
 
 
 @app.route("/process", methods=["POST"])
