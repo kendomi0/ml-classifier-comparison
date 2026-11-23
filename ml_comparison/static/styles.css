@@ -53,7 +53,7 @@
   --accent-border: var(--color-medium-slate-blue-border);
   --main-button-text: #FFFFFF;
   --button-shadow: var(--color-medium-slate-blue-100);
-  --border-hover: var(--color-medium-slate-blue-100);
+  --border-hover: var(--color-medium-slate-blue-300);
   --winning-combination-text: var(--color-medium-slate-blue-800);
   --winning-combination-bg: var(--color-medium-slate-blue-25);
   --loading-screen-text: var(--color-medium-slate-blue-800);
