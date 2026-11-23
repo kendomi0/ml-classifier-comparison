@@ -24,6 +24,12 @@ results_store = {}
 
 WEBSITE_NAME = "Machine Learning Classifier Comparison"
 
+classifier_choices = list(classifier_map.keys())
+classifier_choices.append("all")
+
+normalization_choices = list(normalization_methods.keys())
+normalization_choices.append("all")
+
 selection = {
     "dataset": {
         "legend": "1. Dataset",
@@ -35,11 +41,11 @@ selection = {
     },
     "classifier": {
         "legend": "3. Classifier",
-        "choices": classifier_map.keys(),
+        "choices": classifier_choices,
     },
     "normalization": {
         "legend": "4. Normalization Method",
-        "choices": normalization_methods.keys(),
+        "choices": normalization_choices,
     }
 }
 
