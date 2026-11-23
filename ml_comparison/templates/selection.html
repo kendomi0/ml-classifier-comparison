@@ -29,7 +29,7 @@
     <main class="flex flex-1 flex-col py-8">
         <form id="selection-form" class="flex flex-1 flex-col gap-10 items-center-safe" method="POST" action="/process">
         {% for group in selection %}
-        <fieldset id="{{ group }}-fieldset" class="flex flex-col flex-1 items-center-safe justify-center gap-5 bg-zinc-50 dark:bg-zinc-950 border border-base-300 py-10 w-9/10 lg:w-1/2 rounded-4xl">
+        <fieldset id="{{ group }}-fieldset" class="flex flex-col flex-1 items-center-safe justify-center gap-5 bg-zinc-50 dark:bg-zinc-950 border border-base-300 py-10 px-1 w-9/10 lg:w-1/2 rounded-4xl">
             <div class="legend flex max-w-2/3 sm:max-w-5/6">
                 <legend class="text-2xl">
                     <span class="text-accent-main">{{ selection[group]["number"] }}.</span> {{ selection[group]["legend"] }}
@@ -58,7 +58,7 @@
             </div>
             {% endif %}
 
-            <div class="radio-group flex flex-col sm:flex-row [flex-wrap:balance] justify-center gap-5 text-xl">
+            <div class="radio-group flex flex-col sm:flex-row supports-[flex-wrap:balance]:[flex-wrap:balance] flex-wrap justify-center gap-5 text-xl">
                 {% for choice in selection[group]["choices"] %}
                 <label class="group items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-zinc-300 dark:border-zinc-600 px-5 py-3 w-70 h-20 transition has-disabled:cursor-not-allowed
                 has-enabled:cursor-pointer has-enabled:hover:border-border-hover has-enabled:has-checked:border-accent-6 has-enabled:has-checked:bg-accent-2 has-enabled:has-checked:shadow-md has-enabled:has-checked:shadow-accent-6/20 has-enabled:has-focus-visible:ring-2 has-enabled:has-focus-visible:ring-accent-4 has-enabled:has-focus-visible:ring-offset-2">
