@@ -32,7 +32,7 @@
         {% for group in selection %}
         <fieldset id="{{ group }}-fieldset" class="flex flex-col flex-1 items-center-safe justify-center gap-5 bg-zinc-50 dark:bg-zinc-950 border border-base-300 py-10 px-1 w-9/10 lg:w-1/2 rounded-4xl">
             <div class="legend flex max-w-2/3 sm:max-w-5/6">
-                <legend class="text-2xl">
+                <legend class="text-2xl text-center">
                     <span class="text-accent-main">{{ selection[group]["number"] }}.</span> {{ selection[group]["legend"] }}
                 </legend>
             </div>
@@ -82,7 +82,7 @@
                             <svg class="text-accent-main" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-scatter preview-icon"><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="18.5" cy="5.5" r=".5" fill="currentColor"/><circle cx="11.5" cy="11.5" r=".5" fill="currentColor"/><circle cx="7.5" cy="16.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="14.5" r=".5" fill="currentColor"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/>
                             </svg>
                         </div>
-                        <dialog id="{{ choice | lower | replace(' ', '-') }}-modal" class="modal plot-modals">
+                        <dialog id="{{ choice | lower | replace(' ', '-') }}-modal" class="modal plot-modals [@supports(-moz-appearance:none)]:transition-none">
                             <div class="modal-box lg:max-w-1/2 w-fit">
                                     <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 modal-close">✕</button>
                                 <img alt="{{ choice }} scatter plot" class="plot w-150 h-auto">
