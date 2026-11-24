@@ -21,7 +21,7 @@ from ml_comparison.classifiers import (
     classify_loo_knn,
     ClassificationResult,
     accuracy_to_percent,
-    extract_selections
+    extract_selections,
 )
 from ml_comparison.data import datasets_dict
 
@@ -211,12 +211,14 @@ def test_run_classifier_loo_ann(mocker):
         selected_classifiers=["artificial neural networks"],
     )
 
+
 def test_extract_selections():
     selections = extract_selections(["unnormalized", "minmax"], normalization_methods)
     assert selections == [
         ("unnormalized", normalization_methods["unnormalized"]),
-        ("minmax", normalization_methods["minmax"])
+        ("minmax", normalization_methods["minmax"]),
     ]
+
 
 @pytest.mark.parametrize(
     "evaluation_method", ["holdout", "random subsampling", "kfold", "leave-one-out"]
@@ -233,7 +235,7 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
         dataset=current_dataset,
         selected_classifiers=["all"],
         selected_normalization_methods=["all"],
-        evaluation_method=evaluation_method
+        evaluation_method=evaluation_method,
     )
 
     clfs = list(classifier_map)

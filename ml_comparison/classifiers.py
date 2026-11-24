@@ -278,7 +278,7 @@ def classify(
 def extract_selections(selected_options, all_options):
     extracted_selections = []
     for selection in selected_options:
-        if selection == 'all':
+        if selection == "all":
             extracted_selections = all_options.items()
             break
         try:
@@ -299,7 +299,9 @@ def run_classifier(
     results = []
     evaluations = [(evaluation_method, evaluation_methods[evaluation_method])]
     classifiers = extract_selections(selected_classifiers, classifier_map)
-    normalizations = extract_selections(selected_normalization_methods, normalization_methods)
+    normalizations = extract_selections(
+        selected_normalization_methods, normalization_methods
+    )
     for evaluation in evaluations:
         for classifier in classifiers:
             for normalization in normalizations:

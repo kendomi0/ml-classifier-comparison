@@ -83,7 +83,7 @@ def process_data():
         dataset=dataset,
         selected_classifiers=classifiers,
         selected_normalization_methods=normalizations,
-        evaluation_method=evaluation
+        evaluation_method=evaluation,
     )
 
     results_key = str(uuid.uuid4())
