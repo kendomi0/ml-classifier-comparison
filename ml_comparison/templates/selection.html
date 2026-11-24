@@ -1,3 +1,4 @@
+{% set checkbox_groups = ["classifier", "normalization"] %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,18 +38,14 @@
             </div>
 
             {% if group == "dataset" or group == "classifier" %}
-            <div id="{{ group }}-disclaimer" class="text-lg text-center font-medium max-w-3/4 sm:max-w-1/2 rounded-2xl {{ 'hidden' if group == 'classifier' }}">
+            <div id="{{ group }}-disclaimer" class="text-center text-base font-normal bg-base-200 border border-base-300 py-2 px-3 max-w-9/10 rounded-2xl text-zinc-700 dark:text-zinc-200 {{ 'hidden' if group == 'classifier' }}">
                 {% if group == "classifier" %}
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="inline text-accent-main">
-                    <path d="M0 0h16v16H0z" fill="none" />
-                    <path fill="currentColor" d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638l-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89l-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622l-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01l.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637l.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89l.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622l.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2a1 1 0 0 1 0-2" />
-                </svg>
-                <p class="text-zinc-700 dark:text-zinc-200 inline ml-2">
+                <p class="inline ml-2">
                     Artificial neural networks and support vector machine are not permitted to be used with leave&#8209;one&#8209;out, due to the high computational cost.
                 </p>
                 {% endif %}
                 {% if group == "dataset" %}
-                <p class="text-zinc-700 dark:text-zinc-200 inline ml-1">
+                <p class="font-normal text-base inline ml-1">
                     Click
                     <svg class="text-accent-main inline" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-scatter preview-icon"><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="18.5" cy="5.5" r=".5" fill="currentColor"/><circle cx="11.5" cy="11.5" r=".5" fill="currentColor"/><circle cx="7.5" cy="16.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="14.5" r=".5" fill="currentColor"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/>
                     </svg>
@@ -58,6 +55,10 @@
             </div>
             {% endif %}
 
+            <p class="text-base text-center max-w-3/4 sm:max-w-1/2 text-zinc-700 dark:text-zinc-200">
+                {{ 'Select one or more.' if group in checkbox_groups else 'Select one.' }}
+            </p>
+
             <div class="radio-group flex flex-col sm:flex-row supports-[flex-wrap:balance]:[flex-wrap:balance] flex-wrap justify-center gap-5 text-xl">
                 {% for choice in selection[group]["choices"] %}
                 <label class="group items-center inline-flex gap-3 rounded-2xl border-[1.5px] border-zinc-300 dark:border-zinc-600 px-5 py-3 w-70 h-20 transition has-disabled:cursor-not-allowed
@@ -66,8 +67,9 @@
                 has-enabled:has-checked:border-accent-6 has-enabled:has-checked:bg-accent-2 has-enabled:has-checked:shadow-md has-enabled:has-checked:shadow-accent-6/20 
                 has-enabled:has-focus-visible:ring-2 has-enabled:has-focus-visible:ring-accent-4 has-enabled:has-focus-visible:ring-offset-2">
                     <input
-                        type="radio"
-                        class="peer radio radio-md checked:border-accent-5 checked:text-accent-main disabled:hidden" 
+                        type="{{'checkbox' if group in checkbox_groups else 'radio'}}"
+                        class="peer {{ 'checkbox' if group in checkbox_groups else 'radio radio-md' }}
+                        checked:border-accent-5 checked:text-accent-main disabled:hidden" 
                         name="{{ group }}"
                         value="{{ choice }}"
                         {% if choice in disabled_choices %} disabled {% endif %}

@@ -21,6 +21,7 @@ from ml_comparison.classifiers import (
     classify_loo_knn,
     ClassificationResult,
     accuracy_to_percent,
+    extract_selections,
 )
 from ml_comparison.data import datasets_dict
 
@@ -204,40 +205,19 @@ def test_run_classifier_loo_ann(mocker):
     run_classifier(
         X,
         y,
-        current_dataset,
+        dataset=current_dataset,
         evaluation_method="leave-one-out",
-        normalization_method="all",
-        classifier_name="artificial neural networks",
+        selected_normalization_methods=["all"],
+        selected_classifiers=["artificial neural networks"],
     )
 
 
-def test_run_classifier_all_evaluations_normalizations_clfs(mocker):
-    current_dataset = "blobs"
-    X, y = datasets_dict[current_dataset]
-    mock_run = mocker.patch("ml_comparison.classifiers.classify")
-    mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
-    mock_get_cost_tier.return_value = 2
-    run_classifier(X, y, current_dataset, "all", "all", "all")
-    clfs = list(classifier_map)
-    norm_methods = list(normalization_methods)
-    evaluation_methods_list = list(evaluation_methods)
-
-    assert len(mock_run.call_args_list) == 60 - (len(disabled_loo_choices) * 3)
-
-    assert all(
-        any(
-            call.args[1] == clf_name
-            and call.args[5] == normalization_method
-            and call.args[6] == evaluation_method
-            for call in mock_run.call_args_list
-        )
-        for clf_name in clfs
-        for normalization_method in norm_methods
-        for evaluation_method in evaluation_methods_list
-        if not (
-            evaluation_method == "leave-one-out" and clf_name in disabled_loo_choices
-        )
-    )
+def test_extract_selections():
+    selections = extract_selections(["unnormalized", "minmax"], normalization_methods)
+    assert selections == [
+        ("unnormalized", normalization_methods["unnormalized"]),
+        ("minmax", normalization_methods["minmax"]),
+    ]
 
 
 @pytest.mark.parametrize(
@@ -249,7 +229,14 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
     mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
     mock_get_cost_tier.return_value = 2
-    run_classifier(X, y, current_dataset, "all", "all", evaluation_method)
+    run_classifier(
+        X,
+        y,
+        dataset=current_dataset,
+        selected_classifiers=["all"],
+        selected_normalization_methods=["all"],
+        evaluation_method=evaluation_method,
+    )
 
     clfs = list(classifier_map)
     clfs_no_ann = [clf for clf in clfs if clf not in disabled_loo_choices]
@@ -276,43 +263,43 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
 
 
 @pytest.mark.parametrize(
-    "classifier, current_dataset, normalization_method, evaluation_method",
+    "classifier, current_dataset, selected_normalizations, evaluation_method",
     [
-        ("artificial neural networks", "blobs", "unnormalized", "holdout"),
-        ("decision tree", "varied", "zscore", "random subsampling"),
-        ("support vector machine", "noisy circles", "unnormalized", "kfold"),
-        ("naive bayes", "noisy moons", "minmax", "leave-one-out"),
+        (["artificial neural networks"], "blobs", ["unnormalized"], "holdout"),
+        (["decision tree"], "varied", ["zscore"], "random subsampling"),
+        (["support vector machine"], "noisy circles", ["unnormalized"], "kfold"),
+        (["naive bayes"], "noisy moons", ["minmax"], "leave-one-out"),
     ],
 )
 def test_run_classifier_one_classifier_one_normalization(
-    current_dataset, classifier, normalization_method, evaluation_method
+    current_dataset, classifier, selected_normalizations, evaluation_method
 ):
     original_X, y = datasets_dict[current_dataset]
     result_lst = run_classifier(
         original_X,
         y,
-        current_dataset,
-        classifier,
-        normalization_method,
-        evaluation_method,
+        dataset=current_dataset,
+        selected_classifiers=classifier,
+        selected_normalization_methods=selected_normalizations,
+        evaluation_method=evaluation_method,
     )
     assert len(result_lst) == 1
     assert all(isinstance(result, ClassificationResult) for result in result_lst)
 
 
 @pytest.mark.parametrize(
-    "classifier, current_dataset, evaluation_method",
+    "classifiers, current_dataset, evaluation_method",
     [
-        ("artificial neural networks", "blobs", "holdout"),
-        ("decision tree", "varied", "random subsampling"),
-        ("support vector machine", "noisy circles", "kfold"),
-        ("naive bayes", "noisy moons", "leave-one-out"),
+        (["artificial neural networks"], "blobs", "holdout"),
+        (["decision tree"], "varied", "random subsampling"),
+        (["support vector machine"], "noisy circles", "kfold"),
+        (["naive bayes"], "noisy moons", "leave-one-out"),
     ],
 )
 def test_run_classifier_one_classifier_all_normalization(
-    current_dataset, classifier, evaluation_method, mocker
+    current_dataset, classifiers, evaluation_method, mocker
 ):
-    normalization_method = "all"
+    normalization_method = ["all"]
     original_X, y = datasets_dict[current_dataset]
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
     mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
@@ -321,10 +308,10 @@ def test_run_classifier_one_classifier_all_normalization(
     run_classifier(
         original_X,
         y,
-        current_dataset,
-        classifier,
-        normalization_method,
-        evaluation_method,
+        dataset=current_dataset,
+        selected_classifiers=classifiers,
+        selected_normalization_methods=normalization_method,
+        evaluation_method=evaluation_method,
     )
 
     norm_methods = list(normalization_methods)
@@ -338,10 +325,10 @@ def test_run_classifier_one_classifier_all_normalization(
 @pytest.mark.parametrize(
     "current_dataset, normalization_method, evaluation_method",
     [
-        ("blobs", "unnormalized", "holdout"),
-        ("anisotropic", "minmax", "random subsampling"),
-        ("varied", "zscore", "kfold"),
-        ("noisy moons", "unnormalized", "leave-one-out"),
+        ("blobs", ["unnormalized"], "holdout"),
+        ("anisotropic", ["minmax"], "random subsampling"),
+        ("varied", ["zscore"], "kfold"),
+        ("noisy moons", ["unnormalized"], "leave-one-out"),
     ],
 )
 def test_run_classifier_all_classifiers_one_normalization(
@@ -350,15 +337,15 @@ def test_run_classifier_all_classifiers_one_normalization(
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
     mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
     mock_get_cost_tier.return_value = 2
-    classifier = "all"
+    classifier = ["all"]
     original_X, y = datasets_dict[current_dataset]
     run_classifier(
         original_X,
         y,
-        current_dataset,
-        classifier,
-        normalization_method,
-        evaluation_method,
+        dataset=current_dataset,
+        selected_classifiers=classifier,
+        selected_normalization_methods=normalization_method,
+        evaluation_method=evaluation_method,
     )
 
     clfs = list(classifier_map)

@@ -275,29 +275,33 @@ def classify(
     return result
 
 
+def extract_selections(selected_options, all_options):
+    extracted_selections = []
+    for selection in selected_options:
+        if selection == "all":
+            extracted_selections = all_options.items()
+            break
+        try:
+            extracted_selections.append((selection, all_options[selection]))
+        except KeyError:
+            print(f"Selection {selection} not found in available options")
+    return extracted_selections
+
+
 def run_classifier(
     original_X,
     y,
-    current_dataset,
-    classifier_name,
-    normalization_method,
-    evaluation_method,
+    dataset: str,
+    selected_classifiers: list,
+    selected_normalization_methods: list,
+    evaluation_method: str,
 ):
     results = []
-    if evaluation_method == "all":
-        evaluations = evaluation_methods.items()
-    else:
-        evaluations = [(evaluation_method, evaluation_methods[evaluation_method])]
-    if classifier_name == "all":
-        classifiers = classifier_map.items()
-    else:
-        classifiers = [(classifier_name, classifier_map[classifier_name])]
-    if normalization_method == "all":
-        normalizations = normalization_methods.items()
-    else:
-        normalizations = [
-            (normalization_method, normalization_methods[normalization_method])
-        ]
+    evaluations = [(evaluation_method, evaluation_methods[evaluation_method])]
+    classifiers = extract_selections(selected_classifiers, classifier_map)
+    normalizations = extract_selections(
+        selected_normalization_methods, normalization_methods
+    )
     for evaluation in evaluations:
         for classifier in classifiers:
             for normalization in normalizations:
@@ -313,7 +317,7 @@ def run_classifier(
                     time.process_time(),
                     time.perf_counter(),
                 )
-                current_combination = f"{current_dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
+                current_combination = f"{dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
                 X = normalizer(original_X)
                 with warnings.catch_warnings(
                     action="ignore", category=ConvergenceWarning
@@ -323,7 +327,7 @@ def run_classifier(
                         clf_name,
                         X,
                         y,
-                        current_dataset,
+                        dataset,
                         normalization_method_name,
                         evaluation_method_name,
                     )
