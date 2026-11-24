@@ -134,8 +134,9 @@
             {% for element_id, qna in qnas.items() %}
                 {% if element_id != 'ranking-qna' or number_of_combinations != 1 %}
                     {% for question, answer in qna.items() %}
-                    <details id="{{ element_id }}" class="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl" name="results-faq">
-                        <summary class="collapse-title font-semibold">
+                    <div id="{{ element_id }}" class="collapse collapse-arrow bg-base-100 border border-base-300 rounded-2xl transition-[grid-template-rows, colors] duration-300 ease-in-out">
+                        <input type="checkbox" aria-labelledby="{{ element_id }}"/>
+                        <div class="collapse-title font-semibold">
                             <div class="flex gap-2">
                                 <svg class="inline text-accent-main shrink-0" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
                                     <path d="M0 0h24v24H0z" fill="none" />
@@ -143,9 +144,9 @@
                                 </svg>
                                 {{ question }}
                             </div>
-                        </summary>
+                        </div>
                         <div class="collapse-content text-sm">{{ answer }}</div>
-                    </details>
+                    </div>
                     {% endfor %}
                 {% endif %}
             {% endfor %}

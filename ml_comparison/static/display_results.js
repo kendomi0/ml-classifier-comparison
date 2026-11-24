@@ -13,6 +13,7 @@ let rankingIcon = document.getElementById("ranking-icon");
 let costTierQna = document.getElementById("cost-tier-qna");
 let rankingQna = document.getElementById("ranking-qna");
 let runtimeQna = document.getElementById("runtime-qna");
+let qnas = document.querySelectorAll(".qna");
 
 // Header icons
 
@@ -27,7 +28,13 @@ function scrollAndOpenQna(qna) {
         behavior: "smooth", 
         block: "start",
     })
-    qna.open = true;
+    qna.querySelector("input[type='checkbox']").checked = true;
+    classesToAdd = 'border-accent-main!'
+    classesAddArr = classesToAdd.split(' ')
+    qna.classList.add(...classesAddArr)
+    setTimeout(() => 
+        qna.classList.remove(...classesAddArr), 1500,
+    );
 }
 
 iconsAndQnas.forEach((qna, icon) => {
@@ -38,5 +45,3 @@ iconsAndQnas.forEach((qna, icon) => {
         )
     }
 });
-
-
