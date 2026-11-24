@@ -29,6 +29,6 @@
     "@parcel/watcher@2.5.1": true
   },
   "devDependencies": {
-    "daisyui": "^5.7.50"
+    "daisyui": "^5.8.2"
   }
 }
