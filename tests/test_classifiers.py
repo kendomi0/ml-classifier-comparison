@@ -12,7 +12,6 @@ from ml_comparison.classifiers import (
     normalization_methods,
     classify_random_subsampling,
     classify_random_subsampling_knn,
-    evaluation_methods,
     classify,
     classify_split,
     classify_kfold,
@@ -162,7 +161,7 @@ def test_classify_loo():
     assert isinstance(result, ClassificationResult)
 
 
-def test_classify_loo_knn(mocker):
+def test_classify_loo_knn():
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
     normalization_method = "unnormalized"
@@ -192,13 +191,13 @@ def test_classify(
     clf = classifier_map[clf_name]
     X, y = datasets_dict[current_dataset]
     classify(
-        clf,
-        clf_name,
-        X,
-        y,
-        current_dataset,
-        normalization_method,
-        evaluation_method,
+        classifier_function=clf,
+        classifier_name=clf_name,
+        X=X,
+        y=y,
+        current_dataset=current_dataset,
+        normalization_method=normalization_method,
+        evaluation_method=evaluation_method,
     )
     if clf_name != "k-nearest-neighbor":
         mock_dict[evaluation_method][0].assert_called_once()
@@ -226,12 +225,28 @@ def test_run_classifier_one_disabled_combination(mocker, classifier):
         )
 
 
-def test_extract_selections():
-    selections = extract_selections(["unnormalized", "minmax"], normalization_methods)
-    assert selections == [
-        ("unnormalized", normalization_methods["unnormalized"]),
-        ("minmax", normalization_methods["minmax"]),
-    ]
+@pytest.mark.parametrize(
+        "selections, method_type",
+        [
+            (["all"], normalization_methods),
+            (["all"], classifier_map),
+        ]
+)
+def test_extract_selections_all(selections, method_type):
+    extracted_selections = extract_selections(selections, method_type)
+    assert extracted_selections == method_type.keys()
+
+
+@pytest.mark.parametrize(
+        "selections, method_type",
+        [
+            (["unnormalized", "minmax"], normalization_methods),
+            (["naive bayes", "support vector machine"], classifier_map),
+        ]
+)
+def test_extract_selections_default(selections, method_type):
+    extracted_selections = extract_selections(selections, method_type)
+    assert extracted_selections == selections
 
 
 @pytest.mark.parametrize(
@@ -257,7 +272,7 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
 
     assert all(
         any(
-            call.args[1] == clf_name and call.args[5] == normalization_method
+            call.kwargs["classifier_name"] == clf_name and call.kwargs["normalization_method"] == normalization_method
             for call in mock_classify.call_args_list
         )
         for clf_name in clfs
@@ -326,7 +341,7 @@ def test_run_classifier_one_classifier_all_normalization(
     norm_methods = list(normalization_methods)
 
     assert all(
-        any(call.args[5] == normalization_method for call in mock_run.call_args_list)
+        any(call.kwargs["normalization_method"] == normalization_method for call in mock_run.call_args_list)
         for normalization_method in norm_methods
     )
 
@@ -360,7 +375,7 @@ def test_run_classifier_all_classifiers_one_normalization(
     clfs = list(classifier_map)
 
     assert all(
-        any(call.args[1] == clf_name for call in mock_run.call_args_list)
+        any(call.kwargs["classifier_name"] == clf_name for call in mock_run.call_args_list)
         for clf_name in clfs
         if not is_prohibited(classifier=clf_name, evaluation_method=evaluation_method, normalization_method=normalization_method, dataset=current_dataset)
     )

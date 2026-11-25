@@ -257,7 +257,7 @@ evaluation_methods = {
 
 
 def classify(
-    classifier,
+    classifier_function,
     classifier_name,
     X,
     y,
@@ -273,22 +273,15 @@ def classify(
         )
     else:
         result = classify_default(
-            classifier, classifier_name, X, y, current_dataset, normalization_method
+            classifier_function, classifier_name, X, y, current_dataset, normalization_method
         )
     return result
 
 
 def extract_selections(selected_options, all_options):
-    extracted_selections = []
-    for selection in selected_options:
-        if selection == "all":
-            extracted_selections = all_options.items()
-            break
-        try:
-            extracted_selections.append((selection, all_options[selection]))
-        except KeyError:
-            print(f"Selection {selection} not found in available options")
-    return extracted_selections
+    if selected_options[0] == "all":
+        return all_options.keys()
+    return selected_options
 
 
 def run_classifier(
@@ -300,7 +293,6 @@ def run_classifier(
     evaluation_method: str,
 ):
     results = []
-    evaluations = [(evaluation_method, evaluation_methods[evaluation_method])]
     classifiers = extract_selections(selected_classifiers, classifier_map)
     normalizations = extract_selections(
         selected_normalization_methods, normalization_methods
@@ -308,50 +300,46 @@ def run_classifier(
     is_one_combination = (
         len(classifiers) == 1 and len(normalizations) == 1
     )
-    for evaluation in evaluations:
-        for classifier in classifiers:
-            for normalization in normalizations:
-                normalization_method_name, normalizer = normalization
-                clf_name, clf_func = classifier
-                evaluation_method_name, _ = evaluation
-                if is_prohibited(
-                    dataset=dataset,
-                    normalization_method=normalization_method_name,
-                    classifier=clf_name,
-                    evaluation_method=evaluation_method_name
-                    ):
-                    if is_one_combination:
-                        raise ValueError("The combination is prohibited")
-                    continue
-                start_cpu_time, start_wall_clock_time = (
-                    time.process_time(),
-                    time.perf_counter(),
-                )
-                current_combination = f"{dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
-                X = normalizer.fit_transform(original_X) if normalization != "unnormalized" else original_X
-                with warnings.catch_warnings(
-                    action="ignore", category=ConvergenceWarning
+    for classifier in classifiers:
+        for normalization in normalizations:
+            if is_prohibited(
+                dataset=dataset,
+                normalization_method=normalization,
+                classifier=classifier,
+                evaluation_method=evaluation_method
                 ):
-                    result = classify(
-                        clf_func,
-                        clf_name,
-                        X,
-                        y,
-                        dataset,
-                        normalization_method_name,
-                        evaluation_method_name,
-                    )
-                end_cpu_time = time.process_time() - start_cpu_time
-                end_wall_clock_time = time.perf_counter() - start_wall_clock_time
-                result.runtime = end_cpu_time
-                result.cost_tier = get_cost_tier(result)
-                results.append(result)
-                if ML_COMPARISON_DEBUG:
-                    time_message = f"""
-                        Combination: {current_combination}
-                        CPU time (Runtime): {(1000*result.runtime):.3f} ms, {result.runtime:.3f} sec
-                        Wall clock time: {1000*end_wall_clock_time:.2f} ms, {end_wall_clock_time:.3f} sec
-                        ***
-                    """
-                    print(inspect.cleandoc(time_message))
+                if is_one_combination:
+                    raise ValueError("The combination is prohibited")
+                continue
+            start_cpu_time, start_wall_clock_time = (
+                time.process_time(),
+                time.perf_counter(),
+            )
+            current_combination = f"{dataset}, {evaluation_method}, {classifier}, {normalization}"
+            X = normalization_methods[normalization].fit_transform(original_X) if normalization != "unnormalized" else original_X
+            with warnings.catch_warnings(
+                action="ignore", category=ConvergenceWarning
+            ):
+                result = classify(
+                    classifier_function=classifier_map[classifier],
+                    classifier_name=classifier,
+                    X=X,
+                    y=y,
+                    current_dataset=dataset,
+                    normalization_method=normalization,
+                    evaluation_method=evaluation_method,
+                )
+            end_cpu_time = time.process_time() - start_cpu_time
+            end_wall_clock_time = time.perf_counter() - start_wall_clock_time
+            result.runtime = end_cpu_time
+            result.cost_tier = get_cost_tier(result)
+            results.append(result)
+            if ML_COMPARISON_DEBUG:
+                time_message = f"""
+                    Combination: {current_combination}
+                    CPU time (Runtime): {(1000*result.runtime):.3f} ms, {result.runtime:.3f} sec
+                    Wall clock time: {1000*end_wall_clock_time:.2f} ms, {end_wall_clock_time:.3f} sec
+                    ***
+                """
+                print(inspect.cleandoc(time_message))
     return results
