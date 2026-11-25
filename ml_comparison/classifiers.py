@@ -4,17 +4,15 @@ import warnings
 from dataclasses import dataclass
 from typing import Optional
 import numpy as np
-import pandas as pd
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, FunctionTransformer
 from sklearn.svm import SVC
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
 from ml_comparison.config import ML_COMPARISON_DEBUG
-from ml_comparison.utils import do_nothing
-from ml_comparison.preprocessing import normalize_minmax, normalize_zscore
 from ml_comparison.cost_calculations.cost_tiers import get_cost_tier
 
 classifier_map = {
@@ -32,9 +30,9 @@ classifier_map = {
 }
 
 normalization_methods = {
-    "unnormalized": do_nothing,
-    "minmax": normalize_minmax,
-    "zscore": normalize_zscore,
+    "unnormalized": FunctionTransformer(),
+    "minmax": MinMaxScaler(),
+    "zscore": StandardScaler(),
 }
 
 
@@ -318,7 +316,7 @@ def run_classifier(
                     time.perf_counter(),
                 )
                 current_combination = f"{dataset}, {evaluation_method_name}, {clf_name}, {normalization_method_name}"
-                X = normalizer(original_X)
+                X = normalizer.fit_transform(original_X) if normalization != "unnormalized" else original_X
                 with warnings.catch_warnings(
                     action="ignore", category=ConvergenceWarning
                 ):
