@@ -22,10 +22,18 @@ from ml_comparison.classifiers import (
     ClassificationResult,
     accuracy_to_percent,
     extract_selections,
+    is_prohibited
 )
 from ml_comparison.data import datasets_dict
 
-disabled_loo_choices = ["artificial neural networks", "support vector machine"]
+@pytest.mark.parametrize(
+    "classifier", [("artificial neural networks"), ("support vector machine")]
+)
+def test_is_prohibited(classifier):
+    dataset = "blobs"
+    normalization_method = "unnormalized"
+    evaluation_method = "leave-one-out"
+    assert is_prohibited(dataset=dataset, normalization_method=normalization_method, evaluation_method=evaluation_method, classifier=classifier) is True
 
 
 def test_get_best():
@@ -197,19 +205,25 @@ def test_classify(
     else:
         mock_dict[evaluation_method][1].assert_called_once()
 
-
-def test_run_classifier_loo_ann(mocker):
+@pytest.mark.parametrize(
+        "classifier",
+        [("artificial neural networks"),
+         ("support vector machine")
+        ]
+)
+def test_run_classifier_one_disabled_combination(mocker, classifier):
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
     mocker.patch("ml_comparison.classifiers.classify")
-    run_classifier(
-        X,
-        y,
-        dataset=current_dataset,
-        evaluation_method="leave-one-out",
-        selected_normalization_methods=["all"],
-        selected_classifiers=["artificial neural networks"],
-    )
+    with pytest.raises(ValueError):
+        run_classifier(
+            X,
+            y,
+            dataset=current_dataset,
+            evaluation_method="leave-one-out",
+            selected_normalization_methods=["unnormalized"],
+            selected_classifiers=[classifier],
+        )
 
 
 def test_extract_selections():
@@ -226,7 +240,7 @@ def test_extract_selections():
 def test_run_classifier_all_classifiers_all_normalization(evaluation_method, mocker):
     current_dataset = "blobs"
     X, y = datasets_dict[current_dataset]
-    mock_run = mocker.patch("ml_comparison.classifiers.classify")
+    mock_classify = mocker.patch("ml_comparison.classifiers.classify")
     mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
     mock_get_cost_tier.return_value = 2
     run_classifier(
@@ -239,26 +253,21 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
     )
 
     clfs = list(classifier_map)
-    clfs_no_ann = [clf for clf in clfs if clf not in disabled_loo_choices]
     norm_methods = list(normalization_methods)
 
-    if evaluation_method == "leave-one-out":
-        assert all(
-            any(
-                call.args[1] == clf_name and call.args[5] == normalization_method
-                for call in mock_run.call_args_list
-            )
-            for clf_name in clfs_no_ann
-            for normalization_method in norm_methods
+    assert all(
+        any(
+            call.args[1] == clf_name and call.args[5] == normalization_method
+            for call in mock_classify.call_args_list
         )
-    else:
-        assert all(
-            any(
-                call.args[1] == clf_name and call.args[5] == normalization_method
-                for call in mock_run.call_args_list
-            )
-            for clf_name in clfs
-            for normalization_method in norm_methods
+        for clf_name in clfs
+        for normalization_method in norm_methods
+        if not is_prohibited(
+                classifier=clf_name,
+                normalization_method=normalization_method,
+                evaluation_method=evaluation_method,
+                dataset=current_dataset
+                )
         )
 
 
@@ -349,16 +358,9 @@ def test_run_classifier_all_classifiers_one_normalization(
     )
 
     clfs = list(classifier_map)
-    clfs_no_ann = [clf for clf in clfs if clf not in disabled_loo_choices]
 
-    if evaluation_method == "leave-one-out":
-        assert all(
-            any(call.args[1] == clf_name for call in mock_run.call_args_list)
-            for clf_name in clfs_no_ann
-        )
-
-    else:
-        assert all(
-            any(call.args[1] == clf_name for call in mock_run.call_args_list)
-            for clf_name in clfs
-        )
+    assert all(
+        any(call.args[1] == clf_name for call in mock_run.call_args_list)
+        for clf_name in clfs
+        if not is_prohibited(classifier=clf_name, evaluation_method=evaluation_method, normalization_method=normalization_method, dataset=current_dataset)
+    )

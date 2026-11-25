@@ -35,6 +35,12 @@ normalization_methods = {
     "zscore": StandardScaler(),
 }
 
+prohibited_combinations = [
+    lambda evaluation_method, classifier, **_: evaluation_method == "leave-one-out" and classifier in ["artificial neural networks", "support vector machine"]
+]
+
+def is_prohibited(**kwargs: str):
+    return any(combination(**kwargs) for combination in prohibited_combinations)
 
 @dataclass
 class ClassificationResult:
@@ -47,7 +53,6 @@ class ClassificationResult:
     kfold_value: Optional[int] = None
     cost_tier: Optional[int] = None
     runtime: Optional[float] = None
-
 
 def get_best(score_dict):
     return max(score_dict, key=score_dict.get), max(score_dict.values())
@@ -300,16 +305,23 @@ def run_classifier(
     normalizations = extract_selections(
         selected_normalization_methods, normalization_methods
     )
+    is_one_combination = (
+        len(classifiers) == 1 and len(normalizations) == 1
+    )
     for evaluation in evaluations:
         for classifier in classifiers:
             for normalization in normalizations:
                 normalization_method_name, normalizer = normalization
                 clf_name, clf_func = classifier
                 evaluation_method_name, _ = evaluation
-                if evaluation_method_name == "leave-one-out" and (
-                    clf_name == "artificial neural networks"
-                    or clf_name == "support vector machine"
-                ):
+                if is_prohibited(
+                    dataset=dataset,
+                    normalization_method=normalization_method_name,
+                    classifier=clf_name,
+                    evaluation_method=evaluation_method_name
+                    ):
+                    if is_one_combination:
+                        raise ValueError("The combination is prohibited")
                     continue
                 start_cpu_time, start_wall_clock_time = (
                     time.process_time(),
