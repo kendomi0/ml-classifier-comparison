@@ -23,7 +23,7 @@ SUBSAMPLING_ITERATIONS = 10
 
 KNN_VALUES = [3, 5, 7]
 
-KFOLD_VALUES = [3, 5, 10]
+KFOLD_VALUE = 10
 
 TEST_SIZE = 0.3
 
@@ -174,19 +174,16 @@ def classify_kfold(
     model, classifier_name, X, y, current_dataset, normalization_method
 ):
     evaluation_method = "kfold"
-    k_accuracies = {}
-    for k in KFOLD_VALUES:
-        splitter = KFold(n_splits=k, shuffle=True)
-        scores = classify_split(model, splitter, X, y)
-        k_accuracies[k] = float(np.mean(scores))
-    best_kval, best_score = get_best(k_accuracies)
+    splitter = KFold(n_splits=KFOLD_VALUE, shuffle=True)
+    scores = classify_split(model, splitter, X, y)
+    average_score = float(np.mean(scores))
     return ClassificationResult(
         classifier_name=classifier_name,
         evaluation_method=evaluation_method,
         normalization_method=normalization_method,
         dataset=current_dataset,
-        kfold_value=best_kval,
-        score=accuracy_to_percent(best_score),
+        kfold_value=KFOLD_VALUE,
+        score=accuracy_to_percent(average_score),
     )
 
 
@@ -196,10 +193,9 @@ def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_met
     for knn_val in KNN_VALUES:
         scaler = clone(normalization_methods[normalization_method])
         model = make_pipeline(scaler, KNeighborsClassifier(knn_val))
-        for kfold_val in KFOLD_VALUES:
-            splitter = KFold(n_splits=kfold_val, shuffle=True)
-            scores = classify_split(model, splitter, X, y)
-            knn_kfold_combos[(knn_val, kfold_val)] = float(np.mean(scores))
+        splitter = KFold(n_splits=KFOLD_VALUE, shuffle=True)
+        scores = classify_split(model, splitter, X, y)
+        knn_kfold_combos[(knn_val, KFOLD_VALUE)] = float(np.mean(scores))
     best_combo, best_score = get_best(knn_kfold_combos)
     return ClassificationResult(
         classifier_name=classifier_name,
@@ -207,7 +203,7 @@ def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_met
         normalization_method=normalization_method,
         dataset=current_dataset,
         knn_value=best_combo[0],
-        kfold_value=best_combo[1],
+        kfold_value=KFOLD_VALUE,
         score=accuracy_to_percent(best_score),
     )
 
