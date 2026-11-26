@@ -17,6 +17,16 @@ from sklearn.base import clone
 from ml_comparison.config import ML_COMPARISON_DEBUG
 from ml_comparison.cost_calculations.cost_tiers import get_cost_tier
 
+RANDOM_SEED = 42
+
+SUBSAMPLING_ITERATIONS = 10
+
+KNN_VALUES = [3, 5, 7]
+
+KFOLD_VALUES = [3, 5, 10]
+
+TEST_SIZE = 0.3
+
 classifier_map = {
     "naive bayes": GaussianNB(),
     "decision tree": DecisionTreeClassifier(criterion="gini"),
@@ -25,7 +35,7 @@ classifier_map = {
         hidden_layer_sizes=(25, 15),
         activation="tanh",
         max_iter=50,
-        random_state=42,
+        random_state=RANDOM_SEED,
         solver="lbfgs",
     ),
     "k-nearest-neighbor": None,
@@ -70,7 +80,7 @@ def classify_holdout(
     model, classifier_name, X, y, current_dataset, normalization_method
 ):
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3, random_state=42
+        X, y, test_size=TEST_SIZE, random_state=RANDOM_SEED
     )
     model.fit(X_train, y_train)
     holdout_score = model.score(X_test, y_test)
@@ -84,13 +94,12 @@ def classify_holdout(
 
 
 def classify_holdout_knn(classifier_name, X, y, current_dataset, normalization_method):
-    k_vals = [3, 5, 7]
     k_scores = {}
-    for k in k_vals:
+    for k in KNN_VALUES:
         scaler = clone(normalization_methods[normalization_method])
         model = make_pipeline(scaler, KNeighborsClassifier(k))
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.3, random_state=42
+            X, y, test_size=TEST_SIZE, random_state=RANDOM_SEED
         )
         model.fit(X_train, y_train)
         score = model.score(X_test, y_test)
@@ -110,8 +119,8 @@ def classify_random_subsampling(
     model, classifier_name, X, y, current_dataset, normalization_method
 ):
     scores = []
-    for i in range(10):
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+    for i in range(SUBSAMPLING_ITERATIONS):
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SIZE)
         model.fit(X_train, y_train)
         scores.append(model.score(X_test, y_test))
     average = float(np.mean(scores))
@@ -127,13 +136,12 @@ def classify_random_subsampling(
 def classify_random_subsampling_knn(
     classifier_name, X, y, current_dataset, normalization_method
 ):
-    k_vals = [3, 5, 7]
     k_scores = {}
-    for k in k_vals:
+    for k in KNN_VALUES:
         scores = []
-        for i in range(10):
+        for i in range(SUBSAMPLING_ITERATIONS):
             X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=0.3, random_state=i
+                X, y, test_size=TEST_SIZE, random_state=i
             )
             scaler = clone(normalization_methods[normalization_method])
             model = make_pipeline(scaler, KNeighborsClassifier(k))
@@ -166,9 +174,8 @@ def classify_kfold(
     model, classifier_name, X, y, current_dataset, normalization_method
 ):
     evaluation_method = "kfold"
-    k_folds = [3, 5, 10]
     k_accuracies = {}
-    for k in k_folds:
+    for k in KFOLD_VALUES:
         splitter = KFold(n_splits=k, shuffle=True)
         scores = classify_split(model, splitter, X, y)
         k_accuracies[k] = float(np.mean(scores))
@@ -185,13 +192,11 @@ def classify_kfold(
 
 def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_method):
     evaluation_method = "kfold"
-    knn_vals = [3, 5, 7]
-    k_fold_vals = [3, 5, 10]
     knn_kfold_combos = {}
-    for knn_val in knn_vals:
+    for knn_val in KNN_VALUES:
         scaler = clone(normalization_methods[normalization_method])
         model = make_pipeline(scaler, KNeighborsClassifier(knn_val))
-        for kfold_val in k_fold_vals:
+        for kfold_val in KFOLD_VALUES:
             splitter = KFold(n_splits=kfold_val, shuffle=True)
             scores = classify_split(model, splitter, X, y)
             knn_kfold_combos[(knn_val, kfold_val)] = float(np.mean(scores))
@@ -225,7 +230,7 @@ def classify_loo(
 
 def classify_loo_knn(classifier_name, X, y, current_dataset, normalization_method):
     evaluation_method = "leave-one-out"
-    knn_vals = [3, 5, 7]
+    KNN_VALUES = [3, 5, 7]
     y = np.asarray(y)
     n_classes = y.max() + 1
     scaler = clone(normalization_methods[normalization_method])
@@ -233,12 +238,12 @@ def classify_loo_knn(classifier_name, X, y, current_dataset, normalization_metho
     # Scale on all data at once due to the vectorization
     X = scaler.fit_transform(X)
 
-    nn = NearestNeighbors(n_neighbors=max(knn_vals), n_jobs=-1).fit(X)
+    nn = NearestNeighbors(n_neighbors=max(KNN_VALUES), n_jobs=-1).fit(X)
     _, idx = nn.kneighbors()
     neighbor_labels = y[idx]
 
     k_scores = {}
-    for k in knn_vals:
+    for k in KNN_VALUES:
         votes = (neighbor_labels[:, :k, None] == np.arange(n_classes)).sum(axis=1)
         preds = votes.argmax(axis=1)
         k_scores[k] = float((preds == y).mean())
