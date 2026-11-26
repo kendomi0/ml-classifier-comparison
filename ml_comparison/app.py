@@ -78,7 +78,7 @@ def process_data():
     classifiers = request.form.getlist("classifier")
     normalizations = request.form.getlist("normalization")
     results = run_classifier(
-        original_X=X,
+        X=X,
         y=y,
         dataset=dataset,
         selected_classifiers=classifiers,

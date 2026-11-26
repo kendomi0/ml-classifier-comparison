@@ -298,9 +298,9 @@ def test_run_classifier_all_classifiers_all_normalization(evaluation_method, moc
 def test_run_classifier_one_classifier_one_normalization(
     current_dataset, classifier, selected_normalizations, evaluation_method
 ):
-    original_X, y = datasets_dict[current_dataset]
+    X, y = datasets_dict[current_dataset]
     result_lst = run_classifier(
-        original_X,
+        X,
         y,
         dataset=current_dataset,
         selected_classifiers=classifier,
@@ -324,13 +324,13 @@ def test_run_classifier_one_classifier_all_normalization(
     current_dataset, classifiers, evaluation_method, mocker
 ):
     normalization_method = ["all"]
-    original_X, y = datasets_dict[current_dataset]
+    X, y = datasets_dict[current_dataset]
     mock_run = mocker.patch("ml_comparison.classifiers.classify")
     mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
     mock_get_cost_tier.return_value = 2
     norm_methods = list(normalization_methods)
     run_classifier(
-        original_X,
+        X,
         y,
         dataset=current_dataset,
         selected_classifiers=classifiers,
@@ -362,9 +362,9 @@ def test_run_classifier_all_classifiers_one_normalization(
     mock_get_cost_tier = mocker.patch("ml_comparison.classifiers.get_cost_tier")
     mock_get_cost_tier.return_value = 2
     classifier = ["all"]
-    original_X, y = datasets_dict[current_dataset]
+    X, y = datasets_dict[current_dataset]
     run_classifier(
-        original_X,
+        X,
         y,
         dataset=current_dataset,
         selected_classifiers=classifier,

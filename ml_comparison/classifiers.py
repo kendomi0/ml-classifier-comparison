@@ -12,6 +12,8 @@ from sklearn.exceptions import ConvergenceWarning
 from sklearn.neighbors import KNeighborsClassifier, NearestNeighbors
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split, KFold, LeaveOneOut
+from sklearn.pipeline import make_pipeline
+from sklearn.base import clone
 from ml_comparison.config import ML_COMPARISON_DEBUG
 from ml_comparison.cost_calculations.cost_tiers import get_cost_tier
 
@@ -65,13 +67,13 @@ def accuracy_to_percent(score):
 
 
 def classify_holdout(
-    classifier, classifier_name, X, y, current_dataset, normalization_method
+    model, classifier_name, X, y, current_dataset, normalization_method
 ):
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.3, random_state=42
     )
-    classifier.fit(X_train, y_train)
-    holdout_score = classifier.score(X_test, y_test)
+    model.fit(X_train, y_train)
+    holdout_score = model.score(X_test, y_test)
     return ClassificationResult(
         classifier_name=classifier_name,
         evaluation_method="holdout",
@@ -85,12 +87,13 @@ def classify_holdout_knn(classifier_name, X, y, current_dataset, normalization_m
     k_vals = [3, 5, 7]
     k_scores = {}
     for k in k_vals:
-        classifier = KNeighborsClassifier(k)
+        scaler = clone(normalization_methods[normalization_method])
+        model = make_pipeline(scaler, KNeighborsClassifier(k))
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=0.3, random_state=42
         )
-        classifier.fit(X_train, y_train)
-        score = classifier.score(X_test, y_test)
+        model.fit(X_train, y_train)
+        score = model.score(X_test, y_test)
         k_scores[k] = score
     best_kval, best_score = get_best(k_scores)
     return ClassificationResult(
@@ -104,13 +107,13 @@ def classify_holdout_knn(classifier_name, X, y, current_dataset, normalization_m
 
 
 def classify_random_subsampling(
-    classifier, classifier_name, X, y, current_dataset, normalization_method
+    model, classifier_name, X, y, current_dataset, normalization_method
 ):
     scores = []
     for i in range(10):
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
-        classifier.fit(X_train, y_train)
-        scores.append(classifier.score(X_test, y_test))
+        model.fit(X_train, y_train)
+        scores.append(model.score(X_test, y_test))
     average = float(np.mean(scores))
     return ClassificationResult(
         classifier_name=classifier_name,
@@ -132,9 +135,10 @@ def classify_random_subsampling_knn(
             X_train, X_test, y_train, y_test = train_test_split(
                 X, y, test_size=0.3, random_state=i
             )
-            k_next = KNeighborsClassifier(n_neighbors=k)
-            k_next.fit(X_train, y_train)
-            scores.append(k_next.score(X_test, y_test))
+            scaler = clone(normalization_methods[normalization_method])
+            model = make_pipeline(scaler, KNeighborsClassifier(k))
+            model.fit(X_train, y_train)
+            scores.append(model.score(X_test, y_test))
         avg_score = float(np.mean(scores))
         k_scores[k] = avg_score
     best_kval, best_score = get_best(k_scores)
@@ -159,14 +163,14 @@ def classify_split(classifier, splitter, X, y):
 
 
 def classify_kfold(
-    classifier, classifier_name, X, y, current_dataset, normalization_method
+    model, classifier_name, X, y, current_dataset, normalization_method
 ):
     evaluation_method = "kfold"
     k_folds = [3, 5, 10]
     k_accuracies = {}
     for k in k_folds:
         splitter = KFold(n_splits=k, shuffle=True)
-        scores = classify_split(classifier, splitter, X, y)
+        scores = classify_split(model, splitter, X, y)
         k_accuracies[k] = float(np.mean(scores))
     best_kval, best_score = get_best(k_accuracies)
     return ClassificationResult(
@@ -185,10 +189,11 @@ def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_met
     k_fold_vals = [3, 5, 10]
     knn_kfold_combos = {}
     for knn_val in knn_vals:
-        classifier = KNeighborsClassifier(n_neighbors=knn_val)
+        scaler = clone(normalization_methods[normalization_method])
+        model = make_pipeline(scaler, KNeighborsClassifier(knn_val))
         for kfold_val in k_fold_vals:
             splitter = KFold(n_splits=kfold_val, shuffle=True)
-            scores = classify_split(classifier, splitter, X, y)
+            scores = classify_split(model, splitter, X, y)
             knn_kfold_combos[(knn_val, kfold_val)] = float(np.mean(scores))
     best_combo, best_score = get_best(knn_kfold_combos)
     return ClassificationResult(
@@ -203,11 +208,11 @@ def classify_kfold_knn(classifier_name, X, y, current_dataset, normalization_met
 
 
 def classify_loo(
-    classifier, classifier_name, X, y, current_dataset, normalization_method
+    model, classifier_name, X, y, current_dataset, normalization_method
 ):
     evaluation_method = "leave-one-out"
     loo = LeaveOneOut()
-    scores = classify_split(classifier, loo, X, y)
+    scores = classify_split(model, loo, X, y)
     avg_score = float(np.mean(scores))
     return ClassificationResult(
         classifier_name=classifier_name,
@@ -223,6 +228,10 @@ def classify_loo_knn(classifier_name, X, y, current_dataset, normalization_metho
     knn_vals = [3, 5, 7]
     y = np.asarray(y)
     n_classes = y.max() + 1
+    scaler = clone(normalization_methods[normalization_method])
+
+    # Scale on all data at once due to the vectorization
+    X = scaler.fit_transform(X)
 
     nn = NearestNeighbors(n_neighbors=max(knn_vals), n_jobs=-1).fit(X)
     _, idx = nn.kneighbors()
@@ -272,8 +281,10 @@ def classify(
             classifier_name, X, y, current_dataset, normalization_method
         )
     else:
+        scaler = clone(normalization_methods[normalization_method])
+        model = make_pipeline(scaler, clone(classifier_function))
         result = classify_default(
-            classifier_function, classifier_name, X, y, current_dataset, normalization_method
+            model, classifier_name, X, y, current_dataset, normalization_method
         )
     return result
 
@@ -285,7 +296,7 @@ def extract_selections(selected_options, all_options):
 
 
 def run_classifier(
-    original_X,
+    X,
     y,
     dataset: str,
     selected_classifiers: list,
@@ -316,7 +327,6 @@ def run_classifier(
                 time.perf_counter(),
             )
             current_combination = f"{dataset}, {evaluation_method}, {classifier}, {normalization}"
-            X = normalization_methods[normalization].fit_transform(original_X) if normalization != "unnormalized" else original_X
             with warnings.catch_warnings(
                 action="ignore", category=ConvergenceWarning
             ):
